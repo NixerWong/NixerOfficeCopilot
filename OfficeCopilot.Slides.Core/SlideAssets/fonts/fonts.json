@@ -1,0 +1,760 @@
+[
+  {
+    "family": "Albert Sans",
+    "folder": "AlbertSans",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "AlbertSans-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "AlbertSans-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "AlbertSans-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "AlbertSans-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Big Shoulders Display",
+    "folder": "BigShouldersDisplay",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "BigShouldersDisplay-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "BigShouldersDisplay-ExtraBold.ttf",
+        "weight": 800,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "BigShouldersDisplay-Black.ttf",
+        "weight": 900,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Cormorant Garamond",
+    "folder": "CormorantGaramond",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "CormorantGaramond-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "CormorantGaramond-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "CormorantGaramond-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "CormorantGaramond-Italic.ttf",
+        "weight": 400,
+        "style": "italic",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "DM Sans",
+    "folder": "DMSans",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "DMSans-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "DMSans-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "DMSans-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "DMSans-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "IBM Plex Mono",
+    "folder": "IBMPlexMono",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "IBMPlexMono-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "IBMPlexMono-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Inter",
+    "folder": "Inter",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "Inter-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Inter-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Inter-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Inter-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "JetBrains Mono",
+    "folder": "JetBrainsMono",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "JetBrainsMono-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "JetBrainsMono-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Jost",
+    "folder": "Jost",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "Jost-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Jost-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Jost-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Jost-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Lora",
+    "folder": "Lora",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "Lora-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Lora-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Lora-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "Lora-Italic.ttf",
+        "weight": 400,
+        "style": "italic",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "LXGW WenKai",
+    "folder": "LXGWWenKai",
+    "license": "OFL-1.1",
+    "cjk": true,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "LXGWWenKai-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "LXGWWenKai-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Noto Color Emoji",
+    "folder": "NotoColorEmoji",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": false,
+    "emojiOnly": true,
+    "faces": [
+      {
+        "file": "NotoColorEmoji.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true
+      }
+    ]
+  },
+  {
+    "family": "Noto Sans SC",
+    "folder": "NotoSansSC",
+    "license": "OFL-1.1",
+    "cjk": true,
+    "embeddable": true,
+    "cssAliases": [
+      "Noto Sans JP"
+    ],
+    "faces": [
+      {
+        "file": "NotoSansSC-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptFarEastName": "Noto Sans SC Regular",
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "NotoSansSC-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptFarEastName": "Noto Sans SC Regular",
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "NotoSansSC-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptFarEastName": "Noto Sans SC Regular",
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Noto Serif SC",
+    "folder": "NotoSerifSC",
+    "license": "OFL-1.1",
+    "cjk": true,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "NotoSerifSC-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "NotoSerifSC-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "NotoSerifSC-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Smiley Sans",
+    "folder": "SmileySans",
+    "license": "OFL-1.1",
+    "cjk": true,
+    "embeddable": true,
+    "italic": "builtin",
+    "cssAliases": [
+      "Smiley Sans Oblique"
+    ],
+    "faces": [
+      {
+        "file": "SmileySans-Oblique.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "editable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Source Serif 4",
+    "folder": "SourceSerif4",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "SourceSerif4-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptName": "Source Serif 4",
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "SourceSerif4-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptName": "Source Serif 4 SemiBold",
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "SourceSerif4-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptName": "Source Serif 4",
+        "pptBold": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "SourceSerif4-Italic.ttf",
+        "weight": 400,
+        "style": "italic",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "pptName": "Source Serif 4",
+        "pptItalic": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Space Grotesk",
+    "folder": "SpaceGrotesk",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "SpaceGrotesk-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "SpaceGrotesk-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "SpaceGrotesk-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "Work Sans",
+    "folder": "WorkSans",
+    "license": "OFL-1.1",
+    "cjk": false,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "WorkSans-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "WorkSans-Medium.ttf",
+        "weight": 500,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "WorkSans-SemiBold.ttf",
+        "weight": 600,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      },
+      {
+        "file": "WorkSans-Bold.ttf",
+        "weight": 700,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  },
+  {
+    "family": "ZCOOL XiaoWei",
+    "folder": "ZCOOLXiaoWei",
+    "license": "OFL-1.1",
+    "cjk": true,
+    "embeddable": true,
+    "faces": [
+      {
+        "file": "ZCOOLXiaoWei-Regular.ttf",
+        "weight": 400,
+        "style": "normal",
+        "embedding": "installable",
+        "trueTypeOutline": true,
+        "verified": {
+          "date": "2026-10-18",
+          "officeVersion": "Office 2019 ProPlus 16.0.19127.20860 (build 19127)"
+        }
+      }
+    ]
+  }
+]

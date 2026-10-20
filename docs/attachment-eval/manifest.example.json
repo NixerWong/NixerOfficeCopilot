@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "sales-workbook",
+      "file": "sales.xlsx",
+      "questions": [
+        {
+          "id": "north-sales-total",
+          "question": "What is the total for the North region?",
+          "requiredTerms": ["North", "1250"]
+        },
+        {
+          "id": "period",
+          "question": "Which reporting period does the workbook cover?",
+          "requiredTerms": ["2025-01-01", "2025-03-31"]
+        }
+      ]
+    }
+  ]
+}

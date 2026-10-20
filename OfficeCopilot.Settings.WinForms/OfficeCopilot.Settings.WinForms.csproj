@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0FC884B7-F9C7-477B-88B0-ABB3DD401801}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>OfficeCopilot.Settings.WinForms</RootNamespace>
+    <AssemblyName>OfficeCopilot.Settings.WinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.Desktop.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Drawing.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v26.1.Core, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v26.1, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v26.1.Core, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v26.1.Core, Version=26.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Markdig, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.1.3.2\lib\net462\Markdig.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.16.3.0\lib\net47\YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HostAwareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridContextMenuHelper.cs" />
+    <Compile Include="DevExpressSkinBootstrap.cs" />
+    <Compile Include="HostFormIcon.cs" />
+    <Compile Include="fmBuiltinToolConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmBuiltinToolConfig.Designer.cs">
+      <DependentUpon>fmBuiltinToolConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMcpConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMcpConfig.Designer.cs">
+      <DependentUpon>fmMcpConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMcpEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMcpEditor.Designer.cs">
+      <DependentUpon>fmMcpEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMemoryConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMemoryConfig.Designer.cs">
+      <DependentUpon>fmMemoryConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmModelConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmModelConfig.Designer.cs">
+      <DependentUpon>fmModelConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmSkillEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmSkillEditor.Designer.cs">
+      <DependentUpon>fmSkillEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmSkillsConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmSkillsConfig.Designer.cs">
+      <DependentUpon>fmSkillsConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmSysConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmSysConfig.Designer.cs">
+      <DependentUpon>fmSysConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkillYamlModel.cs" />
+    <Compile Include="SkillFrontmatterText.cs" />
+    <Compile Include="fmModelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmModelEditor.Designer.cs">
+      <DependentUpon>fmModelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmToolEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmToolEditor.Designer.cs">
+      <DependentUpon>fmToolEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Abstractions\OfficeCopilot.Agent.Abstractions.csproj">
+      <Project>{af7c5bce-4413-4077-bd72-335d6654363f}</Project>
+      <Name>OfficeCopilot.Agent.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Host.Excel\OfficeCopilot.Host.Excel.csproj">
+      <Project>{e2cf4853-1d4f-4f1e-b02e-4d221a0c1a05}</Project>
+      <Name>OfficeCopilot.Host.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Host.Word\OfficeCopilot.Host.Word.csproj">
+      <Name>OfficeCopilot.Host.Word</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Host.PowerPoint\OfficeCopilot.Host.PowerPoint.csproj">
+      <Name>OfficeCopilot.Host.PowerPoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Settings.Abstractions\OfficeCopilot.Settings.Abstractions.csproj">
+      <Project>{d13e58c7-f2e5-42c3-b365-386e1d911ab2}</Project>
+      <Name>OfficeCopilot.Settings.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Settings\OfficeCopilot.Settings.csproj">
+      <Project>{db71d7d8-858c-49ad-bbfb-6a221e47c2bc}</Project>
+      <Name>OfficeCopilot.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Memory\OfficeCopilot.Memory.csproj">
+      <Project>{c1c98988-e1bf-4494-8452-c5440414de4e}</Project>
+      <Name>OfficeCopilot.Memory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Diagnostics\OfficeCopilot.Diagnostics.csproj">
+      <Project>{F8831BB4-E468-4811-A6BA-7D5E4A8A927F}</Project>
+      <Name>OfficeCopilot.Diagnostics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Skills\OfficeCopilot.Skills.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="fmBuiltinToolConfig.resx">
+      <DependentUpon>fmBuiltinToolConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMcpConfig.resx">
+      <DependentUpon>fmMcpConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMcpEditor.resx">
+      <DependentUpon>fmMcpEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMemoryConfig.resx">
+      <DependentUpon>fmMemoryConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmModelConfig.resx">
+      <DependentUpon>fmModelConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmSkillEditor.resx">
+      <DependentUpon>fmSkillEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmModelEditor.resx">
+      <DependentUpon>fmModelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmSkillsConfig.resx">
+      <DependentUpon>fmSkillsConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmSysConfig.resx">
+      <DependentUpon>fmSysConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmToolEditor.resx">
+      <DependentUpon>fmToolEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\build_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groupfieldcollection_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadpagesetup_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadpagesetup_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\showtestreport_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\showtestreport_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apply_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apply_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\indentincrease_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\indentincrease_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\indentincrease_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\indentincrease_32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addfile_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addfile_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deletelist_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deletelist_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\show_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\show_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inbox_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inbox_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\showtestreport_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\showtestreport_32x321.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files\DevExpress 26.1\Components\Offline Packages\devexpress.data\26.1.3\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('C:\Program Files\DevExpress 26.1\Components\Offline Packages\devexpress.data\26.1.3\analyzers\dotnet\DevExpress.Generator.dll')" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customization_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bookmark_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\viewonweb_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scripts_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ai.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\richeditbookmark_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\richeditbookmark_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scripts_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scripts_32x32.png" />
+  </ItemGroup>
+</Project>

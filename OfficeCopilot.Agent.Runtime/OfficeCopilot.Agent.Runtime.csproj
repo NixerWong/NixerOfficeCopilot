@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.Agent.Runtime</RootNamespace>
+    <AssemblyName>OfficeCopilot.Agent.Runtime</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Planning\OfficeCopilot.Agent.Planning.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Agent.Client\OfficeCopilot.Agent.Client.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Agent.Persistence\OfficeCopilot.Agent.Persistence.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.HostBridge.Client\OfficeCopilot.HostBridge.Client.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Mcp\OfficeCopilot.Mcp.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Skills\OfficeCopilot.Skills.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Memory\OfficeCopilot.Memory.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Diagnostics\OfficeCopilot.Diagnostics.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="OfficeCopilot.Agent.Tests" />
+    <InternalsVisibleTo Include="OfficeCopilot.Agent.Broker" />
+  </ItemGroup>
+</Project>

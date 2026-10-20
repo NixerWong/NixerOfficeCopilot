@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.Slides</RootNamespace>
+    <AssemblyName>OfficeCopilot.Slides.Core</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="OfficeCopilot.Agent.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="SlideAssets\**" />
+    <Content Include="SlideAssets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>SlideAssets\</LinkBase>
+    </Content>
+  </ItemGroup>
+</Project>

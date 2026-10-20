@@ -1,0 +1,28 @@
+<Project>
+
+  <!--
+    全解决方案共享的构建基线（E1）。
+    该文件由 MSBuild 在每个 csproj **导入之前**自动加载，因此工程内声明的同名属性会覆盖此处默认值。
+    注意：legacy 格式工程（3 个 VSTO + Host.Excel/Panel.WebView 等）会忽略 SDK 专属属性，这是预期行为。
+  -->
+
+  <PropertyGroup>
+    <LangVersion>10</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <NeutralLanguage>zh-CN</NeutralLanguage>
+    <!-- 不强制 Deterministic：VSTO 工程的 AssemblyInfo 使用 "1.0.*" 通配版本号，会触发 CS8357。 -->
+  </PropertyGroup>
+
+  <!-- 产品标识：仅 SDK 格式工程会据此生成程序集特性；legacy 工程仍由 Properties\AssemblyInfo.cs 决定。 -->
+  <PropertyGroup>
+    <Company>Nixer</Company>
+    <Product>Nixer Office Copilot</Product>
+    <Copyright>Copyright © Nixer</Copyright>
+    <NixerProductVersion>2.3.61020</NixerProductVersion>
+    <Version>$(NixerProductVersion)</Version>
+  </PropertyGroup>
+
+</Project>

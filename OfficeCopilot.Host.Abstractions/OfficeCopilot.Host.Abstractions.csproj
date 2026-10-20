@@ -1,0 +1,80 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F1F9C47-76F1-4330-927F-0B8FBF0C1A02}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>OfficeCopilot.Host.Abstractions</RootNamespace>
+    <AssemblyName>OfficeCopilot.Host.Abstractions</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.HostBridge.Contracts\OfficeCopilot.HostBridge.Contracts.csproj">
+      <Project>{7A5BF717-8E71-4D80-9383-2A2B2B8E4474}</Project>
+      <Name>OfficeCopilot.HostBridge.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Excel\ExcelAggregationContracts.cs" />
+    <Compile Include="Excel\ExcelCalcContracts.cs" />
+    <Compile Include="Excel\ExcelAssertionContracts.cs" />
+    <Compile Include="Excel\ExcelKeySetComparisonContracts.cs" />
+    <Compile Include="Excel\ExcelVbaStageContracts.cs" />
+    <Compile Include="Excel\ExcelBackupContracts.cs" />
+    <Compile Include="Excel\ExcelConnectionContracts.cs" />
+    <Compile Include="Excel\ExcelCoverageContracts.cs" />
+    <Compile Include="Excel\ExcelDataModelContracts.cs" />
+    <Compile Include="Excel\ExcelNamedRangeContracts.cs" />
+    <Compile Include="Excel\ExcelPowerQueryContracts.cs" />
+    <Compile Include="Excel\ExcelPowerQueryOperationContracts.cs" />
+    <Compile Include="Excel\ExcelPowerQueryValidationContracts.cs" />
+    <Compile Include="Excel\ExcelRangeAnalysisContracts.cs" />
+    <Compile Include="Excel\ExcelRangeContracts.cs" />
+    <Compile Include="Excel\ExcelRangeFormatWriteContracts.cs" />
+    <Compile Include="Excel\ExcelRangeFormulaWriteContracts.cs" />
+    <Compile Include="Excel\ExcelRangeReadRequest.cs" />
+    <Compile Include="Excel\ExcelRangeReadResult.cs" />
+    <Compile Include="Excel\ExcelRangeWriteRequest.cs" />
+    <Compile Include="Excel\ExcelSelectionInfo.cs" />
+    <Compile Include="Excel\ExcelTableContracts.cs" />
+    <Compile Include="Excel\ExcelVbaContracts.cs" />
+    <Compile Include="Excel\ExcelWorkbookInfo.cs" />
+    <Compile Include="Excel\ExcelWorksheetContracts.cs" />
+    <Compile Include="Excel\ExcelWriteEffectContracts.cs" />
+    <Compile Include="Excel\IExcelToolHost.cs" />
+    <Compile Include="HostContracts.cs" />
+    <Compile Include="PowerPoint\IPowerPointToolHost.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Word\IWordToolHost.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

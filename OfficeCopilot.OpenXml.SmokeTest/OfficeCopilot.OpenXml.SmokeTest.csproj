@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.OpenXml.Word.SmokeTest</RootNamespace>
+    <AssemblyName>OfficeCopilot.OpenXml.Word.SmokeTest</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Web.Extensions" />
+    <ProjectReference Include="..\OfficeCopilot.Documents.Markdown\OfficeCopilot.Documents.Markdown.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Word\OfficeCopilot.OpenXml.Word.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Excel\OfficeCopilot.OpenXml.Excel.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.PowerPoint\OfficeCopilot.OpenXml.PowerPoint.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Tools\OfficeCopilot.OpenXml.Tools.csproj" />
+  </ItemGroup>
+
+</Project>

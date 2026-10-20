@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="../">
+<meta charset="utf-8">
+<title>Editorial Deck Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    --pink:#F2B6C6;
+    --pink-deep:#F2B6C6;
+    --cream:#F2D86A;
+    --navy:#7A1F35;
+    --forest:#7A1F35;
+    --burgundy:#7A1F35;
+    --lime:#F2D86A;
+    --sky:#F2B6C6;
+    --terracotta:#F2D86A;
+    --butter:#F2D86A;
+    --ink:#7A1F35;
+  }
+  html, body { margin:0; padding:0; background:#7A1F35; }
+  body { font-family: "Albert Sans", sans-serif; color: var(--ink); }
+
+  deck-stage section {
+    --nx-layer:content;
+    --nx-safe-x:136px;
+    --nx-safe-y:128px;
+    --nx-action-x:64px;
+    --nx-action-y:48px;
+    width:1920px; height:1080px;
+    position:relative;
+    overflow:hidden;
+    box-sizing:border-box;
+  }
+
+  .mono { font-family:"JetBrains Mono", monospace; }
+  .serif { font-family:"Cormorant Garamond", serif; font-weight:400; }
+  .grotesk { font-family:"Albert Sans", sans-serif; }
+
+  .pill {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding: 0.35em 0.9em;
+    border-radius: 999px;
+    font-family:"Albert Sans", sans-serif;
+    font-weight:500;
+    line-height:1;
+    white-space:nowrap;
+  }
+
+  .label {
+    font-family:"JetBrains Mono", monospace;
+    font-size:24px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .footer {
+    --nx-layer:chrome;
+    position:absolute; left:var(--nx-action-x); right:var(--nx-action-x); bottom:var(--nx-action-y);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:"JetBrains Mono", monospace;
+    font-size:16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity:0.75;
+  }
+  .footer .dotrow { display:flex; gap:8px; }
+  .footer .dotrow i { width:8px; height:8px; border-radius:999px; background: currentColor; opacity:0.3; display:inline-block; }
+  .footer .dotrow i.on { opacity:1; }
+
+  /* ========== SLIDE 1: COVER ========== */
+  .s-cover { background: var(--pink); color: var(--ink); }
+  .s-cover .pill-cluster {
+    position:absolute;
+    top:var(--nx-safe-y); left:var(--nx-safe-x); right:var(--nx-safe-x);
+    display:flex; flex-wrap:wrap; gap: 22px;
+    max-width: 1500px;
+  }
+  .s-cover .pill-cluster .pill { font-size: 44px; padding: 16px 38px; }
+  .s-cover .wordmark {
+    position:absolute;
+    left:var(--nx-safe-x); right:var(--nx-safe-x); bottom:var(--nx-safe-y);
+    font-family:"Albert Sans", sans-serif;
+    font-weight:800;
+    font-size: 240px;
+    line-height: 0.82;
+    letter-spacing:-0.04em;
+    color: var(--burgundy);
+    display:flex;
+    align-items:flex-end;
+    flex-wrap:nowrap;
+  }
+  .s-cover .wordmark .amp { font-family:"Cormorant Garamond", serif; font-weight:400; font-stretch:normal; }
+  .s-cover .meta {
+    --nx-layer:chrome;
+    position:absolute; top:64px; left:64px; right:64px;
+    display:flex; justify-content:space-between;
+    font-family:"JetBrains Mono", monospace;
+    font-size:24px; letter-spacing:0.15em; text-transform:uppercase;
+  }
+
+  /* ========== SLIDE 2: MANIFESTO ========== */
+  .s-manifesto { background: var(--cream); color: var(--ink); display:grid; grid-template-columns: 1fr 1fr; }
+  .s-manifesto .left { padding: var(--nx-safe-y) var(--nx-safe-x); display:flex; flex-direction:column; justify-content:space-between; }
+  .s-manifesto .right {
+    background: var(--forest); color: var(--cream);
+    padding: var(--nx-safe-y) var(--nx-safe-x);
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative;
+  }
+  .s-manifesto .chapter {
+    font-family:"Cormorant Garamond", serif; 
+    font-size: 240px; line-height:0.9;
+    color: var(--burgundy);
+  }
+  .s-manifesto .chapter sup { font-size: 0.35em; vertical-align: super; opacity:0.6; }
+  .s-manifesto .lede {
+    font-family:"Albert Sans", sans-serif;
+    font-size: 56px; line-height:1.05;
+    font-weight:500; letter-spacing:-0.02em;
+    max-width: 720px;
+  }
+  .s-manifesto .lede em { font-family:"Cormorant Garamond", serif; font-weight:400; color:var(--terracotta); }
+  .s-manifesto .right h3 {
+    font-family:"JetBrains Mono", monospace;
+    font-size: 24px; letter-spacing:0.18em; text-transform:uppercase;
+    margin: 0 0 32px; color: var(--butter); font-weight:500;
+  }
+  .s-manifesto .right p {
+    font-size: 28px; line-height:1.45; max-width:540px; margin:0 0 24px;
+  }
+  .s-manifesto .right .signature {
+    font-family:"Cormorant Garamond", serif; 
+    font-size: 64px; line-height:1;
+    color: var(--lime);
+  }
+
+  /* ========== SLIDE 3: GRID OF VALUES ========== */
+  .s-grid { background: var(--pink); padding: calc(var(--nx-safe-y) + 16px) var(--nx-safe-x) var(--nx-safe-y); }
+  .s-grid h2 {
+    margin:0 0 32px; font-size: 76px; line-height:1;
+    font-family:"Albert Sans", sans-serif; font-weight:700;
+    letter-spacing:-0.02em; color: var(--burgundy);
+    max-width: 1100px;
+  }
+  .s-grid h2 em { font-family:"Cormorant Garamond", serif; font-weight:400; color: var(--navy); }
+  .s-grid .grid {
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .s-grid .card {
+    border-radius: 28px;
+    padding: 28px 28px 30px;
+    height: 240px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative; overflow:hidden;
+  }
+  .s-grid .card .num {
+    font-family:"JetBrains Mono", monospace;
+    font-size: 24px; letter-spacing:0.15em;
+    opacity:0.7;
+  }
+  .s-grid .card h4 {
+    font-size: 40px; line-height:1; margin: 0;
+    font-weight:600; letter-spacing:-0.02em;
+  }
+  .s-grid .card p { font-size: 24px; line-height:1.4; margin:0; opacity:0.85; }
+  .s-grid .c1, .s-grid .c3, .s-grid .c5, .s-grid .c7 { background: var(--burgundy); color: var(--butter); }
+  .s-grid .c2, .s-grid .c4, .s-grid .c6, .s-grid .c8 { background: var(--butter); color: var(--burgundy); }
+
+  /* ========== SLIDE 4: BIG STAT / EDITORIAL ========== */
+  .s-stat { background: var(--burgundy); color: var(--cream); padding: var(--nx-safe-y) var(--nx-safe-x); position:relative; }
+  .s-stat .toprow { display:flex; justify-content:space-between; align-items:flex-start; }
+  .s-stat .kicker { font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.18em; text-transform:uppercase; color: var(--butter); }
+  .s-stat .swatches { display:flex; gap:10px; }
+  .s-stat .swatches i { width:36px; height:36px; border-radius:999px; display:block; }
+  .s-stat .figure {
+    margin-top: 20px;
+    font-family:"Albert Sans", sans-serif;
+    font-weight:700;
+    font-size: 540px;
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+    color: var(--pink);
+    display:flex; align-items:flex-start;
+  }
+  .s-stat .figure .pct { font-family:"Cormorant Garamond", serif; font-weight:400; font-size:220px; color: var(--lime); margin-top: 60px; margin-left: 20px; }
+  .s-stat .breakdown {
+    position:absolute; right:var(--nx-safe-x); bottom:var(--nx-safe-y);
+    width: 600px;
+  }
+  .s-stat .breakdown .row {
+    display:grid; grid-template-columns: 150px 1fr 90px;
+    gap: 16px; align-items:center; padding: 14px 0;
+    border-top: 1px solid rgba(246,237,220,0.25);
+    font-size: 24px;
+  }
+  .s-stat .breakdown .row:last-child { border-bottom: 1px solid rgba(246,237,220,0.25); }
+  .s-stat .breakdown .row .lbl { font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
+  .s-stat .breakdown .row .bar { height:10px; border-radius:999px; background: rgba(246,237,220,0.15); position:relative; overflow:hidden; }
+  .s-stat .breakdown .row .bar i { display:block; height:100%; border-radius:999px; }
+  .s-stat .breakdown .row .val { font-family:"JetBrains Mono", monospace; font-size:24px; text-align:right; }
+
+  /* ========== SLIDE 5: TIMELINE ========== */
+  .s-timeline { background: var(--butter); padding: calc(var(--nx-safe-y) + 16px) var(--nx-safe-x) var(--nx-safe-y); }
+  .s-timeline .head { display:flex; justify-content:space-between; align-items:flex-start; gap: 48px; margin-bottom: 48px; }
+  .s-timeline .head h2 {
+    margin:0; font-size: 76px; line-height:0.95;
+    font-weight:700; letter-spacing:-0.02em; color: var(--burgundy);
+    max-width: 1100px;
+  }
+  .s-timeline .head h2 em { font-family:"Cormorant Garamond", serif; font-weight:400; color: var(--burgundy); }
+  .s-timeline .head .meta { font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.15em; text-transform:uppercase; text-align:right; line-height:1.5; color: var(--burgundy); flex-shrink:0; }
+  .s-timeline .head .meta span { display:block; opacity:0.55; margin-top: 4px; }
+  .s-timeline .track {
+    position:relative;
+    padding: 60px 0 40px;
+  }
+  .s-timeline .axis {
+    position:absolute; left:0; right:0; top: 110px;
+    height: 4px; background: var(--ink); opacity:0.15;
+  }
+  .s-timeline .stops {
+    display:grid; grid-template-columns: repeat(5, 1fr);
+    gap: 24px; position:relative;
+  }
+  .s-timeline .stop { position:relative; padding-top: 90px; }
+  .s-timeline .stop .dot {
+    position:absolute; top: 90px; left: 0;
+    width: 28px; height: 28px; border-radius: 999px;
+    transform: translateY(-50%);
+    border: 4px solid var(--butter);
+    background: var(--burgundy);
+    display: none;
+  }
+  .s-timeline .stop .yr {
+    font-family:"Cormorant Garamond", serif; 
+    font-size: 56px; line-height:1; margin-bottom: 12px;
+    color: var(--burgundy);
+  }
+  .s-timeline .stop h5 {
+    margin:0 0 12px; font-size:28px; font-weight:600; letter-spacing:-0.01em; color: var(--burgundy);
+  }
+  .s-timeline .stop p { margin:0; font-size:24px; line-height:1.45; color: var(--burgundy); opacity:0.8; }
+
+  .s-timeline .ribbon {
+    margin-top: 56px;
+    background: var(--burgundy); color: var(--butter);
+    border-radius: 999px;
+    padding: 24px 44px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:"JetBrains Mono", monospace; font-size: 24px; letter-spacing:0.15em; text-transform:uppercase;
+  }
+  .s-timeline .ribbon strong { font-family:"Cormorant Garamond", serif; font-weight:400; font-size:30px; letter-spacing:0; text-transform:none; color: var(--pink); }
+
+  /* ========== SLIDE 6: CHART ========== */
+  .s-chart { background: var(--navy); color: var(--cream); padding: var(--nx-safe-y) var(--nx-safe-x); display:grid; grid-template-columns: 1.1fr 1fr; gap:64px; }
+  .s-chart .l h2 {
+    margin:0 0 24px; font-size: 84px; line-height:0.95;
+    font-weight:700; letter-spacing:-0.02em;
+  }
+  .s-chart .l h2 em { font-family:"Cormorant Garamond", serif; font-weight:400; color: var(--butter); }
+  .s-chart .l .lede { font-size: 24px; line-height:1.5; max-width: 640px; opacity:0.85; }
+  .s-chart .l .legend {
+    margin-top: 56px;
+    display:flex; flex-direction:column; gap: 16px;
+  }
+  .s-chart .l .legend .item { display:flex; align-items:center; gap: 14px; font-size:24px; }
+  .s-chart .l .legend .item i { width:14px; height:14px; border-radius:4px; display:block; }
+  .s-chart .l .legend .item .cat { font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; margin-left:auto; }
+  .s-chart .r {
+    background: var(--cream); color: var(--ink);
+    border-radius: 32px;
+    padding: 48px 48px 56px;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .s-chart .r .head { display:flex; justify-content:space-between; align-items:center; margin-bottom: 32px; }
+  .s-chart .r .head .ttl { font-family:"Cormorant Garamond", serif; font-size: 40px; }
+  .s-chart .r .head .unit { font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6; }
+  .s-chart svg.chart { width:100%; flex:0 0 auto; max-height: 480px; }
+  .s-chart .r .xax { display:grid; grid-template-columns: repeat(6, 1fr); margin-top: 12px; font-family:"JetBrains Mono", monospace; font-size:24px; opacity:0.6; letter-spacing:0.1em; }
+
+  /* ========== SLIDE 7: QUOTE / EDITORIAL SPLIT ========== */
+  .s-quote { background: var(--lime); color: var(--ink); padding: 0; display:grid; grid-template-columns: 0.95fr 1fr; }
+  .s-quote .l { padding: var(--nx-safe-y) 56px var(--nx-safe-y) var(--nx-safe-x); display:flex; flex-direction:column; justify-content:space-between; gap: 24px; position:relative; }
+  .s-quote .l .top { display:flex; flex-direction:column; gap: 12px; }
+  .s-quote .l .mark { font-family:"Cormorant Garamond", serif; font-size: 200px; line-height:0.6; color: var(--burgundy); margin: 80px 0 0 0; }
+  .s-quote .l blockquote {
+    margin: 0;
+    font-family:"Cormorant Garamond", serif; 
+    font-size: 64px; line-height:1.1;
+    color: var(--ink);
+    max-width: 760px;
+  }
+  .s-quote .l blockquote b { font-family:"Albert Sans", sans-serif; font-style:normal; font-weight:600; color: var(--burgundy); }
+  .s-quote .l .attribution { display:flex; align-items:center; gap:20px; }
+  .s-quote .l .avatar { width:72px; height:72px; border-radius:999px; background: var(--burgundy); border:3px solid var(--burgundy); }
+  .s-quote .l .who { font-size:26px; font-weight:600; }
+  .s-quote .l .who small { display:block; font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.65; font-weight:400; margin-top:4px; }
+  .s-quote .r {
+    background: var(--burgundy); color: var(--butter);
+    padding: var(--nx-safe-y) var(--nx-safe-x) var(--nx-safe-y) 80px;
+    display:flex; flex-direction:column; gap: 28px;
+    position:relative;
+  }
+  .s-quote .r h3 { margin:0; font-size: 56px; font-weight:600; line-height:1; letter-spacing:-0.02em; }
+  .s-quote .r .endorsements { display:flex; flex-direction:column; gap: 20px; margin-top: 8px; }
+  .s-quote .r .endorsements .row {
+    display:grid; grid-template-columns: 80px 1fr;
+    gap: 20px; align-items:center;
+    padding: 20px 0; border-top: 1px solid rgba(246,237,220,0.3);
+  }
+  .s-quote .r .endorsements .row:last-child { border-bottom: 1px solid rgba(246,237,220,0.3); }
+  .s-quote .r .endorsements .num { font-family:"Cormorant Garamond", serif; font-size: 56px; line-height:1; color: var(--pink); }
+  .s-quote .r .endorsements .txt { font-size: 26px; line-height:1.4; }
+  .s-quote .r .endorsements .txt strong { font-weight:600; display:block; margin-bottom: 4px; }
+
+  /* ========== SLIDE 8: CLOSER / INDEX ========== */
+  .s-closer { background: var(--ink); color: var(--cream); padding: var(--nx-safe-y) var(--nx-safe-x); position:relative; }
+  .s-closer .top { display:flex; justify-content:space-between; align-items:flex-start; }
+  .s-closer .top .kicker { font-family:"JetBrains Mono", monospace; font-size:24px; letter-spacing:0.18em; text-transform:uppercase; color: var(--lime); }
+  .s-closer .big {
+    margin-top: 40px;
+    font-family:"Albert Sans", sans-serif;
+    font-weight:700;
+    font-size: 320px;
+    line-height: 0.82;
+    letter-spacing: -0.05em;
+    color: var(--pink);
+    max-width: 800px;
+  }
+  .s-closer .big em { display:inline-block; margin-left: -20px; }
+  .s-closer .big em { font-family:"Cormorant Garamond", serif; font-weight:400; color: var(--butter); }
+  .s-closer .grid {
+    position:absolute; left:var(--nx-safe-x); right:var(--nx-safe-x); bottom:var(--nx-safe-y);
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .s-closer .grid .col h6 {
+    margin: 0 0 16px;
+    font-family:"JetBrains Mono", monospace;
+    font-size:24px; letter-spacing:0.15em; text-transform:uppercase;
+    color: var(--lime); font-weight:500;
+  }
+  .s-closer .grid .col p { margin:0; font-size: 24px; line-height:1.45; }
+  .s-closer .grid .col p + p { margin-top: 8px; }
+  .s-closer .corner-pills {
+    position:absolute; right:var(--nx-safe-x); top: 200px;
+    display:flex; flex-direction:column; gap: 12px; align-items:flex-end;
+  }
+  .s-closer .corner-pills .pill { font-size:22px; padding: 10px 24px; }
+</style>
+</head>
+<body>
+<deck-stage>
+
+  <!-- ============ SLIDE 1: COVER ============ -->
+  
+
+  <!-- ============ SLIDE 2: MANIFESTO ============ -->
+  
+
+  <!-- ============ SLIDE 3: VALUES GRID ============ -->
+  
+
+  <!-- ============ SLIDE 4: BIG STAT ============ -->
+  
+
+  <!-- ============ SLIDE 5: TIMELINE ============ -->
+  
+
+  <!-- ============ SLIDE 6: CHART ============ -->
+  <section class="s-chart active" data-screen-label="06 Composition">
+    <div class="l">
+      <div class="label" style="color:var(--butter); margin-bottom: 20px;">§ 06 — Composition</div>
+      <h2>How the days arrange themselves.</h2>
+      <p class="lede">A placeholder description for the chart on the right. Speak to the shape of the data — what rises, what plateaus — not the precise figures. Methodology and a one-line caveat live at the bottom.</p>
+      <div class="legend">
+        <div class="item"><i style="background:var(--pink); border:1px solid var(--burgundy);"></i> Studio hours, deep work <span class="cat">Series A</span></div>
+        <div class="item"><i style="background:var(--butter); border:2px solid var(--burgundy); border-radius:999px;"></i> Salon &amp; conversation <span class="cat">Series B</span></div>
+        <div class="item"><i style="background:var(--burgundy);"></i> Reading, drift, walking <span class="cat">Series C</span></div>
+        <div class="item"><i style="background:transparent; border-top: 3px dotted var(--butter); border-radius:0; height: 0;"></i> Correspondence, admin <span class="cat">Series D</span></div>
+      </div>
+      <div class="mono" style="margin-top: 40px; font-size:24px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.5;">Source: internal logs · self-reported · n = 24 weeks</div>
+    </div>
+    <div class="r">
+      <div class="head">
+        <span class="ttl">Hours per week, by mode</span>
+        <span class="unit">Hrs / wk</span>
+      </div>
+      <svg class="chart" viewBox="0 0 720 380" preserveAspectRatio="none">
+        <!-- gridlines -->
+        <g stroke="#7A1F35" stroke-opacity="0.15" stroke-width="1">
+          <line x1="60" y1="40" x2="720" y2="40"></line>
+          <line x1="60" y1="125" x2="720" y2="125"></line>
+          <line x1="60" y1="210" x2="720" y2="210"></line>
+          <line x1="60" y1="295" x2="720" y2="295"></line>
+          <line x1="60" y1="380" x2="720" y2="380"></line>
+        </g>
+        <!-- y labels -->
+        <g font-family="JetBrains Mono, monospace" font-size="24" fill="#7A1F35" fill-opacity="0.6">
+          <text x="0" y="48">40</text>
+          <text x="0" y="133">30</text>
+          <text x="0" y="218">20</text>
+          <text x="0" y="303">10</text>
+          <text x="8" y="380">0</text>
+        </g>
+
+        <!-- Series A (pink area, burgundy stroke) -->
+        <path d="M 60 230 Q 120 200 180 180 T 300 145 T 420 120 T 540 100 T 660 80 L 660 380 L 60 380 Z" fill="#F2B6C6" fill-opacity="0.85"></path>
+        <path d="M 60 230 Q 120 200 180 180 T 300 145 T 420 120 T 540 100 T 660 80" fill="none" stroke="#7A1F35" stroke-width="3"></path>
+
+        <!-- Series C bars (burgundy, dark on yellow) -->
+        <g fill="#7A1F35">
+          <rect x="80" y="320" width="22" height="60" rx="4"></rect>
+          <rect x="190" y="300" width="22" height="80" rx="4"></rect>
+          <rect x="300" y="285" width="22" height="95" rx="4"></rect>
+          <rect x="410" y="275" width="22" height="105" rx="4"></rect>
+          <rect x="520" y="260" width="22" height="120" rx="4"></rect>
+          <rect x="630" y="245" width="22" height="135" rx="4"></rect>
+        </g>
+
+        <!-- Series B (yellow circles + burgundy line) -->
+        <path d="M 90 280 L 200 250 L 310 235 L 420 215 L 530 200 L 640 175" fill="none" stroke="#7A1F35" stroke-width="3"></path>
+        <g fill="#F2D86A" stroke="#7A1F35" stroke-width="3">
+          <circle cx="90" cy="280" r="8"></circle>
+          <circle cx="200" cy="250" r="8"></circle>
+          <circle cx="310" cy="235" r="8"></circle>
+          <circle cx="420" cy="215" r="8"></circle>
+          <circle cx="530" cy="200" r="8"></circle>
+          <circle cx="640" cy="175" r="8"></circle>
+        </g>
+
+        <!-- Series D (burgundy dotted) -->
+        <path d="M 90 350 L 200 345 L 310 348 L 420 338 L 530 340 L 640 332" fill="none" stroke="#7A1F35" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" stroke-opacity="0.6"></path>
+      </svg>
+      <div class="xax">
+        <span>W·01</span><span>W·05</span><span>W·09</span><span>W·13</span><span>W·17</span><span>W·24</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7: QUOTE / SPLIT ============ -->
+  
+
+  <!-- ============ SLIDE 8: CLOSER / INDEX ============ -->
+  
+
+</deck-stage>
+
+
+</body></html>

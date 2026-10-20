@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.HostBridge.Server</RootNamespace>
+    <AssemblyName>OfficeCopilot.HostBridge.Server</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Abstractions\OfficeCopilot.Agent.Abstractions.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Host.Abstractions\OfficeCopilot.Host.Abstractions.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.HostBridge.Contracts\OfficeCopilot.HostBridge.Contracts.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Diagnostics\OfficeCopilot.Diagnostics.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+</Project>
+
+

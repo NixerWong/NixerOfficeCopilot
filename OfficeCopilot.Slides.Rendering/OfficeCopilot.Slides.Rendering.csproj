@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.Slides.Rendering</RootNamespace>
+    <AssemblyName>OfficeCopilot.Slides.Rendering</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+    <DevExpressBin>$(ProgramW6432)\DevExpress 26.1\Components\Bin\Framework</DevExpressBin>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Slides.Core\OfficeCopilot.Slides.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="DevExpress.Data.v26.1">
+      <HintPath>$(DevExpressBin)\DevExpress.Data.v26.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v26.1">
+      <HintPath>$(DevExpressBin)\DevExpress.Utils.v26.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Drawing.v26.1">
+      <HintPath>$(DevExpressBin)\DevExpress.Drawing.v26.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v26.1.Core">
+      <HintPath>$(DevExpressBin)\DevExpress.Office.v26.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v26.1.Core">
+      <HintPath>$(DevExpressBin)\DevExpress.Pdf.v26.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v26.1.Drawing">
+      <HintPath>$(DevExpressBin)\DevExpress.Pdf.v26.1.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Docs.Core.v26.1">
+      <HintPath>$(DevExpressBin)\DevExpress.Docs.Core.v26.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Docs.Pdf.v26.1">
+      <HintPath>$(DevExpressBin)\DevExpress.Docs.Pdf.v26.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Docs.v26.1">
+      <HintPath>$(DevExpressBin)\DevExpress.Docs.v26.1.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Target Name="CheckDevExpressBin" BeforeTargets="ResolveAssemblyReferences" Condition="!Exists('$(DevExpressBin)\DevExpress.Pdf.v26.1.Core.dll')">
+    <Error Text="DevExpress 26.1 not found at $(DevExpressBin). Override with /p:DevExpressBin=..." />
+  </Target>
+</Project>

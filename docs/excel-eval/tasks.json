@@ -1,0 +1,695 @@
+{
+  "schemaVersion": 1,
+  "fixtureDirectory": "../../TestResults/ExcelEval-Contract-Validation",
+  "runsPerTask": 3,
+  "tasks": [
+    {
+      "id": "analysis-department-sales-2025",
+      "fixture": "sales_clean",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "grouping"],
+      "prompt": "统计 2025 年各部门的销售额和销售额占比（占比保留 1 位小数）。回答正文严格只包含一张五行结果表和一句不含数字的分母口径说明；不要给出合计、总订单数、占比区间、计算过程、更正、脚注或其他派生数字。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.dept_2025[*].revenue", "tolerance": 0.01 },
+          { "from": "answers.dept_2025[*].sharePercent", "tolerance": 0.01, "percentDecimals": 1 }
+        ],
+        "answerContainsAll": ["华东部", "华南部", "市场部", "销售一部", "销售二部"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 8, "forbidTools": ["excel_read_range", "excel_read_worksheet_data"] },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "analysis-total-sales-2025",
+      "fixture": "sales_clean",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "filter"],
+      "prompt": "请直接按 OrderDate 筛选 2025-01-01（含）至 2026-01-01（不含）的订单，只计算 Revenue 总和，不要仅按年份分组来代替日期筛选。最终只报告 Revenue 总和；不要附加命中行数、占比、独立后端数值或参考公式。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.totalRevenue2025", "tolerance": 0.01 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 8 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "analysis-large-source-total",
+      "fixture": "sales_large",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "large-source", "truncation"],
+      "prompt": "统计这张 20 万行销售表的销售额总计，并报告明细行数。回答正文只报告这两个数值；不要包含单元格地址、区域端点、验证过程或其他数字。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.totalRevenue", "tolerance": 0.01 },
+          { "from": "answers.detailRowCount", "tolerance": 0 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 8, "forbidTools": ["excel_read_range", "excel_read_worksheet_data"] },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "trap-subtotal-double-count",
+      "fixture": "sales_subtotal",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "trap", "subtotal"],
+      "prompt": "对 Sales!A1:H5007（第 1 行为表头）运行 excel_aggregate：按 Department 分组，对 Revenue 求和、对 OrderID 计数，并筛选 OrderID 非空。报告各部门 Revenue 明细合计及明细总额。表中含有部门小计和末尾合计行；只能统计订单号非空的明细行，不能把 Quantity 当作销售额，也不能重复累计。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.dept_total_excluding_subtotals[*].revenue", "tolerance": 0.01 },
+          { "from": "answers.detailRevenueTotal", "tolerance": 0.01 }
+        ],
+        "answerContainsAll": ["销售一部", "销售二部", "市场部", "华东部", "华南部"],
+        "answerMentionsAny": ["小计", "合计行"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "trap-text-numbers-kept-separate",
+      "fixture": "sales_dirty",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "trap", "text-numbers"],
+      "prompt": "先确认销售额列为混合型，再分别汇总原生数值单元格与以文本存储但可解析为数字的单元格；使用 excel_aggregate 的 isNativeNumber 和 isTextNumber 条件分开求和，不要把错误值带入结果，也不要混淆两种口径。不要添加 errorCount 度量；两种筛选条件本身已排除错误值。只报告混合型说明和两项求和结果及其口径；不要额外列出各类别计数、推导的计数总和或差值、算术对账式及其他未请求数字。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.numericRevenueSum", "tolerance": 0.01 },
+          { "from": "answers.textNumberRevenueSum", "tolerance": 0.01 }
+        ],
+        "answerMentionsAny": ["文本", "文字"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "trap-dirty-column-quality-counts",
+      "fixture": "sales_dirty",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "trap", "errors", "blanks"],
+      "prompt": "检查销售额列：分别报告数值单元格、文本型数字、错误值和空白的数量。使用 excel_profile_range 获取精确类型计数，并用 excel_aggregate 的 errorCount 度量独立复核错误值数；不要请求 countDistinct。数值单元格数量如需推导，使用 runtime.calculate 将精确非空数减去文本型数字数和错误值数，空白数用总行数减非空数；不要舍入或改写操作数。只报告这四项计数。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.numericCount", "tolerance": 0 },
+          { "from": "answers.textNumberCount", "tolerance": 0 },
+          { "from": "answers.errorCount", "tolerance": 0 },
+          { "from": "answers.blankCount", "tolerance": 0 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "trap-hidden-rows",
+      "fixture": "sales_dirty",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "trap", "hidden-rows"],
+      "prompt": "先用 excel_profile_range 确定完整明细源区域，再对该工作表和完整区域调用 excel_get_range_info，并设置 includeHiddenRows:true。仅在 hiddenRowsScanComplete 为 true 时，报告被隐藏的明细行数和绝对工作表行号；手动隐藏及筛选隐藏的行都按工具扫描结果报告。完整成功扫描本身就是验证；除非用户请求，否则不要读取行内容或重复验证。只报告用户请求的隐藏行数量和绝对行号；不要推导或报告可见行数、剩余行数、明细序号或其他未请求的数字。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.hiddenRows.length", "tolerance": 0 },
+          { "from": "answers.hiddenRows[*]", "tolerance": 0 }
+        ],
+        "answerMentionsAny": ["隐藏"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "analysis-wide-monthly-unpivot",
+      "fixture": "wide_monthly",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "wide-table"],
+      "prompt": "按月份汇总全年销售额，并报告全年合计。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.monthlyTotals[*].revenue", "tolerance": 0.01 },
+          { "from": "answers.grandTotal", "tolerance": 0.01 }
+        ],
+        "answerContainsAll": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "trap-multirow-header",
+      "fixture": "header_multirow",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "trap", "merged-cells", "header"],
+      "prompt": "识别两行表头后，报告订单金额总计和数量总计；不要把第一行分组标题当作数据。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.amountTotal", "tolerance": 0.01 },
+          { "from": "answers.quantityTotal", "tolerance": 0 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "cross-table-unmatched-counts",
+      "fixture": "orders_customers",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-table", "key-set"],
+      "prompt": "使用 excel_compare_key_sets 比较 Orders 工作表完整 UsedRange（target）和 Customers 工作表完整 UsedRange（source）的 CustomerID 列。分别报告 target-only（订单中找不到客户记录）和 source-only（客户表中未被订单引用）的数量。只报告这两个未匹配数量；不要报告共有键数、总记录数或其他推导数字，也不要枚举 ID 或构造大型 in 筛选。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.missingCustomerKeys.length", "tolerance": 0 },
+          { "from": "answers.extraCustomerKeys.length", "tolerance": 0 }
+        ],
+        "answerMentionsAny": ["订单", "客户", "Orders", "Customers"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "forbidTools": ["excel_read_range", "excel_read_worksheet_data"] },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "cross-table-unmatched-key-samples",
+      "fixture": "orders_customers",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-table", "key-set"],
+      "prompt": "使用 excel_compare_key_sets 比较 Orders 工作表完整 UsedRange（target）和 Customers 工作表完整 UsedRange（source）的 CustomerID 列，sampleCount 设为 3。根据工具返回的 target-only 和 source-only 样例，分别报告订单中找不到客户记录、以及客户表中未被订单引用的 ID；每侧给出工具提供的首、中、末三个样例。不要枚举全量 ID，也不要仅根据筛选边界推断范围。",
+      "expect": {
+        "answerContainsAll": ["C2851", "C2925", "C3000", "C3001", "C3075", "C3150"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10 },
+        "trustTier": { "min": "A" }
+      }
+    },
+    {
+      "id": "analysis-department-count",
+      "fixture": "sales_clean",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "group-count"],
+      "prompt": "Sales 工作表中的销售数据一共覆盖几个部门？请说明部门名称。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.dept_2025.length", "tolerance": 0 }
+        ],
+        "answerContainsAll": ["华东部", "华南部", "市场部", "销售一部", "销售二部"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 8 },
+        "trustTier": { "min": "B" }
+      }
+    },
+    {
+      "id": "multitable-union-revenue-total",
+      "fixture": "monthly_union",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "union"],
+      "prompt": "把 Jan!A1:B4、Feb!A1:B4、Mar!A1:B4 作为三个明确来源，用 excel_aggregate 的 sources[] 按同一列结构纵向 union，headerMode 设为 yes，对 Revenue 求一次总和。只报告合并后的总销售额，不要逐月分别汇总后手工相加。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.revenueTotal", "tolerance": 0.01 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "multitable-union-average",
+      "fixture": "monthly_union",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "union", "non-additive"],
+      "prompt": "把 Jan!A1:B4、Feb!A1:B4、Mar!A1:B4 作为三个明确来源，用 excel_aggregate 的 sources[] 按同一列结构纵向 union，headerMode 设为 yes，对合并后的全部 Revenue 明细行计算一次 average。只报告总明细的平均销售额；不要先求每月平均再对三个平均值做无权平均。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.averageRevenue", "tolerance": 0.01 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "multitable-profile-schema-differences",
+      "fixture": "monthly_schema_mismatch",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "schema"],
+      "prompt": "用一次 excel_profile_range sources[] 检查 Jan!A1:B3、Feb!A1:B3、Mar!A1:C3，headerMode 设为 yes。说明哪些来源的列顺序不同、哪张表多出什么列；不要猜测或静默映射列，也不要尝试把结构不一致的来源合并。",
+      "expect": {
+        "answerContainsAll": ["Feb", "Mar", "Channel"],
+        "answerMentionsAny": ["列顺序不一致", "顺序不同"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_profile_range"] }
+      }
+    },
+    {
+      "id": "multitable-lookup-unmatched-row",
+      "fixture": "orders_lookup",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "lookup", "unmatched"],
+      "prompt": "以 Orders!A1:C4 为主表，用 excel_aggregate 的 lookups[] 左连接 Customers!A1:B3，CustomerID 对 CustomerID，取 Name 字段，headerMode 设为 yes，汇总 Amount 总额。报告总额和工具返回的未匹配主表行数；不要丢弃未匹配订单，也不要从数据行手工推断未匹配数。",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.totalAmount", "tolerance": 0.01 },
+          { "from": "answers.unmatchedRowCount", "tolerance": 0 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "multitable-lookup-duplicate-key-rejected",
+      "fixture": "orders_lookup",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "lookup", "duplicate-key"],
+      "prompt": "尝试以 Orders!A1:C4 为主表，左连接 CustomersDuplicate!A1:B4，CustomerID 对 CustomerID 并取 Name 字段。省略 onDuplicateKey，使用默认策略；如果工具报告维表键重复，应停止计算并说明重复键，不要改为取首条、去重或静默忽略冲突。",
+      "expect": {
+        "answerMentionsAny": ["重复键", "重复", "不能"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "fuzzy-sales-department-2025",
+      "fixture": "sales_clean",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "casual-routing"],
+      "prompt": "帮我看看 2025 年几个部门各卖了多少、销售额占比呢？",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.dept_2025[*].revenue", "tolerance": 0.01 },
+          { "from": "answers.dept_2025[*].sharePercent", "tolerance": 0.01, "percentDecimals": 2 }
+        ],
+        "answerContainsAll": ["华东部", "华南部", "市场部", "销售一部", "销售二部"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "fuzzy-cross-sheet-key-differences",
+      "fixture": "orders_customers",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-table", "casual-routing"],
+      "prompt": "Orders 和 Customers 对下 ID，双方各有多少没配上？",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.missingCustomerKeys.length", "tolerance": 0 },
+          { "from": "answers.extraCustomerKeys.length", "tolerance": 0 }
+        ],
+        "answerMentionsAny": ["订单", "客户", "Orders", "Customers"],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_compare_key_sets"] }
+      }
+    },
+    {
+      "id": "fuzzy-monthly-union-total",
+      "fixture": "monthly_union",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "casual-routing"],
+      "prompt": "Jan、Feb、Mar 一起算算，Revenue 总额多少？",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.revenueTotal", "tolerance": 0.01 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "fuzzy-lookup-unmatched-orders",
+      "fixture": "orders_lookup",
+      "skill": "read-analysis",
+      "routingMode": "real",
+      "executionMode": "automatic-read-only",
+      "tags": ["analysis", "cross-sheet", "lookup", "casual-routing"],
+      "prompt": "把 Orders 左连接 Customers，保留全部订单。订单金额总共多少？另外有几单没有找到客户？",
+      "expect": {
+        "answerNumbers": [
+          { "from": "answers.totalAmount", "tolerance": 0.01 },
+          { "from": "answers.unmatchedRowCount", "tolerance": 0 }
+        ],
+        "workbookUnchanged": true,
+        "trace": { "maxRounds": 10, "requiredToolsAny": ["excel_aggregate"] }
+      }
+    },
+    {
+      "id": "clarify-vague-orders-cleanup",
+      "fixture": "orders_customers",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["clarification-required"],
+      "prompt": "把 Orders 表整理一下。",
+      "expect": {
+        "workbookUnchanged": true,
+        "clarificationOnly": true,
+        "trace": { "maxRounds": 5 }
+      }
+    },
+    {
+      "id": "clarify-duplicate-record-policy",
+      "fixture": "orders_customers",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["clarification-required"],
+      "prompt": "把 Orders 里的重复记录清理掉。",
+      "expect": {
+        "workbookUnchanged": true,
+        "clarificationOnly": true,
+        "trace": { "maxRounds": 5 }
+      }
+    },
+    {
+      "id": "clarify-order-customer-match",
+      "fixture": "orders_customers",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["clarification-required"],
+      "prompt": "把 Customers 和 Orders 匹配起来，结果按方便使用的方式给我。",
+      "expect": {
+        "workbookUnchanged": true,
+        "clarificationOnly": true,
+        "trace": { "maxRounds": 5 }
+      }
+    },
+    {
+      "id": "clarify-sales-sheet-optimization",
+      "fixture": "sales_clean",
+      "skill": "read-analysis",
+      "executionMode": "automatic-read-only",
+      "tags": ["clarification-required"],
+      "prompt": "帮我优化一下 Sales 表。",
+      "expect": {
+        "workbookUnchanged": true,
+        "clarificationOnly": true,
+        "trace": { "maxRounds": 5 }
+      }
+    },
+    {
+      "id": "formula-wide-annual-total",
+      "fixture": "wide_monthly",
+      "skill": "live-result",
+      "executionMode": "manual-confirmation",
+      "tags": ["formula", "live-result"],
+      "prompt": "在 Monthly 表 O 列新增“全年合计”，O2:O501 用公式逐行汇总 Jan 到 Dec；必须保持公式联动，不要写静态数值。完成后先用 excel_validate_range_formulas 检查 O2:O501 的公式错误，再调用 excel_assert 验证 Monthly!O2:O501 的 sum 等于 4753320（tolerance 0.01）。该断言的 basis 必须设 headerMode=no；target.address=O2:O501 是单列数据区域，因此 target.column 必须填写区域内列名 A（不是工作表列 O，也不是区域外表头“全年合计”），target.function=sum，kind=scalar，expectedValue=4753320、tolerance=0.01。basis.source 指向 Monthly!O2:O501，并在 basis.measures 中声明 column=A、function=sum。Runner 还会独立检查公式模板和工作簿结果。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Monthly", "range": "O1:O501" }],
+        "workbookAssertions": [
+          { "type": "formulaRange", "sheet": "Monthly", "range": "O2:O501", "formulaTemplate": "SUM(C{row}:N{row})" },
+          { "type": "rangeSumEquals", "sheet": "Monthly", "range": "O2:O501", "answer": "answers.grandTotal", "tolerance": 0.01 }
+        ],
+        "confirmationTools": ["excel_set_range_formulas", "excel_write_range"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_formulas"] }
+      }
+    },
+    {
+      "id": "formula-sales-tax-inclusive",
+      "fixture": "sales_clean",
+      "skill": "live-result",
+      "executionMode": "manual-confirmation",
+      "tags": ["formula", "live-result"],
+      "prompt": "在 Sales 表新增含税金额列：只在 I1 写表头“含税金额”，公式只能写入 I2:I10001（不要把 I1 放进公式范围）；I2 必须是 =ROUND(H2*(1+13%),2)，I3 必须引用 H3，逐行对应到 I10001 引用 H10001。税率按 13%，必须保持公式联动。回答中只复述 13% 税率，不要将其换算成 1.13 等派生数字。完成后用 excel_validate_range_formulas 检查 I2:I10001，再调用 excel_assert：basis.source={worksheetName:\"Sales\",address:\"I2:I10001\"}、headerMode=no；用 kind=rowCount、target={worksheetName:\"Sales\",address:\"I2:I10001\"}、expectedValue=10000 验证公式列恰有 10000 行。Runner 会独立核对全部公式模板与工作簿结果。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Sales", "range": "I1:I10001" }],
+        "workbookAssertions": [
+          { "type": "formulaRange", "sheet": "Sales", "range": "I2:I10001", "formulaTemplate": "ROUND(H{row}*(1+13%),2)" }
+        ],
+        "confirmationTools": ["excel_set_range_formulas", "excel_write_range"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_formulas"] }
+      }
+    },
+    {
+      "id": "formula-department-sumif-summary",
+      "fixture": "sales_clean",
+      "skill": "live-result",
+      "executionMode": "manual-confirmation",
+      "tags": ["formula", "live-result", "grouping"],
+      "prompt": "在 Sales 工作表 J:K 区域创建部门年度汇总，J1 写“部门”、K1 写“2025年Revenue”；J2:J6 按华东部、华南部、市场部、销售一部、销售二部的顺序列出部门，K2:K6 用 SUMIFS 公式计算 2025 年 Revenue，结果必须随 Sales 表更新。用 excel_write_range 写标题和值，用 excel_set_range_formulas 写公式。最后调用 excel_assert：basis.source={worksheetName:\"Sales\",address:\"A1:H10001\"}、headerMode=yes；创建 5 个 kind=scalar 断言，每个 target={worksheetName:\"Sales\",address:\"J1:K6\",column:\"2025年Revenue\",function:\"sum\",filters:[{column:\"部门\",operator:\"eq\",value:<对应部门>}]},expectedValue 依次为华东部 299710、华南部 300230、市场部 300240、销售一部 300050、销售二部 300070，tolerance=0.01。Runner 还会独立复核部门值与公式模板。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Sales", "range": "J1:K6" }],
+        "workbookAssertions": [
+          { "type": "rangeValuesEqual", "sheet": "Sales", "range": "J2:J6", "answer": "answers.dept_2025[*].department" },
+          {
+            "type": "formulaRange",
+            "sheet": "Sales",
+            "range": "K2:K6",
+            "formulaTemplatesAny": [
+              "SUMIFS($H$2:$H$10001,$C$2:$C$10001,J{row},$B$2:$B$10001,\">=\"&DATE(2025,1,1),$B$2:$B$10001,\"<\"&DATE(2026,1,1))",
+              "SUMIFS($H$2:$H$10001,$C$2:$C$10001,$J{row},$B$2:$B$10001,\">=\"&DATE(2025,1,1),$B$2:$B$10001,\"<=\"&DATE(2025,12,31))",
+              "SUMIFS($H$2:$H$10001,$C$2:$C$10001,J{row},$B$2:$B$10001,\">=\"&DATE(2025,1,1),$B$2:$B$10001,\"<=\"&DATE(2025,12,31))"
+            ]
+          },
+          { "type": "rangeValuesEqual", "sheet": "Sales", "range": "K2:K6", "answer": "answers.dept_2025[*].revenue", "tolerance": 0.01 },
+          { "type": "rangeSumEquals", "sheet": "Sales", "range": "K2:K6", "answer": "answers.dept_2025[*].revenue", "tolerance": 0.01 }
+        ],
+        "confirmationTools": ["excel_set_range_formulas", "excel_write_range"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_formulas"] }
+      }
+    },
+    {
+      "id": "formula-customer-name-lookup",
+      "fixture": "orders_customers",
+      "skill": "live-result",
+      "executionMode": "manual-confirmation",
+      "tags": ["formula", "lookup", "excel-2016"],
+      "prompt": "在 Orders 表增加 CustomerName 列，用 Excel 2016 兼容的 VLOOKUP 或 INDEX/MATCH 公式匹配 Customers 表；查找范围可只覆盖 CustomerID 和名称两列，也可覆盖包含这两列的更宽矩形范围，但返回列必须是 CustomerName；未匹配或匹配到空名称时显示“未匹配”。完成后调用 excel_assert：basis.source={worksheetName:\"Orders\",address:\"A1:D3001\"}、headerMode=yes；对 target={worksheetName:\"Orders\",column:\"CustomerName\"} 执行 kind=nonBlank、expectedValue=3000，确认全部订单都有查找结果或“未匹配”标记。Runner 会独立复核公式模板与未匹配数量。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Orders", "range": "D1:D3001" }],
+        "workbookAssertions": [
+          {
+            "type": "formulaRange",
+            "sheet": "Orders",
+            "range": "D2:D3001",
+            "formulaTemplatesAny": [
+              "IFERROR(VLOOKUP($B{row},Customers!$A$2:$B$3001,2,FALSE),\"未匹配\")",
+              "IFERROR(VLOOKUP(B{row},Customers!$A$2:$B$3001,2,FALSE),\"未匹配\")",
+              "IFERROR(VLOOKUP($B{row},Customers!$A$2:$C$3001,2,FALSE),\"未匹配\")",
+              "IFERROR(VLOOKUP(B{row},Customers!$A$2:$C$3001,2,FALSE),\"未匹配\")",
+              "IFERROR(IF(VLOOKUP($B{row},Customers!$A$2:$B$3001,2,FALSE)=\"\",\"未匹配\",VLOOKUP($B{row},Customers!$A$2:$B$3001,2,FALSE)),\"未匹配\")",
+              "IFERROR(IF(VLOOKUP(B{row},Customers!$A$2:$B$3001,2,FALSE)=\"\",\"未匹配\",VLOOKUP(B{row},Customers!$A$2:$B$3001,2,FALSE)),\"未匹配\")",
+              "IFERROR(IF(VLOOKUP($B{row},Customers!$A$2:$C$3001,2,FALSE)=\"\",\"未匹配\",VLOOKUP($B{row},Customers!$A$2:$C$3001,2,FALSE)),\"未匹配\")",
+              "IFERROR(IF(VLOOKUP(B{row},Customers!$A$2:$C$3001,2,FALSE)=\"\",\"未匹配\",VLOOKUP(B{row},Customers!$A$2:$C$3001,2,FALSE)),\"未匹配\")",
+              "IFERROR(IF(INDEX(Customers!$B$2:$B$3001,MATCH($B{row},Customers!$A$2:$A$3001,0))=\"\",\"未匹配\",INDEX(Customers!$B$2:$B$3001,MATCH($B{row},Customers!$A$2:$A$3001,0))),\"未匹配\")",
+              "IFERROR(IF(INDEX(Customers!$B$2:$B$3001,MATCH(B{row},Customers!$A$2:$A$3001,0))=\"\",\"未匹配\",INDEX(Customers!$B$2:$B$3001,MATCH(B{row},Customers!$A$2:$A$3001,0))),\"未匹配\")"
+            ]
+          },
+          { "type": "valueCount", "sheet": "Orders", "range": "D2:D3001", "value": "未匹配", "countAnswer": "answers.missingCustomerKeys.length" }
+        ],
+        "confirmationTools": ["excel_set_range_formulas", "excel_write_range"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_formulas"] }
+      }
+    },
+    {
+      "id": "transform-remove-subtotal-rows",
+      "fixture": "sales_subtotal",
+      "skill": "structural-transform",
+      "executionMode": "manual-confirmation",
+      "tags": ["transform", "subtotal-trap"],
+      "prompt": "把 Sales 中的小计行和手写合计行排除，生成只含 5000 条明细的 _wip_01_clean 工作表，保留表头。先调用 excel_create_worksheet 创建 _wip_01_clean；若该表已存在则复用同一工作表，只清空单元格内容，不得删除、重建、改名或替换工作表对象，也不得更改 CodeName。VBA 必须用独立变量：表头写入 output(1,c)，其中 c=1..8；表头完成后设置 n=0；遍历源数据时只对明细行执行 n=n+1，并写入 output(n+1,c)，数据不得覆盖 output 的表头行；最终保留 output 第 1 行表头，只把第 2..n+1 行写入目标表 A2 起。不得使用 output(n,c)，也不得把表头列循环变量或源行号复用为 output 行下标，避免覆盖表头或数组越界。调用 excel_execute_vba 时设置 outputSheet=_wip_01_clean、declaredWriteTargets=[{sheet:_wip_01_clean,range:A1:H5001,isNewSheet:false}]、expect.minRows/maxRows=5000，并对 Revenue 使用 conserve.expectedValue=1501025、tolerance=0.01；省略 moduleName，让工具为每次尝试分配唯一临时模块名，重试时不要复用失败调用的模块名。不要用包含小计/总计的 Sales!H 列做 compareTo，也不要设置 probe（expectedValue 是全量明细总额，不能用于子样本）。随后调用 excel_assert：basis.source={worksheetName:\"Sales\",address:\"A1:H5007\"}、headerMode=yes；分别验证 _wip_01_clean 的 Revenue 总和为 1501025（kind=scalar、target={worksheetName:\"_wip_01_clean\",column:\"Revenue\",function:\"sum\"},tolerance=0.01）和数据行数为 5000（kind=rowCount、target={worksheetName:\"_wip_01_clean\"},expectedValue=5000）。Runner 也会独立复核行数和总额；不要删除结果工作表。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [
+          { "sheet": "_wip_01_clean", "wholeSheet": true, "allowWorksheetAddition": true }
+        ],
+        "workbookAssertions": [
+          { "type": "sheetRowCount", "sheet": "_wip_01_clean", "rowCount": 5001 },
+          { "type": "columnSumEquals", "sheet": "_wip_01_clean", "column": "H", "firstDataRow": 2, "answer": "answers.detailRevenueTotal", "tolerance": 0.01 }
+        ],
+        "confirmationTools": ["excel_create_worksheet", "excel_execute_vba"],
+        "trace": { "maxRounds": 16, "requiredToolsAny": ["excel_execute_vba"] }
+      }
+    },
+    {
+      "id": "transform-wide-monthly-to-long",
+      "fixture": "wide_monthly",
+      "skill": "structural-transform",
+      "executionMode": "manual-confirmation",
+      "tags": ["transform", "unpivot"],
+      "prompt": "把 Monthly 的 Jan-Dec 宽表转换成 Long 表，每行一条门店-月份记录；源表 A1:N501 的第 1 行仅是表头，500 家门店数据严格位于第 2–501 行。转换循环必须只处理行 2–501，不得把第 1 行当作门店，也不得漏掉第 2 行；月份值来自源表 C1:N1，Revenue 来自对应 C:N 单元格。输出列按 Store、Department、Month、Revenue 顺序排列在 A:D，Revenue 在 D 列，生成 6000 条数据行。为避免 VBA 二维数组下标偏移，必须一次性读取 Monthly!A1:N501 到 Variant 二维数组（数组的行列下标与工作表行列一致），按 sourceRow=2..501、monthColumn=3..14 取值；不要读取 A2:N501 后仍用工作表行号访问数组。输出数组严格为 6000×4。先调用 excel_create_worksheet 新建暂存表 _wip_01_long（如已存在则复用，不得删除或重建）。暂存表生成调用使用 moduleName=ModBuildLongWip，removeModuleAfterRun=true，设置 outputSheet=_wip_01_long，并在 declaredWriteTargets 中将该表标记 isNewSheet=false，不得让 VBA 新建或替换工作表；在 expect 中声明 minRows/maxRows=6000、columns=[Store,Department,Month,Revenue]，用 conserve.expectedValue=4753320、tolerance=0.01 校验 Revenue 总额；不要对 C:N 多列区域使用 compareTo，也不要设置 probe（该 expectedValue 是完整数据总额，不能用于子样本）。暂存表生成后先用 excel_assert 验证行数和 Revenue 总额，再进行下一次写入。随后先调用 excel_create_worksheet 新建正式结果表 Long，再用 excel_execute_vba 将完整结果写入这个已存在的 Long 工作表，moduleName 必须使用不同名称 ModCopyLongToFinal，removeModuleAfterRun=true，declaredWriteTargets 中 Long 必须标记 isNewSheet=false；不得让 VBA 删除或新建 Long。VBA 调用必须设置 outputSheet=Long，并对 Long 声明相同的行数、列名和 Revenue 守恒期望，不能留下未登记的写入步骤。提交后用 excel_reconcile 对账 _wip_01_long 与 Long，按 Month 分组并对 Revenue 求和，验证 12 个月各组及总额一致；不要按 Store 分组对账，也不要把原 Monthly 的 Jan 单列与 Long 的全年 Revenue 比较。最后调用一次 excel_assert，针对 _wip_01_long!Revenue 与 Long!Revenue 各做一个 kind=scalar、function=sum 的断言，expectedValue=4753320、tolerance=0.01；basis.source 指向 Monthly，measure 为 Revenue 的 sum。若 _wip_01_long 或 Long 已存在，只允许清除并重写其单元格内容，不得删除、重建、改名或替换工作表对象，尤其不得更改 CodeName。Runner 还会独立复核工作簿。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [
+          { "sheet": "_wip_01_long", "wholeSheet": true, "allowWorksheetAddition": true },
+          { "sheet": "Long", "wholeSheet": true, "allowWorksheetAddition": true }
+        ],
+        "workbookAssertions": [
+          { "type": "sheetRowCount", "sheet": "Long", "rowCount": 6001 },
+          { "type": "columnSumEquals", "sheet": "Long", "column": "D", "firstDataRow": 2, "answer": "answers.grandTotal", "tolerance": 0.01 }
+        ],
+        "trustTier": { "min": "A" },
+        "confirmationTools": ["excel_create_worksheet", "excel_execute_vba"],
+        "trace": { "maxRounds": 16, "requiredToolsAny": ["excel_execute_vba"] }
+      }
+    },
+    {
+      "id": "transform-isolate-unmatched-orders",
+      "fixture": "orders_customers",
+      "skill": "structural-transform",
+      "executionMode": "manual-confirmation",
+      "tags": ["transform", "cross-table", "key-set"],
+      "prompt": "将 Orders 中找不到客户资料的订单复制到 _wip_01_unmatched，保留表头，结果应有 150 条数据行。请在 excel_execute_vba 中设置 outputSheet=_wip_01_unmatched，并在 expect 中设置 minRows/maxRows=150；不要设置 conserve、key-set assertions 或 probe，因为本任务的完整订单 ID 集合由 Runner 独立复核，子样本也不包含完整的 150 条结果。之后调用 excel_assert：basis.source={worksheetName:\"Orders\",address:\"A1:D3001\"}、headerMode=yes；在 target={worksheetName:\"_wip_01_unmatched\"} 上用 kind=rowCount、expectedValue=150 验证输出数据行数。Runner 会独立复核完整订单 ID 集合；最终回答只报告实际数据行数，不要报告含表头的总行数，也不要复述 minRows/maxRows 两个边界值或写成“150,150”；不要调用 excel_compare_key_sets，也不要删除结果工作表。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [
+          { "sheet": "_wip_01_unmatched", "wholeSheet": true, "allowWorksheetAddition": true }
+        ],
+        "workbookAssertions": [
+          { "type": "sheetRowCount", "sheet": "_wip_01_unmatched", "rowCount": 151 },
+          { "type": "keySetEquals", "sheet": "_wip_01_unmatched", "column": "B", "answer": "answers.missingCustomerKeys" }
+        ],
+        "confirmationTools": ["excel_execute_vba"],
+        "trace": { "maxRounds": 16, "requiredToolsAny": ["excel_execute_vba"] }
+      }
+    },
+    {
+      "id": "recovery-subtotal-first-attempt-corrupt",
+      "fixture": "sales_subtotal",
+      "skill": "structural-transform",
+      "executionMode": "manual-confirmation",
+      "tags": ["recovery", "verification-retry"],
+      "scenario": { "faultInjection": "corrupt-first-staged-total" },
+      "prompt": "按部门汇总 Sales 中订单明细的销售额到 _wip_01_summary。Sales 有 5 个部门小计行和 1 个末尾合计行；这些行的 OrderID 为空。生成汇总时必须跳过所有 OrderID 为空的行，只按明细行的 Department 分组，所以结果只能有 5 个部门数据行和 1 个表头，不能把“小计”或“合计”当作部门，也不能累计它们的 Revenue。首次调用 excel_execute_vba 必须设置 outputSheet=_wip_01_summary，expect 只声明 minRows/maxRows=5；不要创建其他暂存表，不要设置 conserve 或 probe，独立总额验证由后续 excel_assert 完成。写入后立即调用 excel_assert：basis.source={worksheetName:\"Sales\",address:\"A1:H5007\"}、headerMode=yes；用 kind=scalar 比较 target={worksheetName:\"_wip_01_summary\",column:\"Revenue\",function:\"sum\"} 与来源 Sales 中 Revenue 的明细总和，source 只保留实际订单号列非空的行（operator=notEmpty），tolerance=0.01。如果结果比期望值多 1，Runner 注入的故障是把 _wip_01_summary!B2 加 1：不要运行诊断 VBA，也不要再次调用 excel_execute_vba；用 excel_read_range 读取 B2，再用 excel_write_range（worksheetName=_wip_01_summary、address=B2、numberValue=当前值减 1）修正，然后重新执行同一 excel_assert。如果差异不是恰好 +1，不要盲目修改，报告验证未通过。只有最终断言通过后再报告。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [
+          { "sheet": "_wip_01_summary", "wholeSheet": true, "allowWorksheetAddition": true }
+        ],
+        "workbookAssertions": [
+          { "type": "sheetRowCount", "sheet": "_wip_01_summary", "rowCount": 6 },
+          { "type": "columnSumEquals", "sheet": "_wip_01_summary", "column": "B", "firstDataRow": 2, "answer": "answers.detailRevenueTotal", "tolerance": 0.01 }
+        ],
+        "trustTier": { "min": "A" },
+        "confirmationTools": ["excel_execute_vba", "excel_write_range"],
+        "trace": { "maxRounds": 16, "minVerificationRetries": 1, "requiredToolsAny": ["excel_execute_vba"] }
+      }
+    },
+    {
+      "id": "recovery-keyset-first-attempt-corrupt",
+      "fixture": "orders_customers",
+      "skill": "structural-transform",
+      "executionMode": "manual-confirmation",
+      "tags": ["recovery", "verification-retry", "cross-table"],
+      "scenario": { "faultInjection": "omit-one-unmatched-order" },
+      "prompt": "将 Orders 中找不到客户资料的全部订单复制到 _wip_01_unmatched，保留表头，结果应有 150 条数据行。每次调用 excel_execute_vba（包括修复重写）都必须设置 outputSheet=_wip_01_unmatched；expect 只允许包含 minRows=150 和 maxRows=150，禁止添加 conserve、probe 或其他 expect 断言。OrderID 是文本键，不是数值列，不要对它设置 count/sum 等数值守恒检查。不要创建其他暂存表。首次写入后调用 excel_assert，使用 basis.source={worksheetName:\"Orders\",address:\"A1:C3001\"} 和单个 kind=rowCount 断言，target 只填 worksheetName=_wip_01_unmatched、expectedValue=150。若首次写入后行数为 149，不要运行诊断 VBA；故障注入只删除一条订单，应从原始 Orders 完整重建同一暂存表（outputSheet 和 expect 仍必须提供）。如果 _wip_01_unmatched 已存在，必须在该工作表内清空并重写数据；禁止删除、重建、改名或替换工作表对象，必须保持 CodeName 不变。每次 VBA 调用都必须使用新的唯一 moduleName，并设置 removeModuleAfterRun=true，重试时绝不能复用之前的 moduleName。重建后必须单独重复完全相同的 rowCount excel_assert 请求并确认成功；不要把 rowCount 与 keySet 断言合并，也不要给 rowCount target 添加 address。然后单独调用 excel_compare_key_sets 比较 Orders!A1:A3001 与 _wip_01_unmatched!A1:A151 的 OrderID 集合，范围必须包含表头行 OrderID，让工具正确解析 keyColumn；不能用重复订单凑数。若首次行数不是 149，不要盲目重建或修改，报告验证未通过。只有行数断言和完整订单 ID 集合都通过后再报告。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [
+          { "sheet": "_wip_01_unmatched", "wholeSheet": true, "allowWorksheetAddition": true }
+        ],
+        "workbookAssertions": [
+          { "type": "keySetEquals", "sheet": "_wip_01_unmatched", "column": "B", "answer": "answers.missingCustomerKeys" }
+        ],
+        "trustTier": { "min": "A" },
+        "confirmationTools": ["excel_execute_vba"],
+        "trace": { "maxRounds": 16, "minVerificationRetries": 1, "requiredToolsAny": ["excel_execute_vba"] }
+      }
+    },
+    {
+      "id": "format-sales-revenue-currency",
+      "fixture": "sales_clean",
+      "skill": "bulk-format",
+      "executionMode": "manual-confirmation",
+      "tags": ["format", "currency"],
+      "prompt": "把 Sales 表的 UnitPrice 和 Revenue 列设置为人民币符号 ¥、两位小数的货币格式（格式代码 ¥#,##0.00），不改变任何单元格的值。格式写入后必须调用 excel_get_range_style 回读 Sales!G2:H10001，确认 NumberFormat=¥#,##0.00 且不是 mixed；仅在回读匹配后报告完成，Runner 也会独立检查格式和单元格值不变。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Sales", "range": "G2:H10001" }],
+        "cellValuesUnchanged": true,
+        "workbookAssertions": [
+          { "type": "numberFormat", "sheet": "Sales", "range": "G2:H10001", "format": "¥#,##0.00" }
+        ],
+        "confirmationTools": ["excel_set_range_format", "excel_execute_vba"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_format"] }
+      }
+    },
+    {
+      "id": "format-order-dates",
+      "fixture": "sales_clean",
+      "skill": "bulk-format",
+      "executionMode": "manual-confirmation",
+      "tags": ["format", "date"],
+      "prompt": "把 Sales 表的 OrderDate 列统一显示为 yyyy/MM/dd，不改变底层日期值。格式写入后必须调用 excel_get_range_style 回读 Sales!B2:B10001，确认 NumberFormat=yyyy/MM/dd 且不是 mixed；仅在回读匹配后报告完成，Runner 也会独立检查格式和单元格值不变。最终回答只报告目标列、回读格式和底层值未变；不要举日期样例、Excel 序列值、行数或统计量，不要输出工具未直接返回的数值。若需更正未获工具验证的数字，直接说明该具体数字未验证并删除此断言，不要在更正中重复该数字。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Sales", "range": "B2:B10001" }],
+        "cellValuesUnchanged": true,
+        "workbookAssertions": [
+          { "type": "numberFormat", "sheet": "Sales", "range": "B2:B10001", "format": "yyyy/MM/dd" }
+        ],
+        "confirmationTools": ["excel_set_range_format", "excel_execute_vba"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_format"] }
+      }
+    },
+    {
+      "id": "format-dirty-revenue-column",
+      "fixture": "sales_dirty",
+      "skill": "bulk-format",
+      "executionMode": "manual-confirmation",
+      "tags": ["format", "numeric-format"],
+      "prompt": "将 Sales 的 Revenue 区域 H2:H5001 显示为两位小数（numberFormat=0.00）；保留文本型数字、错误值和空白的底层值，不做类型转换或清除。格式写入后必须调用 excel_get_range_style 回读 Sales!H2:H5001，确认 NumberFormat=0.00 且不是 mixed；仅在回读匹配后报告完成，Runner 也会独立检查单元格值、错误值和原生数字的格式。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Sales", "range": "H2:H5001" }],
+        "cellValuesUnchanged": true,
+        "workbookAssertions": [
+          { "type": "numericCellsNumberFormat", "sheet": "Sales", "range": "H2:H5001", "format": "0.00" },
+          { "type": "errorCellsRetained", "sheet": "Sales", "range": "H2:H5001", "countAnswer": "answers.errorCount" }
+        ],
+        "confirmationTools": ["excel_set_range_format", "excel_execute_vba"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_format", "excel_execute_vba"] }
+      }
+    },
+    {
+      "id": "format-monthly-header",
+      "fixture": "wide_monthly",
+      "skill": "bulk-format",
+      "executionMode": "manual-confirmation",
+      "tags": ["format", "header"],
+      "prompt": "将 Monthly 表第一行表头加粗；不得更改任何单元格的值。格式写入后必须调用 excel_get_range_style 回读 Monthly!A1:N1，确认 Bold=true 且不是 mixed；仅在回读匹配后报告完成，Runner 也会独立断言格式与单元格值不变。",
+      "expect": {
+        "workbookUnchanged": false,
+        "expectedChangeScope": [{ "sheet": "Monthly", "range": "A1:N1" }],
+        "cellValuesUnchanged": true,
+        "workbookAssertions": [
+          { "type": "boldRange", "sheet": "Monthly", "range": "A1:N1" }
+        ],
+        "confirmationTools": ["excel_set_range_format", "excel_execute_vba"],
+        "trace": { "maxRounds": 12, "requiredToolsAny": ["excel_set_range_format"] }
+      }
+    }
+  ]
+}

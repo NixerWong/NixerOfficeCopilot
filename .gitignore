@@ -1,0 +1,155 @@
+# ============================================================
+# NixerOfficeCopilot — .gitignore
+# 编码：UTF-8 无 BOM
+# ============================================================
+
+# ---------- 构建产物 ----------
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+build/
+bld/
+[Ll]og/
+[Ll]ogs/
+
+# ---------- NuGet ----------
+# 通过 packages.config / PackageReference 还原，不入库
+packages/
+!packages/build/
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+
+# ---------- Visual Studio ----------
+.vs/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.userprefs
+*.VC.db
+*.VC.VC.opendb
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.svclog
+*.cachefile
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.pidb
+
+# ---------- VSTO / ClickOnce ----------
+# 发布产物体积巨大（>100MB）且可由构建重新生成
+publish/
+[Pp]ublish[Pp]rofiles/
+*.publishproj
+*.publishsettings
+*.azurePubxml
+*.pubxml
+*.pubxml.user
+*_TemporaryKey.pfx
+*.vsto
+*.deploy
+*.application
+*.manifest
+!app.manifest
+
+# ---------- 证书与机密 ----------
+# 私钥绝不入库。见 docs/ARCHITECTURE.md §6.1 P0-4
+*.pfx
+*.snk
+*.p12
+*.key
+appsettings.json
+appsettings.*.json
+!appsettings.sample.json
+!appsettings.Development.sample.json
+secrets.json
+*.secret
+*.local.json
+
+# ---------- 测试与覆盖率 ----------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+TestResults/
+BenchmarkDotNet.Artifacts/
+
+# ---------- 备份与临时文件 ----------
+*.bak
+*.orig
+*.rej
+*.tmp
+*.temp
+*~
+*.swp
+~$*
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+
+# ---------- 前端（Panel.WebAssets）----------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+.cache/
+
+# ---------- 操作系统 ----------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# ---------- 编辑器 ----------
+.idea/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# ---------- 安装项目（vdproj）----------
+NixerExcelCopilotSetup/[Dd]ebug/
+NixerExcelCopilotSetup/[Rr]elease/
+*.msi
+*.exe
+!**/Resources/**/*.exe
+
+# ---------- 运行时数据 ----------
+# Broker JSONL 会话、记忆、日志等本地运行时产物
+*.jsonl
+.copilot-runtime/
+
+# 根目录构建/运行日志（broker.log、build.log、runtime-build.log 等）
+# 注意：[Ll]og/ 只匹配目录，BuildLog.* 只匹配 BuildLog.*，均无法覆盖 *.log
+*.log
+
+# Local icon assets, not versioned
+Resources/NOC_Icons/
+
+# Installer staging output (installer/Stage-Package.ps1)
+installer/staging/

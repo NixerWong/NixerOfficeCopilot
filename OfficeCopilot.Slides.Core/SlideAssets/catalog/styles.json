@@ -1,0 +1,3326 @@
+{
+  "schemaVersion": 1,
+  "styles": [
+    {
+      "slug": "bold-signal",
+      "name": "Bold Signal",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Colored card on dark gradient. Number top-left, navigation top-right, title bottom-left.",
+      "mood": [
+        "confident",
+        "bold",
+        "modern",
+        "high-impact"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "dark",
+      "bestFor": "Confident, bold, modern, high-impact",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Inter",
+        "Space Grotesk"
+      ],
+      "localFonts": [
+        "Inter",
+        "Space Grotesk"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "creative-voltage",
+      "name": "Creative Voltage",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Split panels\u2014electric blue left, dark right. Script accents.",
+      "mood": [
+        "bold",
+        "creative",
+        "energetic",
+        "retro-modern"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "dark",
+      "bestFor": "Bold, creative, energetic, retro-modern",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "localFonts": [
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "dark-botanical",
+      "name": "Dark Botanical",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Centered content on dark. Abstract soft shapes in corner.",
+      "mood": [
+        "elegant",
+        "sophisticated",
+        "artistic",
+        "premium"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "dark",
+      "bestFor": "Elegant, sophisticated, artistic, premium",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Cormorant Garamond",
+        "Inter"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "electric-studio",
+      "name": "Electric Studio",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Split panel\u2014white top, blue bottom. Brand marks in corners.",
+      "mood": [
+        "bold",
+        "clean",
+        "professional",
+        "high contrast"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "dark",
+      "bestFor": "Bold, clean, professional, high contrast",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Albert Sans"
+      ],
+      "localFonts": [
+        "Albert Sans"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "neon-cyber",
+      "name": "Neon Cyber",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": null,
+      "mood": [
+        "futuristic",
+        "techy",
+        "confident"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": null,
+      "bestFor": "Futuristic, techy, confident",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Space Grotesk",
+        "Inter"
+      ],
+      "localFonts": [
+        "Space Grotesk",
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "notebook-tabs",
+      "name": "Notebook Tabs",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Cream paper card on dark background. Colorful tabs on right edge.",
+      "mood": [
+        "editorial",
+        "organized",
+        "elegant",
+        "tactile"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "light",
+      "bestFor": "Editorial, organized, elegant, tactile",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Cormorant Garamond",
+        "DM Sans"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "DM Sans"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "paper-and-ink",
+      "name": "Paper & Ink",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": null,
+      "mood": [
+        "editorial",
+        "literary",
+        "thoughtful"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": null,
+      "bestFor": "Editorial, literary, thoughtful",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Cormorant Garamond",
+        "Source Serif 4"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "Source Serif 4"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "pastel-geometry",
+      "name": "Pastel Geometry",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "White card on pastel background. Vertical pills on right edge.",
+      "mood": [
+        "friendly",
+        "organized",
+        "modern",
+        "approachable"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "light",
+      "bestFor": "Friendly, organized, modern, approachable",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "DM Sans"
+      ],
+      "localFonts": [
+        "DM Sans"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "split-pastel",
+      "name": "Split Pastel",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Two-color vertical split (peach left, lavender right).",
+      "mood": [
+        "playful",
+        "modern",
+        "friendly",
+        "creative"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "light",
+      "bestFor": "Playful, modern, friendly, creative",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Jost"
+      ],
+      "localFonts": [
+        "Jost"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "swiss-modern",
+      "name": "Swiss Modern",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": null,
+      "mood": [
+        "clean",
+        "precise",
+        "bauhaus-inspired"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": null,
+      "bestFor": "Clean, precise, Bauhaus-inspired",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Work Sans",
+        "DM Sans"
+      ],
+      "localFonts": [
+        "Work Sans",
+        "DM Sans"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "terminal-green",
+      "name": "Terminal Green",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": null,
+      "mood": [
+        "developer-focused",
+        "hacker aesthetic"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": null,
+      "bestFor": "Developer-focused, hacker aesthetic",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "JetBrains Mono",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "JetBrains Mono",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "vintage-editorial",
+      "name": "Vintage Editorial",
+      "kind": "preset",
+      "source": "frontend-slides",
+      "tier": "experimental",
+      "tagline": "Centered content on cream. Abstract geometric shapes as accent.",
+      "mood": [
+        "witty",
+        "confident",
+        "editorial",
+        "personality-driven"
+      ],
+      "occasion": [],
+      "tone": [],
+      "formality": null,
+      "density": null,
+      "scheme": "light",
+      "bestFor": "Witty, confident, editorial, personality-driven",
+      "avoidFor": null,
+      "slideCount": 0,
+      "fonts": [
+        "Lora",
+        "Work Sans"
+      ],
+      "localFonts": [
+        "Lora",
+        "Work Sans"
+      ],
+      "missingFonts": [],
+      "palette": {},
+      "layouts": [],
+      "thumbs": [],
+      "cdnFree": true,
+      "isValid": true
+    },
+    {
+      "slug": "8-bit-orbit",
+      "name": "8-Bit Orbit",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Pixel-art neon arcade aesthetic on a deep navy void.",
+      "mood": [
+        "retro-tech",
+        "playful",
+        "cyberpunk",
+        "energetic"
+      ],
+      "occasion": [
+        "gaming pitch",
+        "hackathon demo",
+        "web3 / crypto deck",
+        "indie product launch",
+        "developer tools",
+        "synthwave brand"
+      ],
+      "tone": [
+        "geeky",
+        "neon",
+        "rebellious",
+        "sci-fi"
+      ],
+      "formality": "low",
+      "density": "medium",
+      "scheme": "dark",
+      "bestFor": "Anything that should feel like a CRT screen at 2am: cyberpunk, gaming, web3, indie dev tools, hackathon demos. Just as good for a tech talk that wants to lean into nostalgic-digital craft, a synthwave brand deck, or a creative review that wants to feel like a console.",
+      "avoidFor": "Contexts where the dark neon palette would actively work against the message \u2014 quiet institutional finance disclosures, healthcare patient-facing materials, traditional luxury.",
+      "slideCount": 10,
+      "fonts": [
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "localFonts": [
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "neon_pink": "#F0A6CA",
+        "neon_cyan": "#5EDCF4",
+        "neon_yellow": "#F4D03F",
+        "deep_navy": "#0F1B3D",
+        "void": "#0A0E27",
+        "lavender": "#E2D5F2"
+      },
+      "layouts": [
+        "01-bg-grid.html",
+        "02-bg-grid-pink.html",
+        "03-bg-grid-cyan.html",
+        "04-bg-grid.html",
+        "05-bg-grid-lavender.html",
+        "06-bg-grid-pink.html",
+        "07-bg-grid.html",
+        "08-bg-grid-cyan.html",
+        "09-bg-grid-lavender.html",
+        "10-bg-grid.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "05.png",
+        "06.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide",
+          ".slide-content"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-dots",
+          ".nav-hint",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "biennale-yellow",
+      "name": "Biennale Yellow",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Solar yellow on warm parchment with deep indigo serif and atmospheric sun-glow gradients.",
+      "mood": [
+        "editorial",
+        "atmospheric",
+        "warm",
+        "cultural-institution",
+        "poster-like"
+      ],
+      "occasion": [
+        "exhibition or biennale",
+        "arts institution programme",
+        "design or typography conference",
+        "literary or curatorial publication",
+        "studio annual report",
+        "museum season announcement"
+      ],
+      "tone": [
+        "literary",
+        "considered",
+        "contemplative",
+        "warm-modern",
+        "Dutch-editorial"
+      ],
+      "formality": "high",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel like an art-biennale poster or a museum's annual programme: exhibition decks, arts-institution announcements, design conference brochures, curatorial pitches, literary publications, studio retrospectives. Equally good for any deck wanting Dutch-editorial atmosphere with an unmistakable single-color signature.",
+      "avoidFor": "Decks that need visual punch or saturated multi-color energy \u2014 the warm-paper canvas and one-yellow palette are intentionally quiet and atmospheric.",
+      "slideCount": 8,
+      "fonts": [
+        "Cormorant Garamond",
+        "Work Sans",
+        "JetBrains Mono"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "Work Sans",
+        "JetBrains Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "paper": "#E9E5DB",
+        "ink": "#1B2566",
+        "sun": "#F1EE2E",
+        "ember": "#E26B4A",
+        "haze": "#F0DA7C"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-manifesto.html",
+        "03-programme.html",
+        "04-chapter.html",
+        "05-data.html",
+        "06-quote.html",
+        "07-cal.html",
+        "08-colophon.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "05.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-hint",
+          ".pagenum",
+          ".s-chapter .vrail"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "block-frame",
+      "name": "BlockFrame",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Neobrutalist deck with pastel-neon color blocks and chunky black borders.",
+      "mood": [
+        "bold",
+        "playful",
+        "graphic",
+        "fresh"
+      ],
+      "occasion": [
+        "creative agency pitch",
+        "indie SaaS launch",
+        "designer portfolio",
+        "brand redesign",
+        "modern startup deck"
+      ],
+      "tone": [
+        "confident",
+        "graphic",
+        "pop",
+        "design-led"
+      ],
+      "formality": "medium-low",
+      "density": "high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel pop-graphic and design-led: indie SaaS launches, agency credentials, creative reviews, brand redesigns. Also a strong unexpected pick for tech, finance, or research when the speaker wants to land as confident and contemporary rather than buttoned-up.",
+      "avoidFor": "Contexts that require quiet institutional restraint or traditional weight (regulated disclosures, formal legal briefs).",
+      "slideCount": 10,
+      "fonts": [
+        "Space Grotesk",
+        "Inter"
+      ],
+      "localFonts": [
+        "Space Grotesk",
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "pink": "#FE90E8",
+        "blue": "#C0F7FE",
+        "green": "#99E885",
+        "yellow": "#F7CB46",
+        "cream": "#FFDC8B",
+        "black": "#000000",
+        "offwhite": "#FFFDF5"
+      },
+      "layouts": [
+        "01-slide.html",
+        "02-slide.html",
+        "03-slide.html",
+        "04-slide.html",
+        "05-slide.html",
+        "06-slide.html",
+        "07-slide.html",
+        "08-slide.html",
+        "09-slide.html",
+        "10-slide.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-controls",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "blue-professional",
+      "name": "Blue Professional",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "certified",
+      "tagline": "Cream paper background with electric cobalt blue accents; clean modern professional.",
+      "mood": [
+        "professional",
+        "modern",
+        "calm",
+        "trustworthy"
+      ],
+      "occasion": [
+        "B2B SaaS pitch",
+        "consulting deliverable",
+        "internal review",
+        "advisory pitch",
+        "investor update"
+      ],
+      "tone": [
+        "clean",
+        "considered",
+        "polished",
+        "neutral"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel modern-considered and lightly authoritative: B2B SaaS pitches, consulting deliverables, advisory updates, investor reports. Also a clean, tasteful choice whenever you want to read as professional without going stiff \u2014 research synthesis, internal reviews, brand work for service businesses.",
+      "avoidFor": "Contexts where the deck should feel hot, playful, or intentionally informal \u2014 the cool electric-blue restraint will read as overly polished.",
+      "slideCount": 10,
+      "fonts": [
+        "Space Grotesk",
+        "Inter"
+      ],
+      "localFonts": [
+        "Space Grotesk",
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#FDFAE7",
+        "primary": "#1E2BFA",
+        "text": "#111111",
+        "text_muted": "#6B6B6B"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-agenda.html",
+        "03-metrics.html",
+        "04-dashboard.html",
+        "05-split.html",
+        "06-bars.html",
+        "07-quote.html",
+        "08-timeline.html",
+        "09-detail.html",
+        "10-closing.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "06.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide",
+          ".slide-content"
+        ],
+        "background": [],
+        "chrome": [
+          ".keyboard-hint",
+          ".nav-controls",
+          ".progress-bar",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "bold-poster",
+      "name": "Bold Poster",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Editorial poster aesthetic with massive Smiley Sans display and a single fire-engine red accent.",
+      "mood": [
+        "bold",
+        "editorial",
+        "loud",
+        "confident"
+      ],
+      "occasion": [
+        "brand manifesto",
+        "creative-led pitch",
+        "magazine / editorial",
+        "founder vision deck",
+        "art / culture"
+      ],
+      "tone": [
+        "dramatic",
+        "graphic",
+        "sharp",
+        "intentional"
+      ],
+      "formality": "medium",
+      "density": "low",
+      "scheme": "light",
+      "bestFor": "Anything that should land like a magazine cover: brand manifestos, founder vision decks, editorial / cultural pitches, creative reviews. Excellent any time you want a few words to feel like a poster \u2014 including unexpected fits like a tech keynote or a finance manifesto that wants to be quotable.",
+      "avoidFor": "Decks that need to communicate dense information per slide \u2014 the layout is built around a few large statements, not paragraphs of detail.",
+      "slideCount": 10,
+      "fonts": [
+        "Smiley Sans",
+        "Lora",
+        "Space Grotesk"
+      ],
+      "localFonts": [
+        "Smiley Sans",
+        "Lora",
+        "Space Grotesk"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#FFFFFF",
+        "dark": "#1C1410",
+        "red": "#D8000F",
+        "light": "#F5F2EF"
+      },
+      "layouts": [
+        "01-hero.html",
+        "02-red.html",
+        "03-summary.html",
+        "04-financial.html",
+        "05-stat.html",
+        "06-services.html",
+        "07-roadmap.html",
+        "08-pillars.html",
+        "09-global.html",
+        "10-close.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".counter",
+          ".hint"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "broadside",
+      "name": "Broadside",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Dark editorial canvas with a single fire orange accent and bilingual Latin/Chinese type stack.",
+      "mood": [
+        "editorial",
+        "dramatic",
+        "loud",
+        "newspaper"
+      ],
+      "occasion": [
+        "brand manifesto",
+        "founder vision deck",
+        "magazine / cultural pitch",
+        "design talk",
+        "bilingual EN/CN deck",
+        "campaign launch"
+      ],
+      "tone": [
+        "graphic",
+        "punchy",
+        "literary",
+        "considered"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "dark",
+      "bestFor": "Anything that should land like a broadside newspaper headline: brand manifestos, magazine and cultural pitches, design talks, bilingual EN/CN decks, founder vision statements. Also a striking pick for tech, research, or business decks that want a dramatic single-accent editorial feel.",
+      "avoidFor": "Decks that need to feel quiet, warm, or institutionally traditional \u2014 the dark canvas with fire-orange accent commits to drama.",
+      "slideCount": 20,
+      "fonts": [
+        "Work Sans",
+        "IBM Plex Mono",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Work Sans",
+        "IBM Plex Mono",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#111111",
+        "bg_alt": "#1a1a18",
+        "fg": "#f0ece5",
+        "accent": "#e85d26",
+        "border": "#282826",
+        "muted": "#888880"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-chapter.html",
+        "03-statement.html",
+        "04-split.html",
+        "05-stats.html",
+        "06-fadelist.html",
+        "07-list.html",
+        "08-quote.html",
+        "09-compare.html",
+        "10-chart.html",
+        "11-diagram.html",
+        "12-pie.html",
+        "13-pyramid.html",
+        "14-vtimeline.html",
+        "15-cycle.html",
+        "16-end.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "13.png",
+        "04.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".broadside-top-chrome",
+          ".cover-meta",
+          ".slide-chrome",
+          ".slide-foot"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "capsule",
+      "name": "Capsule",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Modular pill-shaped cards on warm bone with a full pastel-pop palette.",
+      "mood": [
+        "playful",
+        "modern",
+        "warm",
+        "fresh",
+        "fun"
+      ],
+      "occasion": [
+        "lifestyle brand",
+        "creator portfolio",
+        "DTC product launch",
+        "wellness or beauty pitch",
+        "Y2K-tinged brand work"
+      ],
+      "tone": [
+        "upbeat",
+        "graphic",
+        "approachable",
+        "cool"
+      ],
+      "formality": "medium-low",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel modular, modern, and a little Y2K: lifestyle brands, creator portfolios, DTC launches, beauty / wellness, agency credentials. Also fun for a playful tech demo or a research deck that wants pop-art clarity instead of gravitas.",
+      "avoidFor": "Contexts that require traditional institutional weight \u2014 the capsule shapes and pastel pops actively soften authority.",
+      "slideCount": 10,
+      "fonts": [
+        "Cormorant Garamond",
+        "Space Grotesk"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "Space Grotesk"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#F5F5F0",
+        "fg": "#1A1A1A",
+        "coral": "#E85D4E",
+        "lime": "#C4D94E",
+        "lavender": "#C5B5E0",
+        "sky": "#8BB4F7",
+        "violet": "#A06CE8",
+        "yellow": "#F2D160",
+        "peach": "#F5B895",
+        "mint": "#A8E6CF"
+      },
+      "layouts": [
+        "01-slide.html",
+        "02-slide.html",
+        "03-slide.html",
+        "04-slide.html",
+        "05-slide.html",
+        "06-slide.html",
+        "07-slide.html",
+        "08-slide.html",
+        "09-slide.html",
+        "10-slide.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-dots",
+          ".nav-hint",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "cartesian",
+      "name": "Cartesian",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Quiet warm-neutral palette with classical Lora serifs; tasteful and unhurried.",
+      "mood": [
+        "quiet",
+        "considered",
+        "elegant",
+        "warm-minimal"
+      ],
+      "occasion": [
+        "investment thesis",
+        "white paper",
+        "advisory deliverable",
+        "research report",
+        "book / longform pitch",
+        "gallery / cultural"
+      ],
+      "tone": [
+        "classical",
+        "literary",
+        "restrained",
+        "confident-quiet"
+      ],
+      "formality": "high",
+      "density": "low",
+      "scheme": "light",
+      "bestFor": "Anything that should feel quiet, considered, and grown-up: investment theses, white papers, advisory work, longform research, gallery / cultural decks. Also a strong choice for editorial features, founder reflections, or any deck where restraint is the message \u2014 including across tech and finance.",
+      "avoidFor": "Decks that need visual heat, multiple accents, or a sense of urgency \u2014 the warm-neutral palette is intentionally low-energy.",
+      "slideCount": 10,
+      "fonts": [
+        "Lora",
+        "Inter"
+      ],
+      "localFonts": [
+        "Lora",
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg_primary": "#EDE8E0",
+        "bg_secondary": "#E2DBD1",
+        "text_primary": "#1A1A1A",
+        "text_secondary": "#5A5A5A",
+        "accent": "#8A8178",
+        "line": "#B8B0A4"
+      },
+      "layouts": [
+        "01-title.html",
+        "02-agenda.html",
+        "03-statement.html",
+        "04-barchart.html",
+        "05-twocol.html",
+        "06-cards.html",
+        "07-linechart.html",
+        "08-timeline.html",
+        "09-team.html",
+        "10-closing.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-arrows",
+          ".nav-dots",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "cobalt-grid",
+      "name": "Cobalt Grid",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Electric cobalt serifs on a graph-paper canvas, anchored by stair-stepped pixel-glitch decorations and slim hairline rules.",
+      "mood": [
+        "editorial",
+        "design-research",
+        "studious",
+        "modernist",
+        "tech-print",
+        "monochrome"
+      ],
+      "occasion": [
+        "design trend or research report",
+        "studio annual or seasonal bulletin",
+        "creative agency capabilities deck",
+        "art or architecture publication",
+        "academic / curatorial publication",
+        "newsletter or zine pitch"
+      ],
+      "tone": [
+        "considered",
+        "literary",
+        "studious",
+        "quietly-modern",
+        "editorial"
+      ],
+      "formality": "high",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel like a quietly serious design / research bulletin, art publication, or curated trend report. Strong for studio annuals, agency capabilities decks, design-research publications, architecture / art / academic decks, and any deck wanting one strict accent colour and a printed-ledger calmness rather than corporate polish.",
+      "avoidFor": "Decks that need warmth, multi-colour energy, or a casual / playful voice \u2014 the strict cobalt + cream + grid palette is intentionally austere.",
+      "slideCount": 8,
+      "fonts": [
+        "Source Serif 4",
+        "Albert Sans",
+        "IBM Plex Mono"
+      ],
+      "localFonts": [
+        "Source Serif 4",
+        "Albert Sans",
+        "IBM Plex Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "paper": "#F0EBDE",
+        "ink": "#1F2BE0",
+        "ink-soft": "#5560E5",
+        "grid": "rgba(31,43,224,0.10)"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-manifesto.html",
+        "03-index.html",
+        "04-chapter.html",
+        "05-data.html",
+        "06-quote.html",
+        "07-table.html",
+        "08-colophon.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "05.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-hint",
+          ".pagenum"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "coral",
+      "name": "Coral",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Cream and coral on near-black, set in oversized Big Shoulders Display.",
+      "mood": [
+        "bold",
+        "warm",
+        "modern",
+        "confident"
+      ],
+      "occasion": [
+        "fashion / beauty pitch",
+        "fitness brand",
+        "F&B brand deck",
+        "lifestyle launch",
+        "creative agency"
+      ],
+      "tone": [
+        "graphic",
+        "punchy",
+        "magazine"
+      ],
+      "formality": "medium",
+      "density": "medium",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel warm-graphic and editorial: fashion, beauty, fitness, F&B, lifestyle brands, agency credentials. Just as strong for a creator portfolio, a manifesto, or a tech / research deck that wants warmth and a single bold accent instead of corporate cool.",
+      "avoidFor": "Contexts that should feel quiet or institutional \u2014 the coral accent and oversized Big Shoulders Display commit hard to a confident magazine voice.",
+      "slideCount": 10,
+      "fonts": [
+        "Big Shoulders Display",
+        "Inter"
+      ],
+      "localFonts": [
+        "Big Shoulders Display",
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "coral": "#E85D5D",
+        "coral_dark": "#D44A4A",
+        "cream": "#F5F0E8",
+        "cream_dark": "#E8E0D4",
+        "ink": "#1A1A1A",
+        "gray": "#6B6B6B"
+      },
+      "layouts": [
+        "01-slide.html",
+        "02-slide.html",
+        "03-slide.html",
+        "04-slide.html",
+        "05-slide.html",
+        "06-slide.html",
+        "07-slide.html",
+        "08-slide.html",
+        "09-slide.html",
+        "10-slide.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-arrows",
+          ".nav-dots",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "creative-mode",
+      "name": "Creative Mode",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Cream paper canvas with confident multi-color (green, pink, orange, yellow) accents and Inter display.",
+      "mood": [
+        "creative",
+        "confident",
+        "playful",
+        "design-led"
+      ],
+      "occasion": [
+        "creative agency pitch",
+        "design studio deck",
+        "ad shop credentials",
+        "brand creative review",
+        "concept presentation"
+      ],
+      "tone": [
+        "graphic",
+        "expressive",
+        "modern"
+      ],
+      "formality": "medium",
+      "density": "medium-high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel design-led and confident: creative agency pitches, design studio decks, ad shop credentials, brand creative reviews, art-direction reviews. Also a great unexpected pick for a tech talk, research findings, or finance review when the speaker wants to lead with taste rather than convention.",
+      "avoidFor": "Contexts that demand institutional restraint and a quiet authority \u2014 the saturated multi-accent palette will read as expressive, not formal.",
+      "slideCount": 8,
+      "fonts": [
+        "Inter",
+        "Space Grotesk",
+        "JetBrains Mono"
+      ],
+      "localFonts": [
+        "Inter",
+        "Space Grotesk",
+        "JetBrains Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "cream": "#EFE9D9",
+        "cream_2": "#E4DCC4",
+        "green": "#1F8A4C",
+        "pink": "#F06CA8",
+        "orange": "#E85A1F",
+        "yellow": "#F5C518",
+        "ink": "#0F0F0F"
+      },
+      "layouts": [
+        "01-s1.html",
+        "02-s2.html",
+        "03-s3.html",
+        "04-s4.html",
+        "05-s5.html",
+        "06-s6.html",
+        "07-s7.html",
+        "08-s8.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "06.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "deck-stage > section"
+        ],
+        "background": [],
+        "chrome": [
+          ".slide-meta",
+          ".topbar"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "daisy-days",
+      "name": "Daisy Days",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Cheerful pastel deck with hand-drawn daisies, stars, and rainbows. Friendly, soft, and warm.",
+      "mood": [
+        "cheerful",
+        "playful",
+        "warm",
+        "sunny",
+        "wholesome"
+      ],
+      "occasion": [
+        "education / classroom",
+        "kids product launch",
+        "wellness program",
+        "community workshop",
+        "creator portfolio (craft / illustration)",
+        "team kickoff",
+        "wedding / baby shower planning"
+      ],
+      "tone": [
+        "friendly",
+        "soft",
+        "encouraging",
+        "approachable",
+        "lighthearted"
+      ],
+      "formality": "low",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel friendly, soft, and joyful: educational content, kids and family, wellness programs, community workshops, creator portfolios for craft / illustration. Also lovely for an unexpected playful internal kickoff, a wedding planning deck, or any moment where warmth is the message \u2014 including across tech or business contexts.",
+      "avoidFor": "Contexts where the audience explicitly expects authority and precision \u2014 the hand-drawn pastel SVG decorations are the opposite of buttoned-up.",
+      "slideCount": 10,
+      "fonts": [
+        "Smiley Sans",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Smiley Sans",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "cream": "#F5F0E6",
+        "turquoise": "#7ECDC0",
+        "soft_pink": "#F7C8D4",
+        "butter": "#FDE68A",
+        "mint": "#A8E6CF",
+        "lavender": "#D4A5E8",
+        "peach": "#FFCBA4",
+        "sky": "#A8D8F0",
+        "coral": "#F8635F",
+        "ink": "#2D2D2D"
+      },
+      "layouts": [
+        "01-title.html",
+        "02-welcome.html",
+        "03-weekly.html",
+        "04-timeline.html",
+        "05-chart-bar.html",
+        "06-cards.html",
+        "07-quote.html",
+        "08-team.html",
+        "09-process.html",
+        "10-donut.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-dots",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "editorial-forest",
+      "name": "Editorial Forest",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Forest green, dusty pink, and warm cream meet Source Serif 4 in a quiet, intentional quarterly-review deck.",
+      "mood": [
+        "editorial",
+        "quiet",
+        "considered",
+        "warm",
+        "intentional"
+      ],
+      "occasion": [
+        "quarterly review",
+        "internal readout",
+        "studio update",
+        "creative agency deck",
+        "research recap"
+      ],
+      "tone": [
+        "literary",
+        "thoughtful",
+        "warm",
+        "low-pressure"
+      ],
+      "formality": "medium",
+      "density": "medium",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel like a considered editorial \u2014 quarterly reviews, internal readouts, studio updates, creative-agency presentations. Equally good for any deck that wants to feel warm and unhurried rather than corporate, including research recaps, book or program announcements, and team retrospectives.",
+      "avoidFor": "Contexts that need to feel urgent, punchy, or sales-driven \u2014 the palette and rhythm are intentionally quiet.",
+      "slideCount": 8,
+      "fonts": [
+        "Source Serif 4",
+        "JetBrains Mono"
+      ],
+      "localFonts": [
+        "Source Serif 4",
+        "JetBrains Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "forest_green": "#2e4a2a",
+        "pink": "#e89cb1",
+        "cream": "#efe7d4",
+        "ink": "#1a1a17"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-agenda.html",
+        "03-statement.html",
+        "04-two-col.html",
+        "05-data.html",
+        "06-framework.html",
+        "07-stats.html",
+        "08-summary.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "02.png",
+        "05.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "section"
+        ],
+        "background": [],
+        "chrome": [
+          ".cover .footline",
+          ".footline",
+          ".label",
+          ".topbar"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "editorial-tri-tone",
+      "name": "Editorial Tri-Tone",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Three-color editorial system: dusty pink, mustard cream, and deep burgundy, set in Albert Sans + Cormorant Garamond.",
+      "mood": [
+        "editorial",
+        "warm",
+        "intentional",
+        "moody"
+      ],
+      "occasion": [
+        "editorial / magazine pitch",
+        "fashion brand deck",
+        "lifestyle media",
+        "literary / cultural",
+        "art direction review"
+      ],
+      "tone": [
+        "literary",
+        "warm",
+        "considered",
+        "stylish"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel like a fashion-magazine spread: editorial pitches, fashion brand decks, lifestyle media, art direction reviews. Equally good for any deck \u2014 including tech, research, or business \u2014 that wants tri-tone discipline and serif/sans contrast instead of the usual neutrals.",
+      "avoidFor": "Decks that need to read as soft or comforting \u2014 the burgundy/pink/cream tri-tone is intentionally high-contrast and styled.",
+      "slideCount": 8,
+      "fonts": [
+        "Albert Sans",
+        "Cormorant Garamond",
+        "JetBrains Mono"
+      ],
+      "localFonts": [
+        "Albert Sans",
+        "Cormorant Garamond",
+        "JetBrains Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "pink": "#F2B6C6",
+        "cream_yellow": "#F2D86A",
+        "burgundy": "#7A1F35"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-manifesto.html",
+        "03-grid.html",
+        "04-stat.html",
+        "05-timeline.html",
+        "06-chart.html",
+        "07-quote.html",
+        "08-closer.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "04.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "deck-stage section"
+        ],
+        "background": [],
+        "chrome": [
+          ".footer",
+          ".s-cover .meta"
+        ],
+        "safeX": 136,
+        "safeY": 128
+      }
+    },
+    {
+      "slug": "emerald-editorial",
+      "name": "Emerald Editorial",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "A magazine-cover business deck: emerald + navy + paper, double-rule masthead ornaments, and a bold Cormorant Garamond-style display serif.",
+      "mood": [
+        "editorial",
+        "considered",
+        "confident",
+        "magazine-cover"
+      ],
+      "occasion": [
+        "leadership presentation",
+        "quarterly review",
+        "strategy readout",
+        "planning office deck",
+        "executive briefing"
+      ],
+      "tone": [
+        "literary",
+        "authoritative",
+        "warm",
+        "designed"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel like the front of a serious magazine, including but not limited to leadership readouts, planning-office reviews, and strategy briefings. The double-rule masthead ornament gives it editorial gravitas without making it stiff \u2014 also a great unexpected pick for product launches or research recaps that want to feel considered rather than corporate.",
+      "avoidFor": "Contexts that need to read as quiet, neutral, or institutionally restrained \u2014 the emerald field is too saturated to disappear into the background.",
+      "slideCount": 8,
+      "fonts": [
+        "Cormorant Garamond",
+        "Albert Sans",
+        "Lora"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "Albert Sans",
+        "Lora"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "emerald": "#3CD896",
+        "navy": "#0F1A5C",
+        "paper": "#F1E9D6"
+      },
+      "layouts": [
+        "01-s1.html",
+        "02-s2.html",
+        "03-s3.html",
+        "04-s4.html",
+        "05-s5.html",
+        "06-s6.html",
+        "07-s7.html",
+        "08-s8.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "06.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "section.slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".footline",
+          ".masthead"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "grove",
+      "name": "Grove",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Forest-green canvas with cream type, classical Lora serifs, and a single rust accent.",
+      "mood": [
+        "organic",
+        "considered",
+        "warm",
+        "literary",
+        "natural"
+      ],
+      "occasion": [
+        "sustainability brand",
+        "wellness brand",
+        "outdoor / nature product",
+        "winery or restaurant",
+        "literary or arts deck",
+        "advisory deliverable",
+        "bilingual EN/CN deck"
+      ],
+      "tone": [
+        "classical",
+        "warm",
+        "considered",
+        "patient"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel organic, considered, and grown-up: sustainability and wellness brands, outdoor / nature products, wineries and restaurants, literary or arts decks, advisory deliverables, bilingual EN/CN reports. Also a calm, distinctive choice for tech, research, or business decks that want patience over urgency.",
+      "avoidFor": "Decks that need neon energy or rapid-fire pop \u2014 the forest-green canvas and Lora serif commit to a slow, classical voice.",
+      "slideCount": 12,
+      "fonts": [
+        "Lora",
+        "Jost",
+        "JetBrains Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Lora",
+        "Jost",
+        "JetBrains Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#192b1b",
+        "bg_alt": "#1e3221",
+        "fg": "#d4cfbf",
+        "accent": "#c8524a",
+        "bg_light": "#e8e4d6"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-chapter.html",
+        "03-statement.html",
+        "04-split.html",
+        "05-stats.html",
+        "06-list.html",
+        "07-quote.html",
+        "08-compare.html",
+        "09-chapter.html",
+        "10-statement.html",
+        "11-chart.html",
+        "12-end.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide",
+          ".slide-body"
+        ],
+        "background": [],
+        "chrome": [
+          "#nav-dots",
+          "#slide-counter",
+          ".label",
+          ".slide-foot"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "long-table",
+      "name": "Long Table",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Warm cream and rust-red supper-club aesthetic with bold uppercase grotesk headlines, Lora serifs, and pill-shaped outlined buttons.",
+      "mood": [
+        "warm",
+        "intimate",
+        "modern",
+        "friendly",
+        "small-batch",
+        "social",
+        "hospitality"
+      ],
+      "occasion": [
+        "supper club or dinner series",
+        "event or community gathering",
+        "small hospitality / restaurant brand",
+        "creative studio open house",
+        "membership or subscription pitch",
+        "wine or food brand catalogue",
+        "modern lifestyle brand"
+      ],
+      "tone": [
+        "warm",
+        "playful",
+        "considered",
+        "social",
+        "magazine-friendly",
+        "modern-editorial"
+      ],
+      "formality": "medium",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel like a warm, intimate, modern hospitality / community brand: supper clubs, dinner series, small restaurants, creative-studio events, membership pitches, lifestyle and wine brands. Equally good for any deck wanting a single warm accent colour, mixed-weight typography, and a social-media-aware modern-editorial voice.",
+      "avoidFor": "Decks that need corporate polish, technical density, or a cold / minimalist register \u2014 the rust-red palette and bold serif mix are intentionally warm and people-facing.",
+      "slideCount": 8,
+      "fonts": [
+        "Albert Sans",
+        "Lora"
+      ],
+      "localFonts": [
+        "Albert Sans",
+        "Lora"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "paper": "#FAF1E2",
+        "ink": "#B53D2A",
+        "ink-deep": "#8E2D1F"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-manifesto.html",
+        "03-index.html",
+        "04-featured.html",
+        "05-menu.html",
+        "06-quote.html",
+        "07-cal.html",
+        "08-closing.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "07.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-hint",
+          ".pagenum"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "mat",
+      "name": "Mat",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Dark sage canvas with bone paper and burnt-orange accent; mid-century modern with wood undertones.",
+      "mood": [
+        "warm-modern",
+        "considered",
+        "tactile",
+        "mid-century"
+      ],
+      "occasion": [
+        "design studio credentials",
+        "architecture / interior brand",
+        "ceramics or craft brand",
+        "furniture pitch",
+        "advisory deliverable",
+        "bilingual EN/CN deck"
+      ],
+      "tone": [
+        "warm",
+        "design-led",
+        "intentional",
+        "considered"
+      ],
+      "formality": "medium",
+      "density": "medium",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel mid-century, tactile, and intentional: design studio credentials, architecture / interior brands, ceramics / craft / furniture, advisory decks. Also a warm, distinctive choice for tech, research, or business decks that want a considered analog feel instead of digital-cool.",
+      "avoidFor": "Contexts that need fast tech energy or institutional restraint \u2014 the muted sage and burnt-orange palette is intentionally warm and slow.",
+      "slideCount": 9,
+      "fonts": [
+        "Albert Sans",
+        "DM Sans",
+        "IBM Plex Mono",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Albert Sans",
+        "DM Sans",
+        "IBM Plex Mono",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#232e26",
+        "bg_alt": "#2e3d30",
+        "fg": "#f0e8d2",
+        "accent": "#c07030",
+        "bg_light": "#ede6d0",
+        "wood": "#7a4e24"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-statement.html",
+        "03-split.html",
+        "04-stats.html",
+        "05-quote.html",
+        "06-list.html",
+        "07-compare.html",
+        "08-chart.html",
+        "09-end.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "monochrome",
+      "name": "Monochrome",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "certified",
+      "tagline": "Ivory ledger paper with all-black type; Lora serif headlines, Jost body, no color at all.",
+      "mood": [
+        "restrained",
+        "literary",
+        "archival",
+        "ledger"
+      ],
+      "occasion": [
+        "user research synthesis",
+        "white paper",
+        "longform report",
+        "academic deck",
+        "policy brief",
+        "advisory deliverable",
+        "bilingual EN/CN deck"
+      ],
+      "tone": [
+        "literary",
+        "considered",
+        "neutral",
+        "honest"
+      ],
+      "formality": "high",
+      "density": "high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel like a hand-typeset ledger: user research synthesis, white papers, longform reports, academic and policy briefs, advisory deliverables, bilingual EN/CN reports. Equally good for tech, design, or brand decks that want their words to be the only thing on the page.",
+      "avoidFor": "Decks that need visual personality or color-led storytelling \u2014 the all-ink palette is intentionally austere.",
+      "slideCount": 18,
+      "fonts": [
+        "Lora",
+        "Jost",
+        "JetBrains Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Lora",
+        "Jost",
+        "JetBrains Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#fafadf",
+        "bg_alt": "#f2f2d2",
+        "bg_cream": "#f5f0e4",
+        "fg": "#1a1a16",
+        "fg_2": "#5e5e54"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-chapter.html",
+        "03-statement.html",
+        "04-split.html",
+        "05-stats.html",
+        "06-list.html",
+        "07-compare.html",
+        "08-quote.html",
+        "09-dense.html",
+        "10-chart.html",
+        "11-diagram.html",
+        "12-pie.html",
+        "13-vtimeline.html",
+        "14-cycle.html",
+        "15-pyramid.html",
+        "16-end.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "12.png",
+        "04.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide",
+          ".slide-body"
+        ],
+        "background": [],
+        "chrome": [
+          "#nav-dots",
+          "#slide-counter",
+          ".sidebar-label",
+          ".slide-foot"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "neo-grid-bold",
+      "name": "Neo-Grid Bold",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "certified",
+      "tagline": "Editorial neo-brutalism with a single neon yellow accent on off-white paper.",
+      "mood": [
+        "confident",
+        "punchy",
+        "editorial",
+        "modern"
+      ],
+      "occasion": [
+        "product launch",
+        "design review",
+        "founder pitch",
+        "brand deck",
+        "consulting findings",
+        "conference talk"
+      ],
+      "tone": [
+        "bold",
+        "minimal",
+        "design-led",
+        "graphic"
+      ],
+      "formality": "medium",
+      "density": "high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel confident and editorial-graphic: design-led pitches, brand work, founder talks, conference keynotes. Excellent for stat-heavy slides, comparisons, and process flows. Just as strong for tech, research, or finance when the speaker wants to read as design-led rather than corporate.",
+      "avoidFor": "Contexts that need to feel quiet, traditional, or warm \u2014 the neon-yellow accent and uppercase display commit to a confident editorial voice.",
+      "slideCount": 13,
+      "fonts": [
+        "Space Grotesk",
+        "JetBrains Mono"
+      ],
+      "localFonts": [
+        "Space Grotesk",
+        "JetBrains Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#ECECE8",
+        "ink": "#0A0A0A",
+        "paper": "#F5F4EF",
+        "accent": "#E6FF3D",
+        "muted": "#8A8A85"
+      },
+      "layouts": [
+        "01-01-cover.html",
+        "02-02-contents.html",
+        "03-03-digits-in-numbers.html",
+        "04-04-key-features.html",
+        "05-05-market-penetration.html",
+        "06-06-section-vision.html",
+        "07-07-client-voice.html",
+        "08-08-next-steps.html",
+        "09-09-findings-detail.html",
+        "10-10-retention-curve.html",
+        "11-11-process.html",
+        "12-12-comparison.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".frame"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "peoples-platform",
+      "name": "People's Platform (Block & Bold)",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Activist poster energy: blue, orange, red on cream, with Source Serif 4 + LXGW WenKai.",
+      "mood": [
+        "activist",
+        "loud",
+        "graphic",
+        "honest"
+      ],
+      "occasion": [
+        "cultural commentary",
+        "manifesto",
+        "community / civic deck",
+        "design talk",
+        "campaign pitch",
+        "founder vision"
+      ],
+      "tone": [
+        "punchy",
+        "direct",
+        "expressive",
+        "warm-bold"
+      ],
+      "formality": "medium-low",
+      "density": "medium-high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel honest, loud, and graphic: cultural commentary, manifestos, civic and community decks, design talks, campaign pitches. Excellent for founder-vision moments, mission statements, or any deck \u2014 including across industries \u2014 that wants protest-poster energy instead of corporate polish.",
+      "avoidFor": "Contexts where institutional restraint is the actual goal \u2014 the saturated political-poster palette commits hard to expressive energy.",
+      "slideCount": 10,
+      "fonts": [
+        "Source Serif 4",
+        "Inter",
+        "LXGW WenKai",
+        "IBM Plex Mono"
+      ],
+      "localFonts": [
+        "Source Serif 4",
+        "Inter",
+        "LXGW WenKai",
+        "IBM Plex Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "blue": "#2C2CDC",
+        "orange": "#F2A03A",
+        "red": "#E83A2A",
+        "cream": "#F4E9D6",
+        "ink": "#0E0E14"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-toc.html",
+        "03-manifesto.html",
+        "04-pillars.html",
+        "05-stat.html",
+        "06-platform.html",
+        "07-quote.html",
+        "08-timeline.html",
+        "09-compare.html",
+        "10-close.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "deck-stage > section"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "pin-and-paper",
+      "name": "Pin & Paper",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Yellow paper with safety-pin illustrations, ink-blue handwritten LXGW WenKai, paper-grain texture.",
+      "mood": [
+        "crafted",
+        "handmade",
+        "warm",
+        "thoughtful",
+        "literary"
+      ],
+      "occasion": [
+        "research findings with personality",
+        "qualitative report",
+        "founder reflection",
+        "creator essay deck",
+        "workshop debrief"
+      ],
+      "tone": [
+        "literary",
+        "intimate",
+        "warm",
+        "grounded"
+      ],
+      "formality": "medium",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel hand-crafted, warm, and literary: qualitative research findings, founder reflections, longform brand stories, workshop debriefs. The signature safety-pin illustrations and paper-grain texture make it especially good for any deck \u2014 including tech or business \u2014 that wants personality and warmth over polish.",
+      "avoidFor": "Decks that need to feel digital-native polished or rigorously data-driven \u2014 handwritten LXGW WenKai is intentionally informal.",
+      "slideCount": 11,
+      "fonts": [
+        "LXGW WenKai",
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "localFonts": [
+        "LXGW WenKai",
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "paper": "#EFE56A",
+        "cream": "#F8F1D6",
+        "ink": "#1F3A8A",
+        "red": "#C2342B"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-agenda.html",
+        "03-notes.html",
+        "04-sec.html",
+        "05-notice.html",
+        "06-chart.html",
+        "07-process.html",
+        "08-matrix.html",
+        "09-stats.html",
+        "10-quote.html",
+        "11-cta.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "11.png",
+        "03.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "section.slide"
+        ],
+        "background": [
+          ".pin",
+          ".s-chart .pin-deco",
+          ".s-cover .pin-1",
+          ".s-cover .pin-2",
+          ".s-process .arr",
+          ".s-sec .pin-big"
+        ],
+        "chrome": [
+          ".footer",
+          ".s-sec .label",
+          ".s-sec .marker",
+          ".top"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "pink-script",
+      "name": "Pink Script \u2014 After Hours",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Black canvas, hot pink accent, pearl-cream paper, Cormorant Garamond headlines: late-night editorial luxury.",
+      "mood": [
+        "nocturnal",
+        "moody",
+        "intentional",
+        "luxe",
+        "expressive"
+      ],
+      "occasion": [
+        "fashion brand deck",
+        "creator personal brand",
+        "after-hours product (nightlife / dating / spirits)",
+        "luxury launch",
+        "editorial feature"
+      ],
+      "tone": [
+        "literary",
+        "sultry",
+        "considered",
+        "magazine"
+      ],
+      "formality": "medium-high",
+      "density": "low",
+      "scheme": "dark",
+      "bestFor": "Anything that should feel nocturnal, intentional, and a little luxe: fashion brand decks, creator personal brands, after-hours / nightlife / spirits launches, luxury product reveals, editorial features. Also a striking unexpected pick for a tech keynote, research synthesis, or business pitch that wants to land with magnetic confidence.",
+      "avoidFor": "Daytime corporate-professional and traditional B2B contexts where the dark canvas with hot-pink accent reads as too styled or too expressive.",
+      "slideCount": 9,
+      "fonts": [
+        "Lora",
+        "Inter",
+        "JetBrains Mono"
+      ],
+      "localFonts": [
+        "Lora",
+        "Inter",
+        "JetBrains Mono"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "ink": "#060507",
+        "paper": "#F5EDF1",
+        "pink": "#ED3D8C",
+        "pink_2": "#FF66A8",
+        "pink_deep": "#B81D67"
+      },
+      "layouts": [
+        "01-01-cover.html",
+        "02-02-the-index.html",
+        "03-03-by-the-numbers.html",
+        "04-04-movements.html",
+        "05-05-the-curve.html",
+        "06-06-process.html",
+        "07-07-the-field.html",
+        "08-08-voices.html",
+        "09-09-encore.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "deck-stage > section.slide"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "playful",
+      "name": "Playful",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Sun-warm peach background with Space Grotesk display: a friendly indie launch deck.",
+      "mood": [
+        "warm",
+        "approachable",
+        "indie",
+        "friendly"
+      ],
+      "occasion": [
+        "creator portfolio",
+        "indie product launch",
+        "lifestyle brand",
+        "small-business pitch",
+        "newsletter / community"
+      ],
+      "tone": [
+        "upbeat",
+        "informal",
+        "welcoming"
+      ],
+      "formality": "low",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel warm, indie, and approachable: creator portfolios, indie product launches, lifestyle brands, small-business pitches, newsletter / community decks. Also welcoming for any deck \u2014 including tech or research \u2014 that wants to feel friendly and human rather than corporate.",
+      "avoidFor": "Contexts where institutional credibility matters more than warmth \u2014 the peach palette is intentionally informal.",
+      "slideCount": 10,
+      "fonts": [
+        "Space Grotesk"
+      ],
+      "localFonts": [
+        "Space Grotesk"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#F0C8A0",
+        "bg_alt": "#E8B88E",
+        "text": "#1A1A1A",
+        "light": "#F7DEC6"
+      },
+      "layouts": [
+        "01-slide.html",
+        "02-slide.html",
+        "03-slide.html",
+        "04-slide.html",
+        "05-slide.html",
+        "06-slide.html",
+        "07-slide.html",
+        "08-slide.html",
+        "09-slide.html",
+        "10-slide.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "06.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-controls",
+          ".progress-bar"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "raw-grid",
+      "name": "Raw Grid",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Neo-brutalist deck with thick borders, offset shadows, and a pink/sage/ink palette.",
+      "mood": [
+        "raw",
+        "punchy",
+        "energetic",
+        "confident"
+      ],
+      "occasion": [
+        "startup pitch",
+        "accelerator demo day",
+        "founder pitch",
+        "indie product launch",
+        "brand deck",
+        "creator portfolio"
+      ],
+      "tone": [
+        "direct",
+        "modern",
+        "no-nonsense",
+        "graphic"
+      ],
+      "formality": "medium-low",
+      "density": "high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel direct and graphic-confident: founder pitches, accelerator demos, brand decks, indie launches, creator portfolios. Strong for stat slides, comparison tables, and process flows. Equally good for tech, research, or finance when the speaker wants the deck to feel scrappy-confident rather than buttoned-up.",
+      "avoidFor": "Contexts that need to feel soft, warm, or intentionally quiet \u2014 the brutalist borders and offset shadows commit to a graphic voice.",
+      "slideCount": 10,
+      "fonts": [
+        "Inter"
+      ],
+      "localFonts": [
+        "Inter"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "primary": "#FFFFFF",
+        "ink": "#0A0A0A",
+        "pink": "#F2D4CF",
+        "green": "#E5EDD6",
+        "gray": "#F5F5F5"
+      },
+      "layouts": [
+        "01-s1.html",
+        "02-s2.html",
+        "03-s3.html",
+        "04-s4.html",
+        "05-s5.html",
+        "06-s6.html",
+        "07-s7.html",
+        "08-s8.html",
+        "09-s9.html",
+        "10-s10.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".s1-left",
+          ".s10-left",
+          ".s10-r-top",
+          ".s10-rb-block",
+          ".s2-block",
+          ".s2-left",
+          ".s3-chart-area",
+          ".s3-header",
+          ".s3-insights",
+          ".s4-card",
+          ".s4-header",
+          ".s5-text-area",
+          ".s6-header",
+          ".s6-step",
+          ".s7-left",
+          ".s7-right",
+          ".s8-bottom",
+          ".s8-statement",
+          ".s8-top",
+          ".s9-header",
+          ".s9-table-wrap",
+          ".slide",
+          ".slide-content"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "retro-windows",
+      "name": "Retro Windows",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Windows 95 chrome: gray title bars, Tahoma, pixel typography, full nostalgia.",
+      "mood": [
+        "nostalgic",
+        "retro",
+        "geeky",
+        "playful"
+      ],
+      "occasion": [
+        "retro gaming pitch",
+        "Y2K brand",
+        "creator portfolio (90s aesthetic)",
+        "tech-history talk",
+        "shitpost-but-make-it-fancy deck"
+      ],
+      "tone": [
+        "winking",
+        "nostalgic",
+        "geeky",
+        "fun"
+      ],
+      "formality": "low",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel knowingly nostalgic: retro gaming, Y2K-aesthetic brands, creator portfolios with a 90s vibe, tech-history talks, deliberately tongue-in-cheek decks. A great choice anywhere a playful retro reference is the entire point.",
+      "avoidFor": "Decks that need to read as modern, elegant, or institutionally credible \u2014 the Win95 chrome will always read as a costume.",
+      "slideCount": 10,
+      "fonts": [
+        "JetBrains Mono",
+        "Tahoma"
+      ],
+      "localFonts": [
+        "JetBrains Mono"
+      ],
+      "missingFonts": [
+        "Tahoma"
+      ],
+      "palette": {
+        "bg_gray": "#C0C0C0",
+        "bg_light": "#D4D0C8",
+        "blue_navy": "#000080",
+        "blue_light": "#1084D0",
+        "white": "#FFFFFF",
+        "black": "#000000"
+      },
+      "layouts": [
+        "01-slide.html",
+        "02-slide.html",
+        "03-slide.html",
+        "04-slide.html",
+        "05-slide.html",
+        "06-slide.html",
+        "07-slide.html",
+        "08-slide.html",
+        "09-slide.html",
+        "10-slide.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-dots",
+          ".nav-hint",
+          ".slide-counter",
+          ".win-buttons",
+          ".win-titlebar"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "retro-zine",
+      "name": "Retro Zine",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Beige paper with green accent and Big Shoulders Display + LXGW WenKai: a riso-printed zine in HTML form.",
+      "mood": [
+        "crafted",
+        "lo-fi",
+        "underground",
+        "warm-retro"
+      ],
+      "occasion": [
+        "indie zine / publication",
+        "music or arts brand",
+        "creator portfolio",
+        "small-batch / craft launch",
+        "cultural / community deck"
+      ],
+      "tone": [
+        "scrappy",
+        "warm",
+        "intentional",
+        "DIY"
+      ],
+      "formality": "medium-low",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel printed, lo-fi, and crafted: indie zines and publications, music / arts brands, creator portfolios, small-batch craft launches, community decks. Also a great underdog choice for tech, research, or business decks that want a riso-print warmth instead of digital polish.",
+      "avoidFor": "Contexts that demand digital-native polish or fast modern-tech energy \u2014 the layered zine aesthetic intentionally feels handmade.",
+      "slideCount": 10,
+      "fonts": [
+        "Big Shoulders Display",
+        "LXGW WenKai",
+        "Space Grotesk"
+      ],
+      "localFonts": [
+        "Big Shoulders Display",
+        "LXGW WenKai",
+        "Space Grotesk"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#C8B99A",
+        "bg_dark": "#B8A98A",
+        "green": "#008F4D",
+        "green_light": "#00A85D",
+        "black": "#1A1A1A",
+        "white": "#F4EFE6"
+      },
+      "layouts": [
+        "01-hero.html",
+        "02-split.html",
+        "03-statement.html",
+        "04-grid.html",
+        "05-visual.html",
+        "06-editorial.html",
+        "07-numbers.html",
+        "08-collage.html",
+        "09-rsvp.html",
+        "10-closing.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [
+          ".grain-overlay",
+          ".progress-bar"
+        ],
+        "chrome": [
+          ".nav-hint",
+          ".slide-counter"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "sakura-chroma",
+      "name": "Sakura Chroma",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "certified",
+      "tagline": "Vintage Japanese cassette-package aesthetic: cream paper, diagonal rainbow ribbons, condensed bold type, JIS-style spec checkboxes.",
+      "mood": [
+        "retro",
+        "playful",
+        "kawaii-tech",
+        "warm",
+        "tactile",
+        "product-catalogue"
+      ],
+      "occasion": [
+        "product launch or catalogue",
+        "indie hardware or analog studio brand",
+        "music label or release schedule",
+        "creative studio annual report",
+        "magazine or zine pitch",
+        "vintage-flavored brand campaign"
+      ],
+      "tone": [
+        "playful",
+        "confident",
+        "warm",
+        "tactile",
+        "80s-Japanese-tech"
+      ],
+      "formality": "low",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel like a vintage Japanese cassette package or a TDK / Sony / Sakura Color product catalogue: indie hardware brand decks, music-label release schedules, analog studio retrospectives, zine and magazine pitches, kawaii-tech product launches, creative-studio annual reports. Equally good for any deck wanting bold colour, condensed display type, and a tactile printed-product personality.",
+      "avoidFor": "Decks that need restrained, corporate, or quiet typography \u2014 the bold condensed lockups, ribbon stripes, and primary-colour palette are intentionally loud and product-page-y.",
+      "slideCount": 8,
+      "fonts": [
+        "Big Shoulders Display",
+        "Albert Sans",
+        "JetBrains Mono",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Big Shoulders Display",
+        "Albert Sans",
+        "JetBrains Mono",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "paper": "#F1E6CB",
+        "ink": "#3A2516",
+        "red": "#E5392A",
+        "pink": "#E54489",
+        "orange": "#F09131",
+        "yellow": "#F0BC2A",
+        "green": "#3D9F47",
+        "blue": "#3F8BC4"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-manifesto.html",
+        "03-catalogue.html",
+        "04-stripe.html",
+        "05-data.html",
+        "06-quote.html",
+        "07-cal.html",
+        "08-colophon.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "04.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          ".nav-hint",
+          ".pagenum"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "scatterbrain",
+      "name": "Scatterbrain",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Post-it inspired: pastel sticky notes, LXGW WenKai handwriting, Smiley Sans and Source Serif 4 type stack.",
+      "mood": [
+        "playful",
+        "creative",
+        "warm",
+        "messy-on-purpose",
+        "workshop"
+      ],
+      "occasion": [
+        "brainstorm / workshop",
+        "creative agency credentials",
+        "design-thinking session",
+        "ideation pitch",
+        "art-direction review"
+      ],
+      "tone": [
+        "informal",
+        "warm",
+        "expressive",
+        "human"
+      ],
+      "formality": "low",
+      "density": "high",
+      "scheme": "light",
+      "bestFor": "Anything that should feel like a designer's whiteboard: brainstorms, workshops, creative-agency credentials, design-thinking sessions, ideation pitches, art-direction reviews. Equally fun for any deck \u2014 including tech, research, or business \u2014 that wants to read as in-progress thinking rather than polished conclusions.",
+      "avoidFor": "Contexts that demand precision and institutional weight \u2014 the post-it sticky-note aesthetic intentionally reads as warm and unfinished.",
+      "slideCount": 10,
+      "fonts": [
+        "Smiley Sans",
+        "LXGW WenKai",
+        "Source Serif 4"
+      ],
+      "localFonts": [
+        "Smiley Sans",
+        "LXGW WenKai",
+        "Source Serif 4"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "yellow": "#FFE066",
+        "blue": "#A5D8FF",
+        "pink": "#FFC9C9",
+        "green": "#B2F2BB",
+        "orange": "#FFCC80",
+        "purple": "#D0BFFF",
+        "paper": "#F7F5F0",
+        "ink": "#2D2A26"
+      },
+      "layouts": [
+        "01-bg-cork.html",
+        "02-bg-paper.html",
+        "03-bg-warm.html",
+        "04-bg-cork.html",
+        "05-bg-paper.html",
+        "06-bg-warm.html",
+        "07-bg-cork.html",
+        "08-bg-paper.html",
+        "09-bg-warm.html",
+        "10-bg-cork.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide",
+          ".slide-content"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "signal",
+      "name": "Signal",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "certified",
+      "tagline": "Deep navy canvas with bone paper and a single muted-gold accent; institutional with quiet weight.",
+      "mood": [
+        "institutional",
+        "trustworthy",
+        "considered",
+        "weighty"
+      ],
+      "occasion": [
+        "investor deck",
+        "consulting deliverable",
+        "board presentation",
+        "legal / policy brief",
+        "academic deck",
+        "advisory pitch",
+        "bilingual EN/CN deck"
+      ],
+      "tone": [
+        "sober",
+        "polished",
+        "established",
+        "literary"
+      ],
+      "formality": "high",
+      "density": "high",
+      "scheme": "mixed",
+      "bestFor": "Anything that should feel weighty, considered, and credibly institutional: investor decks, board presentations, consulting deliverables, legal / policy briefs, advisory pitches. Also a strong choice for tech, research, or brand work that wants to read as quietly authoritative rather than loud.",
+      "avoidFor": "Contexts that should feel hot, fast, or intentionally playful \u2014 the navy + gold restraint commits to a sober voice.",
+      "slideCount": 18,
+      "fonts": [
+        "Source Serif 4",
+        "DM Sans",
+        "IBM Plex Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Source Serif 4",
+        "DM Sans",
+        "IBM Plex Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#1c2644",
+        "bg_alt": "#232f55",
+        "fg": "#e2dcd0",
+        "accent": "#c8a870",
+        "bg_light": "#f0ece3"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-chapter.html",
+        "03-statement.html",
+        "04-split.html",
+        "05-stats.html",
+        "06-quote.html",
+        "07-list.html",
+        "08-compare.html",
+        "09-editorial.html",
+        "10-dense.html",
+        "11-statement.html",
+        "12-end.html",
+        "13-chart.html",
+        "14-diagram.html",
+        "15-pie.html",
+        "16-pyramid.html",
+        "17-vtimeline.html",
+        "18-cycle.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "18.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          "#nav-dots",
+          "#slide-counter",
+          ".slide-chrome",
+          ".slide-foot"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "soft-editorial",
+      "name": "Soft Editorial",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "certified",
+      "tagline": "Cormorant Garamond serif on warm paper with sage, blush, and lemon accents.",
+      "mood": [
+        "literary",
+        "elegant",
+        "quiet",
+        "warm-classical"
+      ],
+      "occasion": [
+        "editorial feature",
+        "longform brand story",
+        "gallery or museum",
+        "literary pitch",
+        "advisory deliverable",
+        "wedding / lifestyle media"
+      ],
+      "tone": [
+        "literary",
+        "considered",
+        "warm",
+        "magazine"
+      ],
+      "formality": "high",
+      "density": "low",
+      "scheme": "light",
+      "bestFor": "Anything that should feel literary, elegant, and unhurried: editorial features, longform brand stories, gallery / museum decks, advisory deliverables, wedding / lifestyle media, founder essays. Equally good for tech, research, or business decks that want a Sunday-supplement warmth instead of corporate polish.",
+      "avoidFor": "Decks that need visual heat or punch \u2014 the warm-paper palette and Cormorant Garamond serif are intentionally quiet.",
+      "slideCount": 12,
+      "fonts": [
+        "Cormorant Garamond",
+        "Work Sans"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "Work Sans"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "paper": "#F2EEDF",
+        "ink": "#2A241B",
+        "pink": "#E1A4C2",
+        "lemon": "#D6DD63",
+        "blush": "#E8C9B6",
+        "sage": "#B7C7A8"
+      },
+      "layouts": [
+        "01-01-cover.html",
+        "02-02-foreword.html",
+        "03-03-the-method.html",
+        "04-04-insights.html",
+        "05-05-a-closer-look.html",
+        "06-06-by-the-numbers.html",
+        "07-07-in-their-words.html",
+        "08-08-what-s-next.html",
+        "09-09-findings-detail.html",
+        "10-10-retention-curve.html",
+        "11-11-process.html",
+        "12-12-comparison.html"
+      ],
+      "thumbs": [
+        "10.png",
+        "04.png",
+        "06.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "section.slide"
+        ],
+        "background": [],
+        "chrome": [],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "stencil-tablet",
+      "name": "Stencil & Tablet",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Bone paper with stencil-cut headlines and a six-color earth palette: archaeology meets brand.",
+      "mood": [
+        "archival",
+        "earthy",
+        "tactile",
+        "considered",
+        "graphic"
+      ],
+      "occasion": [
+        "museum / cultural institution",
+        "art / architecture brand",
+        "longform research",
+        "heritage / craft brand",
+        "manifesto"
+      ],
+      "tone": [
+        "weighty",
+        "considered",
+        "tactile",
+        "literary"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "light",
+      "bestFor": "Anything that should feel archival, tactile, and weighty-graphic: museum and cultural-institution decks, art / architecture brands, longform research, heritage and craft brands, manifestos. A great choice anytime \u2014 including across tech and business \u2014 when you want the deck to feel like a field manual rather than a slide deck.",
+      "avoidFor": "Contexts that demand digital-native polish or playful pop \u2014 the stencil-cut display and earth-tone palette commit to a deliberate analog feel.",
+      "slideCount": 11,
+      "fonts": [
+        "Inter",
+        "Source Serif 4",
+        "Big Shoulders Display"
+      ],
+      "localFonts": [
+        "Inter",
+        "Source Serif 4",
+        "Big Shoulders Display"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bone": "#E2DCC9",
+        "ink": "#0A0A0A",
+        "paper": "#F4EFE0",
+        "sienna": "#A06A3C",
+        "magenta": "#C73B7A",
+        "orange": "#EE7A2E",
+        "teal": "#2D7E73",
+        "blue": "#3F73B7",
+        "olive": "#6F7A2E"
+      },
+      "layouts": [
+        "01-01-cover.html",
+        "02-02-agenda.html",
+        "03-03-our-principles.html",
+        "04-04-section-direction.html",
+        "05-05-findings-detail.html",
+        "06-06-retention-curve.html",
+        "07-07-process.html",
+        "08-08-comparison.html",
+        "09-09-in-numbers.html",
+        "10-10-voice.html",
+        "11-11-next.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "03.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          "section.slide"
+        ],
+        "background": [
+          ".s-agenda .item svg",
+          ".s-cover .shape",
+          ".s-process .node .arr",
+          ".s-sec .num"
+        ],
+        "chrome": [
+          ".footer",
+          ".top"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "studio",
+      "name": "Studio",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Black canvas with electric-yellow type; high-voltage design studio aesthetic.",
+      "mood": [
+        "electric",
+        "bold",
+        "graphic",
+        "design-led",
+        "high-contrast"
+      ],
+      "occasion": [
+        "design studio credentials",
+        "creative agency pitch",
+        "brand showcase",
+        "art-direction review",
+        "fashion / sneaker brand",
+        "bilingual EN/CN deck"
+      ],
+      "tone": [
+        "graphic",
+        "loud",
+        "modern",
+        "intentional"
+      ],
+      "formality": "medium",
+      "density": "medium",
+      "scheme": "dark",
+      "bestFor": "Anything that should feel electric and design-led: studio credentials, creative agency pitches, brand showcases, art-direction reviews, fashion / sneaker brand work. Also a striking unexpected choice for tech, research, or business decks where the speaker wants the deck to *be* a brand statement.",
+      "avoidFor": "Contexts that should feel quiet or institutional \u2014 the black-and-electric-yellow palette is the loudest in the library.",
+      "slideCount": 12,
+      "fonts": [
+        "Work Sans",
+        "IBM Plex Mono",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Work Sans",
+        "IBM Plex Mono",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#1c1c1c",
+        "bg_alt": "#242422",
+        "fg": "#f5d200",
+        "accent": "#f5d200",
+        "bg_light": "#f5d200"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-chapter.html",
+        "03-statement.html",
+        "04-split.html",
+        "05-stats.html",
+        "06-list.html",
+        "07-quote.html",
+        "08-compare.html",
+        "09-chapter.html",
+        "10-statement.html",
+        "11-chart.html",
+        "12-end.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [
+          ".cover-img-area"
+        ],
+        "chrome": [
+          ".slide-chrome",
+          ".slide-foot"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    },
+    {
+      "slug": "vellum",
+      "name": "Vellum",
+      "kind": "template",
+      "source": "beautiful-html-templates+bold-template-pack",
+      "tier": "experimental",
+      "tagline": "Deep navy canvas with warm-yellow Cormorant Garamond serifs and a single dusty teal accent. A quiet, scholarly aesthetic.",
+      "mood": [
+        "scholarly",
+        "literary",
+        "considered",
+        "quiet",
+        "intellectual"
+      ],
+      "occasion": [
+        "research findings",
+        "white paper or longform report",
+        "academic or university deck",
+        "advisory deliverable",
+        "literary or editorial pitch",
+        "founder reflection / vision deck",
+        "bilingual EN/CN deck"
+      ],
+      "tone": [
+        "literary",
+        "considered",
+        "patient",
+        "intelligent"
+      ],
+      "formality": "high",
+      "density": "low",
+      "scheme": "dark",
+      "bestFor": "Anything that should feel scholarly, literary, and quietly intelligent: research synthesis, white papers, academic and policy briefs, advisory deliverables, longform editorial pieces, founder reflections. Equally strong for any deck \u2014 including tech, business, or creator work \u2014 that wants a calm, considered atmosphere instead of energetic visuals.",
+      "avoidFor": "Contexts that need visual heat or pop \u2014 the navy + warm-yellow Cormorant Garamond aesthetic is intentionally low-tempo.",
+      "slideCount": 9,
+      "fonts": [
+        "Cormorant Garamond",
+        "DM Sans",
+        "IBM Plex Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "localFonts": [
+        "Cormorant Garamond",
+        "DM Sans",
+        "IBM Plex Mono",
+        "Noto Serif SC",
+        "Noto Sans SC"
+      ],
+      "missingFonts": [],
+      "palette": {
+        "bg": "#2a3870",
+        "bg_alt": "#343f80",
+        "fg": "#E8D85C",
+        "accent": "#3a7878"
+      },
+      "layouts": [
+        "01-cover.html",
+        "02-statement.html",
+        "03-text.html",
+        "04-stats.html",
+        "05-list.html",
+        "06-quote.html",
+        "07-compare.html",
+        "08-chart.html",
+        "09-end.html"
+      ],
+      "thumbs": [
+        "01.png",
+        "04.png",
+        "08.png"
+      ],
+      "cdnFree": true,
+      "isValid": true,
+      "safeArea": {
+        "content": [
+          ".slide"
+        ],
+        "background": [],
+        "chrome": [
+          "#nav-dots",
+          "#slide-counter",
+          ".pin-annotation"
+        ],
+        "safeX": 136,
+        "safeY": 100
+      }
+    }
+  ]
+}

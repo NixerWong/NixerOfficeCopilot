@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.Slides.AssetMerge</RootNamespace>
+    <AssemblyName>OfficeCopilot.Slides.AssetMerge</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+    <ProjectReference Include="..\OfficeCopilot.Slides.Core\OfficeCopilot.Slides.Core.csproj" />
+  </ItemGroup>
+</Project>

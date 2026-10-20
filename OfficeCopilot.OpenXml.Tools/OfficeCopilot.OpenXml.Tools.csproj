@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.OpenXml.Tools</RootNamespace>
+    <AssemblyName>OfficeCopilot.OpenXml.Tools</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Abstractions\OfficeCopilot.Agent.Abstractions.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Core\OfficeCopilot.OpenXml.Core.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Word\OfficeCopilot.OpenXml.Word.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Excel\OfficeCopilot.OpenXml.Excel.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.PowerPoint\OfficeCopilot.OpenXml.PowerPoint.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+</Project>

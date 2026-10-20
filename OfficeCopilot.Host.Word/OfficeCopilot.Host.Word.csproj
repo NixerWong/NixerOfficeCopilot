@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.Host.Word</RootNamespace>
+    <AssemblyName>OfficeCopilot.Host.Word</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Abstractions\OfficeCopilot.Agent.Abstractions.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Host.Abstractions\OfficeCopilot.Host.Abstractions.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Tools\OfficeCopilot.OpenXml.Tools.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Word\OfficeCopilot.OpenXml.Word.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Office.Interop.Word" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+</Project>

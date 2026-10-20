@@ -1,0 +1,18 @@
+<section class="slide harness-safe-area">
+  <style>
+    .harness-safe-area { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+    .harness-decoration--bleed { position: absolute; left: -40px; top: -40px; width: 200px; height: 200px; }
+    .harness-safe { position: absolute; inset: 96px 128px; }
+    .harness-safe h1 { position: absolute; left: 0; top: 0; }
+    .harness-safe p[data-harness="one-pixel-out"] { position: absolute; left: -1px; top: 150px; }
+    .harness-right-aligned { position: absolute; right: 0; top: 220px; text-align: right; }
+    .harness-chrome { position: absolute; right: 64px; bottom: 48px; }
+  </style>
+  <div class="harness-decoration harness-decoration--bleed" data-harness="bleed" aria-hidden="true"></div>
+  <div class="harness-safe">
+    <h1 data-harness="safe-edge">Text exactly on the safe boundary</h1>
+    <p data-harness="one-pixel-out">Text one pixel outside the safe boundary</p>
+    <p class="harness-right-aligned">A long, right-aligned text block used to detect build-time widening.</p>
+  </div>
+  <div class="harness-chrome" data-harness="action-area">06</div>
+</section>

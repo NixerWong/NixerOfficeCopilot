@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- 唯一消费者 Agent.Runtime 与依赖 Diagnostics 均为 net472；用 netstandard2.0 会形成框架倒挂引用（MSB3277 System.ValueTuple 冲突）。 -->
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>OfficeCopilot.Skills</RootNamespace>
+    <AssemblyName>OfficeCopilot.Skills</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Planning\OfficeCopilot.Agent.Planning.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Diagnostics\OfficeCopilot.Diagnostics.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,31 @@
+<Project>
+
+  <!--
+    Central Package Management（E2）。
+    仅对使用 <PackageReference> 的 SDK 格式工程生效。
+    ⚠️ legacy 格式工程（3 个 VSTO + Host.Excel / Panel.WebView / Settings.WinForms 等）使用 packages.config，
+       NuGet 不会应用本文件；它们的版本漂移（Microsoft.Extensions.* 10.0.5 vs 10.0.7 等）
+       只能随 E3（legacy → SDK 迁移）一并解决，详见 docs/REMEDIATION_PLAN.md。
+  -->
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="AngleSharp" Version="1.8.2" />
+    <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.3537.50" />
+    <PackageVersion Include="DocumentFormat.OpenXml" Version="3.5.1" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+    <!-- 与 OfficeCopilot.Diagnostics 的 packages.config 保持同版本，避免 Broker 进程里出现绑定漂移。 -->
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Office.Interop.PowerPoint" Version="15.0.4420.1018" />
+    <PackageVersion Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
+    <PackageVersion Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
+    <PackageVersion Include="ModelContextProtocol" Version="1.4.1" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.7" />
+    <PackageVersion Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+
+</Project>

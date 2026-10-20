@@ -1,0 +1,206 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E2CF4853-1D4F-4F1E-B02E-4D221A0C1A05}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>OfficeCopilot.Host.Excel</RootNamespace>
+    <AssemblyName>OfficeCopilot.Host.Excel</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime.Standard, Version=4.8.0.0, Culture=neutral, PublicKeyToken=e78b2c5abd1fcb3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr4.Runtime.Standard.4.8.0\lib\net35\Antlr4.Runtime.Standard.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.16.0.18925.20022\lib\net40\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Office\root\Office16\DCF\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <Private>False</Private>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Vba, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GCore.Antlr.Grammers.Vba.1.5372.17\lib\netstandard2.0\Vba.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExcelHostAdapter.Backup.Interface.cs" />
+    <Compile Include="ExcelHostAdapter.cs" />
+    <Compile Include="ExcelWriteEffectHostAdapter.cs" />
+    <Compile Include="ExcelServiceBase.cs" />
+    <Compile Include="Com\ExcelComDispatcher.cs" />
+    <Compile Include="Com\ExcelComErrorClassifier.cs" />
+    <Compile Include="Com\ExcelColumnReader.cs" />
+    <Compile Include="ExcelVbaService.cs" />
+    <Compile Include="ExcelStagedWorksheetProtection.cs" />
+    <Compile Include="ExcelAnalysisService.cs" />
+    <Compile Include="ExcelAggregationService.cs" />
+    <Compile Include="Verification\Backends\IExcelCalcBackend.cs" />
+    <Compile Include="Verification\VerificationPlanner.cs" />
+    <Compile Include="Verification\Comparator.cs" />
+    <Compile Include="Verification\VerificationEngine.cs" />
+    <Compile Include="Verification\ExcelAggregateVerificationService.cs" />
+    <Compile Include="Verification\Backends\Com\ComCalcBackend.cs" />
+    <Compile Include="Verification\Backends\Managed\ManagedCalcBackend.cs" />
+    <Compile Include="Verification\Backends\Com\DataQualityFingerprint.cs" />
+    <Compile Include="Verification\DataQualityInspector.cs" />
+    <Compile Include="Verification\Backends\Com\SumIfsCriteriaBuilder.cs" />
+    <Compile Include="Analysis\ExcelTabularSnapshot.cs" />
+    <Compile Include="Analysis\ExcelAggregationEngine.cs" />
+    <Compile Include="Analysis\ExcelCoverageIncompleteException.cs" />
+    <Compile Include="Analysis\Accumulators\DistinctAccumulator.cs" />
+    <Compile Include="Analysis\Accumulators\CoverageAccumulator.cs" />
+    <Compile Include="Analysis\Accumulators\ColumnProfileAccumulator.cs" />
+    <Compile Include="Analysis\Accumulators\ScalarAccumulator.cs" />
+    <Compile Include="Analysis\Accumulators\GroupAccumulator.cs" />
+    <Compile Include="Analysis\Accumulators\KeySetAccumulator.cs" />
+    <Compile Include="Analysis\ExcelStyleReadback.cs" />
+    <Compile Include="Analysis\ExcelStagingConventions.cs" />
+    <Compile Include="Analysis\ExcelWriteEffectEvaluator.cs" />
+    <Compile Include="Analysis\ExcelVbaScopeSnapshot.cs" />
+    <Compile Include="Analysis\ExcelWorksheetMapCache.cs" />
+    <Compile Include="Analysis\ExcelWorkbookMapInference.cs" />
+    <Compile Include="Analysis\ExcelWipSheetRegistryStore.cs" />
+    <Compile Include="ExcelBackupService.cs" />
+    <Compile Include="ExcelConnectionService.cs" />
+    <Compile Include="ExcelDataModelService.cs" />
+    <Compile Include="ExcelHostAdapter.Facade.cs" />
+    <Compile Include="ExcelRangeService.cs" />
+    <Compile Include="ExcelTableService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Advanced\ExcelCheckPowerQueryErrorsTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListConnectionsTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListDataModelCalculatedColumnsTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListDataModelMeasuresTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListDataModelRelationshipsTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListDataModelTablesTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListPowerQueriesTool.cs" />
+    <Compile Include="Tools\Common\ExcelReadGuidance.cs" />
+    <Compile Include="Tools\Data\ExcelAnalyzeRangeTool.cs" />
+    <Compile Include="Tools\Data\ExcelProfileRangeTool.cs" />
+    <Compile Include="Tools\Data\ExcelAggregateTool.cs" />
+    <Compile Include="Tools\Data\ExcelReconcileTool.cs" />
+    <Compile Include="Tools\Data\ExcelCompareKeySetsTool.cs" />
+    <Compile Include="Tools\Data\ExcelAssertTool.cs" />
+    <Compile Include="Tools\Data\ExcelListBackupsTool.cs" />
+    <Compile Include="Tools\Data\ExcelCleanupWorkspaceTool.cs" />
+    <Compile Include="Tools\Data\ExcelRestoreBackupTool.cs" />
+    <Compile Include="Tools\Data\ExcelListVbaModulesTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelRefreshPowerQueryTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelValidatePowerQueryTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelViewConnectionTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelViewDataModelCalculatedColumnTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelViewDataModelMeasureTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelViewPowerQueryTool.cs" />
+    <Compile Include="Tools\Data\ExcelViewVbaModuleTool.cs" />
+    <Compile Include="Tools\Common\ExcelToolRequestNormalizer.cs" />
+    <Compile Include="Tools\Data\ExcelCaptureWorksheetScreenshotTool.cs" />
+    <Compile Include="Tools\Diagnostics\ExcelToolSelfTestRunner.cs" />
+    <Compile Include="Tools\Diagnostics\VbaSyntaxValidator.cs" />
+    <Compile Include="Tools\Registration\ExcelBuiltInToolCatalog.cs" />
+    <Compile Include="Tools\Registration\ExcelBuiltInTools.cs" />
+    <Compile Include="Tools\Data\ExcelFindInRangeTool.cs" />
+    <Compile Include="Tools\Context\ExcelGetActiveWorkbookTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetNamedRangeValueTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeHyperlinksTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeInfoTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeLockInfoTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeMergeInfoTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeNumberFormatsTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeStyleTool.cs" />
+    <Compile Include="Tools\Data\ExcelGetRangeValidationTool.cs" />
+    <Compile Include="Tools\Context\ExcelGetSelectionTool.cs" />
+    <Compile Include="Tools\Data\ExcelListNamedRangesTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelListTablesTool.cs" />
+    <Compile Include="Tools\Context\ExcelListWorksheetsTool.cs" />
+    <Compile Include="Tools\Data\ExcelReadRangeFormulasTool.cs" />
+    <Compile Include="Tools\Data\ExcelReadRangeTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelReadTableDataTool.cs" />
+    <Compile Include="Tools\Data\ExcelReadWorksheetDataTool.cs" />
+    <Compile Include="Tools\Common\ExcelToolBase.cs" />
+    <Compile Include="Tools\Common\ExcelToolJsonSerializer.cs" />
+    <Compile Include="Tools\Data\ExcelValidateRangeFormulasTool.cs" />
+    <Compile Include="Tools\Advanced\ExcelViewTableTool.cs" />
+    <Compile Include="Tools\Registration\ExcelToolGroups.cs" />
+    <Compile Include="Tools\Registration\InMemoryToolRegistryExtensions.cs" />
+    <Compile Include="Tools\Write\ExcelClearRangeTool.cs" />
+    <Compile Include="Tools\Write\ExcelCreateWorksheetTool.cs" />
+    <Compile Include="Tools\Write\ExcelExecuteVbaTool.cs" />
+    <Compile Include="Tools\Write\ExcelSetRangeFormatTool.cs" />
+    <Compile Include="Tools\Write\ExcelSetRangeFormulasTool.cs" />
+    <Compile Include="Tools\Write\ExcelWriteRangeTool.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeCopilot.Agent.Abstractions\OfficeCopilot.Agent.Abstractions.csproj">
+      <Project>{af7c5bce-4413-4077-bd72-335d6654363f}</Project>
+      <Name>OfficeCopilot.Agent.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Host.Abstractions\OfficeCopilot.Host.Abstractions.csproj">
+      <Project>{6F1F9C47-76F1-4330-927F-0B8FBF0C1A02}</Project>
+      <Name>OfficeCopilot.Host.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.HostBridge.Contracts\OfficeCopilot.HostBridge.Contracts.csproj">
+      <Project>{7A5BF717-8E71-4D80-9383-2A2B2B8E4474}</Project>
+      <Name>OfficeCopilot.HostBridge.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.OpenXml.Tools\OfficeCopilot.OpenXml.Tools.csproj">
+      <Project>{E4414FAA-5C7C-43C4-93B9-E074EFA37C7F}</Project>
+      <Name>OfficeCopilot.OpenXml.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Diagnostics\OfficeCopilot.Diagnostics.csproj">
+      <Project>{F8831BB4-E468-4811-A6BA-7D5E4A8A927F}</Project>
+      <Name>OfficeCopilot.Diagnostics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

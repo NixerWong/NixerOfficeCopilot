@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>OfficeCopilot.HostBridge.Contracts</RootNamespace>
+    <AssemblyName>OfficeCopilot.HostBridge.Contracts</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>OfficeCopilot.HostBridge.Contracts</PackageId>
+  </PropertyGroup>
+</Project>
