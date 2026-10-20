@@ -16,29 +16,22 @@
 
 ## 架构
 
-```mermaid
-flowchart LR
-    subgraph Office["Office 宿主进程（Word / Excel / PowerPoint）"]
-        Addin["Nixer*Copilot<br/>VSTO 加载项"]
-        Panel["共享 Copilot 面板<br/>WinForms + WebView2"]
-        Host["宿主适配器与 Office 工具"]
-        Bridge["HostBridge<br/>命名管道服务"]
-        Addin --> Panel
-        Addin --> Host
-        Host --> Bridge
-    end
+```text
+Office 宿主进程（Word / Excel / PowerPoint）
+  VSTO 加载项
+    ├─ 共享任务窗格（WinForms + WebView2）
+    ├─ 宿主适配器与原生 Office 工具
+    └─ HostBridge 命名管道服务
 
-    subgraph Broker["OfficeCopilot.Agent.Broker（独立进程）"]
-        Pipe["Broker 命名管道服务"]
-        Runtime["Agent.Runtime<br/>回合执行与工具调度"]
-        Extensions["Planning · Skills · MCP<br/>Memory · Persistence"]
-        Pipe --> Runtime
-        Runtime --> Extensions
-    end
+共享任务窗格  <== Pipe A：JSON 请求与事件 ==>  Agent Broker
+HostBridge    <== Pipe B：上下文与工具调用 ==>  Agent.Runtime
+Agent.Runtime ==> HTTPS / 流式响应 ========>  模型服务/API
 
-    Panel <-->|JSON 请求与事件| Pipe
-    Runtime <-->|上下文与宿主工具调用| Bridge
-    Runtime -->|HTTPS / 流式响应| Model["模型服务"]
+Agent Broker（每个 Office 窗口独立运行）
+  Broker 管道服务 → Agent.Runtime → 工具调度与回合执行
+                                  ├─ Planning / Skills / MCP
+                                  ├─ Memory / 会话持久化
+                                  └─ 模型适配器
 ```
 
 每个 Office 窗口拥有独立的 Broker 运行实例。面板与 Broker、Broker 与 Office 宿主分别通过命名管道通信。模型 HTTP 请求、回合编排和工具权限决策位于 Broker；Office 专属的文档访问仍由对应宿主进程中的适配器执行。
