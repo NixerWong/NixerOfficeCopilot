@@ -16,11 +16,9 @@
 
 ## 演示视频
 
-GitHub README 不支持内嵌播放 MP4；点击下方链接可在视频页面播放。
-
 | Word | Excel | PowerPoint |
 | --- | --- | --- |
-| [播放 Word 演示](Resources/v/word.mp4) | [播放 Excel 演示](Resources/v/excel.mp4) | [播放 PowerPoint 演示](Resources/v/ppt.mp4) |
+| ![Word 演示](Resources/v/word.webp) | ![Excel 演示](Resources/v/excel.webp) | ![PowerPoint 演示](Resources/v/ppt.webp) |
 
 ## 架构
 
