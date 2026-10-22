@@ -96,6 +96,9 @@ namespace OfficeCopilot.Settings.WinForms
             this.grpRuntime = new System.Windows.Forms.GroupBox();
             this.ceAutoMemoryRecorder = new DevExpress.XtraEditors.CheckEdit();
             this.ceAutoCompactEnabled = new DevExpress.XtraEditors.CheckEdit();
+            this.cbeLanguage = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.grpLanguage = new System.Windows.Forms.GroupBox();
+            this.lbLanguage = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.barMan)).BeginInit();
             this.grpLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seTranscriptMaxContentLength.Properties)).BeginInit();
@@ -120,6 +123,8 @@ namespace OfficeCopilot.Settings.WinForms
             this.grpRuntime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceAutoMemoryRecorder.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceAutoCompactEnabled.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbeLanguage.Properties)).BeginInit();
+            this.grpLanguage.SuspendLayout();
             this.SuspendLayout();
             // 
             // barMan
@@ -214,11 +219,11 @@ namespace OfficeCopilot.Settings.WinForms
             // 
             this.sbdcSysConfigBottom.CausesValidation = false;
             this.sbdcSysConfigBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.sbdcSysConfigBottom.Location = new System.Drawing.Point(0, 413);
+            this.sbdcSysConfigBottom.Location = new System.Drawing.Point(0, 440);
             this.sbdcSysConfigBottom.Manager = this.barMan;
             this.sbdcSysConfigBottom.Margin = new System.Windows.Forms.Padding(2);
             this.sbdcSysConfigBottom.Name = "sbdcSysConfigBottom";
-            this.sbdcSysConfigBottom.Size = new System.Drawing.Size(769, 32);
+            this.sbdcSysConfigBottom.Size = new System.Drawing.Size(755, 32);
             this.sbdcSysConfigBottom.Text = "standaloneBarDockControl1";
             // 
             // barDockControlTop
@@ -227,15 +232,15 @@ namespace OfficeCopilot.Settings.WinForms
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
             this.barDockControlTop.Manager = this.barMan;
-            this.barDockControlTop.Size = new System.Drawing.Size(769, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(755, 0);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 445);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 472);
             this.barDockControlBottom.Manager = this.barMan;
-            this.barDockControlBottom.Size = new System.Drawing.Size(769, 0);
+            this.barDockControlBottom.Size = new System.Drawing.Size(755, 0);
             // 
             // barDockControlLeft
             // 
@@ -243,15 +248,15 @@ namespace OfficeCopilot.Settings.WinForms
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
             this.barDockControlLeft.Manager = this.barMan;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 445);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 472);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(769, 0);
+            this.barDockControlRight.Location = new System.Drawing.Point(755, 0);
             this.barDockControlRight.Manager = this.barMan;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 445);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 472);
             // 
             // btnAddModel
             // 
@@ -419,16 +424,14 @@ namespace OfficeCopilot.Settings.WinForms
             this.grpLogging.Controls.Add(this.cbeRuntimeLogLevel);
             this.grpLogging.Controls.Add(this.lbRuntimeLogLevel);
             this.grpLogging.Controls.Add(this.ceRuntimeLogEnabled);
-            this.grpLogging.Controls.Add(this.cbeTrustMode);
             this.grpLogging.Controls.Add(this.cbeTranscriptLogMode);
-            this.grpLogging.Controls.Add(this.lbTrustMode);
             this.grpLogging.Controls.Add(this.lbTranscriptLogMode);
             this.grpLogging.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
-            this.grpLogging.Location = new System.Drawing.Point(412, 24);
+            this.grpLogging.Location = new System.Drawing.Point(404, 14);
             this.grpLogging.Margin = new System.Windows.Forms.Padding(2);
             this.grpLogging.Name = "grpLogging";
             this.grpLogging.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLogging.Size = new System.Drawing.Size(333, 370);
+            this.grpLogging.Size = new System.Drawing.Size(333, 341);
             this.grpLogging.TabIndex = 14;
             this.grpLogging.TabStop = false;
             this.grpLogging.Text = "日志设置";
@@ -592,13 +595,13 @@ namespace OfficeCopilot.Settings.WinForms
             // 
             // cbeTrustMode
             // 
-            this.cbeTrustMode.Location = new System.Drawing.Point(221, 333);
+            this.cbeTrustMode.Location = new System.Drawing.Point(243, 87);
             this.cbeTrustMode.Margin = new System.Windows.Forms.Padding(2);
             this.cbeTrustMode.Name = "cbeTrustMode";
             this.cbeTrustMode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbeTrustMode.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbeTrustMode.Size = new System.Drawing.Size(85, 20);
+            this.cbeTrustMode.Size = new System.Drawing.Size(84, 20);
             this.cbeTrustMode.TabIndex = 1;
             // 
             // cbeTranscriptLogMode
@@ -614,7 +617,7 @@ namespace OfficeCopilot.Settings.WinForms
             // 
             // lbTrustMode
             // 
-            this.lbTrustMode.Location = new System.Drawing.Point(29, 336);
+            this.lbTrustMode.Location = new System.Drawing.Point(26, 90);
             this.lbTrustMode.Margin = new System.Windows.Forms.Padding(2);
             this.lbTrustMode.Name = "lbTrustMode";
             this.lbTrustMode.Size = new System.Drawing.Size(100, 14);
@@ -648,7 +651,7 @@ namespace OfficeCopilot.Settings.WinForms
             this.grpModelParams.Controls.Add(this.spHttpRequestTimeOut);
             this.grpModelParams.Controls.Add(this.seNativeThresholdKB);
             this.grpModelParams.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
-            this.grpModelParams.Location = new System.Drawing.Point(22, 24);
+            this.grpModelParams.Location = new System.Drawing.Point(14, 14);
             this.grpModelParams.Margin = new System.Windows.Forms.Padding(2);
             this.grpModelParams.Name = "grpModelParams";
             this.grpModelParams.Padding = new System.Windows.Forms.Padding(2);
@@ -739,7 +742,7 @@ namespace OfficeCopilot.Settings.WinForms
             this.seToolFetchFileThresholdMB.Name = "seToolFetchFileThresholdMB";
             this.seToolFetchFileThresholdMB.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.seToolFetchFileThresholdMB.Size = new System.Drawing.Size(85, 20);
+            this.seToolFetchFileThresholdMB.Size = new System.Drawing.Size(84, 20);
             this.seToolFetchFileThresholdMB.TabIndex = 5;
             // 
             // lbAttachmentFileCountThreshold
@@ -840,12 +843,14 @@ namespace OfficeCopilot.Settings.WinForms
             // 
             this.grpRuntime.Controls.Add(this.ceAutoMemoryRecorder);
             this.grpRuntime.Controls.Add(this.ceAutoCompactEnabled);
+            this.grpRuntime.Controls.Add(this.lbTrustMode);
+            this.grpRuntime.Controls.Add(this.cbeTrustMode);
             this.grpRuntime.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
-            this.grpRuntime.Location = new System.Drawing.Point(22, 310);
+            this.grpRuntime.Location = new System.Drawing.Point(14, 300);
             this.grpRuntime.Margin = new System.Windows.Forms.Padding(2);
             this.grpRuntime.Name = "grpRuntime";
             this.grpRuntime.Padding = new System.Windows.Forms.Padding(2);
-            this.grpRuntime.Size = new System.Drawing.Size(362, 84);
+            this.grpRuntime.Size = new System.Drawing.Size(362, 125);
             this.grpRuntime.TabIndex = 16;
             this.grpRuntime.TabStop = false;
             this.grpRuntime.Text = "运行时参数";
@@ -863,18 +868,50 @@ namespace OfficeCopilot.Settings.WinForms
             // ceAutoCompactEnabled
             // 
             this.ceAutoCompactEnabled.EditValue = true;
-            this.ceAutoCompactEnabled.Location = new System.Drawing.Point(26, 52);
+            this.ceAutoCompactEnabled.Location = new System.Drawing.Point(26, 56);
             this.ceAutoCompactEnabled.Margin = new System.Windows.Forms.Padding(2);
             this.ceAutoCompactEnabled.Name = "ceAutoCompactEnabled";
             this.ceAutoCompactEnabled.Properties.Caption = "启用自动上下文压缩 (AutoCompact)";
             this.ceAutoCompactEnabled.Size = new System.Drawing.Size(240, 19);
             this.ceAutoCompactEnabled.TabIndex = 7;
             // 
+            // cbeLanguage
+            // 
+            this.cbeLanguage.Location = new System.Drawing.Point(221, 26);
+            this.cbeLanguage.Margin = new System.Windows.Forms.Padding(2);
+            this.cbeLanguage.Name = "cbeLanguage";
+            this.cbeLanguage.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbeLanguage.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbeLanguage.Size = new System.Drawing.Size(85, 20);
+            this.cbeLanguage.TabIndex = 1;
+            // 
+            // grpLanguage
+            // 
+            this.grpLanguage.Controls.Add(this.cbeLanguage);
+            this.grpLanguage.Controls.Add(this.lbLanguage);
+            this.grpLanguage.Location = new System.Drawing.Point(404, 361);
+            this.grpLanguage.Name = "grpLanguage";
+            this.grpLanguage.Size = new System.Drawing.Size(333, 64);
+            this.grpLanguage.TabIndex = 22;
+            this.grpLanguage.TabStop = false;
+            this.grpLanguage.Text = "语言";
+            // 
+            // lbLanguage
+            // 
+            this.lbLanguage.Location = new System.Drawing.Point(29, 29);
+            this.lbLanguage.Margin = new System.Windows.Forms.Padding(2);
+            this.lbLanguage.Name = "lbLanguage";
+            this.lbLanguage.Size = new System.Drawing.Size(52, 14);
+            this.lbLanguage.TabIndex = 10;
+            this.lbLanguage.Text = "界面语言:";
+            // 
             // fmSysConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 445);
+            this.ClientSize = new System.Drawing.Size(755, 472);
+            this.Controls.Add(this.grpLanguage);
             this.Controls.Add(this.grpRuntime);
             this.Controls.Add(this.grpModelParams);
             this.Controls.Add(this.grpLogging);
@@ -912,8 +949,12 @@ namespace OfficeCopilot.Settings.WinForms
             ((System.ComponentModel.ISupportInitialize)(this.spHttpRequestTimeOut.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seNativeThresholdKB.Properties)).EndInit();
             this.grpRuntime.ResumeLayout(false);
+            this.grpRuntime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceAutoMemoryRecorder.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceAutoCompactEnabled.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbeLanguage.Properties)).EndInit();
+            this.grpLanguage.ResumeLayout(false);
+            this.grpLanguage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -987,5 +1028,8 @@ namespace OfficeCopilot.Settings.WinForms
         private DevExpress.XtraBars.BarButtonItem btnEditAgentModeSysPrompt;
         private DevExpress.XtraEditors.ComboBoxEdit cbeTrustMode;
         private DevExpress.XtraEditors.LabelControl lbTrustMode;
+        private System.Windows.Forms.GroupBox grpLanguage;
+        private DevExpress.XtraEditors.ComboBoxEdit cbeLanguage;
+        private DevExpress.XtraEditors.LabelControl lbLanguage;
     }
 }

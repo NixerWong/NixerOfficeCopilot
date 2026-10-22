@@ -14,6 +14,14 @@
 - **本地会话数据**：会话以 JSONL 持久化，并提供索引；运行数据按 Windows 用户隔离。
 - **桌面面板**：使用 WinForms 承载 WebView2 前端，模型凭据和 Agent 执行逻辑由 Broker 管理。
 
+## 演示视频
+
+以下演示使用 MP4 格式，并限制播放器宽度；点击播放时再加载视频。
+
+| Word | Excel | PowerPoint |
+| --- | --- | --- |
+| <video src="https://raw.githubusercontent.com/NixerWong/NixerOfficeCopilot/main/Resources/v/word.mp4" width="280" controls preload="none"></video> | <video src="https://raw.githubusercontent.com/NixerWong/NixerOfficeCopilot/main/Resources/v/excel.mp4" width="280" controls preload="none"></video> | <video src="https://raw.githubusercontent.com/NixerWong/NixerOfficeCopilot/main/Resources/v/ppt.mp4" width="280" controls preload="none"></video> |
+
 ## 架构
 
 ```text
