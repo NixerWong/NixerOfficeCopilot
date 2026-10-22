@@ -16,11 +16,11 @@
 
 ## 演示视频
 
-以下演示使用 MP4 格式，并限制播放器宽度；点击播放时再加载视频。
+GitHub README 不支持内嵌播放 MP4；点击下方链接可在视频页面播放。
 
 | Word | Excel | PowerPoint |
 | --- | --- | --- |
-| <video src="https://raw.githubusercontent.com/NixerWong/NixerOfficeCopilot/main/Resources/v/word.mp4" width="280" controls preload="none"></video> | <video src="https://raw.githubusercontent.com/NixerWong/NixerOfficeCopilot/main/Resources/v/excel.mp4" width="280" controls preload="none"></video> | <video src="https://raw.githubusercontent.com/NixerWong/NixerOfficeCopilot/main/Resources/v/ppt.mp4" width="280" controls preload="none"></video> |
+| [播放 Word 演示](Resources/v/word.mp4) | [播放 Excel 演示](Resources/v/excel.mp4) | [播放 PowerPoint 演示](Resources/v/ppt.mp4) |
 
 ## 架构
 
