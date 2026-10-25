@@ -68,7 +68,7 @@ namespace NixerExcelCopilot
                 Margin = new Padding(0, 0, 0, 4)
             };
 
-            var version = "2.3.61019";
+            var version = GetVersionString();
             var versionLabel = new Label
             {
                 Text = LocalizationService.Format("Shell.About.Version", version),
@@ -195,11 +195,11 @@ namespace NixerExcelCopilot
                 var version = assembly.GetName().Version;
                 if (version != null)
                 {
-                    return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+                    return $"{version.Major}.{version.Minor}.{version.Build}";
                 }
             }
             catch { /* fall through */ }
-            return "2.3.61020.0";
+            return "2.4.61025";
         }
     }
 }

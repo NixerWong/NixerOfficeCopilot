@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_read_range_formulas",
-            DisplayName = "读取区域公式",
-            Description = "读取指定区域中的公式和值；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Formulas",
+            Description = "Reads formulas and values in the specified range. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

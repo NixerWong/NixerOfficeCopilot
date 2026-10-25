@@ -683,6 +683,7 @@ public static string GetSkillPlanViolationMessage(PlannedToolCall call, ..., Run
 
 - ~~**无 `Directory.Build.props`**~~ ✅ **已新增**（E1）：`LangVersion=10`、公司/版本信息、警告策略集中管理。另新增 `Directory.Packages.props`（CPM，E2）与 `build.ps1`（E7）。
   > 注：VSTO 加载项的 `AssemblyInfo` 使用 `1.0.*` 通配符，与 `Deterministic=true` 冲突（CS8357），因此未开启确定性构建。
+- **产品版本（2026-10-25）**：`2.3.61020` 更新为 `2.4.61025`。全仓库按旧版本精确搜索，更新 **34 处 / 20 个文件**：`Directory.Build.props` 的 `NixerProductVersion` 1 处；15 个 `Properties/AssemblyInfo.cs` 中的 29 个程序集版本属性（`NixerExcelCopilot` 仅声明 `AssemblyVersion`）；3 个 VSTO `.csproj` 的 `ApplicationVersion`；以及 `NixerExcelCopilot/AboutDialog.cs` 的版本回退值。程序集与 VSTO 版本属性使用四段格式 `2.4.61025.0`。
 - **SDK 与 legacy 混用** ⏳ **E3 未做**：15 个 legacy（`packages.config`）与 20 个 SDK（`PackageReference`）仍并存。E2 的集中版本管理因此只能覆盖 SDK 部分（部分完成）。
 - **TFM 混乱** ⏳ **E4 受阻**：`net472` / `netstandard2.0` / `v4.7.2` / `net8.0` 四种写法并存；统一写法需先完成 E3。
 - ~~**解决方案配置冗余**~~ ✅ **已修复**（E5）：自造的 `All` 配置已从 `.sln` 移除，仅保留 `Debug` / `Release`。

@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_view_vba_module",
-            DisplayName = "查看 VBA 模块",
-            Description = "查看指定 VBA 模块的完整代码。",
+            DisplayName = "View VBA Module",
+            Description = "Shows the complete code for the specified VBA module.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

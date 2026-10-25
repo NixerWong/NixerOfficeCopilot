@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_selection",
-            DisplayName = "获取当前选区",
-            Description = "返回当前 Excel 选区的工作表、地址、大小和预览内容。",
+            DisplayName = "Get Selection",
+            Description = "Returns the active Excel selection's worksheet, address, dimensions, and preview.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

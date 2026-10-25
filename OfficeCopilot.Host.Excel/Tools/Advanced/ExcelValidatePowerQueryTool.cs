@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_validate_power_query",
-            DisplayName = "校验 Power Query",
-            Description = "使用临时查询对象校验 M 代码语法是否有效。",
+            DisplayName = "Validate Power Query",
+            Description = "Validates M-code syntax using a temporary query object.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

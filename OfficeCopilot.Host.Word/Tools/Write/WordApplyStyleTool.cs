@@ -13,7 +13,7 @@ namespace OfficeCopilot.Host.Word.Tools
         {
             Name = "word_apply_style",
             DisplayName = "Apply Style",
-            Description = "Applies a paragraph or character style to the current selection. Built-in ids (Title, Heading1..Heading9, Normal, ...) and Chinese names (标题 1, 正文) work in every Word language; custom styles use the name from word_list_styles. Select the target first with word_select_paragraph or word_select_document. To style many paragraphs, use word_format_paragraphs instead.",
+            Description = "Applies a paragraph or character style to the current selection. Built-in style IDs (Title, Heading 1–9, Normal, and others) work in every Word language; localized built-in style names are also accepted. Custom styles use the name returned by word_list_styles. Select the target first with word_select_paragraph or word_select_document. To style many paragraphs, use word_format_paragraphs instead.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Word",
             IsReadOnly = false,

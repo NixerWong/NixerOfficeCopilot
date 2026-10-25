@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Resources;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeCopilot.Agent.Client;
 using OfficeCopilot.Agent.Runtime.Turn;
 using OfficeCopilot.HostBridge.Contracts;
+using OfficeCopilot.Host.Excel.Tools;
+using OfficeCopilot.Host.PowerPoint.Tools;
+using OfficeCopilot.Host.Word.Tools;
 using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
@@ -240,6 +245,79 @@ namespace OfficeCopilot.Agent.Tests.Localization
         }
 
         [TestMethod]
+        public void ToolDisplayNames_AreEnglishAcrossAllSupportedLanguages()
+        {
+            var resources = new ResourceManager(
+                "OfficeCopilot.Localization.Strings",
+                typeof(LocalizationService).Assembly);
+            var english = resources.GetResourceSet(CultureInfo.InvariantCulture, true, true);
+            Assert.IsNotNull(english);
+
+            var toolDisplayNames = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (DictionaryEntry entry in english)
+            {
+                var key = (string)entry.Key;
+                if (key.StartsWith("tool.", StringComparison.Ordinal)
+                    && key.EndsWith(".display_name", StringComparison.Ordinal))
+                {
+                    toolDisplayNames.Add(key, (string)entry.Value);
+                }
+            }
+
+            Assert.IsTrue(toolDisplayNames.Count > 0, "Neutral resources must define built-in tool display names.");
+            foreach (var language in new[] { "zh-Hans", "ja", "de", "es" })
+            {
+                var localized = resources.GetResourceSet(
+                    SupportedLanguages.ResolveCulture(language),
+                    true,
+                    false);
+                Assert.IsNotNull(localized, language + " satellite resources must be built.");
+
+                foreach (var displayName in toolDisplayNames)
+                {
+                    Assert.AreEqual(
+                        displayName.Value,
+                        localized.GetString(displayName.Key, false),
+                        language + "/" + displayName.Key + " must remain English.");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void BuiltInToolMetadata_UsesEnglishForExcelWordAndPowerPoint()
+        {
+            var hostDefinitions = new[]
+            {
+                new { Host = "Excel", Definitions = ExcelBuiltInToolCatalog.CreateAllAvailableDefinitions() },
+                new { Host = "Word", Definitions = WordBuiltInToolCatalog.CreateAllAvailableDefinitions() },
+                new { Host = "PowerPoint", Definitions = PowerPointBuiltInToolCatalog.CreateAllAvailableDefinitions() }
+            };
+
+            foreach (var host in hostDefinitions)
+            {
+                Assert.IsTrue(host.Definitions.Length > 0, host.Host + " must expose built-in tool definitions.");
+                foreach (var definition in host.Definitions)
+                {
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(definition.Name), host.Host + " tool names must not be empty.");
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(definition.DisplayName), host.Host + "/" + definition.Name + " display name must not be empty.");
+                    AssertHasNoCjkCharacters(definition.Name, host.Host + "/" + definition.Name + " tool name");
+                    AssertHasNoCjkCharacters(definition.DisplayName, host.Host + "/" + definition.Name + " display name");
+                    AssertHasNoCjkCharacters(definition.Description, host.Host + "/" + definition.Name + " description");
+
+                    Assert.IsFalse(
+                        string.IsNullOrWhiteSpace(definition.InputSchemaJson),
+                        host.Host + "/" + definition.Name + " input schema must not be empty.");
+                    using (var schema = JsonDocument.Parse(definition.InputSchemaJson))
+                    {
+                        AssertSchemaDescriptionsAreEnglish(
+                            schema.RootElement,
+                            host.Host + "/" + definition.Name);
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
         public void SupportedLanguageResources_PreserveCompositeFormatPlaceholders()
         {
             var resources = new ResourceManager(
@@ -391,8 +469,40 @@ namespace OfficeCopilot.Agent.Tests.Localization
             foreach (var character in prompt)
             {
                 Assert.IsFalse(
-                    character >= '\u4e00' && character <= '\u9fff',
-                    $"{promptName} must keep internal instructions in English.");
+                    (character >= '\u3400' && character <= '\u4dbf')
+                        || (character >= '\u4e00' && character <= '\u9fff')
+                        || (character >= '\u3000' && character <= '\u303f')
+                        || (character >= '\u3040' && character <= '\u30ff')
+                        || (character >= '\u31f0' && character <= '\u31ff')
+                        || (character >= '\uac00' && character <= '\ud7af')
+                        || (character >= '\uf900' && character <= '\ufaff'),
+                    $"{promptName} must use English text.");
+            }
+        }
+
+        private static void AssertSchemaDescriptionsAreEnglish(JsonElement element, string toolName)
+        {
+            if (element.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var property in element.EnumerateObject())
+                {
+                    if (string.Equals(property.Name, "description", StringComparison.OrdinalIgnoreCase)
+                        && property.Value.ValueKind == JsonValueKind.String)
+                    {
+                        AssertHasNoCjkCharacters(
+                            property.Value.GetString(),
+                            toolName + " schema description");
+                    }
+
+                    AssertSchemaDescriptionsAreEnglish(property.Value, toolName);
+                }
+            }
+            else if (element.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var item in element.EnumerateArray())
+                {
+                    AssertSchemaDescriptionsAreEnglish(item, toolName);
+                }
             }
         }
 

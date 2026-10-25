@@ -25,8 +25,8 @@ namespace OfficeCopilot.Host.Word.Tools
                 + "Read paragraph indexes with word_read_paragraphs first, define roles once (style + font + paragraph format), "
                 + "then map paragraphs to roles. Give every listed paragraph an 'expect' (its first few characters): a paragraph whose text "
                 + "does not start with it is skipped and reported, never formatted by mistake. Unlisted non-empty paragraphs outside tables "
-                + "get defaultRole. builtinStyle (Title, Subtitle, Heading1-Heading9, Normal, BodyText, Caption, ListParagraph, Quote) works "
-                + "in every Word language; Chinese names such as 标题 1 are also accepted. The whole batch is a single undo step. "
+                + "get defaultRole. builtinStyle (Title, Subtitle, Heading 1–9, Normal, Body Text, Caption, List Paragraph, Quote) works "
+                + "in every Word language; localized built-in style names are also accepted. The whole batch is a single undo step. "
                 + "Prefer this tool over per-paragraph word_select_paragraph + word_apply_style / word_format_selection / word_set_paragraph_format.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Word",
@@ -148,9 +148,9 @@ namespace OfficeCopilot.Host.Word.Tools
                 {
                     ["builtinStyle"] = text("Title | Subtitle | Heading1..Heading9 | Normal | BodyText | Caption | ListParagraph | Quote. Language-independent; preferred."),
                     ["styleName"] = text("Custom or localized style name from word_list_styles; used only when builtinStyle is empty."),
-                    ["fontName"] = text("Font for all text, e.g. 宋体 / 黑体 / 楷体 / 仿宋."),
+                    ["fontName"] = text("Font for all text. Use the exact name of an installed font; choose a CJK-capable font for CJK text."),
                     ["latinFontName"] = text("Optional separate font for Latin letters and digits, e.g. Times New Roman."),
-                    ["size"] = number("Font size in points (三号 16, 四号 14, 小四 12, 五号 10.5)."),
+                    ["size"] = number("Font size in points, for example 10.5, 12, 14, or 16."),
                     ["bold"] = new JObject { ["type"] = "boolean" },
                     ["italic"] = new JObject { ["type"] = "boolean" },
                     ["color"] = text("Hex RGB such as #000000."),

@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_named_ranges",
-            DisplayName = "列出命名区域",
-            Description = "列出当前工作簿中的命名区域、作用域、引用公式和值摘要。",
+            DisplayName = "List Named Ranges",
+            Description = "Lists named ranges in the current workbook, including scope, reference formula, and value summary.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

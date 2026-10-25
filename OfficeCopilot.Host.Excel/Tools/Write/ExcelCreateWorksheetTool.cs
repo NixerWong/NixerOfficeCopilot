@@ -13,8 +13,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_create_worksheet",
-            DisplayName = "新建工作表",
-            Description = "在当前工作簿末尾新建工作表。符合 _wip_NN_描述 命名规则的工作表会登记为本会话中间表，可用于 scratch 计算。",
+            DisplayName = "Create Worksheet",
+            Description = "Creates a worksheet at the end of the current workbook. Sheets named with the _wip_NN_description pattern are registered as session intermediates and can be used for scratch calculations.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,
@@ -22,7 +22,7 @@ namespace OfficeCopilot.Host.Excel.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"worksheetName\":{\"type\":\"string\",\"description\":\"新工作表名称；中间表必须使用 _wip_NN_描述 格式。\"}"
+                + "\"worksheetName\":{\"type\":\"string\",\"description\":\"Name of the new worksheet; intermediate sheets must use the _wip_NN_description format.\"}"
                 + "},"
                 + "\"required\":[\"worksheetName\"],"
                 + "\"additionalProperties\":false"

@@ -14,9 +14,9 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_cleanup_workspace",
-            DisplayName = "清理中间表",
-            Description = "删除本会话登记且符合指定前缀的中间工作表（默认前缀 _wip_）。"
-                + "不会删除用户原有或未登记的同前缀工作表。任务收尾、确认最终结果已经落到正式表之后调用；可先用 dryRun 预演。",
+            DisplayName = "Clean Up Intermediate Tables",
+            Description = "Deletes intermediate worksheets registered during this session that match the specified prefix (default: _wip_)."
+                + " Never deletes pre-existing or unregistered worksheets with the same prefix. Call at the end of a task after confirming that final results are in the production table; use dryRun to preview first.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,
@@ -24,8 +24,8 @@ namespace OfficeCopilot.Host.Excel.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"prefix\":{\"type\":\"string\",\"description\":\"要清理的工作表名前缀，默认 _wip_。\"},"
-                + "\"dryRun\":{\"type\":\"boolean\",\"description\":\"为 true 时只列出将被删除的表，不做任何改动。\"}"
+                + "\"prefix\":{\"type\":\"string\",\"description\":\"Worksheet-name prefix to clean up (default: _wip_).\"},"
+                + "\"dryRun\":{\"type\":\"boolean\",\"description\":\"When true, only lists worksheets that would be deleted and makes no changes.\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"

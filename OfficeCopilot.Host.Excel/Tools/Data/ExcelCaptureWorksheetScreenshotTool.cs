@@ -12,8 +12,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_capture_worksheet_screenshot",
-            DisplayName = "捕获工作表截图",
-            Description = "将指定区域、当前选区或工作表已用区域渲染为 PNG 截图，支持传入图片文件名并落盘，便于 AI 模型理解表格结构。",
+            DisplayName = "Capture Worksheet Screenshot",
+            Description = "Renders the specified range, current selection, or worksheet used range as a PNG screenshot. Accepts a filename and saves the image to disk to help AI models understand the table layout.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

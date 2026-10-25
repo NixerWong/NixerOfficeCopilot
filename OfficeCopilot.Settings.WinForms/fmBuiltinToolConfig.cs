@@ -65,7 +65,7 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void InitializeToolViews()
         {
-            colToolsGroupName.FieldName = "GroupName";
+            colToolsGroupName.FieldName = "DisplayName";
             colToolsGroupEnable.FieldName = "IsRegistered";
             colToolName.FieldName = "DisplayName";
             colDescription.FieldName = "Description";
@@ -462,11 +462,8 @@ namespace OfficeCopilot.Settings.WinForms
 
         private static bool IsRuntimeGroup(string groupName)
         {
-            return groupName != null && (
-                groupName.StartsWith("shell", StringComparison.OrdinalIgnoreCase) ||
-                groupName.StartsWith("interaction", StringComparison.OrdinalIgnoreCase) ||
-                groupName.StartsWith("planning", StringComparison.OrdinalIgnoreCase) ||
-                groupName.StartsWith("notification", StringComparison.OrdinalIgnoreCase));
+            return !string.IsNullOrWhiteSpace(groupName)
+                && groupName.StartsWith("runtime.", StringComparison.OrdinalIgnoreCase);
         }
 
         private static string GetToolGroupName(ToolDefinition def)
@@ -486,6 +483,7 @@ namespace OfficeCopilot.Settings.WinForms
         private static int GetGroupOrder(string gn)
         {
             // App groups (end with .context/.read/.write/.advanced) come first, runtime groups after
+            if (string.Equals(gn, RuntimeToolGroups.Context, StringComparison.OrdinalIgnoreCase)) return 14;
             if (gn.EndsWith(".context", StringComparison.OrdinalIgnoreCase)) return 0;
             if (gn.EndsWith(".read", StringComparison.OrdinalIgnoreCase)) return 1;
             if (gn.EndsWith(".write", StringComparison.OrdinalIgnoreCase)) return 2;
@@ -500,12 +498,14 @@ namespace OfficeCopilot.Settings.WinForms
         private static string GetGroupDisplayName(string gn)
         {
             var normalized = (gn ?? string.Empty).ToLowerInvariant();
+            if (string.IsNullOrWhiteSpace(normalized)) return LocalizationService.Get("Settings.Config.Tools.Group.Ungrouped");
             var groupKey = GetToolGroupResourceKey(normalized);
             if (groupKey != null) return LocalizationService.Get(groupKey);
             if (string.Equals(gn, RuntimeToolGroups.Shell, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeShell");
             if (string.Equals(gn, RuntimeToolGroups.Interaction, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeInteraction");
             if (string.Equals(gn, RuntimeToolGroups.Planning, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimePlanning");
             if (string.Equals(gn, RuntimeToolGroups.Notification, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeNotification");
+            if (string.Equals(gn, RuntimeToolGroups.Context, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeContext");
             return gn;
         }
 

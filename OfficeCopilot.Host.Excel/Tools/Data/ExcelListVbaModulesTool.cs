@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_vba_modules",
-            DisplayName = "列出 VBA 模块",
-            Description = "列出当前工作簿中的 VBA 模块、类型、代码行数和过程列表。",
+            DisplayName = "List VBA Modules",
+            Description = "Lists VBA modules in the current workbook, including module type, code line count, and procedures.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

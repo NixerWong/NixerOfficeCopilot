@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_range_merge_info",
-            DisplayName = "读取区域合并状态",
-            Description = "读取指定区域是否处于合并单元格中；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Merge State",
+            Description = "Checks whether the specified range contains merged cells. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

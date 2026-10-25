@@ -648,6 +648,9 @@
   <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
     <value>运行时 - 通知</value>
   </data>
+  <data name="Settings.Config.Tools.Group.RuntimeContext" xml:space="preserve">
+    <value>运行时 - 上下文</value>
+  </data>
   <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
     <value>未分组</value>
   </data>
@@ -1142,349 +1145,349 @@
     <value>用户拒绝了工具“{0}”的执行。</value>
   </data>
   <data name="tool.runtime.compact.display_name" xml:space="preserve">
-    <value>压缩上下文</value>
+    <value>Compact Context</value>
   </data>
   <data name="tool.excel_get_active_workbook.display_name" xml:space="preserve">
-    <value>获取当前工作簿</value>
+    <value>Get Active Workbook</value>
   </data>
   <data name="tool.excel_get_selection.display_name" xml:space="preserve">
-    <value>获取当前选区</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.excel_list_worksheets.display_name" xml:space="preserve">
-    <value>列出工作表</value>
+    <value>List Worksheets</value>
   </data>
   <data name="tool.excel_read_range.display_name" xml:space="preserve">
-    <value>读取单元格区域</value>
+    <value>Read Range</value>
   </data>
   <data name="tool.excel_write_range.display_name" xml:space="preserve">
-    <value>写入单元格区域</value>
+    <value>Write Range</value>
   </data>
   <data name="tool.ppt_extract_content.display_name" xml:space="preserve">
-    <value>提取全文大纲</value>
+    <value>Extract Presentation Outline</value>
   </data>
   <data name="tool.ppt_export_slide_image.display_name" xml:space="preserve">
-    <value>导出幻灯片截图</value>
+    <value>Export Slide Image</value>
   </data>
   <data name="tool.ppt_check_fonts.display_name" xml:space="preserve">
-    <value>检查字体</value>
+    <value>Check Fonts</value>
   </data>
   <data name="tool.ppt_save_with_fonts.display_name" xml:space="preserve">
-    <value>另存嵌入字体副本</value>
+    <value>Save Copy with Embedded Fonts</value>
   </data>
   <data name="tool.ppt_save_copy.display_name" xml:space="preserve">
-    <value>另存演示文稿副本</value>
+    <value>Save Presentation Copy</value>
   </data>
   <data name="tool.ppt_execute_vba.display_name" xml:space="preserve">
-    <value>执行 VBA</value>
+    <value>Execute VBA</value>
   </data>
   <data name="tool.ppt_get_active_presentation.display_name" xml:space="preserve">
-    <value>读取当前演示文稿</value>
+    <value>Get Active Presentation</value>
   </data>
   <data name="tool.ppt_get_selection.display_name" xml:space="preserve">
-    <value>读取当前选区</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.ppt_list_slides.display_name" xml:space="preserve">
-    <value>列出幻灯片</value>
+    <value>List Slides</value>
   </data>
   <data name="tool.ppt_read_slide.display_name" xml:space="preserve">
-    <value>读取幻灯片</value>
+    <value>Read Slide</value>
   </data>
   <data name="tool.ppt_list_backups.display_name" xml:space="preserve">
-    <value>列出备份</value>
+    <value>List Backups</value>
   </data>
   <data name="tool.ppt_restore_backup.display_name" xml:space="preserve">
-    <value>从备份还原</value>
+    <value>Restore from Backup</value>
   </data>
   <data name="tool.ppt_style_search.display_name" xml:space="preserve">
-    <value>搜索风格库</value>
+    <value>Search Style Library</value>
   </data>
   <data name="tool.ppt_style_get.display_name" xml:space="preserve">
-    <value>读取风格详情</value>
+    <value>Read Style Details</value>
   </data>
   <data name="tool.ppt_deck_build.display_name" xml:space="preserve">
-    <value>构建工作区到演示文稿</value>
+    <value>Build Presentation from Workspace</value>
   </data>
   <data name="tool.word_toggle_track_changes.display_name" xml:space="preserve">
-    <value>切换修订</value>
+    <value>Toggle Track Changes</value>
   </data>
   <data name="tool.word_list_styles.display_name" xml:space="preserve">
-    <value>列出样式</value>
+    <value>List Styles</value>
   </data>
   <data name="tool.word_add_comment.display_name" xml:space="preserve">
-    <value>添加批注</value>
+    <value>Add Comment</value>
   </data>
   <data name="tool.word_set_paragraph_format.display_name" xml:space="preserve">
-    <value>设置段落格式</value>
+    <value>Set Paragraph Format</value>
   </data>
   <data name="tool.word_add_hyperlink.display_name" xml:space="preserve">
-    <value>添加超链接</value>
+    <value>Add Hyperlink</value>
   </data>
   <data name="tool.word_set_page_setup.display_name" xml:space="preserve">
-    <value>设置页面布局</value>
+    <value>Set Page Setup</value>
   </data>
   <data name="tool.word_add_content_control.display_name" xml:space="preserve">
-    <value>添加内容控件</value>
+    <value>Add Content Control</value>
   </data>
   <data name="tool.word_select_paragraph.display_name" xml:space="preserve">
-    <value>选择段落</value>
+    <value>Select Paragraph</value>
   </data>
   <data name="tool.word_set_header_footer.display_name" xml:space="preserve">
-    <value>设置页眉页脚</value>
+    <value>Set Header and Footer</value>
   </data>
   <data name="tool.word_select_document.display_name" xml:space="preserve">
-    <value>选择整个文档</value>
+    <value>Select Whole Document</value>
   </data>
   <data name="tool.word_add_bookmark.display_name" xml:space="preserve">
-    <value>添加书签</value>
+    <value>Add Bookmark</value>
   </data>
   <data name="tool.word_move_to_end.display_name" xml:space="preserve">
-    <value>移至文档末尾</value>
+    <value>Move to End of Document</value>
   </data>
   <data name="tool.word_insert_paragraph.display_name" xml:space="preserve">
-    <value>插入段落分隔符</value>
+    <value>Insert Paragraph Break</value>
   </data>
   <data name="tool.word_insert_text.display_name" xml:space="preserve">
-    <value>插入文本</value>
+    <value>Insert Text</value>
   </data>
   <data name="tool.word_insert_table.display_name" xml:space="preserve">
-    <value>插入表格</value>
+    <value>Insert Table</value>
   </data>
   <data name="tool.word_insert_field.display_name" xml:space="preserve">
-    <value>插入域</value>
+    <value>Insert Field</value>
   </data>
   <data name="tool.word_file_watermark.display_name" xml:space="preserve">
-    <value>水印</value>
+    <value>Watermark</value>
   </data>
   <data name="tool.word_file_field.display_name" xml:space="preserve">
-    <value>插入域</value>
+    <value>Insert Field</value>
   </data>
   <data name="tool.word_format_selection.display_name" xml:space="preserve">
-    <value>设置选区格式</value>
+    <value>Format Selection</value>
   </data>
   <data name="tool.word_format_paragraphs.display_name" xml:space="preserve">
-    <value>批量设置段落格式</value>
+    <value>Format Paragraphs (Batch)</value>
   </data>
   <data name="tool.word_file_toc.display_name" xml:space="preserve">
-    <value>重建目录</value>
+    <value>Rebuild Table of Contents</value>
   </data>
   <data name="tool.word_file_numbering.display_name" xml:space="preserve">
-    <value>创建编号列表</value>
+    <value>Create Numbering List</value>
   </data>
   <data name="tool.word_find_replace.display_name" xml:space="preserve">
-    <value>查找和替换</value>
+    <value>Find and Replace</value>
   </data>
   <data name="tool.word_apply_style.display_name" xml:space="preserve">
-    <value>应用样式</value>
+    <value>Apply Style</value>
   </data>
   <data name="tool.word_get_selection.display_name" xml:space="preserve">
-    <value>获取当前选区</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.word_get_active_document.display_name" xml:space="preserve">
-    <value>获取当前文档</value>
+    <value>Get Active Document</value>
   </data>
   <data name="tool.word_read_table.display_name" xml:space="preserve">
-    <value>读取表格</value>
+    <value>Read Table</value>
   </data>
   <data name="tool.word_read_outline.display_name" xml:space="preserve">
-    <value>读取文档大纲</value>
+    <value>Read Outline</value>
   </data>
   <data name="tool.word_read_paragraphs.display_name" xml:space="preserve">
-    <value>读取段落</value>
+    <value>Read Paragraphs</value>
   </data>
   <data name="tool.word_read_document.display_name" xml:space="preserve">
-    <value>读取文档</value>
+    <value>Read Document</value>
   </data>
   <data name="tool.excel_execute_vba.display_name" xml:space="preserve">
-    <value>执行 VBA 代码</value>
+    <value>Execute VBA Code</value>
   </data>
   <data name="tool.excel_clear_range.display_name" xml:space="preserve">
-    <value>清空区域</value>
+    <value>Clear Range</value>
   </data>
   <data name="tool.excel_create_worksheet.display_name" xml:space="preserve">
-    <value>新建工作表</value>
+    <value>Create Worksheet</value>
   </data>
   <data name="tool.excel_set_range_format.display_name" xml:space="preserve">
-    <value>设置区域格式</value>
+    <value>Set Range Format</value>
   </data>
   <data name="tool.excel_set_range_formulas.display_name" xml:space="preserve">
-    <value>设置区域公式</value>
+    <value>Set Range Formulas</value>
   </data>
   <data name="tool.excel_assert.display_name" xml:space="preserve">
-    <value>Excel 断言验证</value>
+    <value>Excel Assertions</value>
   </data>
   <data name="tool.excel_analyze_range.display_name" xml:space="preserve">
-    <value>分析区域</value>
+    <value>Analyze Range</value>
   </data>
   <data name="tool.excel_aggregate.display_name" xml:space="preserve">
-    <value>分组汇总</value>
+    <value>Aggregate Data</value>
   </data>
   <data name="tool.excel_cleanup_workspace.display_name" xml:space="preserve">
-    <value>清理中间表</value>
+    <value>Clean Up Intermediate Tables</value>
   </data>
   <data name="tool.excel_capture_worksheet_screenshot.display_name" xml:space="preserve">
-    <value>捕获工作表截图</value>
+    <value>Capture Worksheet Screenshot</value>
   </data>
   <data name="tool.excel_compare_key_sets.display_name" xml:space="preserve">
-    <value>Excel 双向键集合差异</value>
+    <value>Compare Excel Key Sets</value>
   </data>
   <data name="tool.excel_check_power_query_errors.display_name" xml:space="preserve">
-    <value>检查 Power Query 错误</value>
+    <value>Check Power Query Errors</value>
   </data>
   <data name="tool.excel_list_data_model_calculated_columns.display_name" xml:space="preserve">
-    <value>列出数据模型计算列</value>
+    <value>List Data Model Calculated Columns</value>
   </data>
   <data name="tool.excel_list_data_model_measures.display_name" xml:space="preserve">
-    <value>列出数据模型 Measures</value>
+    <value>List Data Model Measures</value>
   </data>
   <data name="tool.excel_list_data_model_relationships.display_name" xml:space="preserve">
-    <value>列出数据模型关系</value>
+    <value>List Data Model Relationships</value>
   </data>
   <data name="tool.excel_list_data_model_tables.display_name" xml:space="preserve">
-    <value>列出数据模型表</value>
+    <value>List Data Model Tables</value>
   </data>
   <data name="tool.excel_list_connections.display_name" xml:space="preserve">
-    <value>列出连接</value>
+    <value>List Connections</value>
   </data>
   <data name="tool.excel_list_power_queries.display_name" xml:space="preserve">
-    <value>列出 Power Query</value>
+    <value>List Power Queries</value>
   </data>
   <data name="tool.excel_list_tables.display_name" xml:space="preserve">
-    <value>列出表</value>
+    <value>List Tables</value>
   </data>
   <data name="tool.excel_read_table_data.display_name" xml:space="preserve">
-    <value>读取表数据</value>
+    <value>Read Table Data</value>
   </data>
   <data name="tool.excel_validate_power_query.display_name" xml:space="preserve">
-    <value>校验 Power Query</value>
+    <value>Validate Power Query</value>
   </data>
   <data name="tool.excel_view_connection.display_name" xml:space="preserve">
-    <value>查看连接</value>
+    <value>View Connection</value>
   </data>
   <data name="tool.excel_view_data_model_calculated_column.display_name" xml:space="preserve">
-    <value>查看数据模型计算列</value>
+    <value>View Data Model Calculated Column</value>
   </data>
   <data name="tool.excel_refresh_power_query.display_name" xml:space="preserve">
-    <value>刷新 Power Query</value>
+    <value>Refresh Power Query</value>
   </data>
   <data name="tool.excel_view_data_model_measure.display_name" xml:space="preserve">
-    <value>查看数据模型 Measure</value>
+    <value>View Data Model Measure</value>
   </data>
   <data name="tool.excel_view_table.display_name" xml:space="preserve">
-    <value>查看表</value>
+    <value>View Table</value>
   </data>
   <data name="tool.excel_find_in_range.display_name" xml:space="preserve">
-    <value>在区域中查找</value>
+    <value>Find in Range</value>
   </data>
   <data name="tool.excel_get_range_hyperlinks.display_name" xml:space="preserve">
-    <value>读取区域超链接</value>
+    <value>Read Range Hyperlinks</value>
   </data>
   <data name="tool.excel_get_range_info.display_name" xml:space="preserve">
-    <value>读取区域信息</value>
+    <value>Read Range Information</value>
   </data>
   <data name="tool.excel_get_named_range_value.display_name" xml:space="preserve">
-    <value>读取命名区域值</value>
+    <value>Read Named Range Value</value>
   </data>
   <data name="tool.excel_get_range_merge_info.display_name" xml:space="preserve">
-    <value>读取区域合并状态</value>
+    <value>Read Range Merge State</value>
   </data>
   <data name="tool.excel_get_range_lock_info.display_name" xml:space="preserve">
-    <value>读取区域锁定状态</value>
+    <value>Read Range Lock State</value>
   </data>
   <data name="tool.excel_get_range_style.display_name" xml:space="preserve">
-    <value>读取区域格式</value>
+    <value>Read Range Formatting</value>
   </data>
   <data name="tool.excel_get_range_number_formats.display_name" xml:space="preserve">
-    <value>读取区域数字格式</value>
+    <value>Read Range Number Formats</value>
   </data>
   <data name="tool.excel_get_range_validation.display_name" xml:space="preserve">
-    <value>读取区域数据验证</value>
+    <value>Read Range Data Validation</value>
   </data>
   <data name="tool.excel_list_backups.display_name" xml:space="preserve">
-    <value>列出备份点</value>
+    <value>List Backups</value>
   </data>
   <data name="tool.excel_profile_range.display_name" xml:space="preserve">
-    <value>表结构画像</value>
+    <value>Profile Table Structure</value>
   </data>
   <data name="tool.excel_list_vba_modules.display_name" xml:space="preserve">
-    <value>列出 VBA 模块</value>
+    <value>List VBA Modules</value>
   </data>
   <data name="tool.excel_list_named_ranges.display_name" xml:space="preserve">
-    <value>列出命名区域</value>
+    <value>List Named Ranges</value>
   </data>
   <data name="tool.excel_read_range_formulas.display_name" xml:space="preserve">
-    <value>读取区域公式</value>
+    <value>Read Range Formulas</value>
   </data>
   <data name="tool.excel_view_power_query.display_name" xml:space="preserve">
-    <value>查看 Power Query</value>
+    <value>View Power Query</value>
   </data>
   <data name="tool.excel_read_worksheet_data.display_name" xml:space="preserve">
-    <value>读取工作表数据</value>
+    <value>Read Worksheet Data</value>
   </data>
   <data name="tool.excel_reconcile.display_name" xml:space="preserve">
-    <value>汇总对账验证</value>
+    <value>Reconciliation Summary</value>
   </data>
   <data name="tool.excel_restore_backup.display_name" xml:space="preserve">
-    <value>从备份还原</value>
+    <value>Restore from Backup</value>
   </data>
   <data name="tool.excel_validate_range_formulas.display_name" xml:space="preserve">
-    <value>校验区域公式</value>
+    <value>Validate Range Formulas</value>
   </data>
   <data name="tool.excel_view_vba_module.display_name" xml:space="preserve">
-    <value>查看 VBA 模块</value>
+    <value>View VBA Module</value>
   </data>
   <data name="tool.ppt_style_preview.display_name" xml:space="preserve">
-    <value>预览演示文稿风格</value>
+    <value>Preview Presentation Style</value>
   </data>
   <data name="tool.ppt_deck_create.display_name" xml:space="preserve">
-    <value>创建演示文稿草稿</value>
+    <value>Create Presentation Draft</value>
   </data>
   <data name="tool.ppt_deck_put_slides.display_name" xml:space="preserve">
-    <value>添加或更新幻灯片</value>
+    <value>Add or Update Slides</value>
   </data>
   <data name="tool.ppt_deck_get_slides.display_name" xml:space="preserve">
-    <value>读取草稿幻灯片</value>
+    <value>Read Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_remove_slides.display_name" xml:space="preserve">
-    <value>删除草稿幻灯片</value>
+    <value>Remove Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_reorder.display_name" xml:space="preserve">
-    <value>调整草稿幻灯片顺序</value>
+    <value>Reorder Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_preview.display_name" xml:space="preserve">
-    <value>预览演示文稿草稿</value>
+    <value>Preview Presentation Draft</value>
   </data>
   <data name="tool.ppt_deck_validate.display_name" xml:space="preserve">
-    <value>校验演示文稿草稿</value>
+    <value>Validate Presentation Draft</value>
   </data>
   <data name="tool.ppt_set_shape_text.display_name" xml:space="preserve">
-    <value>设置形状文本</value>
+    <value>Set Shape Text</value>
   </data>
   <data name="tool.ppt_format_shapes.display_name" xml:space="preserve">
-    <value>设置形状格式</value>
+    <value>Format Shapes</value>
   </data>
   <data name="tool.ppt_arrange_shapes.display_name" xml:space="preserve">
-    <value>排列形状</value>
+    <value>Arrange Shapes</value>
   </data>
   <data name="tool.ppt_delete_shapes.display_name" xml:space="preserve">
-    <value>删除形状</value>
+    <value>Delete Shapes</value>
   </data>
   <data name="tool.ppt_add_text_box.display_name" xml:space="preserve">
-    <value>添加文本框</value>
+    <value>Add Text Box</value>
   </data>
   <data name="tool.ppt_insert_picture.display_name" xml:space="preserve">
-    <value>插入图片</value>
+    <value>Insert Picture</value>
   </data>
   <data name="tool.ppt_set_notes.display_name" xml:space="preserve">
-    <value>设置幻灯片备注</value>
+    <value>Set Slide Notes</value>
   </data>
   <data name="tool.ppt_add_slides.display_name" xml:space="preserve">
-    <value>添加幻灯片</value>
+    <value>Add Slides</value>
   </data>
   <data name="tool.ppt_delete_slides.display_name" xml:space="preserve">
-    <value>删除幻灯片</value>
+    <value>Delete Slides</value>
   </data>
   <data name="tool.ppt_move_slide.display_name" xml:space="preserve">
-    <value>移动幻灯片</value>
+    <value>Move Slide</value>
   </data>
   <data name="Settings.Config.Context.DeleteCurrentRow" xml:space="preserve">
     <value>删除当前行</value>

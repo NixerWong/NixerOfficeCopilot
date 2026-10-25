@@ -11,16 +11,16 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.ListBackups,
-            DisplayName = "列出备份",
-            Description = "列出当前演示文稿的备份点（新 → 旧）：备份文件路径、时间、触发工具、用户意图。"
-                + "每次回复里第一次修改演示文稿前都会自动备份一次。",
+            DisplayName = "List Backups",
+            Description = "Lists backup points for the current presentation, newest first, including backup path, time, triggering tool, and user intent."
+                + " A backup is automatically created before the first presentation modification in each response.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"maxCount\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":100,\"description\":\"最多返回条数，默认 20。\"}"
+                + "\"maxCount\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":100,\"description\":\"Maximum number of entries to return (default: 20).\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"
@@ -67,9 +67,9 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.RestoreBackup,
-            DisplayName = "从备份还原",
-            Description = "把指定备份点还原成新文件 {原名}_还原_{时分秒}.pptx：已保存的演示文稿放在原文件旁边，"
-                + "未保存的放在备份目录。绝不覆盖原文件。留空 backupPath 表示最近一个备份点。",
+            DisplayName = "Restore from Backup",
+            Description = "Restores the specified backup point to a new file named {originalName}_restored_{HHmmss}.pptx. Saved presentations are restored beside the original file;"
+                + " unsaved presentations are restored in the backup directory. Never overwrites the original file. Leave backupPath empty to use the most recent backup point.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = false,
@@ -80,8 +80,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"backupPath\":{\"type\":\"string\",\"description\":\"备份文件完整路径，来自 ppt_list_backups。留空表示最近一个备份点。\"},"
-                + "\"openAfterRestore\":{\"type\":\"boolean\",\"description\":\"还原后是否直接打开该副本，默认 true。\"}"
+                + "\"backupPath\":{\"type\":\"string\",\"description\":\"Full path of the backup file returned by ppt_list_backups. Leave empty to use the most recent backup point.\"},"
+                + "\"openAfterRestore\":{\"type\":\"boolean\",\"description\":\"Whether to open the restored copy immediately (default: true).\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"

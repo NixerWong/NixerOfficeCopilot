@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_validate_range_formulas",
-            DisplayName = "校验区域公式",
-            Description = "校验指定区域中的公式并返回错误与警告；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Validate Range Formulas",
+            Description = "Validates formulas in the specified range and returns errors and warnings. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

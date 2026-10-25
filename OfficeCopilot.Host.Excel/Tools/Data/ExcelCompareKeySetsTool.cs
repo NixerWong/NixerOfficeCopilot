@@ -15,13 +15,13 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_compare_key_sets",
-            DisplayName = "Excel 双向键集合差异",
-            Description = "只读地比较两个 Excel 数据源的键集合，分别返回 target 中缺失于 source、"
-                + "以及 source 中缺失于 target 的数量和有界确定性样例。差异是报告内容，不代表比较失败；"
-                + "同时返回匹配键数和双向未匹配总数，均由本次比较直接计算。"
-                + "只在两侧覆盖完整时报告成功。键按文本精确匹配（区分大小写，不自动修剪空格）；"
-                + "空单元格和空字符串不参与，仅含空格的字符串仍是实际键。"
-                + "每侧样例数默认 3、最多 10，不枚举全量键。",
+            DisplayName = "Compare Excel Key Sets",
+            Description = "Compares the key sets from two Excel data sources without modifying them, returning counts and bounded deterministic samples of keys in target but not source,"
+                + " and keys in source but not target. Differences are report data and do not indicate a failed comparison;"
+                + " also returns the number of matching keys and the total unmatched count in both directions, calculated from this comparison."
+                + " Reports success only when both sides have complete coverage. Keys are matched as exact text (case-sensitive, without trimming whitespace);"
+                + " blank cells and empty strings are excluded, while strings containing only spaces remain valid keys."
+                + " Samples default to 3 per side, with a maximum of 10; all keys are not enumerated.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,
@@ -33,7 +33,7 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"source\":{\"$ref\":\"#/definitions/side\"},"
                 + "\"headerMode\":{\"type\":\"string\",\"enum\":[\"auto\",\"yes\",\"no\"],\"default\":\"auto\"},"
                 + "\"sampleCount\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10,\"default\":3,"
-                + "\"description\":\"每侧最多返回的确定性样例数；3 时取排序后的首、中、末键。\"}"
+                + "\"description\":\"Maximum deterministic samples returned per side; when 3, returns the first, middle, and last keys in sorted order.\"}"
                 + "},"
                 + "\"required\":[\"target\",\"source\"],"
                 + "\"additionalProperties\":false,"
@@ -44,10 +44,10 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"side\":{\"type\":\"object\",\"properties\":{"
                 + "\"worksheetName\":{\"type\":\"string\"},\"address\":{\"type\":\"string\"},"
                 + "\"tableName\":{\"type\":\"string\"},"
-                + "\"keyColumn\":{\"type\":\"string\",\"description\":\"用于构造非空键集合的列名。\"},"
+                + "\"keyColumn\":{\"type\":\"string\",\"description\":\"Column name used to construct the non-empty key set.\"},"
                 + "\"filters\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/filter\"}}},"
                 + "\"required\":[\"keyColumn\"],\"additionalProperties\":false,"
-                + "\"description\":\"每侧指定 worksheetName、address 或 tableName 之一及 keyColumn。\"}"
+                + "\"description\":\"For each side, specify one of worksheetName, address, or tableName, plus keyColumn.\"}"
                 + "}}"
         };
 

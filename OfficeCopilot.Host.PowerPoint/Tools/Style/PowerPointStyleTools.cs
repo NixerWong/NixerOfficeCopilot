@@ -34,23 +34,23 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.StyleSearch,
-            DisplayName = "搜索风格库",
-            Description = "按关键词与筛选条件检索幻灯片风格库（HTML 模板 + 描述型预设），返回候选 slug、名称、气质、适用场景与字体可用性。"
-                + "元数据为英文：query 请用英文关键词（如 \"finance formal light\"、\"tech launch bold\"）。"
-                + "选型时通常给用户 3 个候选：1 个稳妥（certified）+ 1 个大胆 + 1 个灵活。",
+            DisplayName = "Search Style Library",
+            Description = "Searches the slide style library (HTML templates and descriptive presets) using keywords and filters. Returns candidate slugs, names, tone, use cases, and font availability."
+                + " Metadata is in English; use English keywords for query (for example, \"finance formal light\" or \"tech launch bold\")."
+                + " Typically present three candidates to the user: one safe (certified), one bold, and one flexible.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"query\":{\"type\":\"string\",\"description\":\"英文关键词，空格分隔；省略表示按筛选条件列出。\"},"
+                + "\"query\":{\"type\":\"string\",\"description\":\"English keywords separated by spaces; omit to list styles matching the filters.\"},"
                 + "\"kind\":{\"type\":\"string\",\"enum\":[\"template\",\"preset\"]},"
                 + "\"scheme\":{\"type\":\"string\",\"enum\":[\"light\",\"dark\",\"mixed\"]},"
                 + "\"formality\":{\"type\":\"string\",\"enum\":[\"low\",\"medium\",\"high\"]},"
                 + "\"density\":{\"type\":\"string\",\"enum\":[\"low\",\"medium\",\"high\"]},"
                 + "\"tier\":{\"type\":\"string\",\"enum\":[\"certified\",\"experimental\",\"user\"]},"
-                + "\"maxResults\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":50,\"description\":\"默认 8。\"}"
+                + "\"maxResults\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":50,\"description\":\"Default: 8.\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"
@@ -141,18 +141,18 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.StyleGet,
-            DisplayName = "读取风格详情",
-            Description = "按 slug 读取一个风格的详情：调色板、字体（含本地可用性）、版式样例清单、预览卡。"
-                + "part=preview 只返回预览卡（生成候选封面用）；part=design 返回完整设计系统（用户选定后生成整套时用，较长）。"
-                + "不要一次读取多个风格的 design。",
+            DisplayName = "Read Style Details",
+            Description = "Reads details for one style by slug: palette, fonts (including local availability), layout examples, and preview card."
+                + " part=preview returns only the preview card for candidate cover generation; part=design returns the complete design system for generating a full presentation after the user selects a style and may be lengthy."
+                + " Do not read the design data for multiple styles at once.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"slug\":{\"type\":\"string\",\"description\":\"ppt_style_search 返回的 slug。\"},"
-                + "\"part\":{\"type\":\"string\",\"enum\":[\"summary\",\"preview\",\"design\"],\"description\":\"默认 preview。\"}"
+                + "\"slug\":{\"type\":\"string\",\"description\":\"Slug returned by ppt_style_search.\"},"
+                + "\"part\":{\"type\":\"string\",\"enum\":[\"summary\",\"preview\",\"design\"],\"description\":\"Default: preview.\"}"
                 + "},"
                 + "\"required\":[\"slug\"],"
                 + "\"additionalProperties\":false"

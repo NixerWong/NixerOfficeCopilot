@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_view_data_model_calculated_column",
-            DisplayName = "查看数据模型计算列",
-            Description = "查看指定 Data Model 计算列的完整 DAX 公式。",
+            DisplayName = "View Data Model Calculated Column",
+            Description = "Shows the complete DAX formula for the specified Data Model calculated column.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

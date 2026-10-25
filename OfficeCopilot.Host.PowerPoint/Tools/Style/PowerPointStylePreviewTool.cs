@@ -24,21 +24,21 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
 
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.StylePreview,
-            "渲染风格候选",
-            "把 3–4 个不同候选风格各自的封面页渲染成图片（不改动当前演示文稿）。"
-                + "调用前先对每个候选风格调用 ppt_style_get（part=preview），按预览卡与“模板结构类”编写；模板示例页里的内容类（如卡片、标签）不会注入，封面需要的样式都写在本候选的 css 里，类名用 cover-* 前缀。"
-                + "每个候选：name（小写字母开头的 a-z0-9-）、style（slug）、html（一个 <section class=\"slide\">，1920×1080 设计）、css（可选）。"
-                + "字号用 px，不要用 vw/vh/clamp。"
-                + "字体规则：只要一个文本块含有中文，整个文本块必须使用中文字体；不要拆分中英文，也不要在该块的 font-family 栈中放入任何英文字体。使用 ppt_style_search 返回的本机中文字体列表；若列表为空，使用随包中文字体。Noto Color Emoji 仅供自动 emoji 回退。"
-                + "按所选字族支持的字重设置 font-weight。"
-                + "装饰不要用 ✿、✦、★ 等文字符号：图标用 <i class=\"nx-icon\" data-icon=\"leaf\"></i>（只写小写 Lucide 图标名，不加 lucide- 前缀），色块/胶囊/线条用带背景或边框的元素，并加 data-nx-shape=\"rect|rounded-rect|line\" 使其在 PPT 中成为可编辑形状。"
-                + "返回每个候选的 previewImageId 和字体/布局校验问题（问题不会阻止候选展示）：随后调用 runtime.ask_user_question，把 previewImageId 原样填到对应选项的 previewImageId 字段让用户看图选择；不要复制或改写图片 URL。"
-                + "返回的 deckId 在用户选定后传给 ppt_deck_create 复用。",
+            "Preview Presentation Style",
+            "Renders the cover slide for each of 3–4 distinct style candidates as an image without modifying the current presentation. "
+                + "Before calling this tool, call ppt_style_get (part=preview) for each candidate style and follow its preview card and template-structure classes. Content classes from template example slides (such as cards and tags) are not injected; define all cover styles in that candidate's css using the cover-* prefix. "
+                + "For each candidate, provide name (a-z0-9- starting with a lowercase letter), style (slug), html (one <section class=\"slide\"> designed at 1920x1080), and optional css. "
+                + "Use px for font sizes; do not use vw, vh, or clamp. "
+                + "Font rules: if a text block contains any Chinese, use a Chinese font for the entire block. Do not split Chinese and English text, and do not include English fonts in that block's font-family stack. Use the locally installed Chinese fonts returned by ppt_style_search; if the list is empty, use the bundled Chinese font. Noto Color Emoji is only for automatic emoji fallback. "
+                + "Set font-weight to a value supported by the selected font family. "
+                + "Do not use text symbols such as ✿, ✦, or ★ for decoration. Use <i class=\"nx-icon\" data-icon=\"leaf\"></i> for icons (use only lowercase Lucide icon names without the lucide- prefix). Use elements with backgrounds or borders for color blocks, pills, and lines, and add data-nx-shape=\"rect|rounded-rect|line\" so they become editable shapes in PowerPoint. "
+                + "Returns each candidate's previewImageId and font/layout validation issues (issues do not prevent candidates from being shown). Then call runtime.ask_user_question and copy each previewImageId unchanged into the matching option's previewImageId field so the user can see and choose an image; do not copy or rewrite image URLs. "
+                + "After the user selects a candidate, pass its returned deckId to ppt_deck_create to reuse the workspace.",
             true,
             "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"deckId\":{\"type\":\"string\",\"description\":\"复用已有工作区；省略则新建。\"},"
+                + "\"deckId\":{\"type\":\"string\",\"description\":\"Reuse an existing workspace; omit to create a new one.\"},"
                 + "\"candidates\":{\"type\":\"array\",\"minItems\":3,\"maxItems\":4,\"items\":{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"

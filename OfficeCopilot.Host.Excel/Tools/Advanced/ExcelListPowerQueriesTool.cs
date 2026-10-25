@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_power_queries",
-            DisplayName = "列出 Power Query",
-            Description = "列出当前工作簿中的 Power Query 名称、公式预览和加载模式摘要。",
+            DisplayName = "List Power Queries",
+            Description = "Lists Power Query names, formula previews, and load-mode summaries in the current workbook.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

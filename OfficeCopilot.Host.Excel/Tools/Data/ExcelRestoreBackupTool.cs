@@ -11,9 +11,9 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_restore_backup",
-            DisplayName = "从备份还原",
-            Description = "把指定备份点还原成一个新文件 {原名}_还原_{时分秒}.xlsx，放在原工作簿旁边。"
-                + "绝不覆盖原文件，用户可以对比后自行决定用哪个。留空 backupPath 表示还原最近一个备份点。",
+            DisplayName = "Restore from Backup",
+            Description = "Restores the specified backup point to a new file named {originalName}_restored_{HHmmss}.xlsx beside the original workbook."
+                + " Never overwrites the original file, so the user can compare both versions. Leave backupPath empty to restore the most recent backup point.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,
@@ -23,8 +23,8 @@ namespace OfficeCopilot.Host.Excel.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"backupPath\":{\"type\":\"string\",\"description\":\"备份文件完整路径，来自 excel_list_backups。留空表示最近一个备份点。\"},"
-                + "\"openAfterRestore\":{\"type\":\"boolean\",\"description\":\"还原后是否直接打开该副本。\"}"
+                + "\"backupPath\":{\"type\":\"string\",\"description\":\"Full path of the backup file returned by excel_list_backups. Leave empty to use the most recent backup point.\"},"
+                + "\"openAfterRestore\":{\"type\":\"boolean\",\"description\":\"Whether to open the restored copy immediately.\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"

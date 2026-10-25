@@ -648,6 +648,9 @@
   <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
     <value>Runtime - Notifications</value>
   </data>
+  <data name="Settings.Config.Tools.Group.RuntimeContext" xml:space="preserve">
+    <value>Runtime - Context</value>
+  </data>
   <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
     <value>Ungrouped</value>
   </data>

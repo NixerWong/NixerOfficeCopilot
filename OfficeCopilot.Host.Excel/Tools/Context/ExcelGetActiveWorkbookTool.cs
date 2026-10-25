@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_active_workbook",
-            DisplayName = "获取当前工作簿",
-            Description = "返回当前 Excel 活动工作簿、当前工作表和只读状态。",
+            DisplayName = "Get Active Workbook",
+            Description = "Returns the active Excel workbook, the active worksheet, and whether the workbook is read-only.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

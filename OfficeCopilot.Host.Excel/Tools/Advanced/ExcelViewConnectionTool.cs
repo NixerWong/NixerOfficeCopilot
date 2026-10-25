@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_view_connection",
-            DisplayName = "查看连接",
-            Description = "查看指定连接的详细信息。",
+            DisplayName = "View Connection",
+            Description = "Shows details for the specified connection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

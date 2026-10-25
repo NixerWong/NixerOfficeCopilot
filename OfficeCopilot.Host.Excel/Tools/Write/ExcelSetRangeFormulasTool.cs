@@ -15,8 +15,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_set_range_formulas",
-            DisplayName = "设置区域公式",
-            Description = "为单元格或区域设置公式。优先使用 Excel 对象模型，失败时可自动回退到 VBA 执行。",
+            DisplayName = "Set Range Formulas",
+            Description = "Sets formulas in cells or ranges using the Excel object model, with an automatic fallback to VBA if needed.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,

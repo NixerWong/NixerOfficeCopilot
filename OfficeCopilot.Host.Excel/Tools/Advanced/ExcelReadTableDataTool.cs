@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_read_table_data",
-            DisplayName = "读取表数据",
-            Description = "读取指定 Excel 表的数据区内容。",
+            DisplayName = "Read Table Data",
+            Description = "Reads the data body of the specified Excel table.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

@@ -23,6 +23,19 @@ namespace OfficeCopilot.Agent.Tests.References
     public class GetReferenceContentToolTests
     {
         [TestMethod]
+        public void ToolBelongsToRuntimeContextGroup()
+        {
+            var panelAssembly = Assembly.Load("OfficeCopilot.Panel.WebView");
+            var toolType = panelAssembly.GetType(
+                "OfficeCopilot.Panel.WebView.Services.References.GetReferenceContentTool",
+                true);
+            var tool = (IAgentTool)Activator.CreateInstance(toolType, true);
+
+            Assert.IsTrue(tool.Definition.Metadata.TryGetValue(ToolMetadataKeys.GroupName, out var groupName));
+            Assert.AreEqual(RuntimeToolGroups.Context, groupName);
+        }
+
+        [TestMethod]
         public void FetchesFirstChunkForRequestedSectionAndReturnsContinuationIndex()
         {
             var reference = CreateReference();

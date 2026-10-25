@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_range_info",
-            DisplayName = "读取区域信息",
-            Description = "读取区域的尺寸、位置和数字格式等信息；可按需完整扫描隐藏行及其工作表行号；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Information",
+            Description = "Reads range dimensions, position, number formats, and related information. Can optionally scan all hidden rows and return their worksheet row numbers. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,
@@ -23,7 +23,7 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"worksheetName\":{\"type\":\"string\"},"
                 + "\"address\":{\"type\":\"string\"},"
                 + "\"useSelectionWhenAddressEmpty\":{\"type\":\"boolean\"},"
-                + "\"includeHiddenRows\":{\"type\":\"boolean\",\"description\":\"为 true 时逐行完整扫描该区域的隐藏状态并返回工作表行号；最多 100000 行，超出时明确失败且不返回部分结果；默认 false。\"}"
+                + "\"includeHiddenRows\":{\"type\":\"boolean\",\"description\":\"When true, scans every row in the range for hidden status and returns worksheet row numbers. Supports up to 100,000 rows; larger ranges fail explicitly without partial results (default: false).\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"

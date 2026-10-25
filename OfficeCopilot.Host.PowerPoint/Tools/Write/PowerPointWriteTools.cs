@@ -46,14 +46,14 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
                 ?? throw new InvalidOperationException("IPowerPointEditHost not registered.");
         }
 
-        private const string SlideIndexSchema = "\"slideIndex\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"1 起的页码；省略表示当前页。\"}";
-        private const string ShapeSchema = "\"shape\":{\"type\":\"string\",\"description\":\"形状名称或数字 Id（见 ppt_read_slide）。\"}";
-        private const string ShapesSchema = "\"shapes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1,\"description\":\"形状名称或数字 Id 列表（见 ppt_read_slide）。\"}";
+        private const string SlideIndexSchema = "\"slideIndex\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"1-based slide number; omit to use the current slide.\"}";
+        private const string ShapeSchema = "\"shape\":{\"type\":\"string\",\"description\":\"Shape name or numeric ID (see ppt_read_slide).\"}";
+        private const string ShapesSchema = "\"shapes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1,\"description\":\"List of shape names or numeric IDs (see ppt_read_slide).\"}";
         private const string FormatProperties =
             "\"fillColor\":{\"type\":\"string\",\"description\":\"#RRGGBB\"},"
             + "\"noFill\":{\"type\":\"boolean\"},"
             + "\"lineColor\":{\"type\":\"string\"},"
-            + "\"lineWidth\":{\"type\":\"number\",\"description\":\"磅\"},"
+            + "\"lineWidth\":{\"type\":\"number\",\"description\":\"Points.\"},"
             + "\"noLine\":{\"type\":\"boolean\"},"
             + "\"fontName\":{\"type\":\"string\"},"
             + "\"fontSize\":{\"type\":\"number\"},"
@@ -119,20 +119,20 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
             return new IAgentTool[]
             {
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.SetShapeText, "设置形状文字",
-                        "替换指定形状的全部文字（保留首段格式）。换行用 \\n。",
+                    Define(PowerPointToolNames.SetShapeText, "Set Shape Text",
+                        "Replaces all text in the specified shape while preserving first-paragraph formatting. Use \\n for line breaks.",
                         SlideIndexSchema + "," + ShapeSchema + ",\"text\":{\"type\":\"string\"}", "\"shape\",\"text\""),
                     "ppt.set_shape_text_failed",
                     (host, a) => host.SetShapeText(Slide(a), a.Value<string>("shape"), a.Value<string>("text"))),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.FormatShapes, "格式化形状",
-                        "设置一个或多个形状的填充、边框、字体（名称/字号/粗斜体/颜色）、段落对齐、位置尺寸（磅）与旋转。只传需要修改的属性。",
+                    Define(PowerPointToolNames.FormatShapes, "Format Shapes",
+                        "Sets fill, line, font (name, size, bold, italic, and color), paragraph alignment, position, size in points, and rotation for one or more shapes. Supply only the properties to change.",
                         SlideIndexSchema + "," + ShapesSchema + "," + FormatProperties, "\"shapes\""),
                     "ppt.format_shapes_failed",
                     (host, a) => host.FormatShapes(Slide(a), Strings(a, "shapes"), Format(a))),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.ArrangeShapes, "排列形状",
-                        "对齐、分布或调整层级。对齐至少 2 个形状、分布至少 3 个，除非 relativeToSlide=true（相对整页）。",
+                    Define(PowerPointToolNames.ArrangeShapes, "Arrange Shapes",
+                        "Aligns, distributes, or changes z-order. Alignment requires at least 2 shapes and distribution at least 3, unless relativeToSlide=true (relative to the full slide).",
                         SlideIndexSchema + "," + ShapesSchema
                             + ",\"action\":{\"type\":\"string\",\"enum\":[\"align_left\",\"align_center\",\"align_right\",\"align_top\",\"align_middle\",\"align_bottom\",\"distribute_horizontal\",\"distribute_vertical\",\"bring_to_front\",\"send_to_back\",\"bring_forward\",\"send_backward\"]}"
                             + ",\"relativeToSlide\":{\"type\":\"boolean\"}",
@@ -140,13 +140,13 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
                     "ppt.arrange_shapes_failed",
                     (host, a) => host.ArrangeShapes(Slide(a), Strings(a, "shapes"), a.Value<string>("action"), a.Value<bool?>("relativeToSlide") ?? false)),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.DeleteShapes, "删除形状", "删除指定页上的形状。",
+                    Define(PowerPointToolNames.DeleteShapes, "Delete Shapes", "Deletes the specified shapes from the selected slide.",
                         SlideIndexSchema + "," + ShapesSchema, "\"shapes\""),
                     "ppt.delete_shapes_failed",
                     (host, a) => host.DeleteShapes(Slide(a), Strings(a, "shapes"))),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.AddTextBox, "添加文本框",
-                        "在指定页添加文本框，位置尺寸单位为磅（16:9 页面为 960×540）。可同时设置字体与对齐。",
+                    Define(PowerPointToolNames.AddTextBox, "Add Text Box",
+                        "Adds a text box to the specified slide. Position and size are in points (a 16:9 slide is 960×540). Font and alignment can also be set.",
                         SlideIndexSchema + ",\"text\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}," + FormatProperties,
                         "\"text\",\"left\",\"top\",\"width\",\"height\""),
                     "ppt.add_text_box_failed",
@@ -167,35 +167,35 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
                         return host.AddTextBox(Slide(a), spec);
                     }),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.InsertPicture, "插入图片",
-                        "把本机图片文件插入指定页。省略 width/height 时保持原始尺寸。",
-                        SlideIndexSchema + ",\"path\":{\"type\":\"string\",\"description\":\"本机绝对路径\"},\"name\":{\"type\":\"string\"},"
+                    Define(PowerPointToolNames.InsertPicture, "Insert Picture",
+                        "Inserts a local image file into the specified slide. If width/height are omitted, preserves the original dimensions.",
+                        SlideIndexSchema + ",\"path\":{\"type\":\"string\",\"description\":\"Absolute local path.\"},\"name\":{\"type\":\"string\"},"
                             + "\"left\":{\"type\":\"number\"},\"top\":{\"type\":\"number\"},\"width\":{\"type\":\"number\"},\"height\":{\"type\":\"number\"}",
                         "\"path\""),
                     "ppt.insert_picture_failed",
                     (host, a) => host.InsertPicture(Slide(a), a.Value<string>("path"), a.Value<float?>("left"), a.Value<float?>("top"),
                         a.Value<float?>("width"), a.Value<float?>("height"), a.Value<string>("name"))),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.SetNotes, "设置备注", "替换指定页的演讲者备注。", SlideIndexSchema + ",\"text\":{\"type\":\"string\"}", "\"text\"", "low"),
+                    Define(PowerPointToolNames.SetNotes, "Set Slide Notes", "Replaces the speaker notes for the specified slide.", SlideIndexSchema + ",\"text\":{\"type\":\"string\"}", "\"text\"", "low"),
                     "ppt.set_notes_failed",
                     (host, a) => host.SetNotes(Slide(a), a.Value<string>("text"))),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.AddSlides, "新增幻灯片",
-                        "在指定位置插入新页。layout 为母版版式名称或序号（省略为空白页）；titles 给出时按标题数新增并填写标题占位符。",
-                        "\"position\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"插入后的页码；省略为末尾。\"},"
+                    Define(PowerPointToolNames.AddSlides, "Add Slides",
+                        "Inserts new slides at the specified position. layout is a master-layout name or index (omit it for a blank slide); when titles are provided, creates one slide per title and fills the title placeholder.",
+                        "\"position\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Slide number to insert at; omit to append at the end.\"},"
                             + "\"layout\":{\"type\":\"string\"},\"count\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":50},"
                             + "\"titles\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"maxItems\":50}",
                         null, "low"),
                     "ppt.add_slides_failed",
                     (host, a) => host.AddSlides(a.Value<int?>("position") ?? 0, a.Value<string>("layout"), Strings(a, "titles"), a.Value<int?>("count") ?? 1)),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.DeleteSlides, "删除幻灯片", "删除指定页（不可删除全部页）。需要用户确认。",
+                    Define(PowerPointToolNames.DeleteSlides, "Delete Slides", "Deletes the specified slides; all slides cannot be deleted. User confirmation is required.",
                         "\"slideIndexes\":{\"type\":\"array\",\"items\":{\"type\":\"integer\",\"minimum\":1},\"minItems\":1}",
                         "\"slideIndexes\"", "high", true),
                     "ppt.delete_slides_failed",
                     (host, a) => host.DeleteSlides(((a["slideIndexes"] as JArray) ?? new JArray()).Select(t => (int)t).ToList())),
                 new PowerPointEditTool(
-                    Define(PowerPointToolNames.MoveSlide, "移动幻灯片", "把一页移动到新位置。",
+                    Define(PowerPointToolNames.MoveSlide, "Move Slide", "Moves a slide to a new position.",
                         "\"fromIndex\":{\"type\":\"integer\",\"minimum\":1},\"toIndex\":{\"type\":\"integer\",\"minimum\":1}",
                         "\"fromIndex\",\"toIndex\""),
                     "ppt.move_slide_failed",
@@ -209,12 +209,12 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.ExtractContent,
-            DisplayName = "提取全文大纲",
-            Description = "按页提取整份演示文稿的标题、正文（含表格）与可选备注，输出 Markdown 大纲。适合总结、改写或翻译前先通读。",
+            DisplayName = "Extract Presentation Outline",
+            Description = "Extracts slide titles, body text (including tables), and optionally notes from the entire presentation into a Markdown outline. Useful for reviewing the presentation before summarizing, rewriting, or translating it.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
-            InputSchemaJson = "{\"type\":\"object\",\"properties\":{\"includeNotes\":{\"type\":\"boolean\",\"description\":\"默认 false。\"}},\"additionalProperties\":false}"
+            InputSchemaJson = "{\"type\":\"object\",\"properties\":{\"includeNotes\":{\"type\":\"boolean\",\"description\":\"Default: false.\"}},\"additionalProperties\":false}"
         };
 
         public override ToolDefinition Definition => _definition;
@@ -254,15 +254,15 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.ExportSlideImage,
-            DisplayName = "导出幻灯片截图",
-            Description = "把指定页（最多 8 页，省略为当前页）导出为 PNG 到临时目录；模型支持图像输入时附带前 4 张截图，用于视觉检查排版。",
+            DisplayName = "Export Slide Image",
+            Description = "Exports up to 8 specified slides as PNG files to a temporary directory; if omitted, exports the current slide. When the model supports image input, includes the first 4 screenshots for visual layout inspection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
             InputSchemaJson = "{\"type\":\"object\",\"properties\":{"
                 + "\"slideIndexes\":{\"type\":\"array\",\"items\":{\"type\":\"integer\",\"minimum\":1},\"maxItems\":8},"
-                + "\"width\":{\"type\":\"integer\",\"minimum\":160,\"maximum\":3840,\"description\":\"默认 1280。\"},"
-                + "\"height\":{\"type\":\"integer\",\"minimum\":90,\"maximum\":2160,\"description\":\"默认 720。\"}"
+                + "\"width\":{\"type\":\"integer\",\"minimum\":160,\"maximum\":3840,\"description\":\"Default: 1280.\"},"
+                + "\"height\":{\"type\":\"integer\",\"minimum\":90,\"maximum\":2160,\"description\":\"Default: 720.\"}"
                 + "},\"additionalProperties\":false}"
         };
 
@@ -298,8 +298,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.CheckFonts,
-            DisplayName = "检查字体",
-            Description = "列出演示文稿使用的字体，标出本机未安装、不可嵌入与已嵌入的字体。交付他人前用于判断是否需要 ppt_save_with_fonts。",
+            DisplayName = "Check Fonts",
+            Description = "Lists fonts used in the presentation and identifies fonts that are not installed locally, cannot be embedded, or are already embedded. Use before sharing to determine whether ppt_save_with_fonts is needed.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
@@ -337,14 +337,14 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.SaveWithFonts,
-            DisplayName = "另存嵌入字体副本",
-            Description = "把当前演示文稿另存为嵌入字体的 .pptx 副本（不修改原文件、不覆盖已有文件）。省略 path 时保存到原文件旁，文件名带「_嵌入字体_时间戳」。",
+            DisplayName = "Save Copy with Embedded Fonts",
+            Description = "Saves a copy of the current presentation as a .pptx with fonts embedded. Does not modify the original or overwrite existing files. If path is omitted, saves beside the original with a filename containing _embedded_fonts_timestamp.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = false,
             AffectsDocument = false,
             RiskLevel = "low",
-            InputSchemaJson = "{\"type\":\"object\",\"properties\":{\"path\":{\"type\":\"string\",\"description\":\"可选，目标 .pptx 绝对路径。\"}},\"additionalProperties\":false}"
+            InputSchemaJson = "{\"type\":\"object\",\"properties\":{\"path\":{\"type\":\"string\",\"description\":\"Optional absolute path for the target .pptx file.\"}},\"additionalProperties\":false}"
         };
 
         public override ToolDefinition Definition => _definition;
@@ -371,14 +371,14 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.SaveCopy,
-            DisplayName = "另存演示文稿副本",
-            Description = "另存当前演示文稿为 .pptx 副本，不修改原文件且不覆盖已有文件。embedFonts 省略时采用 PowerPoint Slides 设置。",
+            DisplayName = "Save Presentation Copy",
+            Description = "Saves a copy of the current presentation as a .pptx without modifying the original or overwriting existing files. If embedFonts is omitted, uses the PowerPoint Slides setting.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = false,
             AffectsDocument = false,
             RiskLevel = "low",
-            InputSchemaJson = "{\"type\":\"object\",\"properties\":{\"path\":{\"type\":\"string\",\"description\":\"可选，目标 .pptx 绝对路径。\"},\"embedFonts\":{\"type\":\"boolean\",\"description\":\"是否嵌入字体；省略时使用 PowerPoint Slides 设置。\"}},\"additionalProperties\":false}"
+            InputSchemaJson = "{\"type\":\"object\",\"properties\":{\"path\":{\"type\":\"string\",\"description\":\"Optional absolute path for the target .pptx file.\"},\"embedFonts\":{\"type\":\"boolean\",\"description\":\"Whether to embed fonts; if omitted, uses the PowerPoint Slides setting.\"}},\"additionalProperties\":false}"
         };
 
         public override ToolDefinition Definition => _definition;
@@ -408,9 +408,9 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.ExecuteVba,
-            DisplayName = "执行 VBA",
-            Description = "在当前演示文稿注入临时模块并执行 VBA（执行后移除模块）。仅在原子工具无法完成时使用，例如批量遍历全部页修改格式。"
-                + "代码须包含无参数的 Sub/Function 入口（优先 Main）；可调用 NixerLog \"消息\" 回传日志。需要用户确认，且要求已信任 VBA 工程对象模型访问。",
+            DisplayName = "Execute VBA",
+            Description = "Injects a temporary module into the current presentation and runs VBA, then removes the module. Use only when atomic tools cannot complete the task, such as applying formatting across every slide."
+                + " Code must include a parameterless Sub or Function entry point (prefer Main); call NixerLog \"message\" to return logs. Requires user confirmation and trusted access to the VBA project object model.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = false,
@@ -419,8 +419,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
             RiskLevel = "high",
             TimeoutSeconds = 120,
             InputSchemaJson = "{\"type\":\"object\",\"properties\":{"
-                + "\"code\":{\"type\":\"string\",\"description\":\"完整 VBA 模块代码。\"},"
-                + "\"entryPoint\":{\"type\":\"string\",\"description\":\"入口过程名；省略时优先 Main，否则取第一个无参过程。\"}"
+                + "\"code\":{\"type\":\"string\",\"description\":\"Complete VBA module source code.\"},"
+                + "\"entryPoint\":{\"type\":\"string\",\"description\":\"Entry procedure name; if omitted, prefers Main, then uses the first parameterless procedure.\"}"
                 + "},\"required\":[\"code\"],\"additionalProperties\":false}"
         };
 

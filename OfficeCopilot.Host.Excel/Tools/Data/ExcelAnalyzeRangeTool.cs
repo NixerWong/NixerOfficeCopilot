@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_analyze_range",
-            DisplayName = "分析区域",
-            Description = "使用 Excel 原生计算引擎对指定区域做纯计算分析，不写入任何单元格。支持 aggregate 和 lookup_by_extreme 两类操作。",
+            DisplayName = "Analyze Range",
+            Description = "Analyzes a specified range using Excel's native calculation engine without writing to any cells. Supports aggregate and lookup_by_extreme operations.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

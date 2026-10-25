@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_check_power_query_errors",
-            DisplayName = "检查 Power Query 错误",
-            Description = "检查指定 Power Query 的连接与错误状态。",
+            DisplayName = "Check Power Query Errors",
+            Description = "Checks the connection and error status of the specified Power Query.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

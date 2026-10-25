@@ -18,7 +18,7 @@
 - `fmSysConfig.cbeLanguage` 提供 English / 简体中文 / 日本語 / Deutsch / Español；保存语言变化后立即刷新当前窗体，不再提示重启。WebView 的 `lang` 属性映射为对应区域 Culture。
 - 自有 `OfficeCopilot.Localization.resources.dll` 由构建输出生成；`Stage-Package.ps1` 校验 `zh-Hans`、`ja`、`de` 和 `es` 卫星程序集已进入 staging。
 - **按用户澄清，DevExpress 官方语言包需要下载，并在运行 `Stage-Package.ps1` 后手动复制到最终发布根目录对应的 Culture 子目录。** 脚本每次会重建 staging，因此复制操作必须在脚本之后；发布前需确认 `zh-Hans`、`ja`、`de` 和 `es` 的 DevExpress DLL 均存在。
-- 已有设置窗体、校验消息、任务窗格 WinForms/WebView UI、附件筛选器、Broker 错误提示、TrustFooter、工具显示名及回答语言策略通过共享资源机制本地化；新增语言需完成全量翻译和实际 Office 布局验收。
+- 已有设置窗体、校验消息、任务窗格 WinForms/WebView UI、附件筛选器、Broker 错误提示、TrustFooter、工具分组名及回答语言策略通过共享资源机制本地化；内置工具显示名和说明固定使用英文，避免与稳定的调用名混淆。新增语言需完成全量翻译和实际 Office 布局验收。
 - Excel / Word / PowerPoint 的内置 Ask / Agent 提示词及运行时工作流指令以英文单一版本维护，运行时在最终 system prompt 开头按 UI 语言加入对应语种的默认回答语言指令。
 - `HostSystemPromptStore` 会更新带有效 `.seed` 且未修改的旧默认副本；没有匹配 `.seed` 的非空文件或已编辑的提示词按用户自定义内容保留，不会自动覆盖。`fmSysConfig` 中的 Ask / Agent 提示词按钮只会在文件不存在时写入内置默认，然后用记事本打开；当前没有专用提示词编辑器或“恢复默认”按钮。
 - 验证：完整解决方案 Debug 构建成功；完整 MSTest **980 通过 / 4 跳过 / 0 失败**；`i18n.js` 语法检查通过；所有语言资源键和复合格式占位符检查通过。三个 VSTO 宿主及 Broker 的 Debug 输出均生成 `de` / `es` 自有卫星程序集。DevExpress 官方 DLL 下载、staging 复制及 Office 实机布局/热切换验收仍待完成。
@@ -92,8 +92,8 @@
 |---|---|---|---|
 | **A. 静态 UI** | 窗体/控件/Ribbon 的 Caption、Text、Tooltip、列头 | `grpLanguage.Text = "语言"`、`btnTogglePane.Label = "显示面板"` | 资源化，`ApplyLocalization()` 统一赋值 |
 | **B. 动态 UI 消息** | MessageBox、状态栏、校验错误、面板提示、前端按钮状态 | `"打开模型管理失败：" + ex.Message`、`'执行中'` | 资源化，带占位符 `{0}` |
-| **C. 运行时用户可见文本** | Broker/Runtime 生成并展示给用户的文字 | `TrustFooterBuilder` 校验页脚、工具显示名 `DisplayName`、ask_user 默认按钮 | 资源化，按每轮请求携带的 `uiCulture` 解析 |
-| **D. 面向模型的文本** | 系统提示词、工具 description、工具结果、上下文注入 | `BuiltInHostPrompts`、`DefaultContextBuilder`、Host.Excel 工具返回信息 | 工作流指令以英文单一版本维护，不按 UI 语言复制；最终 system prompt 开头动态加入一条本地化默认回答语言指令（§4.9） |
+| **C. 运行时用户可见文本** | Broker/Runtime 生成并展示给用户的文字 | `TrustFooterBuilder` 校验页脚、工具显示名 `DisplayName`、工具分组名、ask_user 默认按钮 | TrustFooter、分组名和按钮按每轮请求携带的 `uiCulture` 解析；内置工具显示名在所有语言下保持英文 |
+| **D. 面向模型的文本** | 系统提示词、工具 description、工具结果、上下文注入 | `BuiltInHostPrompts`、`DefaultContextBuilder`、Host.Excel 工具返回信息 | 内置工具名称、description、Schema 参数说明及工作流指令统一以英文维护，不按 UI 语言复制；最终 system prompt 开头动态加入一条本地化默认回答语言指令（§4.9） |
 | **E. 输入匹配关键词** | 用于匹配用户输入的词表/正则 | `StructuredExcelIntentClassifier`、`OfficeSkillCatalog`、“记住/记录下来” | **禁止翻译**；以后另立“多语言输入理解”专题补充英文关键词 |
 | **F. 日志 / 诊断 / 注释** | `ILogger`、Trace、异常内部信息、代码注释 | `StartupTimingLog` | 不翻译（日志保持稳定以便检索） |
 
@@ -380,8 +380,8 @@ sequenceDiagram
 
 ### Phase 5 · Broker / Runtime 用户可见文本
 
-`uiCulture` 透传到 Broker turn；共享 resx 驱动的 `IUserTextLocalizer`；`TrustFooterBuilder`（含双语剥离正则）；工具 `DisplayName`；Broker→Panel 错误码化；`ExcelEvalRunner` 改为解析结构化等级。
-**验收**：代码和 TrustFooter / Eval 相关测试通过；五种 UI Culture 下 TrustFooter、工具显示名和错误提示按语言生成，旧语言页脚均可剥离。
+`uiCulture` 透传到 Broker turn；共享 resx 驱动的 `IUserTextLocalizer`；`TrustFooterBuilder`（含双语剥离正则）；内置工具 `DisplayName`（各 UI 语言保持英文）和工具分组名；Broker→Panel 错误码化；`ExcelEvalRunner` 改为解析结构化等级。
+**验收**：代码和 TrustFooter / Eval 相关测试通过；五种 UI Culture 下 TrustFooter、工具分组名和错误提示按语言生成，内置工具显示名保持一致的英文，旧语言页脚均可剥离。
 
 ### Phase 6 · 模型回答语言策略
 
@@ -493,7 +493,7 @@ sequenceDiagram
 | 2 | — | 三个 `*CopilotRibbon.cs`、三个 `AboutDialog.cs`、三个 `ThisAddIn.cs` |
 | 3 | — | `OfficeCopilot.Settings.WinForms\fm*.cs`（11 个窗体）、`GridContextMenuHelper.cs`、`OfficeCopilotSettingsValidator.cs`、`HostApplicationNames` |
 | 4 | `wwwroot\js\i18n.js` | `CopilotPanelControl*.cs`、`AskUserQuestionDialog.cs`、`PlanApprovalDialog.cs`、`PanelModelMenuPresenter.cs`、`PanelWebViewBridge.cs`、`BrokerToPanelConverter.cs`、`wwwroot\js\*.js`、`index.html` |
-| 5 | `IUserTextLocalizer` | `AgentBrokerTurnRequest` 使用方、`BrokerRuntimeHost.cs`、`BrokerConfig.cs`、`TrustFooterBuilder.cs`、工具 `DisplayName`、`ExcelEvalRunner.cs` |
+| 5 | `IUserTextLocalizer` | `AgentBrokerTurnRequest` 使用方、`BrokerRuntimeHost.cs`、`BrokerConfig.cs`、`TrustFooterBuilder.cs`、工具 `DisplayName`（英文值）和分组名、`ExcelEvalRunner.cs` |
 | 6 | — | `DefaultContextBuilder.cs` |
 
 ## 附录 B · 新增一种语言的步骤（目标状态）
@@ -501,5 +501,5 @@ sequenceDiagram
 1. `SupportedLanguages` 增加语言代码及区域别名，更新 `fmSysConfig` 语言选项与索引映射；不根据 Office UI 语言自动选择。
 2. 新增 `Strings.<code>.resx` 并翻译所有资源键；未翻译键会回退 English，但正式支持前应通过 §7.1 一致性测试并人工审校。
 3. 确认构建生成 `<code>\OfficeCopilot.Localization.resources.dll` 并由 `Stage-Package.ps1` 校验；从 DevExpress 官方 Localization Service 下载对应语言卫星程序集。
-4. 更新回答语言策略、语言切换测试、TrustFooter/工具显示名等依赖语言的行为，并验证 WebView `GetAll` 的完整资源回退。
+4. 更新回答语言策略、语言切换测试、TrustFooter/工具分组名等依赖语言的行为；工具显示名保持英文，并验证 WebView `GetAll` 的完整资源回退。
 5. 伪本地化与三宿主截图检查；按需补充 E 类关键词（独立专题）。

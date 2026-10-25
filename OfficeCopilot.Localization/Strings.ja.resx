@@ -673,6 +673,9 @@
   <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
     <value>Runtime - 通知</value>
   </data>
+  <data name="Settings.Config.Tools.Group.RuntimeContext" xml:space="preserve">
+    <value>Runtime - コンテキスト</value>
+  </data>
   <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
     <value>グループなし</value>
   </data>
@@ -1175,349 +1178,349 @@ Excel の［校閲］タブを確認し、パスワードなしでシートの�
     <value>ツール '{0}' はユーザーによって拒否されました。</value>
   </data>
   <data name="tool.runtime.compact.display_name" xml:space="preserve">
-    <value>コンテキストを圧縮</value>
+    <value>Compact Context</value>
   </data>
   <data name="tool.excel_get_active_workbook.display_name" xml:space="preserve">
-    <value>アクティブなブックを取得</value>
+    <value>Get Active Workbook</value>
   </data>
   <data name="tool.excel_get_selection.display_name" xml:space="preserve">
-    <value>選択範囲を取得</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.excel_list_worksheets.display_name" xml:space="preserve">
-    <value>ワークシートを一覧表示</value>
+    <value>List Worksheets</value>
   </data>
   <data name="tool.excel_read_range.display_name" xml:space="preserve">
-    <value>範囲を読み取る</value>
+    <value>Read Range</value>
   </data>
   <data name="tool.excel_write_range.display_name" xml:space="preserve">
-    <value>範囲に書き込む</value>
+    <value>Write Range</value>
   </data>
   <data name="tool.ppt_extract_content.display_name" xml:space="preserve">
-    <value>プレゼンテーションのアウトラインを抽出</value>
+    <value>Extract Presentation Outline</value>
   </data>
   <data name="tool.ppt_export_slide_image.display_name" xml:space="preserve">
-    <value>スライド画像をエクスポート</value>
+    <value>Export Slide Image</value>
   </data>
   <data name="tool.ppt_check_fonts.display_name" xml:space="preserve">
-    <value>フォントを確認</value>
+    <value>Check Fonts</value>
   </data>
   <data name="tool.ppt_save_with_fonts.display_name" xml:space="preserve">
-    <value>フォントを埋め込んだコピーを保存</value>
+    <value>Save Copy with Embedded Fonts</value>
   </data>
   <data name="tool.ppt_save_copy.display_name" xml:space="preserve">
-    <value>プレゼンテーションのコピーを保存</value>
+    <value>Save Presentation Copy</value>
   </data>
   <data name="tool.ppt_execute_vba.display_name" xml:space="preserve">
-    <value>VBA を実行</value>
+    <value>Execute VBA</value>
   </data>
   <data name="tool.ppt_get_active_presentation.display_name" xml:space="preserve">
-    <value>アクティブなプレゼンテーションを取得</value>
+    <value>Get Active Presentation</value>
   </data>
   <data name="tool.ppt_get_selection.display_name" xml:space="preserve">
-    <value>選択範囲を取得</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.ppt_list_slides.display_name" xml:space="preserve">
-    <value>スライドを一覧表示</value>
+    <value>List Slides</value>
   </data>
   <data name="tool.ppt_read_slide.display_name" xml:space="preserve">
-    <value>スライドを読み取る</value>
+    <value>Read Slide</value>
   </data>
   <data name="tool.ppt_list_backups.display_name" xml:space="preserve">
-    <value>バックアップ一覧を表示</value>
+    <value>List Backups</value>
   </data>
   <data name="tool.ppt_restore_backup.display_name" xml:space="preserve">
-    <value>バックアップから復元</value>
+    <value>Restore from Backup</value>
   </data>
   <data name="tool.ppt_style_search.display_name" xml:space="preserve">
-    <value>スタイルライブラリを検索</value>
+    <value>Search Style Library</value>
   </data>
   <data name="tool.ppt_style_get.display_name" xml:space="preserve">
-    <value>スタイルの詳細を読み取る</value>
+    <value>Read Style Details</value>
   </data>
   <data name="tool.ppt_deck_build.display_name" xml:space="preserve">
-    <value>ワークスペースからプレゼンテーションを作成</value>
+    <value>Build Presentation from Workspace</value>
   </data>
   <data name="tool.word_toggle_track_changes.display_name" xml:space="preserve">
-    <value>変更履歴の記録を切り替え</value>
+    <value>Toggle Track Changes</value>
   </data>
   <data name="tool.word_list_styles.display_name" xml:space="preserve">
-    <value>スタイルを一覧表示</value>
+    <value>List Styles</value>
   </data>
   <data name="tool.word_add_comment.display_name" xml:space="preserve">
-    <value>コメントを追加</value>
+    <value>Add Comment</value>
   </data>
   <data name="tool.word_set_paragraph_format.display_name" xml:space="preserve">
-    <value>段落書式を設定</value>
+    <value>Set Paragraph Format</value>
   </data>
   <data name="tool.word_add_hyperlink.display_name" xml:space="preserve">
-    <value>ハイパーリンクを追加</value>
+    <value>Add Hyperlink</value>
   </data>
   <data name="tool.word_set_page_setup.display_name" xml:space="preserve">
-    <value>ページ設定を行う</value>
+    <value>Set Page Setup</value>
   </data>
   <data name="tool.word_add_content_control.display_name" xml:space="preserve">
-    <value>コンテンツコントロールを追加</value>
+    <value>Add Content Control</value>
   </data>
   <data name="tool.word_select_paragraph.display_name" xml:space="preserve">
-    <value>段落を選択</value>
+    <value>Select Paragraph</value>
   </data>
   <data name="tool.word_set_header_footer.display_name" xml:space="preserve">
-    <value>ヘッダーとフッターを設定</value>
+    <value>Set Header and Footer</value>
   </data>
   <data name="tool.word_select_document.display_name" xml:space="preserve">
-    <value>文書全体を選択</value>
+    <value>Select Whole Document</value>
   </data>
   <data name="tool.word_add_bookmark.display_name" xml:space="preserve">
-    <value>ブックマークを追加</value>
+    <value>Add Bookmark</value>
   </data>
   <data name="tool.word_move_to_end.display_name" xml:space="preserve">
-    <value>文書の末尾に移動</value>
+    <value>Move to End of Document</value>
   </data>
   <data name="tool.word_insert_paragraph.display_name" xml:space="preserve">
-    <value>段落区切りを挿入</value>
+    <value>Insert Paragraph Break</value>
   </data>
   <data name="tool.word_insert_text.display_name" xml:space="preserve">
-    <value>テキストを挿入</value>
+    <value>Insert Text</value>
   </data>
   <data name="tool.word_insert_table.display_name" xml:space="preserve">
-    <value>表を挿入</value>
+    <value>Insert Table</value>
   </data>
   <data name="tool.word_insert_field.display_name" xml:space="preserve">
-    <value>フィールドを挿入</value>
+    <value>Insert Field</value>
   </data>
   <data name="tool.word_file_watermark.display_name" xml:space="preserve">
-    <value>透かし</value>
+    <value>Watermark</value>
   </data>
   <data name="tool.word_file_field.display_name" xml:space="preserve">
-    <value>フィールドを挿入</value>
+    <value>Insert Field</value>
   </data>
   <data name="tool.word_format_selection.display_name" xml:space="preserve">
-    <value>選択範囲を書式設定</value>
+    <value>Format Selection</value>
   </data>
   <data name="tool.word_format_paragraphs.display_name" xml:space="preserve">
-    <value>段落を書式設定（一括）</value>
+    <value>Format Paragraphs (Batch)</value>
   </data>
   <data name="tool.word_file_toc.display_name" xml:space="preserve">
-    <value>目次を再構築</value>
+    <value>Rebuild Table of Contents</value>
   </data>
   <data name="tool.word_file_numbering.display_name" xml:space="preserve">
-    <value>番号付きリストを作成</value>
+    <value>Create Numbering List</value>
   </data>
   <data name="tool.word_find_replace.display_name" xml:space="preserve">
-    <value>検索と置換</value>
+    <value>Find and Replace</value>
   </data>
   <data name="tool.word_apply_style.display_name" xml:space="preserve">
-    <value>スタイルを適用</value>
+    <value>Apply Style</value>
   </data>
   <data name="tool.word_get_selection.display_name" xml:space="preserve">
-    <value>選択範囲を取得</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.word_get_active_document.display_name" xml:space="preserve">
-    <value>アクティブな文書を取得</value>
+    <value>Get Active Document</value>
   </data>
   <data name="tool.word_read_table.display_name" xml:space="preserve">
-    <value>表を読み取る</value>
+    <value>Read Table</value>
   </data>
   <data name="tool.word_read_outline.display_name" xml:space="preserve">
-    <value>アウトラインを読み取る</value>
+    <value>Read Outline</value>
   </data>
   <data name="tool.word_read_paragraphs.display_name" xml:space="preserve">
-    <value>段落を読み取る</value>
+    <value>Read Paragraphs</value>
   </data>
   <data name="tool.word_read_document.display_name" xml:space="preserve">
-    <value>文書を読み取る</value>
+    <value>Read Document</value>
   </data>
   <data name="tool.excel_execute_vba.display_name" xml:space="preserve">
-    <value>VBA コードを実行</value>
+    <value>Execute VBA Code</value>
   </data>
   <data name="tool.excel_clear_range.display_name" xml:space="preserve">
-    <value>範囲をクリア</value>
+    <value>Clear Range</value>
   </data>
   <data name="tool.excel_create_worksheet.display_name" xml:space="preserve">
-    <value>ワークシートを作成</value>
+    <value>Create Worksheet</value>
   </data>
   <data name="tool.excel_set_range_format.display_name" xml:space="preserve">
-    <value>範囲の書式を設定</value>
+    <value>Set Range Format</value>
   </data>
   <data name="tool.excel_set_range_formulas.display_name" xml:space="preserve">
-    <value>範囲の数式を設定</value>
+    <value>Set Range Formulas</value>
   </data>
   <data name="tool.excel_assert.display_name" xml:space="preserve">
-    <value>Excel アサーション</value>
+    <value>Excel Assertions</value>
   </data>
   <data name="tool.excel_analyze_range.display_name" xml:space="preserve">
-    <value>範囲を分析</value>
+    <value>Analyze Range</value>
   </data>
   <data name="tool.excel_aggregate.display_name" xml:space="preserve">
-    <value>データを集計</value>
+    <value>Aggregate Data</value>
   </data>
   <data name="tool.excel_cleanup_workspace.display_name" xml:space="preserve">
-    <value>中間テーブルをクリーンアップ</value>
+    <value>Clean Up Intermediate Tables</value>
   </data>
   <data name="tool.excel_capture_worksheet_screenshot.display_name" xml:space="preserve">
-    <value>ワークシートのスクリーンショットを撮影</value>
+    <value>Capture Worksheet Screenshot</value>
   </data>
   <data name="tool.excel_compare_key_sets.display_name" xml:space="preserve">
-    <value>Excel のキーセットを比較</value>
+    <value>Compare Excel Key Sets</value>
   </data>
   <data name="tool.excel_check_power_query_errors.display_name" xml:space="preserve">
-    <value>Power Query のエラーを確認</value>
+    <value>Check Power Query Errors</value>
   </data>
   <data name="tool.excel_list_data_model_calculated_columns.display_name" xml:space="preserve">
-    <value>データモデルの計算列を一覧表示</value>
+    <value>List Data Model Calculated Columns</value>
   </data>
   <data name="tool.excel_list_data_model_measures.display_name" xml:space="preserve">
-    <value>データモデルのメジャーを一覧表示</value>
+    <value>List Data Model Measures</value>
   </data>
   <data name="tool.excel_list_data_model_relationships.display_name" xml:space="preserve">
-    <value>データモデルのリレーションシップを一覧表示</value>
+    <value>List Data Model Relationships</value>
   </data>
   <data name="tool.excel_list_data_model_tables.display_name" xml:space="preserve">
-    <value>データモデルのテーブルを一覧表示</value>
+    <value>List Data Model Tables</value>
   </data>
   <data name="tool.excel_list_connections.display_name" xml:space="preserve">
-    <value>接続を一覧表示</value>
+    <value>List Connections</value>
   </data>
   <data name="tool.excel_list_power_queries.display_name" xml:space="preserve">
-    <value>Power Query を一覧表示</value>
+    <value>List Power Queries</value>
   </data>
   <data name="tool.excel_list_tables.display_name" xml:space="preserve">
-    <value>テーブルを一覧表示</value>
+    <value>List Tables</value>
   </data>
   <data name="tool.excel_read_table_data.display_name" xml:space="preserve">
-    <value>テーブルデータを読み取る</value>
+    <value>Read Table Data</value>
   </data>
   <data name="tool.excel_validate_power_query.display_name" xml:space="preserve">
-    <value>Power Query を検証</value>
+    <value>Validate Power Query</value>
   </data>
   <data name="tool.excel_view_connection.display_name" xml:space="preserve">
-    <value>接続を表示</value>
+    <value>View Connection</value>
   </data>
   <data name="tool.excel_view_data_model_calculated_column.display_name" xml:space="preserve">
-    <value>データモデルの計算列を表示</value>
+    <value>View Data Model Calculated Column</value>
   </data>
   <data name="tool.excel_refresh_power_query.display_name" xml:space="preserve">
-    <value>Power Query を更新</value>
+    <value>Refresh Power Query</value>
   </data>
   <data name="tool.excel_view_data_model_measure.display_name" xml:space="preserve">
-    <value>データモデルのメジャーを表示</value>
+    <value>View Data Model Measure</value>
   </data>
   <data name="tool.excel_view_table.display_name" xml:space="preserve">
-    <value>テーブルを表示</value>
+    <value>View Table</value>
   </data>
   <data name="tool.excel_find_in_range.display_name" xml:space="preserve">
-    <value>範囲内を検索</value>
+    <value>Find in Range</value>
   </data>
   <data name="tool.excel_get_range_hyperlinks.display_name" xml:space="preserve">
-    <value>範囲のハイパーリンクを読み取る</value>
+    <value>Read Range Hyperlinks</value>
   </data>
   <data name="tool.excel_get_range_info.display_name" xml:space="preserve">
-    <value>範囲情報を読み取る</value>
+    <value>Read Range Information</value>
   </data>
   <data name="tool.excel_get_named_range_value.display_name" xml:space="preserve">
-    <value>名前付き範囲の値を読み取る</value>
+    <value>Read Named Range Value</value>
   </data>
   <data name="tool.excel_get_range_merge_info.display_name" xml:space="preserve">
-    <value>範囲の結合状態を読み取る</value>
+    <value>Read Range Merge State</value>
   </data>
   <data name="tool.excel_get_range_lock_info.display_name" xml:space="preserve">
-    <value>範囲のロック状態を読み取る</value>
+    <value>Read Range Lock State</value>
   </data>
   <data name="tool.excel_get_range_style.display_name" xml:space="preserve">
-    <value>範囲の書式を読み取る</value>
+    <value>Read Range Formatting</value>
   </data>
   <data name="tool.excel_get_range_number_formats.display_name" xml:space="preserve">
-    <value>範囲の表示形式を読み取る</value>
+    <value>Read Range Number Formats</value>
   </data>
   <data name="tool.excel_get_range_validation.display_name" xml:space="preserve">
-    <value>範囲のデータ検証を読み取る</value>
+    <value>Read Range Data Validation</value>
   </data>
   <data name="tool.excel_list_backups.display_name" xml:space="preserve">
-    <value>バックアップ一覧を表示</value>
+    <value>List Backups</value>
   </data>
   <data name="tool.excel_profile_range.display_name" xml:space="preserve">
-    <value>テーブル構造を分析</value>
+    <value>Profile Table Structure</value>
   </data>
   <data name="tool.excel_list_vba_modules.display_name" xml:space="preserve">
-    <value>VBA モジュールを一覧表示</value>
+    <value>List VBA Modules</value>
   </data>
   <data name="tool.excel_list_named_ranges.display_name" xml:space="preserve">
-    <value>名前付き範囲を一覧表示</value>
+    <value>List Named Ranges</value>
   </data>
   <data name="tool.excel_read_range_formulas.display_name" xml:space="preserve">
-    <value>範囲の数式を読み取る</value>
+    <value>Read Range Formulas</value>
   </data>
   <data name="tool.excel_view_power_query.display_name" xml:space="preserve">
-    <value>Power Query を表示</value>
+    <value>View Power Query</value>
   </data>
   <data name="tool.excel_read_worksheet_data.display_name" xml:space="preserve">
-    <value>ワークシートのデータを読み取る</value>
+    <value>Read Worksheet Data</value>
   </data>
   <data name="tool.excel_reconcile.display_name" xml:space="preserve">
-    <value>照合サマリー</value>
+    <value>Reconciliation Summary</value>
   </data>
   <data name="tool.excel_restore_backup.display_name" xml:space="preserve">
-    <value>バックアップから復元</value>
+    <value>Restore from Backup</value>
   </data>
   <data name="tool.excel_validate_range_formulas.display_name" xml:space="preserve">
-    <value>範囲の数式を検証</value>
+    <value>Validate Range Formulas</value>
   </data>
   <data name="tool.excel_view_vba_module.display_name" xml:space="preserve">
-    <value>VBA モジュールを表示</value>
+    <value>View VBA Module</value>
   </data>
   <data name="tool.ppt_style_preview.display_name" xml:space="preserve">
-    <value>プレゼンテーションスタイルをプレビュー</value>
+    <value>Preview Presentation Style</value>
   </data>
   <data name="tool.ppt_deck_create.display_name" xml:space="preserve">
-    <value>プレゼンテーションの下書きを作成</value>
+    <value>Create Presentation Draft</value>
   </data>
   <data name="tool.ppt_deck_put_slides.display_name" xml:space="preserve">
-    <value>スライドを追加または更新</value>
+    <value>Add or Update Slides</value>
   </data>
   <data name="tool.ppt_deck_get_slides.display_name" xml:space="preserve">
-    <value>下書きスライドを読み取る</value>
+    <value>Read Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_remove_slides.display_name" xml:space="preserve">
-    <value>下書きスライドを削除</value>
+    <value>Remove Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_reorder.display_name" xml:space="preserve">
-    <value>下書きスライドの順序を変更</value>
+    <value>Reorder Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_preview.display_name" xml:space="preserve">
-    <value>プレゼンテーションの下書きをプレビュー</value>
+    <value>Preview Presentation Draft</value>
   </data>
   <data name="tool.ppt_deck_validate.display_name" xml:space="preserve">
-    <value>プレゼンテーションの下書きを検証</value>
+    <value>Validate Presentation Draft</value>
   </data>
   <data name="tool.ppt_set_shape_text.display_name" xml:space="preserve">
-    <value>図形のテキストを設定</value>
+    <value>Set Shape Text</value>
   </data>
   <data name="tool.ppt_format_shapes.display_name" xml:space="preserve">
-    <value>図形を書式設定</value>
+    <value>Format Shapes</value>
   </data>
   <data name="tool.ppt_arrange_shapes.display_name" xml:space="preserve">
-    <value>図形を配置</value>
+    <value>Arrange Shapes</value>
   </data>
   <data name="tool.ppt_delete_shapes.display_name" xml:space="preserve">
-    <value>図形を削除</value>
+    <value>Delete Shapes</value>
   </data>
   <data name="tool.ppt_add_text_box.display_name" xml:space="preserve">
-    <value>テキストボックスを追加</value>
+    <value>Add Text Box</value>
   </data>
   <data name="tool.ppt_insert_picture.display_name" xml:space="preserve">
-    <value>画像を挿入</value>
+    <value>Insert Picture</value>
   </data>
   <data name="tool.ppt_set_notes.display_name" xml:space="preserve">
-    <value>スライドノートを設定</value>
+    <value>Set Slide Notes</value>
   </data>
   <data name="tool.ppt_add_slides.display_name" xml:space="preserve">
-    <value>スライドを追加</value>
+    <value>Add Slides</value>
   </data>
   <data name="tool.ppt_delete_slides.display_name" xml:space="preserve">
-    <value>スライドを削除</value>
+    <value>Delete Slides</value>
   </data>
   <data name="tool.ppt_move_slide.display_name" xml:space="preserve">
-    <value>スライドを移動</value>
+    <value>Move Slide</value>
   </data>
   <data name="Settings.Config.Context.DeleteCurrentRow" xml:space="preserve">
     <value>現在の行を削除</value>

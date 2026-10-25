@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -672,6 +672,9 @@ También se quitará su referencia del índice de MEMORY.md.</value>
   </data>
   <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
     <value>Entorno de ejecución - Notificaciones</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeContext" xml:space="preserve">
+    <value>Entorno de ejecución - Contexto</value>
   </data>
   <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
     <value>Sin agrupar</value>
@@ -1507,349 +1510,349 @@ Revise la pestaña Revisar de Excel y desproteja manualmente las hojas que no te
     <value>El usuario ha denegado la herramienta «{0}».</value>
   </data>
   <data name="tool.runtime.compact.display_name" xml:space="preserve">
-    <value>Compactar contexto</value>
+    <value>Compact Context</value>
   </data>
   <data name="tool.excel_get_active_workbook.display_name" xml:space="preserve">
-    <value>Obtener libro activo</value>
+    <value>Get Active Workbook</value>
   </data>
   <data name="tool.excel_get_selection.display_name" xml:space="preserve">
-    <value>Obtener selección</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.excel_list_worksheets.display_name" xml:space="preserve">
-    <value>Listar hojas de cálculo</value>
+    <value>List Worksheets</value>
   </data>
   <data name="tool.excel_read_range.display_name" xml:space="preserve">
-    <value>Leer rango</value>
+    <value>Read Range</value>
   </data>
   <data name="tool.excel_write_range.display_name" xml:space="preserve">
-    <value>Escribir rango</value>
+    <value>Write Range</value>
   </data>
   <data name="tool.ppt_extract_content.display_name" xml:space="preserve">
-    <value>Extraer esquema de la presentación</value>
+    <value>Extract Presentation Outline</value>
   </data>
   <data name="tool.ppt_export_slide_image.display_name" xml:space="preserve">
-    <value>Exportar imagen de diapositiva</value>
+    <value>Export Slide Image</value>
   </data>
   <data name="tool.ppt_check_fonts.display_name" xml:space="preserve">
-    <value>Comprobar fuentes</value>
+    <value>Check Fonts</value>
   </data>
   <data name="tool.ppt_save_with_fonts.display_name" xml:space="preserve">
-    <value>Guardar copia con fuentes incrustadas</value>
+    <value>Save Copy with Embedded Fonts</value>
   </data>
   <data name="tool.ppt_save_copy.display_name" xml:space="preserve">
-    <value>Guardar copia de la presentación</value>
+    <value>Save Presentation Copy</value>
   </data>
   <data name="tool.ppt_execute_vba.display_name" xml:space="preserve">
-    <value>Ejecutar VBA</value>
+    <value>Execute VBA</value>
   </data>
   <data name="tool.ppt_get_active_presentation.display_name" xml:space="preserve">
-    <value>Obtener presentación activa</value>
+    <value>Get Active Presentation</value>
   </data>
   <data name="tool.ppt_get_selection.display_name" xml:space="preserve">
-    <value>Obtener selección</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.ppt_list_slides.display_name" xml:space="preserve">
-    <value>Listar diapositivas</value>
+    <value>List Slides</value>
   </data>
   <data name="tool.ppt_read_slide.display_name" xml:space="preserve">
-    <value>Leer diapositiva</value>
+    <value>Read Slide</value>
   </data>
   <data name="tool.ppt_list_backups.display_name" xml:space="preserve">
-    <value>Listar copias de seguridad</value>
+    <value>List Backups</value>
   </data>
   <data name="tool.ppt_restore_backup.display_name" xml:space="preserve">
-    <value>Restaurar desde una copia de seguridad</value>
+    <value>Restore from Backup</value>
   </data>
   <data name="tool.ppt_style_search.display_name" xml:space="preserve">
-    <value>Buscar en la biblioteca de estilos</value>
+    <value>Search Style Library</value>
   </data>
   <data name="tool.ppt_style_get.display_name" xml:space="preserve">
-    <value>Leer detalles del estilo</value>
+    <value>Read Style Details</value>
   </data>
   <data name="tool.ppt_deck_build.display_name" xml:space="preserve">
-    <value>Crear presentación desde el espacio de trabajo</value>
+    <value>Build Presentation from Workspace</value>
   </data>
   <data name="tool.word_toggle_track_changes.display_name" xml:space="preserve">
-    <value>Activar o desactivar el control de cambios</value>
+    <value>Toggle Track Changes</value>
   </data>
   <data name="tool.word_list_styles.display_name" xml:space="preserve">
-    <value>Listar estilos</value>
+    <value>List Styles</value>
   </data>
   <data name="tool.word_add_comment.display_name" xml:space="preserve">
-    <value>Añadir comentario</value>
+    <value>Add Comment</value>
   </data>
   <data name="tool.word_set_paragraph_format.display_name" xml:space="preserve">
-    <value>Establecer formato de párrafo</value>
+    <value>Set Paragraph Format</value>
   </data>
   <data name="tool.word_add_hyperlink.display_name" xml:space="preserve">
-    <value>Añadir hipervínculo</value>
+    <value>Add Hyperlink</value>
   </data>
   <data name="tool.word_set_page_setup.display_name" xml:space="preserve">
-    <value>Configurar página</value>
+    <value>Set Page Setup</value>
   </data>
   <data name="tool.word_add_content_control.display_name" xml:space="preserve">
-    <value>Añadir control de contenido</value>
+    <value>Add Content Control</value>
   </data>
   <data name="tool.word_select_paragraph.display_name" xml:space="preserve">
-    <value>Seleccionar párrafo</value>
+    <value>Select Paragraph</value>
   </data>
   <data name="tool.word_set_header_footer.display_name" xml:space="preserve">
-    <value>Establecer encabezado y pie de página</value>
+    <value>Set Header and Footer</value>
   </data>
   <data name="tool.word_select_document.display_name" xml:space="preserve">
-    <value>Seleccionar todo el documento</value>
+    <value>Select Whole Document</value>
   </data>
   <data name="tool.word_add_bookmark.display_name" xml:space="preserve">
-    <value>Añadir marcador</value>
+    <value>Add Bookmark</value>
   </data>
   <data name="tool.word_move_to_end.display_name" xml:space="preserve">
-    <value>Ir al final del documento</value>
+    <value>Move to End of Document</value>
   </data>
   <data name="tool.word_insert_paragraph.display_name" xml:space="preserve">
-    <value>Insertar salto de párrafo</value>
+    <value>Insert Paragraph Break</value>
   </data>
   <data name="tool.word_insert_text.display_name" xml:space="preserve">
-    <value>Insertar texto</value>
+    <value>Insert Text</value>
   </data>
   <data name="tool.word_insert_table.display_name" xml:space="preserve">
-    <value>Insertar tabla</value>
+    <value>Insert Table</value>
   </data>
   <data name="tool.word_insert_field.display_name" xml:space="preserve">
-    <value>Insertar campo</value>
+    <value>Insert Field</value>
   </data>
   <data name="tool.word_file_watermark.display_name" xml:space="preserve">
-    <value>Marca de agua</value>
+    <value>Watermark</value>
   </data>
   <data name="tool.word_file_field.display_name" xml:space="preserve">
-    <value>Insertar campo</value>
+    <value>Insert Field</value>
   </data>
   <data name="tool.word_format_selection.display_name" xml:space="preserve">
-    <value>Dar formato a la selección</value>
+    <value>Format Selection</value>
   </data>
   <data name="tool.word_format_paragraphs.display_name" xml:space="preserve">
-    <value>Dar formato a los párrafos (por lotes)</value>
+    <value>Format Paragraphs (Batch)</value>
   </data>
   <data name="tool.word_file_toc.display_name" xml:space="preserve">
-    <value>Reconstruir tabla de contenido</value>
+    <value>Rebuild Table of Contents</value>
   </data>
   <data name="tool.word_file_numbering.display_name" xml:space="preserve">
-    <value>Crear lista numerada</value>
+    <value>Create Numbering List</value>
   </data>
   <data name="tool.word_find_replace.display_name" xml:space="preserve">
-    <value>Buscar y reemplazar</value>
+    <value>Find and Replace</value>
   </data>
   <data name="tool.word_apply_style.display_name" xml:space="preserve">
-    <value>Aplicar estilo</value>
+    <value>Apply Style</value>
   </data>
   <data name="tool.word_get_selection.display_name" xml:space="preserve">
-    <value>Obtener selección</value>
+    <value>Get Selection</value>
   </data>
   <data name="tool.word_get_active_document.display_name" xml:space="preserve">
-    <value>Obtener documento activo</value>
+    <value>Get Active Document</value>
   </data>
   <data name="tool.word_read_table.display_name" xml:space="preserve">
-    <value>Leer tabla</value>
+    <value>Read Table</value>
   </data>
   <data name="tool.word_read_outline.display_name" xml:space="preserve">
-    <value>Leer esquema</value>
+    <value>Read Outline</value>
   </data>
   <data name="tool.word_read_paragraphs.display_name" xml:space="preserve">
-    <value>Leer párrafos</value>
+    <value>Read Paragraphs</value>
   </data>
   <data name="tool.word_read_document.display_name" xml:space="preserve">
-    <value>Leer documento</value>
+    <value>Read Document</value>
   </data>
   <data name="tool.excel_execute_vba.display_name" xml:space="preserve">
-    <value>Ejecutar código VBA</value>
+    <value>Execute VBA Code</value>
   </data>
   <data name="tool.excel_clear_range.display_name" xml:space="preserve">
-    <value>Borrar rango</value>
+    <value>Clear Range</value>
   </data>
   <data name="tool.excel_create_worksheet.display_name" xml:space="preserve">
-    <value>Crear hoja de cálculo</value>
+    <value>Create Worksheet</value>
   </data>
   <data name="tool.excel_set_range_format.display_name" xml:space="preserve">
-    <value>Establecer formato del rango</value>
+    <value>Set Range Format</value>
   </data>
   <data name="tool.excel_set_range_formulas.display_name" xml:space="preserve">
-    <value>Establecer fórmulas del rango</value>
+    <value>Set Range Formulas</value>
   </data>
   <data name="tool.excel_assert.display_name" xml:space="preserve">
-    <value>Comprobaciones de Excel</value>
+    <value>Excel Assertions</value>
   </data>
   <data name="tool.excel_analyze_range.display_name" xml:space="preserve">
-    <value>Analizar rango</value>
+    <value>Analyze Range</value>
   </data>
   <data name="tool.excel_aggregate.display_name" xml:space="preserve">
-    <value>Agregar datos</value>
+    <value>Aggregate Data</value>
   </data>
   <data name="tool.excel_cleanup_workspace.display_name" xml:space="preserve">
-    <value>Limpiar tablas intermedias</value>
+    <value>Clean Up Intermediate Tables</value>
   </data>
   <data name="tool.excel_capture_worksheet_screenshot.display_name" xml:space="preserve">
-    <value>Capturar imagen de la hoja de cálculo</value>
+    <value>Capture Worksheet Screenshot</value>
   </data>
   <data name="tool.excel_compare_key_sets.display_name" xml:space="preserve">
-    <value>Comparar conjuntos de claves de Excel</value>
+    <value>Compare Excel Key Sets</value>
   </data>
   <data name="tool.excel_check_power_query_errors.display_name" xml:space="preserve">
-    <value>Comprobar errores de Power Query</value>
+    <value>Check Power Query Errors</value>
   </data>
   <data name="tool.excel_list_data_model_calculated_columns.display_name" xml:space="preserve">
-    <value>Listar columnas calculadas del modelo de datos</value>
+    <value>List Data Model Calculated Columns</value>
   </data>
   <data name="tool.excel_list_data_model_measures.display_name" xml:space="preserve">
-    <value>Listar medidas del modelo de datos</value>
+    <value>List Data Model Measures</value>
   </data>
   <data name="tool.excel_list_data_model_relationships.display_name" xml:space="preserve">
-    <value>Listar relaciones del modelo de datos</value>
+    <value>List Data Model Relationships</value>
   </data>
   <data name="tool.excel_list_data_model_tables.display_name" xml:space="preserve">
-    <value>Listar tablas del modelo de datos</value>
+    <value>List Data Model Tables</value>
   </data>
   <data name="tool.excel_list_connections.display_name" xml:space="preserve">
-    <value>Listar conexiones</value>
+    <value>List Connections</value>
   </data>
   <data name="tool.excel_list_power_queries.display_name" xml:space="preserve">
-    <value>Listar consultas de Power Query</value>
+    <value>List Power Queries</value>
   </data>
   <data name="tool.excel_list_tables.display_name" xml:space="preserve">
-    <value>Listar tablas</value>
+    <value>List Tables</value>
   </data>
   <data name="tool.excel_read_table_data.display_name" xml:space="preserve">
-    <value>Leer datos de la tabla</value>
+    <value>Read Table Data</value>
   </data>
   <data name="tool.excel_validate_power_query.display_name" xml:space="preserve">
-    <value>Validar Power Query</value>
+    <value>Validate Power Query</value>
   </data>
   <data name="tool.excel_view_connection.display_name" xml:space="preserve">
-    <value>Ver conexión</value>
+    <value>View Connection</value>
   </data>
   <data name="tool.excel_view_data_model_calculated_column.display_name" xml:space="preserve">
-    <value>Ver columna calculada del modelo de datos</value>
+    <value>View Data Model Calculated Column</value>
   </data>
   <data name="tool.excel_refresh_power_query.display_name" xml:space="preserve">
-    <value>Actualizar Power Query</value>
+    <value>Refresh Power Query</value>
   </data>
   <data name="tool.excel_view_data_model_measure.display_name" xml:space="preserve">
-    <value>Ver medida del modelo de datos</value>
+    <value>View Data Model Measure</value>
   </data>
   <data name="tool.excel_view_table.display_name" xml:space="preserve">
-    <value>Ver tabla</value>
+    <value>View Table</value>
   </data>
   <data name="tool.excel_find_in_range.display_name" xml:space="preserve">
-    <value>Buscar en el rango</value>
+    <value>Find in Range</value>
   </data>
   <data name="tool.excel_get_range_hyperlinks.display_name" xml:space="preserve">
-    <value>Leer hipervínculos del rango</value>
+    <value>Read Range Hyperlinks</value>
   </data>
   <data name="tool.excel_get_range_info.display_name" xml:space="preserve">
-    <value>Leer información del rango</value>
+    <value>Read Range Information</value>
   </data>
   <data name="tool.excel_get_named_range_value.display_name" xml:space="preserve">
-    <value>Leer valor del rango con nombre</value>
+    <value>Read Named Range Value</value>
   </data>
   <data name="tool.excel_get_range_merge_info.display_name" xml:space="preserve">
-    <value>Leer estado de combinación del rango</value>
+    <value>Read Range Merge State</value>
   </data>
   <data name="tool.excel_get_range_lock_info.display_name" xml:space="preserve">
-    <value>Leer estado de bloqueo del rango</value>
+    <value>Read Range Lock State</value>
   </data>
   <data name="tool.excel_get_range_style.display_name" xml:space="preserve">
-    <value>Leer formato del rango</value>
+    <value>Read Range Formatting</value>
   </data>
   <data name="tool.excel_get_range_number_formats.display_name" xml:space="preserve">
-    <value>Leer formatos numéricos del rango</value>
+    <value>Read Range Number Formats</value>
   </data>
   <data name="tool.excel_get_range_validation.display_name" xml:space="preserve">
-    <value>Leer validación de datos del rango</value>
+    <value>Read Range Data Validation</value>
   </data>
   <data name="tool.excel_list_backups.display_name" xml:space="preserve">
-    <value>Listar copias de seguridad</value>
+    <value>List Backups</value>
   </data>
   <data name="tool.excel_profile_range.display_name" xml:space="preserve">
-    <value>Analizar estructura de la tabla</value>
+    <value>Profile Table Structure</value>
   </data>
   <data name="tool.excel_list_vba_modules.display_name" xml:space="preserve">
-    <value>Listar módulos de VBA</value>
+    <value>List VBA Modules</value>
   </data>
   <data name="tool.excel_list_named_ranges.display_name" xml:space="preserve">
-    <value>Listar rangos con nombre</value>
+    <value>List Named Ranges</value>
   </data>
   <data name="tool.excel_read_range_formulas.display_name" xml:space="preserve">
-    <value>Leer fórmulas del rango</value>
+    <value>Read Range Formulas</value>
   </data>
   <data name="tool.excel_view_power_query.display_name" xml:space="preserve">
-    <value>Ver Power Query</value>
+    <value>View Power Query</value>
   </data>
   <data name="tool.excel_read_worksheet_data.display_name" xml:space="preserve">
-    <value>Leer datos de la hoja de cálculo</value>
+    <value>Read Worksheet Data</value>
   </data>
   <data name="tool.excel_reconcile.display_name" xml:space="preserve">
-    <value>Resumen de conciliación</value>
+    <value>Reconciliation Summary</value>
   </data>
   <data name="tool.excel_restore_backup.display_name" xml:space="preserve">
-    <value>Restaurar desde una copia de seguridad</value>
+    <value>Restore from Backup</value>
   </data>
   <data name="tool.excel_validate_range_formulas.display_name" xml:space="preserve">
-    <value>Validar fórmulas del rango</value>
+    <value>Validate Range Formulas</value>
   </data>
   <data name="tool.excel_view_vba_module.display_name" xml:space="preserve">
-    <value>Ver módulo de VBA</value>
+    <value>View VBA Module</value>
   </data>
   <data name="tool.ppt_style_preview.display_name" xml:space="preserve">
-    <value>Vista previa del estilo de presentación</value>
+    <value>Preview Presentation Style</value>
   </data>
   <data name="tool.ppt_deck_create.display_name" xml:space="preserve">
-    <value>Crear borrador de presentación</value>
+    <value>Create Presentation Draft</value>
   </data>
   <data name="tool.ppt_deck_put_slides.display_name" xml:space="preserve">
-    <value>Añadir o actualizar diapositivas</value>
+    <value>Add or Update Slides</value>
   </data>
   <data name="tool.ppt_deck_get_slides.display_name" xml:space="preserve">
-    <value>Leer diapositivas del borrador</value>
+    <value>Read Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_remove_slides.display_name" xml:space="preserve">
-    <value>Quitar diapositivas del borrador</value>
+    <value>Remove Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_reorder.display_name" xml:space="preserve">
-    <value>Reordenar diapositivas del borrador</value>
+    <value>Reorder Draft Slides</value>
   </data>
   <data name="tool.ppt_deck_preview.display_name" xml:space="preserve">
-    <value>Vista previa del borrador de presentación</value>
+    <value>Preview Presentation Draft</value>
   </data>
   <data name="tool.ppt_deck_validate.display_name" xml:space="preserve">
-    <value>Validar borrador de presentación</value>
+    <value>Validate Presentation Draft</value>
   </data>
   <data name="tool.ppt_set_shape_text.display_name" xml:space="preserve">
-    <value>Establecer texto de forma</value>
+    <value>Set Shape Text</value>
   </data>
   <data name="tool.ppt_format_shapes.display_name" xml:space="preserve">
-    <value>Dar formato a las formas</value>
+    <value>Format Shapes</value>
   </data>
   <data name="tool.ppt_arrange_shapes.display_name" xml:space="preserve">
-    <value>Organizar formas</value>
+    <value>Arrange Shapes</value>
   </data>
   <data name="tool.ppt_delete_shapes.display_name" xml:space="preserve">
-    <value>Eliminar formas</value>
+    <value>Delete Shapes</value>
   </data>
   <data name="tool.ppt_add_text_box.display_name" xml:space="preserve">
-    <value>Añadir cuadro de texto</value>
+    <value>Add Text Box</value>
   </data>
   <data name="tool.ppt_insert_picture.display_name" xml:space="preserve">
-    <value>Insertar imagen</value>
+    <value>Insert Picture</value>
   </data>
   <data name="tool.ppt_set_notes.display_name" xml:space="preserve">
-    <value>Establecer notas de diapositiva</value>
+    <value>Set Slide Notes</value>
   </data>
   <data name="tool.ppt_add_slides.display_name" xml:space="preserve">
-    <value>Añadir diapositivas</value>
+    <value>Add Slides</value>
   </data>
   <data name="tool.ppt_delete_slides.display_name" xml:space="preserve">
-    <value>Eliminar diapositivas</value>
+    <value>Delete Slides</value>
   </data>
   <data name="tool.ppt_move_slide.display_name" xml:space="preserve">
-    <value>Mover diapositiva</value>
+    <value>Move Slide</value>
   </data>
   <data name="Settings.Config.Context.DeleteCurrentRow" xml:space="preserve">
     <value>Eliminar fila actual</value>

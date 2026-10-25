@@ -11,9 +11,9 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.ListSlides,
-            DisplayName = "列出幻灯片",
-            Description = "列出当前演示文稿的全部幻灯片：页码、SlideID、版式名、标题、形状数、是否隐藏、是否有备注；"
-                + "由演示工作区构建的页还带 deckSlideId（如 s03）。",
+            DisplayName = "List Slides",
+            Description = "Lists all slides in the current presentation, including slide number, SlideID, layout name, title, shape count, hidden status, and whether notes are present;"
+                + " slides built from a deck workspace also include deckSlideId (for example, s03).",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
@@ -56,18 +56,18 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.ReadSlide,
-            DisplayName = "读取幻灯片",
-            Description = "读取单页的形状树：每个形状的 id、名称、类型、占位符类型、位置尺寸（磅）、旋转、层级、文本、表格行列。"
-                + "slideIndex 为 1 起的页码，省略表示当前页。detail=summary 只返回形状名、类型与文本前 200 字。",
+            DisplayName = "Read Slide",
+            Description = "Reads the shape tree for one slide, including each shape's ID, name, type, placeholder type, position and size in points, rotation, hierarchy, text, and table dimensions."
+                + " slideIndex is a 1-based slide number; omit it to use the current slide. detail=summary returns only shape names, types, and the first 200 characters of text.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"slideIndex\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"1 起的页码；省略表示当前页。\"},"
-                + "\"detail\":{\"type\":\"string\",\"enum\":[\"summary\",\"full\"],\"description\":\"默认 full。\"},"
-                + "\"includeNotes\":{\"type\":\"boolean\",\"description\":\"是否返回演讲者备注，默认 true。\"}"
+                + "\"slideIndex\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"1-based slide number; omit to use the current slide.\"},"
+                + "\"detail\":{\"type\":\"string\",\"enum\":[\"summary\",\"full\"],\"description\":\"Default: full.\"},"
+                + "\"includeNotes\":{\"type\":\"boolean\",\"description\":\"Whether to return speaker notes (default: true).\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"
