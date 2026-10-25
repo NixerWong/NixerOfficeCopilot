@@ -10,6 +10,7 @@ using DevExpress.XtraBars;
 using DevExpress.XtraRichEdit;
 using DevExpress.XtraTab;
 using Markdig;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Settings.WinForms
 {
@@ -52,6 +53,9 @@ namespace OfficeCopilot.Settings.WinForms
             _previewTimer.Tick += PreviewTimer_Tick;
             WireEvents();
             SetupEditor();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmSkillEditor_Disposed;
         }
 
         public fmSkillEditor(string skillFilePath, bool isNew = false)
@@ -64,6 +68,9 @@ namespace OfficeCopilot.Settings.WinForms
             _previewTimer.Tick += PreviewTimer_Tick;
             WireEvents();
             SetupEditor();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmSkillEditor_Disposed;
             if (!_isNew && File.Exists(skillFilePath))
                 LoadSkillFile(skillFilePath);
         }
@@ -74,6 +81,42 @@ namespace OfficeCopilot.Settings.WinForms
             txtMarkDown.TextChanged += MarkDown_TextChanged;
             pgcSkillBasicParams.CellValueChanged += PgcSkillBasicParams_CellValueChanged;
             xtcSkillMarkDown.SelectedPageChanged += XtcSkillMarkDown_SelectedPageChanged;
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+            if (_yamlModel != null)
+            {
+                pgcSkillBasicParams.PostEditor();
+                pgcSkillBasicParams.CloseEditor();
+                TypeDescriptor.Refresh(_yamlModel);
+                pgcSkillBasicParams.SelectedObject = null;
+                pgcSkillBasicParams.SelectedObject = _yamlModel;
+            }
+        }
+
+        private void fmSkillEditor_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+            if (_previewTimer != null)
+            {
+                _previewTimer.Stop();
+                _previewTimer.Dispose();
+            }
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get(_isNew
+                ? "Settings.Config.SkillEditor.NewTitle"
+                : "Settings.Config.SkillEditor.EditTitle");
+            btnSave.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+            btnCancel.Caption = LocalizationService.Get("Settings.Config.Common.Cancel");
+            xtpWebPreview.Text = LocalizationService.Get("Settings.Config.Memory.Preview");
+            xtpMarkDown.Text = LocalizationService.Get("Settings.Config.Memory.Markdown");
+            txtName.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.Skills.Name");
+            txtDescription.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.Skills.Description");
         }
 
         private void SetupEditor()
@@ -93,7 +136,13 @@ namespace OfficeCopilot.Settings.WinForms
         {
             if (_isNew)
             {
-                txtMarkDown.Text = "# Skill 名称\n\n在此编写 Skill 指令和逻辑...\n";
+                txtMarkDown.Text = string.Join(Environment.NewLine, new[]
+                {
+                    "# " + LocalizationService.Get("Settings.Config.SkillEditor.Markdown.NewSkillHeading"),
+                    string.Empty,
+                    LocalizationService.Get("Settings.Config.SkillEditor.Markdown.NewSkillBody"),
+                    string.Empty
+                });
                 txtName.Text = string.Empty;
                 txtDescription.Text = string.Empty;
                 txtName.Focus();
@@ -121,7 +170,7 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载 Skill 文件失败：" + ex.Message, "Skill 编辑器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.SkillEditor.Error.LoadFile", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -222,7 +271,7 @@ a{color:#2980b9;}
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show(this, "请输入 Skill 名称。", "Skill 编辑器", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.SkillEditor.Validation.NameRequired"), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtName.Focus();
                 return;
             }
@@ -231,13 +280,13 @@ a{color:#2980b9;}
             try
             {
                 SavedFilePath = SaveSkillFile();
-                MessageBox.Show(this, "已保存。Skill 变更将在重启应用后生效。", "Skill 编辑器", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.SkillEditor.SaveComplete"), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存失败：" + ex.Message, "Skill 编辑器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.SkillEditor.Error.SaveFile", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

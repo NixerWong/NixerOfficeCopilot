@@ -4,6 +4,7 @@ using OfficeCopilot.Agent.Planning;
 using OfficeCopilot.Agent.Runtime.Context;
 using OfficeCopilot.Agent.Runtime.Planning;
 using OfficeCopilot.HostBridge.Contracts;
+using OfficeCopilot.Localization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,6 +14,23 @@ using System.Text.Json;
 
 namespace OfficeCopilot.Agent.Runtime.Turn
 {
+    public static class ResponseLanguagePolicy
+    {
+        public static string BuildInstruction(string uiCulture)
+        {
+            var preferredCulture = SupportedLanguages.ResolveCulture(uiCulture);
+            var fallbackLanguage = string.Equals(
+                preferredCulture.Name,
+                SupportedLanguages.SimplifiedChinese,
+                StringComparison.OrdinalIgnoreCase)
+                ? "Simplified Chinese"
+                : "English";
+
+            return "Follow any explicit response-language request from the user. Otherwise, reply in the same language as the user's latest message. "
+                + "If its language is unclear or mixed, reply in " + fallbackLanguage + ".";
+        }
+    }
+
     /// <summary>
     /// 把会话历史 + 宿主上下文快照 + 技能计划组装成模型消息序列的实现，从 <see cref="BrokerTurnExecutor"/> 迁出。
     /// 当前以静态方法对外暴露，调用方（执行器）通过 <see cref="BuildModelMessages"/> 等入口使用。
@@ -228,6 +246,10 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     AppendSystemPromptSection(builder, transientMessage);
                 }
             }
+
+            AppendSystemPromptSection(
+                builder,
+                ResponseLanguagePolicy.BuildInstruction(request == null ? null : request.UiCulture));
 
             return builder.ToString().Trim();
         }

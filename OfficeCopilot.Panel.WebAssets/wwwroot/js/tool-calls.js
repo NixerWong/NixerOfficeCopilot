@@ -7,6 +7,15 @@ import { ensureBottomAnchor, scrollToBottom } from './scroll.js';
 import { state } from './state.js';
 import { refreshThinkingPanel } from './thinking.js';
 import { hideToolConfirmationPanel } from './tool-confirmation-ui.js';
+import { t } from './i18n.js';
+
+function setLocalizedState(element, key) {
+    if (!element) {
+        return;
+    }
+    element.dataset.l10nText = key;
+    element.textContent = t(key);
+}
 
 export function getToolCallListElement(element) {
     return element ? element.querySelector('.assistant-stream') : null;
@@ -54,25 +63,25 @@ export function createToolCallItem(toolCallId, toolName) {
         + '<summary class="tool-call-summary">'
         + '  <span class="tool-call-summary-main">'
         + '    <span class="tool-call-chevron" aria-hidden="true"></span>'
-        + '    <span class="tool-call-title">' + escapeHtml(toolName || '工具调用') + '</span>'
+        + '    <span class="tool-call-title">' + escapeHtml(toolName || t('Web.message.toolCall')) + '</span>'
         + '  </span>'
         + '</summary>'
         + '<div class="tool-call-content">'
-        + '  <div class="tool-call-state">执行中</div>'
+        + '  <div class="tool-call-state" data-l10n-text="Web.message.executing"></div>'
         + '  <div class="tool-confirmation-panel" hidden>'
         + '    <div class="tool-confirmation-text markdown-body"></div>'
         + '    <details class="tool-confirm-arguments" hidden>'
-        + '      <summary>查看完整参数 JSON</summary>'
+        + '      <summary data-l10n-text="Web.confirmation.details"></summary>'
         + '      <pre class="tool-confirm-arguments-json"></pre>'
         + '    </details>'
         + '    <div class="tool-confirmation-actions">'
         + '      <select class="tool-confirmation-select">'
-        + '        <option value="deny">拒绝授权</option>'
-        + '        <option value="allow-once" selected>单次授权</option>'
-        + '        <option value="allow-session">本会话自动授权</option>'
-        + '        <option value="allow-always">永久自动授权</option>'
+        + '        <option value="deny" data-l10n-text="Web.confirmation.deny"></option>'
+        + '        <option value="allow-once" selected data-l10n-text="Web.confirmation.allowOnce"></option>'
+        + '        <option value="allow-session" data-l10n-text="Web.confirmation.allowSession"></option>'
+        + '        <option value="allow-always" data-l10n-text="Web.confirmation.allowAlways"></option>'
         + '      </select>'
-        + '      <button type="button" class="tool-confirmation-confirm-btn">确认</button>'
+        + '      <button type="button" class="tool-confirmation-confirm-btn" data-l10n-text="Web.confirmation.confirm"></button>'
         + '    </div>'
         + '  </div>'
         + '  <div class="tool-call-result markdown-body"></div>'
@@ -103,11 +112,12 @@ export function ensureToolCallItem(element, toolCallId, toolName) {
     return item;
 }
 
-export function showToolCallStarted(assistantMessageId, toolCallId, toolName, requiresBackup, backupPath) {
+export function showToolCallStarted(assistantMessageId, toolCallId, toolName, toolDisplayName, requiresBackup, backupPath) {
+    const displayName = toolDisplayName || toolName;
     const entry = ensureAssistantMessage(assistantMessageId);
     setAssistantCompleted(entry.element, false);
 
-    const item = ensureToolCallItem(entry.element, toolCallId, toolName);
+    const item = ensureToolCallItem(entry.element, toolCallId, displayName);
     if (!item) {
         return;
     }
@@ -136,12 +146,12 @@ export function showToolCallStarted(assistantMessageId, toolCallId, toolName, re
 
     const titleEl = item.querySelector('.tool-call-title');
     if (titleEl) {
-        titleEl.textContent = toolName || '工具调用';
+        titleEl.textContent = displayName || t('Web.message.toolCall');
     }
 
     const stateEl = item.querySelector('.tool-call-state');
     if (stateEl) {
-        stateEl.textContent = '执行中';
+        setLocalizedState(stateEl, 'Web.message.executing');
     }
 
     const resultEl = item.querySelector('.tool-call-result');
@@ -157,9 +167,10 @@ export function showToolCallStarted(assistantMessageId, toolCallId, toolName, re
     scrollToBottom();
 }
 
-export function showToolCallCompleted(assistantMessageId, toolCallId, toolName, success, content, errorMessage, backupPath) {
+export function showToolCallCompleted(assistantMessageId, toolCallId, toolName, toolDisplayName, success, content, errorMessage, backupPath) {
+    const displayName = toolDisplayName || toolName;
     const entry = ensureAssistantMessage(assistantMessageId);
-    const item = ensureToolCallItem(entry.element, toolCallId, toolName);
+    const item = ensureToolCallItem(entry.element, toolCallId, displayName);
     if (!item) {
         return;
     }
@@ -182,12 +193,12 @@ export function showToolCallCompleted(assistantMessageId, toolCallId, toolName, 
 
     const titleEl = item.querySelector('.tool-call-title');
     if (titleEl) {
-        titleEl.textContent = toolName || '工具调用';
+        titleEl.textContent = displayName || t('Web.message.toolCall');
     }
 
     const stateEl = item.querySelector('.tool-call-state');
     if (stateEl) {
-        stateEl.textContent = success ? '已完成' : '失败';
+        setLocalizedState(stateEl, success ? 'Web.message.completed' : 'Web.message.failed');
     }
 
     const resultEl = item.querySelector('.tool-call-result');
@@ -261,7 +272,7 @@ export function renderAssistantContentParts(element, message) {
 
 export function renderHistoryToolCallItem(element, toolCall) {
     var toolCallId = toolCall.toolCallId || '';
-    var toolName = toolCall.toolName || '工具调用';
+    var toolName = toolCall.toolName || t('Web.message.toolCall');
     var status = String(toolCall.status || '').toLowerCase();
     var success = !!toolCall.success;
 
@@ -287,11 +298,11 @@ export function renderHistoryToolCallItem(element, toolCall) {
     var stateEl = item.querySelector('.tool-call-state');
     if (stateEl) {
         if (status === 'running') {
-            stateEl.textContent = '执行中';
+            setLocalizedState(stateEl, 'Web.message.executing');
         } else if (success || status === 'completed') {
-            stateEl.textContent = '已完成';
+            setLocalizedState(stateEl, 'Web.message.completed');
         } else {
-            stateEl.textContent = '失败';
+            setLocalizedState(stateEl, 'Web.message.failed');
         }
     }
 
@@ -328,7 +339,7 @@ export function hydrateAssistantToolCalls(element, toolCalls, clearFirst) {
         }
 
         const toolCallId = toolCall.toolCallId || '';
-        const toolName = toolCall.toolName || '工具调用';
+        const toolName = toolCall.toolName || t('Web.message.toolCall');
         const status = String(toolCall.status || '').toLowerCase();
         const success = !!toolCall.success;
 
@@ -360,13 +371,13 @@ export function hydrateAssistantToolCalls(element, toolCalls, clearFirst) {
         const stateEl = item.querySelector('.tool-call-state');
         if (stateEl) {
             if (status === 'running') {
-                stateEl.textContent = '执行中';
+                setLocalizedState(stateEl, 'Web.message.executing');
             }
             else if (success || status === 'completed') {
-                stateEl.textContent = '已完成';
+                setLocalizedState(stateEl, 'Web.message.completed');
             }
             else {
-                stateEl.textContent = '失败';
+                setLocalizedState(stateEl, 'Web.message.failed');
             }
         }
 

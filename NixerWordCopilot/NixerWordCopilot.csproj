@@ -365,6 +365,10 @@
       <Project>{0fc884b7-f9c7-477b-88b0-abb3dd401801}</Project>
       <Name>OfficeCopilot.Settings.WinForms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj">
+      <Project>{F7F66934-012D-4E89-A044-119F044149EA}</Project>
+      <Name>OfficeCopilot.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OfficeCopilot.Settings\OfficeCopilot.Settings.csproj">
       <Project>{db71d7d8-858c-49ad-bbfb-6a221e47c2bc}</Project>
       <Name>OfficeCopilot.Settings</Name>

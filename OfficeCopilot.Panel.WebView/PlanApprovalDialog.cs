@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Panel.WebView
 {
@@ -14,16 +15,21 @@ namespace OfficeCopilot.Panel.WebView
         private TextBox _planTextBox;
         private Button _approveButton;
         private Button _rejectButton;
+        private Label _headerLabel;
+        private Label _descriptionLabel;
 
         public PlanApprovalDialog(string planText)
         {
             _planText = planText ?? string.Empty;
             InitializeForm();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += (sender, args) => LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+            ApplyLocalization();
         }
 
         private void InitializeForm()
         {
-            Text = "Nixer Copilot — Plan Approval";
+            Text = LocalizationService.Get("Web.panel.planTitle");
             Size = new Size(700, 550);
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.Sizable;
@@ -32,25 +38,27 @@ namespace OfficeCopilot.Panel.WebView
             ShowInTaskbar = false;
             Padding = new Padding(16);
 
-            var headerLabel = new Label
+            _headerLabel = new Label
             {
-                Text = "▎Agent has prepared an implementation plan for your review.",
+                Tag = "Web.panel.planHeader",
+                Text = LocalizationService.Get("Web.panel.planHeader"),
                 Font = new Font(Font, FontStyle.Bold),
                 ForeColor = Color.DodgerBlue,
                 AutoSize = true,
                 Location = new Point(16, 16)
             };
-            Controls.Add(headerLabel);
+            Controls.Add(_headerLabel);
 
-            var subLabel = new Label
+            _descriptionLabel = new Label
             {
-                Text = "Please review the plan below. You can edit the text if needed. Click Approve to proceed or Reject to cancel.",
+                Tag = "Web.panel.planDescription",
+                Text = LocalizationService.Get("Web.panel.planDescription"),
                 AutoSize = false,
                 Size = new Size(650, 36),
                 Location = new Point(16, 44),
                 ForeColor = Color.DimGray
             };
-            Controls.Add(subLabel);
+            Controls.Add(_descriptionLabel);
 
             _planTextBox = new TextBox
             {
@@ -66,7 +74,8 @@ namespace OfficeCopilot.Panel.WebView
 
             _approveButton = new Button
             {
-                Text = "✓ Approve",
+                Text = LocalizationService.Get("Web.panel.approve"),
+                Tag = "Web.panel.approve",
                 Location = new Point(ClientSize.Width - 310, 440),
                 Size = new Size(140, 36),
                 BackColor = Color.FromArgb(0, 122, 204),
@@ -78,7 +87,8 @@ namespace OfficeCopilot.Panel.WebView
 
             _rejectButton = new Button
             {
-                Text = "✗ Reject",
+                Text = LocalizationService.Get("Web.panel.reject"),
+                Tag = "Web.panel.reject",
                 Location = new Point(ClientSize.Width - 160, 440),
                 Size = new Size(140, 36),
                 DialogResult = DialogResult.Cancel
@@ -89,6 +99,31 @@ namespace OfficeCopilot.Panel.WebView
 
             AcceptButton = _approveButton;
             CancelButton = _rejectButton;
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(ApplyLocalization));
+                return;
+            }
+
+            ApplyLocalization();
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get("Web.panel.planTitle");
+            _headerLabel.Text = LocalizationService.Get("Web.panel.planHeader");
+            _descriptionLabel.Text = LocalizationService.Get("Web.panel.planDescription");
+            _approveButton.Text = LocalizationService.Get("Web.panel.approve");
+            _rejectButton.Text = LocalizationService.Get("Web.panel.reject");
         }
     }
 }

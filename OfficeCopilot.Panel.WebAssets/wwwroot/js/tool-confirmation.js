@@ -17,7 +17,7 @@ export function showToolConfirmation(data) {
 
     postMessage({ type: 'traceLog', msgType: 'toolConfirmation-render', requestId: requestId });
 
-    var toolName = data.toolName || '\u672a\u77e5\u5de5\u5177';
+    var toolName = data.toolDisplayName || data.toolName || '\u672a\u77e5\u5de5\u5177';
     var toolDescription = data.toolDescription || '';
     var operationSummary = data.operationSummary || '';
     var riskLevel = data.riskLevel || 'high';
@@ -115,6 +115,7 @@ export function appendCodeExecutionFailureMessage(message) {
     appendMessage({
         id: 'code_execution_error_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8),
         role: 'assistant',
-        content: '### VBA 执行失败\n\n' + text
+        content: '### ' + t('Web.code.vbaFailure') + '\n\n' + text
     });
 }
+import { t } from './i18n.js';

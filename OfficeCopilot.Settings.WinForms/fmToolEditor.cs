@@ -6,6 +6,7 @@ using OfficeCopilot.Agent.Abstractions;
 using OfficeCopilot.Host.Excel.Tools;
 using OfficeCopilot.Host.PowerPoint.Tools;
 using OfficeCopilot.Host.Word.Tools;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings.Abstractions;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,9 @@ namespace OfficeCopilot.Settings.WinForms
             DefinitionOverride = CloneOverride(currentOverride);
 
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmToolEditor_Disposed;
         }
 
         private void WireEvents()
@@ -84,10 +88,6 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void fmToolEditor_Load(object sender, EventArgs e)
         {
-            Text = string.IsNullOrWhiteSpace(_baseDefinition.DisplayName)
-                ? (_readOnly ? "查看工具" : "编辑内置工具")
-                : (_readOnly ? "查看工具 - " : "编辑内置工具 - ") + _baseDefinition.DisplayName;
-
             BindDefinitionToForm();
 
             if (_openTesterTab)
@@ -96,7 +96,39 @@ namespace OfficeCopilot.Settings.WinForms
             }
 
             ApplyReadOnlyMode();
+            ApplyLocalization();
 
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmToolEditor_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            var titleKey = _readOnly
+                ? "Settings.Config.ToolEditor.ViewTitle"
+                : "Settings.Config.ToolEditor.EditTitle";
+            Text = string.IsNullOrWhiteSpace(_baseDefinition.DisplayName)
+                ? LocalizationService.Get(titleKey)
+                : LocalizationService.Format(titleKey + "WithName", _baseDefinition.DisplayName);
+            xtpToolEditor.Text = LocalizationService.Get("Settings.Config.ToolEditor.DefinitionTab");
+            xtpToolTester.Text = LocalizationService.Get("Settings.Config.ToolEditor.TestTab");
+            btnRunTest.Caption = LocalizationService.Get("Settings.Config.ToolEditor.RunTest");
+            btnSave.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+            btnCancel.Caption = LocalizationService.Get("Settings.Config.Common.Cancel");
+            btnCheckSyntax.Caption = LocalizationService.Get("Settings.Config.ToolEditor.CheckSyntax");
+            btnIndentFormat.Caption = LocalizationService.Get("Settings.Config.ToolEditor.FormatSchema");
+            btnFormatIndent.Caption = LocalizationService.Get("Settings.Config.ToolEditor.FormatArguments");
+            txtName.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.Tools.Name");
+            txtDisplayName.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.ToolEditor.DisplayNamePrompt");
+            txtDescription.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.Tools.Description");
         }
 
         private void BindDefinitionToForm()
@@ -115,7 +147,7 @@ namespace OfficeCopilot.Settings.WinForms
             txtOutput.Text = string.Empty;
             ApplyGeneratedArgumentsTemplate(true);
 
-            SetInfoText("已加载工具定义，并生成测试参数模板。");
+            SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.Loaded"));
         }
 
         private void txtInputSchemaJson_EditValueChanged(object sender, EventArgs e)
@@ -128,7 +160,7 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateDefinitionInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "工具定义", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage, LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -148,26 +180,26 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateDefinitionInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "工具定义", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                SetInfoText("JSON 语法检查失败。");
+                MessageBox.Show(this, validationMessage, LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.SyntaxCheckFailed"));
                 return;
             }
 
-            MessageBox.Show(this, "JSON 语法检查通过。", "工具定义", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            SetInfoText("JSON 语法检查通过。");
+            MessageBox.Show(this, LocalizationService.Get("Settings.Config.ToolEditor.SyntaxCheckPassed"), LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.SyntaxCheckPassed"));
         }
 
         private void btnIndentFormat_ItemClick(object sender, ItemClickEventArgs e)
         {
             txtInputSchemaJson.Text = FormatJsonOrOriginal(txtInputSchemaJson.Text, true);
             txtOutputSchemaJson.Text = FormatJsonOrOriginal(txtOutputSchemaJson.Text, false);
-            SetInfoText("Schema JSON 已整理缩进。");
+            SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.SchemaFormatted"));
         }
 
         private void btnFormatIndent_ItemClick(object sender, ItemClickEventArgs e)
         {
             txtArguments.Text = FormatJsonOrOriginal(txtArguments.Text, true);
-            SetInfoText("测试参数 JSON 已整理缩进。");
+            SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.ArgumentsFormatted"));
         }
 
         private async void btnRunTest_ItemClick(object sender, ItemClickEventArgs e)
@@ -175,44 +207,46 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateDefinitionInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "调用测试", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage, LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!ValidateJsonText(txtArguments.Text, true, out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "调用测试", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage, LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (_customTestExecutor == null && !string.IsNullOrWhiteSpace(TestBlockedReason))
             {
-                MessageBox.Show(this, TestBlockedReason, "调用测试", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, TestBlockedReason, LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (_customTestExecutor == null && _toolServices == null)
             {
-                MessageBox.Show(this, "当前环境不可用，无法执行工具测试。", "调用测试", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.ToolEditor.TestUnavailable"), LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             btnRunTest.Enabled = false;
             txtOutput.Text = string.Empty;
-            SetInfoText("正在执行工具测试...");
+            SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.TestRunning"));
 
             try
             {
                 var result = await ExecuteToolTestAsync();
                 txtOutput.Text = FormatResult(result);
                 xtcToolEditor.SelectedTabPage = xtpToolTester;
-                SetInfoText(result != null && result.Success ? "工具测试成功。" : "工具测试已完成。请查看输出。");
+                SetInfoText(LocalizationService.Get(result != null && result.Success
+                    ? "Settings.Config.ToolEditor.TestSucceeded"
+                    : "Settings.Config.ToolEditor.TestCompleted"));
             }
             catch (Exception ex)
             {
                 txtOutput.Text = ex.ToString();
-                SetInfoText("工具测试失败。");
-                MessageBox.Show(this, "工具测试失败：" + ex.Message, "调用测试", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SetInfoText(LocalizationService.Get("Settings.Config.ToolEditor.TestFailed"));
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.ToolEditor.Error.TestFailed", ex.Message), LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -268,7 +302,7 @@ namespace OfficeCopilot.Settings.WinForms
 
             if (tool == null)
             {
-                throw new InvalidOperationException("未找到当前工具的运行时实例。");
+                throw new InvalidOperationException(LocalizationService.Get("Settings.Config.ToolEditor.RuntimeInstanceMissing"));
             }
 
             var context = new ToolExecutionContext
@@ -341,7 +375,7 @@ namespace OfficeCopilot.Settings.WinForms
             {
                 if (required)
                 {
-                    validationMessage = "JSON 内容不能为空。";
+                    validationMessage = LocalizationService.Get("Settings.Config.ToolEditor.Validation.JsonRequired");
                     return false;
                 }
 
@@ -355,7 +389,7 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                validationMessage = "JSON 格式无效：" + ex.Message;
+                validationMessage = LocalizationService.Format("Settings.Config.ToolEditor.Validation.JsonInvalid", ex.Message);
                 return false;
             }
         }
@@ -586,11 +620,11 @@ namespace OfficeCopilot.Settings.WinForms
                 case "address":
                     return new JValue("A1");
                 case "value":
-                    return new JValue("示例值");
+                    return new JValue(LocalizationService.Get("Settings.Config.ToolEditor.Json.SampleValue"));
                 case "displayname":
-                    return new JValue("示例显示名称");
+                    return new JValue(LocalizationService.Get("Settings.Config.ToolEditor.Json.SampleDisplayName"));
                 case "description":
-                    return new JValue("示例说明");
+                    return new JValue(LocalizationService.Get("Settings.Config.ToolEditor.Json.SampleDescription"));
                 case "code":
                     return new JValue("Sub Main()\r\n    MsgBox \"Hello\"\r\nEnd Sub");
                 case "modulename":
@@ -598,7 +632,9 @@ namespace OfficeCopilot.Settings.WinForms
                 case "entrypoint":
                     return new JValue("Main");
                 default:
-                    return new JValue(string.IsNullOrWhiteSpace(propertyName) ? "示例文本" : "示例" + propertyName);
+                    return new JValue(string.IsNullOrWhiteSpace(propertyName)
+                        ? LocalizationService.Get("Settings.Config.ToolEditor.Json.SampleText")
+                        : LocalizationService.Format("Settings.Config.ToolEditor.Json.SamplePrefix", propertyName));
             }
         }
 

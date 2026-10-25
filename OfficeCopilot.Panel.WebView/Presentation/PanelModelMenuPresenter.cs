@@ -1,4 +1,5 @@
 using DevExpress.XtraBars;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ namespace OfficeCopilot.Panel.WebView.Presentation
     /// </summary>
     internal sealed class PanelModelMenuPresenter
     {
-        private const string NoModelCaption = "请先设置模型";
         private const int ModelMenuGroupIndex = 100;
 
         private readonly BarManager _barManager;
@@ -65,7 +65,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
             if (!HasModels)
             {
                 SelectedModelProviderId = null;
-                _menu.Caption = NoModelCaption;
+                _menu.Caption = LocalizationService.Get("Web.panel.noModel");
                 _persistDefaultModelProviderId(null);
                 AddEmptyMenuItem();
                 return;
@@ -99,6 +99,43 @@ namespace OfficeCopilot.Panel.WebView.Presentation
 
                 _barManager.Items.Add(item);
                 _menu.AddItem(item);
+            }
+        }
+
+        public void RefreshLocalizedLabels()
+        {
+            if (!HasModels)
+            {
+                _menu.Caption = LocalizationService.Get("Web.panel.noModel");
+                foreach (BarItemLink link in _menu.ItemLinks)
+                {
+                    link.Item.Caption = LocalizationService.Get("Web.panel.noModel");
+                }
+
+                return;
+            }
+
+            foreach (BarItemLink link in _menu.ItemLinks)
+            {
+                var item = link.Item as BarCheckItem;
+                if (item == null || item.Tag == null)
+                {
+                    continue;
+                }
+
+                int modelId;
+                if (int.TryParse(item.Tag.ToString(), out modelId))
+                {
+                    item.Caption = GetDisplayName(FindModel(modelId));
+                }
+            }
+
+            var selectedModel = SelectedModelProviderId.HasValue
+                ? FindModel(SelectedModelProviderId.Value)
+                : null;
+            if (selectedModel != null)
+            {
+                _menu.Caption = GetDisplayName(selectedModel);
             }
         }
 
@@ -195,7 +232,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
         {
             if (model == null)
             {
-                return NoModelCaption;
+                return LocalizationService.Get("Web.panel.noModel");
             }
 
             if (!string.IsNullOrWhiteSpace(model.Name))
@@ -203,7 +240,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
                 return model.Name.Trim();
             }
 
-            return "模型 " + model.Id;
+            return LocalizationService.Format("Web.panel.model", model.Id);
         }
 
         private ModelProviderSettings FindModel(int modelId)
@@ -214,7 +251,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
         private void AddEmptyMenuItem()
         {
             var item = new BarButtonItem();
-            item.Caption = NoModelCaption;
+            item.Caption = LocalizationService.Get("Web.panel.noModel");
             item.Enabled = false;
 
             _barManager.Items.Add(item);

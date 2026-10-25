@@ -3,6 +3,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.Utils.Menu;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using System;
@@ -36,6 +37,9 @@ namespace OfficeCopilot.Settings.WinForms
             Model = OfficeCopilotSettingsFactory.NormalizeModelProvider(CloneModel(model));
 
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmModelEditor_Disposed;
         }
 
         private void WireEvents()
@@ -69,12 +73,84 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void InitializeEditor()
         {
-            Text = string.IsNullOrWhiteSpace(Model.Name) ? "新增模型" : "编辑模型";
-
             pgcBasicParams.OptionsView.ShowRootCategories = false;
+            ConfigureNameValueGrid(
+                gvAdditionalParams,
+                LocalizationService.Get("Settings.Config.ModelEditor.ParameterName"),
+                LocalizationService.Get("Settings.Config.ModelEditor.ParameterValue"));
+            ConfigureNameValueGrid(
+                gvHttpHeaders,
+                LocalizationService.Get("Settings.Config.ModelEditor.HeaderName"),
+                LocalizationService.Get("Settings.Config.ModelEditor.HeaderValue"));
+            ApplyLocalization();
+        }
 
-            ConfigureNameValueGrid(gvAdditionalParams, "参数名", "参数值");
-            ConfigureNameValueGrid(gvHttpHeaders, "请求头", "值");
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+            if (_basicParameters != null)
+            {
+                pgcBasicParams.PostEditor();
+                pgcBasicParams.CloseEditor();
+                TypeDescriptor.Refresh(_basicParameters);
+                pgcBasicParams.SelectedObject = null;
+                pgcBasicParams.SelectedObject = _basicParameters;
+            }
+        }
+
+        private void fmModelEditor_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get(
+                string.IsNullOrWhiteSpace(Model.Name)
+                    ? "Settings.Config.ModelEditor.Title.Add"
+                    : "Settings.Config.ModelEditor.Title.Edit");
+            gcModelParams.Text = LocalizationService.Get("Settings.Config.ModelEditor.ModelParameters");
+            txtModelName.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.ModelEditor.ModelName");
+            txtSystemPrompt.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.ModelEditor.SystemPrompt");
+            gcAdditionalParameters.Text = LocalizationService.Get("Settings.Config.ModelEditor.AdditionalParameters");
+            gcBasicParameters.Text = LocalizationService.Get("Settings.Config.ModelEditor.BasicParameters");
+            gcHttpHeadersSet.Text = LocalizationService.Get("Settings.Config.ModelEditor.HttpHeaders");
+            barModelEdit.Text = LocalizationService.Get("Settings.Config.ModelEditor.SaveAndClose");
+            btnTestConn.Caption = LocalizationService.Get("Settings.Config.ModelEditor.TestConnection");
+            btnSave.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+            btnCancel.Caption = LocalizationService.Get("Settings.Config.Common.Cancel");
+            bciEnableModel.Caption = LocalizationService.Get("Settings.Config.ModelEditor.EnableModel");
+
+            SetNameValueGridCaptions(
+                gvAdditionalParams,
+                LocalizationService.Get("Settings.Config.ModelEditor.ParameterName"),
+                LocalizationService.Get("Settings.Config.ModelEditor.ParameterValue"));
+            SetNameValueGridCaptions(
+                gvHttpHeaders,
+                LocalizationService.Get("Settings.Config.ModelEditor.HeaderName"),
+                LocalizationService.Get("Settings.Config.ModelEditor.HeaderValue"));
+        }
+
+        private static void SetNameValueGridCaptions(
+            DevExpress.XtraGrid.Views.Grid.GridView view,
+            string nameCaption,
+            string valueCaption)
+        {
+            if (view == null)
+            {
+                return;
+            }
+
+            var nameColumn = view.Columns["Name"];
+            var valueColumn = view.Columns["Value"];
+            if (nameColumn != null)
+            {
+                nameColumn.Caption = nameCaption;
+            }
+            if (valueColumn != null)
+            {
+                valueColumn.Caption = valueCaption;
+            }
         }
 
         private void BindModelToForm()
@@ -196,7 +272,9 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage,
+                    LocalizationService.Get("Settings.Config.DialogTitle.Model"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -217,7 +295,9 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "测试连接", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage,
+                    LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -234,13 +314,19 @@ namespace OfficeCopilot.Settings.WinForms
                     using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
                     {
                         // 只要收到 HTTP 响应（无论状态码，404/405 等一律忽略），就说明服务 URL 可达。
-                        MessageBox.Show(this, "服务URL可达。", "测试连接", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this,
+                            LocalizationService.Get("Settings.Config.ModelEditor.ConnectionTestSucceeded"),
+                            LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"),
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "连接失败：" + ex.Message, "测试连接", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this,
+                    LocalizationService.Format("Settings.Config.ModelEditor.ConnectionTestFailed", ex.Message),
+                    LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -262,19 +348,19 @@ namespace OfficeCopilot.Settings.WinForms
 
             if (string.IsNullOrWhiteSpace(txtModelName.Text))
             {
-                message = "请填写模型名称。";
+                message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.ModelNameRequired");
                 return false;
             }
 
             if (_basicParameters == null)
             {
-                message = "基本参数未初始化。";
+                message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.BasicParametersUnavailable");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(_basicParameters.Endpoint))
             {
-                message = "请填写 API 地址。";
+                message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.EndpointRequired");
                 return false;
             }
 
@@ -282,13 +368,13 @@ namespace OfficeCopilot.Settings.WinForms
             if (!Uri.TryCreate(_basicParameters.Endpoint.Trim(), UriKind.Absolute, out endpointUri) ||
                 (endpointUri.Scheme != Uri.UriSchemeHttp && endpointUri.Scheme != Uri.UriSchemeHttps))
             {
-                message = "API 地址格式不正确，必须是 http 或 https。";
+                message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.EndpointInvalid");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(_basicParameters.ModelId))
             {
-                message = "请填写模型 ID。";
+                message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.ModelIdRequired");
                 return false;
             }
 
@@ -386,7 +472,9 @@ namespace OfficeCopilot.Settings.WinForms
                 return;
             }
 
-            e.Menu.Items.Add(new DXMenuItem("删除当前行", delegate
+            e.Menu.Items.Add(new DXMenuItem(
+                LocalizationService.Get("Settings.Config.ModelEditor.DeleteCurrentRow"),
+                delegate
             {
                 DeleteRow(view, rowHandle);
             }));
@@ -452,20 +540,22 @@ namespace OfficeCopilot.Settings.WinForms
 
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    message = "附加参数名称不能为空。";
+                    message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.ParameterNameRequired");
                     return false;
                 }
 
                 if (additionalParameters.ContainsKey(name))
                 {
-                    message = string.Format("附加参数“{0}”重复，请检查。", name);
+                    message = LocalizationService.Format(
+                        "Settings.Config.ModelEditor.Validation.ParameterNameDuplicate", name);
                     return false;
                 }
 
                 object parsedValue;
                 if (!TryParseValue(rawValue, out parsedValue, out message))
                 {
-                    message = string.Format("附加参数“{0}”的值无效：{1}", name, message);
+                    message = LocalizationService.Format(
+                        "Settings.Config.ModelEditor.Validation.ParameterValueInvalid", name, message);
                     return false;
                 }
 
@@ -492,13 +582,14 @@ namespace OfficeCopilot.Settings.WinForms
 
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    message = "HTTP 请求头名称不能为空。";
+                    message = LocalizationService.Get("Settings.Config.ModelEditor.Validation.HeaderNameRequired");
                     return false;
                 }
 
                 if (httpHeaders.ContainsKey(name))
                 {
-                    message = string.Format("HTTP 请求头“{0}”重复，请检查。", name);
+                    message = LocalizationService.Format(
+                        "Settings.Config.ModelEditor.Validation.HeaderNameDuplicate", name);
                     return false;
                 }
 
@@ -676,33 +767,33 @@ namespace OfficeCopilot.Settings.WinForms
 
         private sealed class BasicParametersModel
         {
-            [Category("连接")]
-            [DisplayName("模型 ID")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Connection")]
+            [LocalizedDisplayName("Settings.Config.Models.ModelId")]
             public string ModelId { get; set; }
 
-            [Category("连接")]
-            [DisplayName("最大上下文长度")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Connection")]
+            [LocalizedDisplayName("Settings.Config.ModelEditor.MaxContextTokens")]
             public int MaxContextTokens { get; set; }
 
-            [Category("连接")]
-            [DisplayName("API 地址")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Connection")]
+            [LocalizedDisplayName("Settings.Config.Models.Endpoint")]
             public string Endpoint { get; set; }
 
-            [Category("连接")]
-            [DisplayName("API 密钥")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Connection")]
+            [LocalizedDisplayName("Settings.Config.Models.ApiKey")]
             [PasswordPropertyText(true)]
             public string ApiKey { get; set; }
 
-            [Category("连接")]
-            [DisplayName("API 协议")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Connection")]
+            [LocalizedDisplayName("Settings.Config.ModelEditor.ProviderKind")]
             public ModelProviderKind ProviderKind { get; set; }
 
-            [Category("能力")]
-            [DisplayName("支持多模态")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Capabilities")]
+            [LocalizedDisplayName("Settings.Config.Models.Multimodal")]
             public bool SupportsImageInput { get; set; }
 
-            [Category("能力")]
-            [DisplayName("支持文件类型")]
+            [LocalizedCategory("Settings.Config.ModelEditor.Category.Capabilities")]
+            [LocalizedDisplayName("Settings.Config.ModelEditor.SupportedInputFileTypes")]
             public string SupportedInputFileTypes { get; set; }
 
             public static BasicParametersModel FromModel(ModelProviderSettings model)

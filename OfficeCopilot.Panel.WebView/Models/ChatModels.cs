@@ -63,6 +63,7 @@ namespace OfficeCopilot.Panel.WebView.Models
     {
         public string ToolCallId { get; set; }
         public string ToolName { get; set; }
+        public string DisplayName { get; set; }
         public bool Success { get; set; }
         public string Status { get; set; }
         public string Content { get; set; }

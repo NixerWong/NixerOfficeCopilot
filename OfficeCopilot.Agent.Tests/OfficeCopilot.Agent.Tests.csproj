@@ -170,6 +170,9 @@
       <Project>{D13E58C7-F2E5-42C3-B365-386E1D911AB2}</Project>
       <Name>OfficeCopilot.Settings.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj">
+      <Name>OfficeCopilot.Localization</Name>
+    </ProjectReference>
     <!-- 只为测试纯计算的 ExcelAggregationEngine/ExcelTabularSnapshot；不实例化任何 COM 类型。 -->
     <ProjectReference Include="..\OfficeCopilot.Host.Abstractions\OfficeCopilot.Host.Abstractions.csproj">
       <Project>{6F1F9C47-76F1-4330-927F-0B8FBF0C1A02}</Project>
@@ -231,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mcp\McpRegistryRoutingTests.cs" />
+    <Compile Include="Localization\LocalizationTests.cs" />
     <Compile Include="Mcp\NuGetMcpClientTimeoutTests.cs" />
     <Compile Include="Mcp\McpServerConfigParsingTests.cs" />
     <Compile Include="Mcp\McpToolRiskInferenceTests.cs" />

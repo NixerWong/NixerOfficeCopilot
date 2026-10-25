@@ -5,6 +5,7 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using System;
@@ -23,12 +24,17 @@ namespace OfficeCopilot.Settings.WinForms
         private BindingList<McpServerRow> _mcpServers;
         private RepositoryItemCheckEdit _mcpServerRegistrationEditor;
         private bool _loadingSettings;
+        private ToolStripMenuItem _editMenuItem;
+        private ToolStripMenuItem _deleteMenuItem;
 
         public fmMcpConfig(ISettingsStore settingsStore)
         {
             InitializeComponent();
             _settingsStore = settingsStore ?? new JsonSettingsStore();
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmMcpConfig_Disposed;
         }
 
         private void WireEvents()
@@ -66,16 +72,54 @@ namespace OfficeCopilot.Settings.WinForms
 
             // 右键菜单
             var ctxMcp = new ContextMenuStrip();
-            ctxMcp.Items.Add("编辑", Properties.Resources.edit_16x16, (s, ev) => EditFocusedMcpServer());
-            ctxMcp.Items.Add("删除", Properties.Resources.deletelist_16x16, (s, ev) => btnDelMcp_ItemClick(s, null));
+            _editMenuItem = new ToolStripMenuItem(
+                LocalizationService.Get("Settings.Config.Context.Edit"),
+                Properties.Resources.edit_16x16,
+                (s, ev) => EditFocusedMcpServer());
+            _deleteMenuItem = new ToolStripMenuItem(
+                LocalizationService.Get("Settings.Config.Context.Delete"),
+                Properties.Resources.deletelist_16x16,
+                (s, ev) => btnDelMcp_ItemClick(s, null));
+            ctxMcp.Items.AddRange(new ToolStripItem[] { _editMenuItem, _deleteMenuItem });
             ctxMcp.Opening += (s, ev) => { ev.Cancel = GetFocusedMcpServer() == null; };
             GridContextMenuHelper.AttachToDataRows(gcMcpServer, gvMcpServer, ctxMcp);
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmMcpConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get("Settings.Config.DialogTitle.Mcp");
+            colMcpId.Caption = LocalizationService.Get("Settings.Config.Mcp.Id");
+            colMcpName.Caption = LocalizationService.Get("Settings.Config.Mcp.Name");
+            colMcpDesc.Caption = LocalizationService.Get("Settings.Config.Mcp.Description");
+            colEnableMcp.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+            btnNewMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Add");
+            btnEditMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Edit");
+            btnDelMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Delete");
+            btnExportMcp.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+            btnImportMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Import");
+
+            if (_editMenuItem != null)
+            {
+                _editMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+                _deleteMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Delete");
+            }
         }
 
         // ========== Load / Save ==========
 
         private void fmMcpConfig_Load(object sender, EventArgs e)
         {
+            ApplyLocalization();
             LoadSettings();
         }
 
@@ -85,7 +129,8 @@ namespace OfficeCopilot.Settings.WinForms
             try { SaveMcpSettings(); }
             catch (Exception ex)
             {
-                if (MessageBox.Show(this, "保存MCP配置失败：" + ex.Message + "\n\n是否放弃修改并关闭？", "MCP服务",
+                if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveOnCloseFailed", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Mcp"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
                     e.Cancel = true;
             }
@@ -101,7 +146,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载配置失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadSettings", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _settings = OfficeCopilotSettingsFactory.CreateDefault();
             }
             LoadMcpSettings();
@@ -205,8 +251,9 @@ namespace OfficeCopilot.Settings.WinForms
         {
             var server = GetFocusedMcpServer();
             if (server == null) return;
-            if (MessageBox.Show(this, string.Format("确定要删除 MCP 服务 \"{0}\" 吗？", server.DisplayName),
-                "MCP服务", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Mcp.ConfirmDelete", server.DisplayName),
+                LocalizationService.Get("Settings.Config.DialogTitle.Mcp"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             EnsureSettings();
             _settings.McpServers.RemoveAll(p =>
                 p != null && string.Equals(p.Id, server.ServerId, StringComparison.OrdinalIgnoreCase));
@@ -219,7 +266,12 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void btnExportMcp_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (var dialog = new SaveFileDialog { Title = "导出 MCP 配置", Filter = "JSON 文件|*.json|所有文件|*.*", FileName = "mcp-servers.json" })
+            using (var dialog = new SaveFileDialog
+            {
+                Title = LocalizationService.Get("Settings.Config.Mcp.ExportDialogTitle"),
+                Filter = LocalizationService.Get("Settings.Config.FileFilter.Json"),
+                FileName = "mcp-servers.json"
+            })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
                 try
@@ -228,18 +280,28 @@ namespace OfficeCopilot.Settings.WinForms
                     ApplyMcpSettings();
                     File.WriteAllText(dialog.FileName,
                         JsonConvert.SerializeObject(_settings.McpServers, Formatting.Indented), System.Text.Encoding.UTF8);
-                    MessageBox.Show(this, "导出完成。", "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ExportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) { MessageBox.Show(this, "导出失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ExportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void btnImportMcp_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (var dialog = new OpenFileDialog { Title = "导入 MCP 配置", Filter = "JSON 文件|*.json|所有文件|*.*" })
+            using (var dialog = new OpenFileDialog
+            {
+                Title = LocalizationService.Get("Settings.Config.Mcp.ImportDialogTitle"),
+                Filter = LocalizationService.Get("Settings.Config.FileFilter.Json")
+            })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
-                if (MessageBox.Show(this, "导入将覆盖当前 MCP 服务列表，是否继续？", "MCP服务",
+                if (MessageBox.Show(this, LocalizationService.Get("Settings.Config.Mcp.ConfirmImport"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Mcp"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
                 try
                 {
@@ -247,9 +309,14 @@ namespace OfficeCopilot.Settings.WinForms
                     _settings.McpServers = ReadMcpServersFromFile(dialog.FileName);
                     SaveMcpSettings();
                     LoadMcpSettings();
-                    MessageBox.Show(this, "导入完成。", "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ImportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) { MessageBox.Show(this, "导入失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ImportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -275,7 +342,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存 MCP 服务配置失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveMcp", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoadSettings();
             }
         }

@@ -2074,7 +2074,7 @@ namespace OfficeCopilot.Agent.Tests.PowerPoint
             Assert.AreEqual("fidelity", settings.PowerPointSlides.DefaultBuildMode);
             Assert.AreEqual(10, settings.PowerPointSlides.RepairIterationCap);
             Assert.AreEqual(1, settings.PowerPointSlides.WorkspaceRetentionDays);
-            Assert.AreEqual(7, settings.ConfigurationVersion);
+            Assert.AreEqual(8, settings.ConfigurationVersion);
         }
 
         [TestMethod]

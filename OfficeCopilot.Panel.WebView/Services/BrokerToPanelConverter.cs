@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OfficeCopilot.Agent.Client;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Panel.WebView.Models;
 
 namespace OfficeCopilot.Panel.WebView.Services
@@ -12,6 +13,8 @@ namespace OfficeCopilot.Panel.WebView.Services
     /// </summary>
     internal static class BrokerToPanelConverter
     {
+        private static readonly IUserTextLocalizer UserTextLocalizer = new UserTextLocalizer();
+
         public static ChatSessionState ConvertConversation(AgentBrokerLoadConversationResult source)
         {
             if (source == null)
@@ -138,6 +141,10 @@ namespace OfficeCopilot.Panel.WebView.Services
                         {
                             ToolCallId = toolCallId,
                             ToolName = msg.Name ?? string.Empty,
+                            DisplayName = UserTextLocalizer.GetToolDisplayName(
+                                msg.Name,
+                                msg.Name,
+                                LocalizationService.Culture),
                             Status = "running",
                             StartedAt = msg.CreatedAtUtc == default(DateTime) ? DateTime.Now : msg.CreatedAtUtc.ToLocalTime(),
                             RequiresBackup = !string.IsNullOrWhiteSpace(msg.BackupPath),
@@ -187,6 +194,10 @@ namespace OfficeCopilot.Panel.WebView.Services
                         {
                             ToolCallId = toolCallId,
                             ToolName = msg.Name ?? string.Empty,
+                            DisplayName = UserTextLocalizer.GetToolDisplayName(
+                                msg.Name,
+                                msg.Name,
+                                LocalizationService.Culture),
                             StartedAt = msg.CreatedAtUtc == default(DateTime) ? DateTime.Now : msg.CreatedAtUtc.ToLocalTime()
                         };
                         pendingToolCalls[toolCallId] = existing;

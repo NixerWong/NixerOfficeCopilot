@@ -6,6 +6,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using Microsoft.Extensions.Logging;
 using OfficeCopilot.Panel.Abstractions;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Panel.WebView.Services.References;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
@@ -51,6 +52,8 @@ namespace OfficeCopilot.Panel.WebView
         private readonly List<BarButtonItem> _recentReferenceMenuButtons = new List<BarButtonItem>();
         private readonly ToolTip _chipTooltip = new ToolTip();
         private Label _attachmentPreparationLabel;
+        private IList<ReferenceItem> _attachmentPreparationReferences;
+        private ReferenceSendPlan _attachmentPreparationPlan;
 
         private sealed class RecentReferenceGroup
         {
@@ -213,7 +216,7 @@ namespace OfficeCopilot.Panel.WebView
             catch (Exception ex)
             {
                 _logger?.LogWarning(ex, "读取剪贴板参考内容失败。");
-                MessageBox.Show(this, "读取剪贴板内容失败：" + ex.Message, "粘贴参考", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Format("Web.panel.pasteFailed", ex.Message), LocalizationService.Get("Web.panel.pasteTitle"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return true;
             }
 
@@ -238,7 +241,7 @@ namespace OfficeCopilot.Panel.WebView
                 }
             }
 
-            return AddPastedReferences(references, "粘贴参考", "未添加新的参考文件。");
+            return AddPastedReferences(references, LocalizationService.Get("Web.panel.pasteTitle"), LocalizationService.Get("Web.panel.noNewReferences"));
         }
 
         private void EnableAttachmentFileDrop(Control control)
@@ -281,7 +284,7 @@ namespace OfficeCopilot.Panel.WebView
                 .Select(CreateFileReferenceItem)
                 .Where(reference => reference != null)
                 .ToList();
-            AddPastedReferences(references, "拖放参考", "未添加支持的参考文件。");
+            AddPastedReferences(references, LocalizationService.Get("Web.panel.dragReferences"), LocalizationService.Get("Web.panel.noSupportedFiles"));
         }
 
         private static string[] GetSupportedDroppedFilePaths(IDataObject data)
@@ -311,11 +314,11 @@ namespace OfficeCopilot.Panel.WebView
                 var reference = CreateFileReferenceItem(tempFilePath);
                 if (reference == null)
                 {
-                    MessageBox.Show(this, "剪贴板图像保存失败。", "粘贴参考", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(this, LocalizationService.Get("Web.panel.clipboardImageFailed"), LocalizationService.Get("Web.panel.pasteTitle"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return true;
                 }
 
-                return AddPastedReferences(new[] { reference }, "粘贴参考", "未添加新的剪贴板图像。");
+                return AddPastedReferences(new[] { reference }, LocalizationService.Get("Web.panel.pasteTitle"), LocalizationService.Get("Web.panel.noNewClipboardImages"));
             }
         }
 
@@ -337,7 +340,7 @@ namespace OfficeCopilot.Panel.WebView
 
             if (addedCount == 0)
             {
-                MessageBox.Show(this, limitReached ? "已达到参考附件数量上限。" : emptyMessage, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, limitReached ? LocalizationService.Get("Web.panel.referenceLimit") : emptyMessage, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return true;
@@ -350,7 +353,7 @@ namespace OfficeCopilot.Panel.WebView
 
             for (var index = 1; index < int.MaxValue; index++)
             {
-                var fileName = "剪贴板图像-" + index.ToString("D2") + ".png";
+                var fileName = LocalizationService.Format("Web.attachment.clipboardImageFile", index);
                 var filePath = Path.Combine(folderPath, fileName);
 
                 try
@@ -367,7 +370,7 @@ namespace OfficeCopilot.Panel.WebView
                 }
             }
 
-            throw new IOException("无法为剪贴板图像创建临时文件。");
+            throw new IOException(LocalizationService.Get("Web.attachment.noTempFile"));
         }
 
         public void SetSelectedReferences(IEnumerable<ReferenceItem> references)
@@ -518,6 +521,9 @@ namespace OfficeCopilot.Panel.WebView
                 return;
             }
 
+            _attachmentPreparationReferences = references.ToList();
+            _attachmentPreparationPlan = plan;
+
             var details = new List<string>();
             var failedCount = 0;
             var truncatedCount = 0;
@@ -527,10 +533,10 @@ namespace OfficeCopilot.Panel.WebView
                     ? null
                     : plan.PreparedReferences.FirstOrDefault(item => item != null
                         && string.Equals(item.ReferenceId, reference.ReferenceId, StringComparison.OrdinalIgnoreCase));
-                var status = "解析完成";
+                var status = LocalizationService.Get("Web.attachment.parseComplete");
                 if (prepared == null)
                 {
-                    status = "未生成解析结果";
+                    status = LocalizationService.Get("Web.attachment.noParseResult");
                 }
                 else
                 {
@@ -540,14 +546,14 @@ namespace OfficeCopilot.Panel.WebView
                         && prepared.Metadata.TryGetValue("conversionError", out conversionError)
                         && !string.IsNullOrWhiteSpace(conversionError))
                     {
-                        status = "解析失败：" + conversionError;
+                        status = LocalizationService.Format("Web.attachment.parseFailed", conversionError);
                         failedCount++;
                     }
                     else if (prepared.Metadata != null
                         && prepared.Metadata.TryGetValue("contentTruncated", out truncated)
                         && string.Equals(truncated, bool.TrueString, StringComparison.OrdinalIgnoreCase))
                     {
-                        status = "解析完成，内容已截断";
+                        status = LocalizationService.Get("Web.attachment.parseTruncated");
                         truncatedCount++;
                     }
                 }
@@ -555,14 +561,16 @@ namespace OfficeCopilot.Panel.WebView
                 details.Add(GetReferenceDisplayText(reference) + "：" + status);
             }
 
-            var summary = "附件解析完成：" + references.Count.ToString() + " 项";
+            var summary = LocalizationService.Format("Web.attachment.parsed", LocalizationService.Format("Web.attachment.count", references.Count));
             if (truncatedCount > 0)
             {
-                summary += "，截断 " + truncatedCount.ToString() + " 项";
+                summary += LocalizationService.Get("Web.attachment.listSeparator")
+                    + LocalizationService.Format("Web.attachment.truncatedCount", truncatedCount);
             }
             if (failedCount > 0)
             {
-                summary += "，失败 " + failedCount.ToString() + " 项";
+                summary += LocalizationService.Get("Web.attachment.listSeparator")
+                    + LocalizationService.Format("Web.attachment.failedCount", failedCount);
             }
 
             SafeUiInvoke(() =>
@@ -909,28 +917,28 @@ namespace OfficeCopilot.Panel.WebView
             }
 
             var details = new List<string>();
-            AddCountSummary(details, reference.Metadata, "pageCount", "页");
-            AddCountSummary(details, reference.Metadata, "sheetCount", "个可见工作表");
-            AddCountSummary(details, reference.Metadata, "slideCount", "张幻灯片");
+            AddCountSummary(details, reference.Metadata, "pageCount", "Web.attachment.pages");
+            AddCountSummary(details, reference.Metadata, "sheetCount", "Web.attachment.visibleWorksheets");
+            AddCountSummary(details, reference.Metadata, "slideCount", "Web.attachment.slides");
 
             string truncated;
             if (reference.Metadata.TryGetValue("contentTruncated", out truncated)
                 && string.Equals(truncated, bool.TrueString, StringComparison.OrdinalIgnoreCase))
             {
-                details.Add("内容已截断");
+                details.Add(LocalizationService.Get("Web.attachment.contentTruncated"));
             }
 
             string conversionError;
             if (reference.Metadata.TryGetValue("conversionError", out conversionError)
                 && !string.IsNullOrWhiteSpace(conversionError))
             {
-                details.Add("解析失败");
+                details.Add(LocalizationService.Get("Web.attachment.parseFailure"));
             }
 
             return string.Join("，", details);
         }
 
-        private static void AddCountSummary(ICollection<string> details, IDictionary<string, string> metadata, string key, string suffix)
+        private static void AddCountSummary(ICollection<string> details, IDictionary<string, string> metadata, string key, string resourceKey)
         {
             string value;
             int count;
@@ -938,7 +946,7 @@ namespace OfficeCopilot.Panel.WebView
                 && int.TryParse(value, out count)
                 && count > 0)
             {
-                details.Add(count.ToString() + suffix);
+                details.Add(LocalizationService.Format(resourceKey, count));
             }
         }
 
@@ -946,7 +954,7 @@ namespace OfficeCopilot.Panel.WebView
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Title = "添加参考文件";
+                dialog.Title = LocalizationService.Get("Web.panel.addReferenceFiles");
                 dialog.Filter = AttachmentFileTypes.BuildOpenFileDialogFilter();
                 dialog.Multiselect = true;
 
@@ -967,7 +975,7 @@ namespace OfficeCopilot.Panel.WebView
 
                 if (addedCount == 0)
                 {
-                    MessageBox.Show(this, limitReached ? "已达到参考附件数量上限。" : "未添加新的参考文件。", "参考文件", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, limitReached ? LocalizationService.Get("Web.panel.referenceLimit") : LocalizationService.Get("Web.panel.noNewReferences"), LocalizationService.Get("Web.panel.fileReferences"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -1017,8 +1025,8 @@ namespace OfficeCopilot.Panel.WebView
                 var addedCount = TryAddReferences(new[] { reference }, true, true, out limitReached);
                 if (addedCount == 0)
                 {
-                    feedbackMessage = limitReached ? "已达到参考附件数量上限。" : "该链接已存在于当前参考列表中。";
-                    feedbackCaption = "网页参考";
+                    feedbackMessage = limitReached ? LocalizationService.Get("Web.panel.referenceLimit") : LocalizationService.Get("Web.panel.webReferenceDuplicate");
+                    feedbackCaption = LocalizationService.Get("Web.panel.webReference");
                     feedbackIcon = MessageBoxIcon.Information;
                 }
                 else
@@ -1028,8 +1036,8 @@ namespace OfficeCopilot.Panel.WebView
             }
             catch (Exception ex)
             {
-                feedbackMessage = "添加网页参考失败：" + ex.Message;
-                feedbackCaption = "网页参考";
+                feedbackMessage = LocalizationService.Format("Web.panel.webReferenceFailed", ex.Message);
+                feedbackCaption = LocalizationService.Get("Web.panel.webReference");
                 feedbackIcon = MessageBoxIcon.Error;
             }
             finally
@@ -1112,7 +1120,7 @@ namespace OfficeCopilot.Panel.WebView
                 var filePath = reference.LocalPath ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
                 {
-                    MessageBox.Show(this, "当前参考文件不存在，无法打开。", "参考文件", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(this, LocalizationService.Get("Web.panel.referenceFileMissing"), LocalizationService.Get("Web.panel.fileReferences"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -1123,7 +1131,7 @@ namespace OfficeCopilot.Panel.WebView
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "打开参考内容失败：" + ex.Message, "参考内容", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Web.panel.referenceContentFailed", ex.Message), LocalizationService.Get("Web.panel.openReferenceTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1161,28 +1169,28 @@ namespace OfficeCopilot.Panel.WebView
         private string BuildWebReferencePreviewContent(ReferenceItem reference)
         {
             var builder = new StringBuilder();
-            builder.AppendLine("标题：" + GetReferenceDisplayText(reference));
+            builder.AppendLine(LocalizationService.Format("Web.attachment.previewTitle", GetReferenceDisplayText(reference)));
 
             if (!string.IsNullOrWhiteSpace(reference.Source))
             {
-                builder.AppendLine("链接：" + reference.Source);
+                builder.AppendLine(LocalizationService.Format("Web.attachment.previewUrl", reference.Source));
             }
 
             if (reference.Metadata != null && reference.Metadata.ContainsKey("detectedEncoding"))
             {
-                builder.AppendLine("编码：" + reference.Metadata["detectedEncoding"]);
+                builder.AppendLine(LocalizationService.Format("Web.attachment.previewEncoding", reference.Metadata["detectedEncoding"]));
             }
 
             if (!string.IsNullOrWhiteSpace(reference.Summary))
             {
                 builder.AppendLine();
-                builder.AppendLine("摘要：");
+                builder.AppendLine(LocalizationService.Get("Web.attachment.previewSummary"));
                 builder.AppendLine(reference.Summary);
             }
 
             builder.AppendLine();
-            builder.AppendLine("提取内容：");
-            builder.AppendLine(string.IsNullOrWhiteSpace(reference.InlineText) ? "[无内容]" : reference.InlineText);
+            builder.AppendLine(LocalizationService.Get("Web.attachment.previewContent"));
+            builder.AppendLine(string.IsNullOrWhiteSpace(reference.InlineText) ? LocalizationService.Get("Web.attachment.emptyContent") : reference.InlineText);
             return builder.ToString();
         }
 
@@ -1237,8 +1245,8 @@ namespace OfficeCopilot.Panel.WebView
             {
                 MessageBox.Show(
                     this,
-                    "当前参考项已达到数量上限（" + selectionLimit.ToString() + "）。",
-                    "参考项数量限制",
+                    LocalizationService.Format("Web.panel.referenceLimitCount", selectionLimit),
+                    LocalizationService.Get("Web.panel.referenceLimitTitle"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
@@ -1334,7 +1342,7 @@ namespace OfficeCopilot.Panel.WebView
             if (_recentReferenceGroups.Count == 0)
             {
                 var emptyItem = new BarButtonItem();
-                emptyItem.Caption = "暂无最近参考";
+                emptyItem.Caption = LocalizationService.Get("Web.panel.emptyRecent");
                 emptyItem.Enabled = false;
                 barManager.Items.Add(emptyItem);
                 menuMruRefs.AddItem(emptyItem);
@@ -1380,7 +1388,7 @@ namespace OfficeCopilot.Panel.WebView
 
             if (addedCount == 0 && !limitReached)
             {
-                MessageBox.Show(this, "该最近参考已全部存在于当前参考列表中。", "最近参考", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Get("Web.panel.duplicateRecent"), LocalizationService.Get("Web.panel.recentTitle"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1392,19 +1400,19 @@ namespace OfficeCopilot.Panel.WebView
                 {
                     var name = GetReferenceDisplayText(reference);
                     var summary = BuildAttachmentSummaryText(reference);
-                    return string.IsNullOrWhiteSpace(summary) ? name : name + "（" + summary + "）";
+                    return string.IsNullOrWhiteSpace(summary) ? name : LocalizationService.Format("Web.attachment.summarySuffix", name, summary);
                 })
                 .Where(text => !string.IsNullOrWhiteSpace(text))
                 .Take(3)
                 .ToList();
 
             var caption = names.Count == 0
-                ? "未命名参考"
-                : string.Join("、", names);
+                ? LocalizationService.Get("Web.panel.unnamedReference")
+                : string.Join(LocalizationService.Get("Web.attachment.nameSeparator"), names);
 
             if (references.Count > names.Count)
             {
-                caption += " 等" + references.Count.ToString() + "项";
+                caption += LocalizationService.Format("Web.panel.otherReferencesCount", references.Count - names.Count);
             }
 
             return caption;

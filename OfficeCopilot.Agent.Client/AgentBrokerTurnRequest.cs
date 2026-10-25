@@ -15,6 +15,7 @@ namespace OfficeCopilot.Agent.Client
             InteractiveMode = "agent";
             SkillId = string.Empty;
             SessionId = string.Empty;
+            UiCulture = string.Empty;
             Metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         }
 
@@ -37,6 +38,8 @@ namespace OfficeCopilot.Agent.Client
         public AgentModelOptions ModelOptions { get; set; }
 
         public string SessionId { get; set; }
+
+        public string UiCulture { get; set; }
 
         public IDictionary<string, string> Metadata { get; set; }
     }

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Panel.WebView
 {
@@ -13,11 +14,12 @@ namespace OfficeCopilot.Panel.WebView
 
         private string BuildInitializationErrorMessage(Exception ex)
         {
-            return "WebView2 初始化失败，当前显示占位页。"
-                   + "\r\n\r\n"
-                   + ex.Message
-                   + "\r\n\r\n用户数据目录："
-                   + Presentation.PanelWebViewBridge.GetUserDataFolder(HostAdapter == null ? null : HostAdapter.HostApplicationName);
+            _lastPlaceholderException = ex;
+            return LocalizationService.Format(
+                "Web.panel.initializationError",
+                "\r\n",
+                ex.Message,
+                Presentation.PanelWebViewBridge.GetUserDataFolder(HostAdapter == null ? null : HostAdapter.HostApplicationName));
         }
 
         private void InitializePlaceholderOverlay()
@@ -47,7 +49,7 @@ namespace OfficeCopilot.Panel.WebView
             _webViewPlaceholderTitleLabel.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 134);
             _webViewPlaceholderTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
             _webViewPlaceholderTitleLabel.Margin = new Padding(3, 3, 3, 8);
-            _webViewPlaceholderTitleLabel.Text = "正在加载界面";
+            _webViewPlaceholderTitleLabel.Text = LocalizationService.Get("Web.panel.loading");
 
             _webViewPlaceholderMessageLabel.AutoSize = true;
             _webViewPlaceholderMessageLabel.Anchor = AnchorStyles.None;
@@ -55,7 +57,7 @@ namespace OfficeCopilot.Panel.WebView
             _webViewPlaceholderMessageLabel.ForeColor = Color.FromArgb(107, 114, 128);
             _webViewPlaceholderMessageLabel.MaximumSize = new Size(360, 0);
             _webViewPlaceholderMessageLabel.TextAlign = ContentAlignment.MiddleCenter;
-            _webViewPlaceholderMessageLabel.Text = "WebView2 正在初始化，请稍候...";
+            _webViewPlaceholderMessageLabel.Text = LocalizationService.Get("Web.panel.initializing");
 
             layout.Controls.Add(_webViewPlaceholderTitleLabel, 0, 1);
             layout.Controls.Add(_webViewPlaceholderMessageLabel, 0, 2);
@@ -68,6 +70,12 @@ namespace OfficeCopilot.Panel.WebView
         private void ShowPlaceholder(string title, string message)
         {
             PanelTrace.Write("[CopilotPanelControl] ShowPlaceholder: title=" + (title ?? string.Empty) + ", message=" + (message ?? string.Empty));
+            _activePlaceholderTitleKey = FindLocalizedKey(title, "Web.panel.loading", "Web.panel.loadFailed");
+            _activePlaceholderMessageKey = FindLocalizedKey(message, "Web.panel.initializing", "Web.panel.loadingAssets");
+            if (_activePlaceholderTitleKey == "Web.panel.loading")
+            {
+                _lastPlaceholderException = null;
+            }
             _webViewPlaceholderTitleLabel.Text = title;
             _webViewPlaceholderMessageLabel.Text = message;
             _webViewPlaceholderPanel.Visible = true;
@@ -77,6 +85,22 @@ namespace OfficeCopilot.Panel.WebView
         private void HidePlaceholder()
         {
             _webViewPlaceholderPanel.Visible = false;
+            _activePlaceholderTitleKey = null;
+            _activePlaceholderMessageKey = null;
+            _lastPlaceholderException = null;
+        }
+
+        private static string FindLocalizedKey(string value, params string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                if (string.Equals(value, LocalizationService.Get(key), StringComparison.Ordinal))
+                {
+                    return key;
+                }
+            }
+
+            return null;
         }
 
         private bool IsInDesignMode()

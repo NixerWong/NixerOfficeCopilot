@@ -4,6 +4,7 @@ import { renderMarkdown } from './markdown.js';
 import { ensureBottomAnchor, scrollToBottom } from './scroll.js';
 import { state } from './state.js';
 import { ensureToolCallItem } from './tool-calls.js';
+import { t } from './i18n.js';
 
 export function hideToolConfirmationPanel(item) {
     if (!item) {
@@ -34,23 +35,23 @@ export function hideToolConfirmationPanel(item) {
 export function buildToolConfirmationMarkdown(data) {
     const lines = [];
 
-    lines.push('需要用户确认后才能继续执行。');
+    lines.push(t('Web.confirmation.heading'));
     if (data.operationSummary) {
         lines.push('');
-        lines.push('**本次操作**');
+        lines.push('**' + t('Web.confirmation.operation') + '**');
         lines.push('');
         lines.push(String(data.operationSummary));
     }
     lines.push('');
-    lines.push('- 工具：`' + String(data.toolDisplayName || data.toolName || '工具调用') + '`');
-    lines.push('- 风险级别：`' + String(data.riskLevel || 'high') + '`');
+    lines.push('- ' + t('Web.confirmation.tool') + ': `' + String(data.toolDisplayName || data.toolName || t('Web.message.toolCall')) + '`');
+    lines.push('- ' + t('Web.confirmation.risk') + ': `' + String(data.riskLevel || 'high') + '`');
 
     if (data.documentName) {
-        lines.push('- 文档：`' + String(data.documentName) + '`');
+        lines.push('- ' + t('Web.confirmation.document') + ': `' + String(data.documentName) + '`');
     }
 
     if (data.backupPath) {
-        lines.push('- 备份：`' + String(data.backupPath) + '`');
+        lines.push('- ' + t('Web.confirmation.backup') + ': `' + String(data.backupPath) + '`');
     }
 
     return lines.join('\n');
@@ -59,7 +60,7 @@ export function buildToolConfirmationMarkdown(data) {
 export function showToolConfirmationRequest(data) {
     const assistantMessageId = data && data.messageId ? String(data.messageId) : '';
     const toolCallId = data && data.toolCallId ? String(data.toolCallId) : '';
-    const toolName = data && data.toolName ? String(data.toolName) : '工具调用';
+    const toolName = data && data.toolName ? String(data.toolName) : t('Web.message.toolCall');
     const requestId = data && data.requestId ? String(data.requestId) : '';
 
     if (!assistantMessageId || !toolCallId || !requestId) {
@@ -77,7 +78,8 @@ export function showToolConfirmationRequest(data) {
 
     const stateEl = item.querySelector('.tool-call-state');
     if (stateEl) {
-        stateEl.textContent = '等待确认';
+        stateEl.dataset.l10nText = 'Web.confirmation.waiting';
+        stateEl.textContent = t('Web.confirmation.waiting');
     }
 
     const panel = item.querySelector('.tool-confirmation-panel');
@@ -93,6 +95,7 @@ export function showToolConfirmationRequest(data) {
     const button = panel.querySelector('.tool-confirmation-confirm-btn');
 
     if (textEl) {
+        textEl.__toolConfirmationData = data;
         textEl.innerHTML = renderMarkdown(buildToolConfirmationMarkdown(data));
     }
 
@@ -101,10 +104,12 @@ export function showToolConfirmationRequest(data) {
         argumentsDetails.hidden = !argumentsJson;
     }
     if (argumentsSummaryEl) {
-        argumentsSummaryEl.textContent = data.argumentsJson
-            ? '查看完整参数 JSON'
-            : '查看参数摘要';
+        argumentsSummaryEl.dataset.l10nText = data.argumentsJson
+            ? 'Web.confirmation.details'
+            : 'Web.confirmation.summary';
+        argumentsSummaryEl.textContent = t(argumentsSummaryEl.dataset.l10nText);
     }
+
     if (argumentsPre) {
         argumentsPre.textContent = String(argumentsJson);
     }
@@ -151,9 +156,9 @@ export function onToolConfirmationConfirmButtonClick(button) {
     button.disabled = true;
 
     if (stateEl) {
-        stateEl.textContent = decision === 'deny'
-            ? '已拒绝'
-            : '已确认，继续执行';
+        const key = decision === 'deny' ? 'Web.confirmation.denied' : 'Web.confirmation.accepted';
+        stateEl.dataset.l10nText = key;
+        stateEl.textContent = t(key);
     }
 
     panel.hidden = true;
@@ -164,3 +169,11 @@ export function onToolConfirmationConfirmButtonClick(button) {
         decision: decision
     });
 }
+
+window.addEventListener('panel-locale-changed', function () {
+    document.querySelectorAll('.tool-confirmation-text').forEach(function (element) {
+        if (element.__toolConfirmationData) {
+            element.innerHTML = renderMarkdown(buildToolConfirmationMarkdown(element.__toolConfirmationData));
+        }
+    });
+});

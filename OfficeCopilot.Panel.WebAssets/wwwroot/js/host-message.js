@@ -14,6 +14,7 @@ import { showTodoUpdate } from './todo.js';
 import { showToolCallCompleted, showToolCallStarted } from './tool-calls.js';
 import { dismissToolConfirmation, showToolConfirmation } from './tool-confirmation.js';
 import { showToolConfirmationRequest } from './tool-confirmation-ui.js';
+import { setLocale } from './i18n.js';
 
 export function handleHostMessage(data) {
     if (!data || !data.type) {
@@ -26,6 +27,10 @@ export function handleHostMessage(data) {
     }
 
     switch (data.type) {
+        case 'locale':
+            setLocale(data);
+            break;
+
         case 'showWelcome':
             showWelcome();
             break;
@@ -73,6 +78,7 @@ export function handleHostMessage(data) {
                 data.assistantMessageId || '',
                 data.toolCallId || '',
                 data.toolName || '',
+                data.toolDisplayName || '',
                 !!data.requiresBackup,
                 data.backupPath || '');
             break;
@@ -82,6 +88,7 @@ export function handleHostMessage(data) {
                 data.assistantMessageId || '',
                 data.toolCallId || '',
                 data.toolName || '',
+                data.toolDisplayName || '',
                 !!data.success,
                 data.content || '',
                 data.errorMessage || '',

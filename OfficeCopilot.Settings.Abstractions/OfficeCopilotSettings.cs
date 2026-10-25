@@ -66,7 +66,7 @@ namespace OfficeCopilot.Settings.Abstractions
     {
         public OfficeCopilotSettings()
         {
-            ConfigurationVersion = 7;
+            ConfigurationVersion = 8;
             CreatedAtUtc = DateTime.UtcNow;
             UpdatedAtUtc = DateTime.UtcNow;
             ChatDefaults = new ChatDefaultsSettings();
@@ -82,9 +82,12 @@ namespace OfficeCopilot.Settings.Abstractions
             PowerPointToolTrustMode = ToolTrustModeValues.NeedConfirm;
             Runtime = new RuntimeSettings();
             PowerPointSlides = new PowerPointSlidesSettings();
+            UiLanguage = "en";
         }
 
         public int ConfigurationVersion { get; set; }
+
+        public string UiLanguage { get; set; }
 
         public DateTime CreatedAtUtc { get; set; }
 

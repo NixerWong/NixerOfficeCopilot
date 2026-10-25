@@ -1,5 +1,6 @@
 import { refreshAssistantWaitingIndicator } from './assistant-message.js';
 import { chatList, state } from './state.js';
+import { t } from './i18n.js';
 
 export function copyTextToClipboard(text) {
     const value = String(text || '');
@@ -35,7 +36,9 @@ export function flashButtonState(button, state, title) {
     window.setTimeout(function () {
         button.classList.remove('is-success', 'is-error');
 
-        const originalTitle = button.dataset.originalTitle || '';
+        const originalTitle = button.dataset.l10nOriginalTitle
+            ? t(button.dataset.l10nOriginalTitle)
+            : (button.dataset.originalTitle || '');
         if (originalTitle) {
             button.title = originalTitle;
             button.setAttribute('aria-label', originalTitle);
@@ -46,10 +49,10 @@ export function flashButtonState(button, state, title) {
 export function onCopyButtonClick(button, text) {
     copyTextToClipboard(text)
         .then(function () {
-            flashButtonState(button, 'is-success', '已复制');
+            flashButtonState(button, 'is-success', t('Web.clipboard.copied'));
         })
         .catch(function () {
-            flashButtonState(button, 'is-error', '复制失败');
+            flashButtonState(button, 'is-error', t('Web.clipboard.copyFailed'));
         });
 }
 

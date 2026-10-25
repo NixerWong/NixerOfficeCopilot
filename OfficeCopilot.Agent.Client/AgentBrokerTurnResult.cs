@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace OfficeCopilot.Agent.Client
 {
     public sealed class AgentBrokerTurnResult
@@ -10,6 +13,7 @@ namespace OfficeCopilot.Agent.Client
             FinishReason = string.Empty;
             ErrorCode = string.Empty;
             ErrorMessage = string.Empty;
+            ErrorParameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         }
 
         public string ConversationId { get; set; }
@@ -25,6 +29,8 @@ namespace OfficeCopilot.Agent.Client
         public string ErrorCode { get; set; }
 
         public string ErrorMessage { get; set; }
+
+        public IDictionary<string, string> ErrorParameters { get; set; }
 
         /// <summary>
         /// Identifies transport/runtime failures separately from content-bearing incomplete assistant turns.

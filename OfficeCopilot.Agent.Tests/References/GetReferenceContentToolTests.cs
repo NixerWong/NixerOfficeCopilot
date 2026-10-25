@@ -11,6 +11,7 @@ using OfficeCopilot.Agent.Runtime;
 using OfficeCopilot.Agent.Runtime.Turn;
 using OfficeCopilot.Documents.Markdown;
 using OfficeCopilot.HostBridge.Contracts;
+using OfficeCopilot.Localization;
 using OfficeCopilot.OpenXml.Excel;
 using OfficeCopilot.OpenXml.PowerPoint;
 using OfficeCopilot.OpenXml.Word;
@@ -85,13 +86,31 @@ namespace OfficeCopilot.Agent.Tests.References
                 Assert.IsTrue((bool)isText.Invoke(null, new object[] { extension }), extension + " must be classified as text.");
             }
 
-            var filter = (string)fileTypes.GetMethod("BuildOpenFileDialogFilter", BindingFlags.Public | BindingFlags.Static)
-                .Invoke(null, null);
-            var filterParts = filter.Split('|');
-            var textGroupIndex = Array.IndexOf(filterParts, "文本文件");
-            Assert.IsTrue(textGroupIndex >= 0);
-            StringAssert.Contains(filterParts[textGroupIndex + 1], "*.md");
-            StringAssert.Contains(filterParts[textGroupIndex + 1], "*.markdown");
+            var originalLanguage = LocalizationService.Preference;
+            try
+            {
+                LocalizationService.SetLanguage("zh-Hans");
+                var chineseFilter = (string)fileTypes.GetMethod("BuildOpenFileDialogFilter", BindingFlags.Public | BindingFlags.Static)
+                    .Invoke(null, null);
+                var chineseFilterParts = chineseFilter.Split('|');
+                var chineseTextGroupIndex = Array.IndexOf(chineseFilterParts, "文本文件");
+                Assert.IsTrue(chineseTextGroupIndex >= 0);
+                StringAssert.Contains(chineseFilterParts[chineseTextGroupIndex + 1], "*.md");
+                StringAssert.Contains(chineseFilterParts[chineseTextGroupIndex + 1], "*.markdown");
+
+                LocalizationService.SetLanguage("en");
+                var englishFilter = (string)fileTypes.GetMethod("BuildOpenFileDialogFilter", BindingFlags.Public | BindingFlags.Static)
+                    .Invoke(null, null);
+                var englishFilterParts = englishFilter.Split('|');
+                var englishTextGroupIndex = Array.IndexOf(englishFilterParts, "Text files");
+                Assert.IsTrue(englishTextGroupIndex >= 0);
+                StringAssert.Contains(englishFilterParts[englishTextGroupIndex + 1], "*.md");
+                StringAssert.Contains(englishFilterParts[englishTextGroupIndex + 1], "*.markdown");
+            }
+            finally
+            {
+                LocalizationService.SetLanguage(originalLanguage);
+            }
 
             var directory = Path.Combine(Path.GetTempPath(), "markdown-reference-test-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);

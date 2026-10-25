@@ -7,9 +7,11 @@ using OfficeCopilot.Agent.Runtime.Turn;
 using OfficeCopilot.HostBridge.Client;
 using OfficeCopilot.Mcp;
 using OfficeCopilot.Skills;
+using OfficeCopilot.Localization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -139,7 +141,16 @@ namespace OfficeCopilot.Agent.Runtime
                 }
 
                 var context = new BrokerTurnContext(request, conversation, eventSink, snapshot, cancellationToken);
-                result = await _turnExecutor.ExecuteAsync(context).ConfigureAwait(false);
+                var previousUiCulture = CultureInfo.CurrentUICulture;
+                try
+                {
+                    CultureInfo.CurrentUICulture = SupportedLanguages.ResolveCulture(request.UiCulture);
+                    result = await _turnExecutor.ExecuteAsync(context).ConfigureAwait(false);
+                }
+                finally
+                {
+                    CultureInfo.CurrentUICulture = previousUiCulture;
+                }
 
                 if (!string.IsNullOrWhiteSpace(result == null ? null : result.Content))
                 {
@@ -202,6 +213,10 @@ namespace OfficeCopilot.Agent.Runtime
                     Success = false,
                     Content = message,
                     ErrorCode = "runtime.turn_failed",
+                    ErrorParameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "details", message }
+                    },
                     ErrorMessage = message,
                     FinishReason = "exception"
                 };

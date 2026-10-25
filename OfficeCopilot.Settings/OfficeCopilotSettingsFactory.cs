@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using OfficeCopilot.Settings.Abstractions;
+using OfficeCopilot.Localization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -118,8 +119,9 @@ namespace OfficeCopilot.Settings
             }
 
             settings.PowerPointSlides = NormalizePowerPointSlides(settings.PowerPointSlides);
+            settings.UiLanguage = SupportedLanguages.NormalizePreference(settings.UiLanguage);
 
-            settings.ConfigurationVersion = 7;
+            settings.ConfigurationVersion = 8;
             return settings;
         }
 

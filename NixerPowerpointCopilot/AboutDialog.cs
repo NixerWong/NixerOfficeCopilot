@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using OfficeCopilot.Slides.Assets;
+using OfficeCopilot.Localization;
 
 namespace NixerPowerpointCopilot
 {
@@ -23,7 +24,9 @@ namespace NixerPowerpointCopilot
             AutoScaleMode = AutoScaleMode.Font;
             Font = new Font("Segoe UI", 9F);
 
-            Text = "About NixerPowerPointCopilot";
+            Text = LocalizationService.Format(
+                "Shell.About.Title",
+                LocalizationService.Get("Shell.Product.PowerPoint"));
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -58,7 +61,7 @@ namespace NixerPowerpointCopilot
 
             var titleLabel = new Label
             {
-                Text = "NixerPowerPointCopilot",
+                Text = LocalizationService.Get("Shell.Product.PowerPoint"),
                 Font = new Font("Segoe UI", 18, FontStyle.Bold),
                 ForeColor = Color.FromArgb(183, 71, 42), // PowerPoint orange
                 AutoSize = true,
@@ -68,7 +71,7 @@ namespace NixerPowerpointCopilot
             var version = "2.3.61019";
             var versionLabel = new Label
             {
-                Text = $"Version {version}",
+                Text = LocalizationService.Format("Shell.About.Version", version),
                 Font = new Font("Segoe UI", 10),
                 ForeColor = Color.Gray,
                 AutoSize = true
@@ -102,10 +105,10 @@ namespace NixerPowerpointCopilot
 
             // Info rows
             int row = 4;
-            AddInfoRow(mainPanel, "Project:", "https://github.com/NixerWong/NixerOfficeCopilot", ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot");
-            AddInfoRow(mainPanel, "Contact:", "GitHub Issues", ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot/issues");
-            AddInfoRow(mainPanel, "License:", "GNU GPL v3.0", ref row);
-            AddInfoRow(mainPanel, "Author:", "Nixer", ref row);
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.Project"), "https://github.com/NixerWong/NixerOfficeCopilot", ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot");
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.Contact"), LocalizationService.Get("Shell.About.ContactValue"), ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot/issues");
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.License"), "GNU GPL v3.0", ref row);
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.Author"), "Nixer", ref row);
             //AddInfoRow(mainPanel, "Notices:", "THIRD_PARTY_NOTICES.md", ref row, isLink: true,
             //target: Path.Combine(SlideAssetPaths.GetDefaultBuiltInRoot(), "THIRD_PARTY_NOTICES.md"));
             // OK button
@@ -120,7 +123,7 @@ namespace NixerPowerpointCopilot
 
             var okButton = new Button
             {
-                Text = "OK",
+                Text = LocalizationService.Get("Shell.About.Ok"),
                 Size = new Size(88, 30),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(183, 71, 42),

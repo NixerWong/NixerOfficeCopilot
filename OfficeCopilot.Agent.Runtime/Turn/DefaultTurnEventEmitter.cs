@@ -131,7 +131,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 cancellationToken);
         }
 
-        public Task EmitToolCallStartedAsync(string toolCallId, string toolName, string argumentsJson, bool requiresBackup, string backupPath, CancellationToken cancellationToken)
+        public Task EmitToolCallStartedAsync(string toolCallId, string toolName, string toolDisplayName, string argumentsJson, bool requiresBackup, string backupPath, CancellationToken cancellationToken)
         {
             return EmitAsync(
                 new AgentBrokerEvent
@@ -141,6 +141,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     MessageId = _messageId,
                     ToolCallId = toolCallId ?? string.Empty,
                     ToolName = toolName ?? string.Empty,
+                    ToolDisplayName = toolDisplayName ?? string.Empty,
                     Text = argumentsJson ?? string.Empty,
                     RequiresBackup = requiresBackup,
                     BackupPath = backupPath ?? string.Empty
@@ -148,7 +149,19 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 cancellationToken);
         }
 
-        public Task EmitToolCallCompletedAsync(string toolCallId, string toolName, string text, bool success, bool requiresBackup, string backupPath, string errorCode, string errorMessage, CancellationToken cancellationToken)
+        public Task EmitToolCallStartedAsync(string toolCallId, string toolName, string argumentsJson, bool requiresBackup, string backupPath, CancellationToken cancellationToken)
+        {
+            return EmitToolCallStartedAsync(
+                toolCallId,
+                toolName,
+                toolName,
+                argumentsJson,
+                requiresBackup,
+                backupPath,
+                cancellationToken);
+        }
+
+        public Task EmitToolCallCompletedAsync(string toolCallId, string toolName, string toolDisplayName, string text, bool success, bool requiresBackup, string backupPath, string errorCode, string errorMessage, CancellationToken cancellationToken)
         {
             return EmitAsync(
                 new AgentBrokerEvent
@@ -158,13 +171,33 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     MessageId = _messageId,
                     ToolCallId = toolCallId ?? string.Empty,
                     ToolName = toolName ?? string.Empty,
+                    ToolDisplayName = toolDisplayName ?? string.Empty,
                     Text = text ?? string.Empty,
                     Success = success,
                     RequiresBackup = requiresBackup,
                     BackupPath = backupPath ?? string.Empty,
                     ErrorCode = errorCode ?? string.Empty,
-                    ErrorMessage = errorMessage ?? string.Empty
+                    ErrorMessage = errorMessage ?? string.Empty,
+                    ErrorParameters = new System.Collections.Generic.Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "toolDisplayName", toolDisplayName ?? toolName ?? string.Empty }
+                    }
                 },
+                cancellationToken);
+        }
+
+        public Task EmitToolCallCompletedAsync(string toolCallId, string toolName, string text, bool success, bool requiresBackup, string backupPath, string errorCode, string errorMessage, CancellationToken cancellationToken)
+        {
+            return EmitToolCallCompletedAsync(
+                toolCallId,
+                toolName,
+                toolName,
+                text,
+                success,
+                requiresBackup,
+                backupPath,
+                errorCode,
+                errorMessage,
                 cancellationToken);
         }
     }

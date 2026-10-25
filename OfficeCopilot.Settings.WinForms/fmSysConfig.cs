@@ -1,4 +1,5 @@
 using DevExpress.XtraBars;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using System;
@@ -20,6 +21,9 @@ namespace OfficeCopilot.Settings.WinForms
             _settingsStore = settingsStore ?? new JsonSettingsStore();
             _hostApplicationName = HostApplicationNames.Normalize(hostApplicationName);
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmSysConfig_Disposed;
         }
 
         private void WireEvents()
@@ -46,20 +50,16 @@ namespace OfficeCopilot.Settings.WinForms
             seTranscriptMaxContentLength.EditValueChanged += GeneralSetting_Changed;
             ceToolCallLogEnabled.CheckedChanged += GeneralSetting_Changed;
             cbeTrustMode.EditValueChanged += GeneralSetting_Changed;
+            cbeLanguage.EditValueChanged += GeneralSetting_Changed;
 
             btnSaveGenenalConfig.ItemClick += btnSaveGenenalConfig_ItemClick;
             btnCancelSaveGeneralConfig.ItemClick += btnCancelSaveGeneralConfig_ItemClick;
 
-            var hostDisplayName = HostApplicationNames.GetDisplayName(_hostApplicationName);
-            btnEditAskModeSysPrompt.Caption = "编辑 " + hostDisplayName + " Ask 模式系统提示词";
-            btnEditAgentModeSysPrompt.Caption = "编辑 " + hostDisplayName + " Agent 模式系统提示词";
             btnEditAskModeSysPrompt.ItemClick += (s, e) => EditHostSystemPrompt(HostPromptMode.Ask);
             btnEditAgentModeSysPrompt.ItemClick += (s, e) => EditHostSystemPrompt(HostPromptMode.Agent);
 
-            // Populate ComboBox items
-            cbeTranscriptLogMode.Properties.Items.AddRange(new string[] { "禁用", "仅元数据", "脱敏内容", "原始内容" });
+            // Populate values that remain invariant across UI languages.
             cbeRuntimeLogLevel.Properties.Items.AddRange(new string[] { "Trace", "Debug", "Information", "Warning", "Error", "Critical", "None" });
-            cbeTrustMode.Properties.Items.AddRange(new string[] { "提示确认", "始终放行" });
         }
 
         // ========== 宿主系统提示词 ==========
@@ -75,8 +75,8 @@ namespace OfficeCopilot.Settings.WinForms
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "打开系统提示词文件失败：" + ex.Message,
-                    "系统提示词",
+                    LocalizationService.Format("Settings.SysConfig.Error.OpenPromptFailed", ex.Message),
+                    LocalizationService.Get("Settings.SysConfig.Text"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -95,7 +95,7 @@ namespace OfficeCopilot.Settings.WinForms
             try { SaveSettings(); }
             catch (Exception ex)
             {
-                if (MessageBox.Show(this, "保存系统设置失败：" + ex.Message + "\n\n是否放弃修改并关闭？", "系统设置",
+                if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveOnCloseFailed", ex.Message), LocalizationService.Get("Settings.SysConfig.Text"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
                     e.Cancel = true;
             }
@@ -111,9 +111,11 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载配置失败：" + ex.Message, "系统设置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadSettings", ex.Message), LocalizationService.Get("Settings.SysConfig.Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _settings = OfficeCopilotSettingsFactory.CreateDefault();
             }
+            LocalizationService.SetLanguage(_settings.UiLanguage);
+            ApplyLocalization();
             BindGeneralSettings();
             _loadingSettings = false;
         }
@@ -127,6 +129,8 @@ namespace OfficeCopilot.Settings.WinForms
             if (_settings.Logging.Runtime == null) _settings.Logging.Runtime = new RuntimeLoggingSettings();
             if (_settings.Logging.ToolCalls == null) _settings.Logging.ToolCalls = new ToolCallLoggingSettings();
             if (_settings.Runtime == null) _settings.Runtime = new RuntimeSettings();
+
+            cbeLanguage.SelectedIndex = SupportedLanguages.GetIndex(_settings.UiLanguage);
 
             // ChatDefaults
             spHttpRequestTimeOut.EditValue = Math.Max(1, _settings.ChatDefaults.RequestTimeoutSeconds);
@@ -167,6 +171,8 @@ namespace OfficeCopilot.Settings.WinForms
             ApplyGeneralSettings();
             OfficeCopilotSettingsFactory.RefreshToolTrustModes(_settings, _settingsStore.Load(), _hostApplicationName);
             _settingsStore.Save(_settings);
+            LocalizationService.SetLanguage(_settings.UiLanguage);
+            ApplyLocalization();
         }
 
         private void ApplyGeneralSettings()
@@ -178,6 +184,8 @@ namespace OfficeCopilot.Settings.WinForms
             if (_settings.Logging.Runtime == null) _settings.Logging.Runtime = new RuntimeLoggingSettings();
             if (_settings.Logging.ToolCalls == null) _settings.Logging.ToolCalls = new ToolCallLoggingSettings();
             if (_settings.Runtime == null) _settings.Runtime = new RuntimeSettings();
+
+            _settings.UiLanguage = SupportedLanguages.GetCodeAt(cbeLanguage.SelectedIndex);
 
             _settings.ChatDefaults.RequestTimeoutSeconds = Math.Max(1, Convert.ToInt32(spHttpRequestTimeOut.Value));
             _settings.ChatDefaults.AttachmentFileCountThreshold = Math.Max(1, Convert.ToInt32(seAttachmentFileCountThreshold.Value));
@@ -214,13 +222,13 @@ namespace OfficeCopilot.Settings.WinForms
         {
             if (_loadingSettings) return;
             try { SaveSettings(); }
-            catch (Exception ex) { MessageBox.Show(this, "保存系统设置失败：" + ex.Message, "系统设置", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveGeneralSettings", ex.Message), LocalizationService.Get("Settings.SysConfig.Text"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnSaveGenenalConfig_ItemClick(object sender, ItemClickEventArgs e)
         {
             try { SaveSettings(); Close(); }
-            catch (Exception ex) { MessageBox.Show(this, "保存参数设置失败：" + ex.Message, "系统设置", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveSettings", ex.Message), LocalizationService.Get("Settings.SysConfig.Text"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnCancelSaveGeneralConfig_ItemClick(object sender, ItemClickEventArgs e)
@@ -257,6 +265,114 @@ namespace OfficeCopilot.Settings.WinForms
                 case 5: return AppLogLevel.Critical;
                 case 6: return AppLogLevel.None;
                 default: return AppLogLevel.Information;
+            }
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmSysConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            var selectedLanguageIndex = cbeLanguage.SelectedIndex;
+            var selectedTranscriptModeIndex = cbeTranscriptLogMode.SelectedIndex;
+            var selectedRuntimeLogLevelIndex = cbeRuntimeLogLevel.SelectedIndex;
+            var selectedTrustModeIndex = cbeTrustMode.SelectedIndex;
+            var wasLoadingSettings = _loadingSettings;
+            _loadingSettings = true;
+            try
+            {
+                Text = LocalizationService.Get("Settings.SysConfig.Text");
+                grpLanguage.Text = LocalizationService.Get("Settings.SysConfig.grpLanguage.Text");
+                lbLanguage.Text = LocalizationService.Get("Settings.SysConfig.lbLanguage.Text");
+                cbeLanguage.Properties.Items.Clear();
+                cbeLanguage.Properties.Items.AddRange(new[]
+                {
+                    LocalizationService.Get("Language.English"),
+                    LocalizationService.Get("Language.SimplifiedChinese")
+                });
+                cbeLanguage.SelectedIndex = selectedLanguageIndex < 0 ? 0 : selectedLanguageIndex;
+
+                grpModelParams.Text = LocalizationService.Get("Settings.Config.General.ModelParameters");
+                lbHttpRequestTimeOut.Text = LocalizationService.Get("Settings.Config.General.RequestTimeout");
+                lbNativeThresholdKB.Text = LocalizationService.Get("Settings.Config.General.NativeFileSizeLimit");
+                lbInlineTextThresholdMB.Text = LocalizationService.Get("Settings.Config.General.InlineTextFileSizeLimit");
+                lbAttachmentInlineCharBudget.Text = LocalizationService.Get("Settings.Config.General.AttachmentInlineCharacterBudget");
+                lbMaxVisualPages.Text = LocalizationService.Get("Settings.Config.General.MaxVisualPages");
+                lbToolFetchFileThresholdMB.Text = LocalizationService.Get("Settings.Config.General.ToolFetchFileSizeLimit");
+                lbAttachmentFileCountThreshold.Text = LocalizationService.Get("Settings.Config.General.AttachmentFileCountLimit");
+                grpRuntime.Text = LocalizationService.Get("Settings.Config.General.Runtime");
+                ceAutoCompactEnabled.Properties.Caption = LocalizationService.Get("Settings.Config.General.AutoCompact");
+                ceAutoResizeBigImage.Properties.Caption = LocalizationService.Get("Settings.Config.General.AutoResizeImages");
+                grpLogging.Text = LocalizationService.Get("Settings.Config.General.Logging");
+                lbTranscriptLogMode.Text = LocalizationService.Get("Settings.Config.General.TranscriptLogMode");
+                ceRuntimeLogEnabled.Properties.Caption = LocalizationService.Get("Settings.Config.General.RuntimeLogEnabled");
+                lbRuntimeLogLevel.Text = LocalizationService.Get("Settings.Config.General.RuntimeLogLevel");
+                lbMaxFileSizeMb.Text = LocalizationService.Get("Settings.Config.General.MaxFileSize");
+                lbRetainedFileCount.Text = LocalizationService.Get("Settings.Config.General.RetainedFileCount");
+                lbTranscriptMaxContentLength.Text = LocalizationService.Get("Settings.Config.General.TranscriptMaxLength");
+                seMaxFileSizeMb.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.General.MaxFileSize");
+                seRetainedFileCount.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.General.RetainedFileCount");
+                ceTranscriptIncludeToolCalls.Properties.Caption = LocalizationService.Get("Settings.Config.General.TranscriptToolCalls");
+                ceTranscriptIncludeHostContext.Properties.Caption = LocalizationService.Get("Settings.Config.General.TranscriptHostContext");
+                seTranscriptMaxContentLength.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.General.TranscriptMaxLength");
+                ceToolCallLogEnabled.Properties.Caption = LocalizationService.Get("Settings.Config.General.ToolCallLogEnabled");
+                ceAutoMemoryRecorder.Properties.Caption = LocalizationService.Get("Settings.Config.General.AutoMemoryRecorder");
+                lbTrustMode.Text = LocalizationService.Get("Settings.SysConfig.TrustMode");
+
+                cbeTranscriptLogMode.Properties.Items.Clear();
+                cbeTranscriptLogMode.Properties.Items.AddRange(new[]
+                {
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Disabled"),
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Metadata"),
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Redacted"),
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Raw")
+                });
+                cbeTranscriptLogMode.SelectedIndex = selectedTranscriptModeIndex < 0 ? 0 : selectedTranscriptModeIndex;
+
+                cbeRuntimeLogLevel.Properties.Items.Clear();
+                cbeRuntimeLogLevel.Properties.Items.AddRange(new[] { "Trace", "Debug", "Information", "Warning", "Error", "Critical", "None" });
+                cbeRuntimeLogLevel.SelectedIndex = selectedRuntimeLogLevelIndex < 0 ? 2 : selectedRuntimeLogLevelIndex;
+                cbeTrustMode.Properties.Items.Clear();
+                cbeTrustMode.Properties.Items.AddRange(new[]
+                {
+                    LocalizationService.Get("Settings.SysConfig.TrustMode.Confirm"),
+                    LocalizationService.Get("Settings.SysConfig.TrustMode.AlwaysAllow")
+                });
+                cbeTrustMode.SelectedIndex = selectedTrustModeIndex < 0 ? 0 : selectedTrustModeIndex;
+
+                btnEditAskModeSysPrompt.Caption = LocalizationService.Format("Settings.SysConfig.EditAskPrompt", HostApplicationNames.GetDisplayName(_hostApplicationName));
+                btnEditAgentModeSysPrompt.Caption = LocalizationService.Format("Settings.SysConfig.EditAgentPrompt", HostApplicationNames.GetDisplayName(_hostApplicationName));
+                btnAddModel.Caption = LocalizationService.Get("Settings.Config.Models.Add");
+                btnDeleteModel.Caption = LocalizationService.Get("Settings.Config.Models.Delete");
+                btnExportListToJson.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnImportList.Caption = LocalizationService.Get("Settings.Config.Models.Import");
+                btnShowPreview.Caption = LocalizationService.Get("Settings.Config.Models.ShowPromptPreview");
+                btnEditModel.Caption = LocalizationService.Get("Settings.Config.Models.Edit");
+                btnNewMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Add");
+                btnEditMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Edit");
+                btnDelMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Delete");
+                btnShowDesc.Caption = LocalizationService.Get("Settings.Config.Tools.Details");
+                btnImportMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Import");
+                btnExportMcp.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnNewSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Add");
+                btnEditSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Edit");
+                btnDeleteSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Delete");
+                btnExportSkills.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnImportSkills.Caption = LocalizationService.Get("Settings.Config.Skills.Import");
+                btnSaveMem.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+                btnSaveGenenalConfig.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+                btnCancelSaveGeneralConfig.Caption = LocalizationService.Get("Settings.Config.Common.Cancel");
+            }
+            finally
+            {
+                _loadingSettings = wasLoadingSettings;
             }
         }
     }

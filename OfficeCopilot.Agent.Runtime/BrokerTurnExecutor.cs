@@ -145,7 +145,8 @@ namespace OfficeCopilot.Agent.Runtime
             var footer = TrustFooterBuilder.Build(
                 ledgerSummary,
                 summary.NumberMatchReport?.Unmatched,
-                summary.NumberCorrectionSucceeded);
+                summary.NumberCorrectionSucceeded,
+                request == null ? null : request.UiCulture);
             if (string.IsNullOrWhiteSpace(footer))
             {
                 return;
@@ -693,7 +694,7 @@ namespace OfficeCopilot.Agent.Runtime
                 {
                     // 压缩实际发生：发射 runtime.compact 工具事件供 Panel 展示
                     var compactToolCallId = "compact-" + Guid.NewGuid().ToString("N").Substring(0, 8);
-                    await emitter.EmitToolCallStartedAsync(compactToolCallId, "runtime.compact", "{}", false, string.Empty, context.CancellationToken).ConfigureAwait(false);
+                    await emitter.EmitToolCallStartedAsync(compactToolCallId, "runtime.compact", "Compact Context", "{}", false, string.Empty, context.CancellationToken).ConfigureAwait(false);
 
                     // 从压缩链重建 modelMessages，并接回本回合的工具调用/结果（压缩链不回放它们）
                     modelMessages = InTurnContextMaintenance.PreserveInTurnTail(
@@ -704,7 +705,7 @@ namespace OfficeCopilot.Agent.Runtime
                     await InjectMemoryContextAsync(modelMessages, request, context.CancellationToken).ConfigureAwait(false);
 
                     var resultMsg = $"Context compacted: {beforeCompactCount - afterCompactCount} messages pruned. Remaining: {afterCompactCount}.";
-                    await emitter.EmitToolCallCompletedAsync(compactToolCallId, "runtime.compact", resultMsg, true, false, string.Empty, string.Empty, string.Empty, context.CancellationToken).ConfigureAwait(false);
+                    await emitter.EmitToolCallCompletedAsync(compactToolCallId, "runtime.compact", "Compact Context", resultMsg, true, false, string.Empty, string.Empty, string.Empty, context.CancellationToken).ConfigureAwait(false);
                     RuntimeTrace.Write($"[BrokerTurnExecutor] Pre-call compact done: before={beforeCompactCount}, after={afterCompactCount}");
                 }
 
@@ -1608,7 +1609,8 @@ namespace OfficeCopilot.Agent.Runtime
             }
 
             // 发出 ToolCallStarted 事件，携带备份路径供 Panel 显示备份图标
-            await emitter.EmitToolCallStartedAsync(call.ToolCallId, call.ToolName, call.ArgumentsJson, requiresBackup, ebp, context.CancellationToken).ConfigureAwait(false);
+            var toolDisplayName = ResolveToolDisplayName(call.ToolName, toolCatalog);
+            await emitter.EmitToolCallStartedAsync(call.ToolCallId, call.ToolName, toolDisplayName, call.ArgumentsJson, requiresBackup, ebp, context.CancellationToken).ConfigureAwait(false);
 
             AddConversationMessage(conversation, "tool_call", "tool_call", call.ToolName, call.ToolName, call.ToolCallId, true, call.ArgumentsJson, backupPath: ebp);
             _toolDispatcher.CurrentModelOptions = request?.ModelOptions;
@@ -1678,7 +1680,7 @@ namespace OfficeCopilot.Agent.Runtime
                 outcome.ToolCallId);
 
             // 发出 ToolCallCompleted 事件，携带备份路径供 Panel 更新备份图标
-            await emitter.EmitToolCallCompletedAsync(outcome.ToolCallId, outcome.ToolName, outcome.Success ? outcome.Content : outcome.ErrorMessage, outcome.Success, requiresBackup, outcome.BackupPath ?? string.Empty, outcome.ErrorCode, outcome.ErrorMessage, context.CancellationToken).ConfigureAwait(false);
+            await emitter.EmitToolCallCompletedAsync(outcome.ToolCallId, outcome.ToolName, toolDisplayName, outcome.Success ? outcome.Content : outcome.ErrorMessage, outcome.Success, requiresBackup, outcome.BackupPath ?? string.Empty, outcome.ErrorCode, outcome.ErrorMessage, context.CancellationToken).ConfigureAwait(false);
 
             return outcome;
         }
@@ -1686,6 +1688,19 @@ namespace OfficeCopilot.Agent.Runtime
         private static bool IsDeckBuild(string toolName)
         {
             return string.Equals(toolName, "ppt_deck_build", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string ResolveToolDisplayName(
+            string toolName,
+            IReadOnlyDictionary<string, HostBridgeToolDescriptor> toolCatalog)
+        {
+            HostBridgeToolDescriptor descriptor;
+            return toolCatalog != null
+                && !string.IsNullOrWhiteSpace(toolName)
+                && toolCatalog.TryGetValue(toolName, out descriptor)
+                && !string.IsNullOrWhiteSpace(descriptor.DisplayName)
+                    ? descriptor.DisplayName
+                    : toolName ?? string.Empty;
         }
 
         private string ResolveHostApplicationName(BrokerTurnContext context)

@@ -10,6 +10,7 @@ using OfficeCopilot.Agent.Abstractions;
 using OfficeCopilot.Host.Excel.Tools;
 using OfficeCopilot.Host.PowerPoint.Tools;
 using OfficeCopilot.Host.Word.Tools;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Memory;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
@@ -55,6 +56,20 @@ namespace OfficeCopilot.Settings.WinForms
         private System.Windows.Forms.NumericUpDown _pptWorkspaceRetentionDays;
         private System.Windows.Forms.CheckBox _pptEmbedFontsByDefault;
         private System.Windows.Forms.Button _pptSelfTestButton;
+        private System.Windows.Forms.GroupBox _pptSlidesGroup;
+        private System.Windows.Forms.Label _pptDefaultStyleLabel;
+        private System.Windows.Forms.Label _pptDefaultDensityLabel;
+        private System.Windows.Forms.Label _pptDefaultBuildModeLabel;
+        private System.Windows.Forms.Label _pptRepairIterationCapLabel;
+        private System.Windows.Forms.Label _pptWorkspaceRetentionDaysLabel;
+        private ToolStripMenuItem _modelEditMenuItem;
+        private ToolStripMenuItem _modelDeleteMenuItem;
+        private ToolStripMenuItem _mcpEditMenuItem;
+        private ToolStripMenuItem _mcpDeleteMenuItem;
+        private ToolStripMenuItem _skillEditMenuItem;
+        private ToolStripMenuItem _skillDeleteMenuItem;
+        private ToolStripMenuItem _toolEditMenuItem;
+        private ToolStripMenuItem _memoryDeleteMenuItem;
         private bool _loadingSettings;
 
         // Memory manager fields
@@ -86,9 +101,9 @@ namespace OfficeCopilot.Settings.WinForms
             InitializePowerPointSlidesSettingsControls();
 
             // Phase P3: Add "从会话创建" button to Skill toolbar
-            _btnCreateFromSession = new BarButtonItem(barMan, "从会话创建 Skill");
-            _btnCreateFromSession.Caption = "从会话创建";
-            _btnCreateFromSession.Hint = "在 Copilot 面板中说\"帮我把这个流程做成 skill\"来触发自动创建";
+            _btnCreateFromSession = new BarButtonItem(barMan, LocalizationService.Get("Settings.Config.Skills.CreateFromSession"));
+            _btnCreateFromSession.Caption = LocalizationService.Get("Settings.Config.Skills.CreateFromSession");
+            _btnCreateFromSession.Hint = LocalizationService.Get("Settings.Config.Skills.CreateFromSessionHint");
             _btnCreateFromSession.ItemClick += btnCreateFromSession_ItemClick;
             _btnCreateFromSession.PaintStyle = BarItemPaintStyle.CaptionGlyph;
             _btnCreateFromSession.Glyph = null; // No glyph needed
@@ -98,6 +113,9 @@ namespace OfficeCopilot.Settings.WinForms
             WireGeneralTabEvents();
             InitializeMemoryTab();
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmConfig_Disposed;
         }
 
         private void WireEvents()
@@ -158,8 +176,9 @@ namespace OfficeCopilot.Settings.WinForms
 
             // ---- 右键菜单：模型列表 ----
             var ctxModels = new ContextMenuStrip();
-            ctxModels.Items.Add("编辑", Properties.Resources.loadpagesetup_16x16, (s, ev) => EditFocusedModel());
-            ctxModels.Items.Add("删除", Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteModel_ItemClick(s, null));
+            _modelEditMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Edit"), Properties.Resources.loadpagesetup_16x16, (s, ev) => EditFocusedModel());
+            _modelDeleteMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Delete"), Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteModel_ItemClick(s, null));
+            ctxModels.Items.AddRange(new ToolStripItem[] { _modelEditMenuItem, _modelDeleteMenuItem });
             ctxModels.Opening += (s, ev) =>
             {
                 ev.Cancel = GetFocusedModel() == null;
@@ -168,8 +187,9 @@ namespace OfficeCopilot.Settings.WinForms
 
             // ---- 右键菜单：MCP 服务列表 ----
             var ctxMcp = new ContextMenuStrip();
-            ctxMcp.Items.Add("编辑", Properties.Resources.edit_16x16, (s, ev) => EditFocusedMcpServer());
-            ctxMcp.Items.Add("删除", Properties.Resources.deletelist_16x16, (s, ev) => btnDelMcp_ItemClick(s, null));
+            _mcpEditMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Edit"), Properties.Resources.edit_16x16, (s, ev) => EditFocusedMcpServer());
+            _mcpDeleteMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Delete"), Properties.Resources.deletelist_16x16, (s, ev) => btnDelMcp_ItemClick(s, null));
+            ctxMcp.Items.AddRange(new ToolStripItem[] { _mcpEditMenuItem, _mcpDeleteMenuItem });
             ctxMcp.Opening += (s, ev) =>
             {
                 ev.Cancel = GetFocusedMcpServer() == null;
@@ -178,8 +198,9 @@ namespace OfficeCopilot.Settings.WinForms
 
             // ---- 右键菜单：Skill 列表 ----
             var ctxSkills = new ContextMenuStrip();
-            ctxSkills.Items.Add("编辑", Properties.Resources.edit_16x16, (s, ev) => EditFocusedSkill());
-            ctxSkills.Items.Add("删除", Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteSkill_ItemClick(s, null));
+            _skillEditMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Edit"), Properties.Resources.edit_16x16, (s, ev) => EditFocusedSkill());
+            _skillDeleteMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Delete"), Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteSkill_ItemClick(s, null));
+            ctxSkills.Items.AddRange(new ToolStripItem[] { _skillEditMenuItem, _skillDeleteMenuItem });
             ctxSkills.Opening += (s, ev) =>
             {
                 ev.Cancel = GetFocusedSkillRow() == null;
@@ -188,7 +209,8 @@ namespace OfficeCopilot.Settings.WinForms
 
             // ---- 右键菜单：工具列表 ----
             var ctxTools = new ContextMenuStrip();
-            ctxTools.Items.Add("编辑", Properties.Resources.edit_16x16, (s, ev) => OpenToolEditor(false));
+            _toolEditMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Edit"), Properties.Resources.edit_16x16, (s, ev) => OpenToolEditor(false));
+            ctxTools.Items.Add(_toolEditMenuItem);
             ctxTools.Opening += (s, ev) =>
             {
                 ev.Cancel = GetFocusedTool() == null;
@@ -198,6 +220,7 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void fmConfig_Load(object sender, EventArgs e)
         {
+            ApplyLocalization();
             LoadSettings();
 
             // Load memory tree (lightweight, file-based)
@@ -216,6 +239,175 @@ namespace OfficeCopilot.Settings.WinForms
                 return;
             }
 
+            FinishFormClosing(e);
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+            UpdateMemoryInfoBar();
+        }
+
+        private void fmConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            var wasLoadingSettings = _loadingSettings;
+            _loadingSettings = true;
+            try
+            {
+                Text = LocalizationService.Get("Settings.Config.Title");
+                xtpModels.Text = LocalizationService.Get("Settings.Config.Tab.Models");
+                xtpTools.Text = LocalizationService.Get("Settings.Config.Tab.Tools");
+                xtpMcp.Text = LocalizationService.Get("Settings.Config.Tab.Mcp");
+                xtpSkills.Text = LocalizationService.Get("Settings.Config.Tab.Skills");
+                xtpMemoryMan.Text = LocalizationService.Get("Settings.Config.Tab.Memory");
+                xtpGeneral.Text = LocalizationService.Get("Settings.Config.Tab.General");
+
+                colId.Caption = LocalizationService.Get("Settings.Config.Models.Id");
+                colName.Caption = LocalizationService.Get("Settings.Config.Models.Name");
+                colProviderKind.Caption = LocalizationService.Get("Settings.Config.Models.ProviderKind");
+                colEndpoint.Caption = LocalizationService.Get("Settings.Config.Models.Endpoint");
+                colApiKey.Caption = LocalizationService.Get("Settings.Config.Models.ApiKey");
+                colModelId.Caption = LocalizationService.Get("Settings.Config.Models.ModelId");
+                colSupportsImageInput.Caption = LocalizationService.Get("Settings.Config.Models.Multimodal");
+                colIsEnabled.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+                btnAddModel.Caption = LocalizationService.Get("Settings.Config.Models.Add");
+                btnEditModel.Caption = LocalizationService.Get("Settings.Config.Models.Edit");
+                btnDeleteModel.Caption = LocalizationService.Get("Settings.Config.Models.Delete");
+                btnExportListToJson.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnImportList.Caption = LocalizationService.Get("Settings.Config.Models.Import");
+
+                btnNewMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Add");
+                btnEditMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Edit");
+                btnDelMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Delete");
+                btnExportMcp.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnImportMcp.Caption = LocalizationService.Get("Settings.Config.Mcp.Import");
+                colMcpId.Caption = LocalizationService.Get("Settings.Config.Mcp.Id");
+                colMcpName.Caption = LocalizationService.Get("Settings.Config.Mcp.Name");
+                colMcpDesc.Caption = LocalizationService.Get("Settings.Config.Mcp.Description");
+                colEnableMcp.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+
+                btnNewSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Add");
+                btnEditSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Edit");
+                btnDeleteSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Delete");
+                btnExportSkills.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnImportSkills.Caption = LocalizationService.Get("Settings.Config.Skills.Import");
+                colSkillId.Caption = LocalizationService.Get("Settings.Config.Skills.Id");
+                colSkillName.Caption = LocalizationService.Get("Settings.Config.Skills.Name");
+                colSkillDesc.Caption = LocalizationService.Get("Settings.Config.Skills.Description");
+                colSkillEnabled.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+
+                colToolsGroupName.Caption = LocalizationService.Get("Settings.Config.Tools.Group");
+                colToolsGroupEnable.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+                colToolName.Caption = LocalizationService.Get("Settings.Config.Tools.Name");
+                colDescription.Caption = LocalizationService.Get("Settings.Config.Tools.Description");
+                colEnableTool.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+                colNeedConfirm.Caption = LocalizationService.Get("Settings.Config.Tools.NoConfirmation");
+                colTestTool.Caption = LocalizationService.Get("Settings.Config.Tools.Details");
+                btnShowDesc.Caption = LocalizationService.Get("Settings.Config.Tools.Details");
+
+                btnSaveMem.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+                xtpMemWebPreview.Text = LocalizationService.Get("Settings.Config.Memory.Preview");
+                xtpMemMarkDown.Text = LocalizationService.Get("Settings.Config.Memory.Markdown");
+                if (_memoryDeleteMenuItem != null)
+                {
+                    _memoryDeleteMenuItem.Text = LocalizationService.Get("Settings.Config.Memory.DeleteFragment");
+                }
+
+                grpLogging.Text = LocalizationService.Get("Settings.Config.General.Logging");
+                lbTranscriptMaxContentLength.Text = LocalizationService.Get("Settings.Config.General.TranscriptMaxLength");
+                ceToolCallLogEnabled.Properties.Caption = LocalizationService.Get("Settings.Config.General.ToolCallLogEnabled");
+                ceTranscriptIncludeHostContext.Properties.Caption = LocalizationService.Get("Settings.Config.General.TranscriptHostContext");
+                ceTranscriptIncludeToolCalls.Properties.Caption = LocalizationService.Get("Settings.Config.General.TranscriptToolCalls");
+                lbRetainedFileCount.Text = LocalizationService.Get("Settings.Config.General.RetainedFileCount");
+                lbMaxFileSizeMb.Text = LocalizationService.Get("Settings.Config.General.MaxFileSize");
+                lbRuntimeLogLevel.Text = LocalizationService.Get("Settings.Config.General.RuntimeLogLevel");
+                ceRuntimeLogEnabled.Properties.Caption = LocalizationService.Get("Settings.Config.General.RuntimeLogEnabled");
+                lbTranscriptLogMode.Text = LocalizationService.Get("Settings.Config.General.TranscriptLogMode");
+                grpRuntime.Text = LocalizationService.Get("Settings.Config.General.Runtime");
+                ceAutoMemoryRecorder.Properties.Caption = LocalizationService.Get("Settings.Config.General.AutoMemoryRecorder");
+                ceAutoCompactEnabled.Properties.Caption = LocalizationService.Get("Settings.Config.General.AutoCompact");
+                grpModelParams.Text = LocalizationService.Get("Settings.Config.General.ModelParameters");
+                lbHttpRequestTimeOut.Text = LocalizationService.Get("Settings.Config.General.RequestTimeout");
+                lbNativeThresholdKB.Text = LocalizationService.Get("Settings.Config.General.NativeFileSizeLimit");
+                lbInlineTextThresholdMB.Text = LocalizationService.Get("Settings.Config.General.InlineTextFileSizeLimit");
+                ceAutoResizeBigImage.Properties.Caption = LocalizationService.Get("Settings.Config.General.AutoResizeImages");
+                lbToolFetchFileThresholdMB.Text = LocalizationService.Get("Settings.Config.General.ToolFetchFileSizeLimit");
+                lbAttachmentFileCountThreshold.Text = LocalizationService.Get("Settings.Config.General.AttachmentFileCountLimit");
+                lbAttachmentInlineCharBudget.Text = LocalizationService.Get("Settings.Config.General.AttachmentInlineCharacterBudget");
+                lbMaxVisualPages.Text = LocalizationService.Get("Settings.Config.General.MaxVisualPages");
+                btnSaveGenenalConfig.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+                btnCancelSaveGeneralConfig.Caption = LocalizationService.Get("Settings.Config.Common.Cancel");
+
+                if (_btnCreateFromSession != null)
+                {
+                    _btnCreateFromSession.Caption = LocalizationService.Get("Settings.Config.Skills.CreateFromSession");
+                    _btnCreateFromSession.Hint = LocalizationService.Get("Settings.Config.Skills.CreateFromSessionHint");
+                }
+
+                if (_modelEditMenuItem != null)
+                {
+                    _modelEditMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+                    _modelDeleteMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Delete");
+                    _mcpEditMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+                    _mcpDeleteMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Delete");
+                    _skillEditMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+                    _skillDeleteMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Delete");
+                    _toolEditMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+                }
+
+                var transcriptLogModeIndex = cbeTranscriptLogMode.SelectedIndex;
+                cbeTranscriptLogMode.Properties.Items.Clear();
+                cbeTranscriptLogMode.Properties.Items.AddRange(new[]
+                {
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Disabled"),
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Metadata"),
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Redacted"),
+                    LocalizationService.Get("Settings.Config.General.TranscriptMode.Raw")
+                });
+                if (transcriptLogModeIndex >= 0)
+                {
+                    cbeTranscriptLogMode.SelectedIndex = Math.Min(
+                        transcriptLogModeIndex,
+                        cbeTranscriptLogMode.Properties.Items.Count - 1);
+                }
+
+                if (_pptSlidesGroup != null)
+                {
+                    _pptSlidesGroup.Text = LocalizationService.Get("Settings.Config.PowerPoint.Group");
+                    _pptDefaultStyleLabel.Text = LocalizationService.Get("Settings.Config.PowerPoint.DefaultStyle");
+                    _pptDefaultDensityLabel.Text = LocalizationService.Get("Settings.Config.PowerPoint.DefaultDensity");
+                    _pptDefaultBuildModeLabel.Text = LocalizationService.Get("Settings.Config.PowerPoint.DefaultBuildMode");
+                    _pptRepairIterationCapLabel.Text = LocalizationService.Get("Settings.Config.PowerPoint.RepairIterationCap");
+                    _pptWorkspaceRetentionDaysLabel.Text = LocalizationService.Get("Settings.Config.PowerPoint.WorkspaceRetentionDays");
+                    _pptEmbedFontsByDefault.Text = LocalizationService.Get("Settings.Config.PowerPoint.EmbedFontsByDefault");
+                    _pptSelfTestButton.Text = LocalizationService.Get("Settings.Config.PowerPoint.RunSelfTest");
+                }
+
+                if (_toolGroups != null)
+                {
+                    foreach (var group in _toolGroups)
+                    {
+                        group.DisplayName = GetGroupDisplayName(group.GroupName);
+                    }
+
+                    gvToolsGroup.RefreshData();
+                }
+
+                RefreshPreviewButtonCaption();
+            }
+            finally
+            {
+                _loadingSettings = wasLoadingSettings;
+            }
+        }
+
+        private void FinishFormClosing(FormClosingEventArgs e)
+        {
             if (_skipSaveOnClose)
             {
                 return;
@@ -232,8 +424,8 @@ namespace OfficeCopilot.Settings.WinForms
             {
                 var result = MessageBox.Show(
                     this,
-                    "保存参数设置失败：" + ex.Message + "\n\n是否放弃修改并关闭窗口？\n（选择「否」可返回修正配置）",
-                    "参数设置",
+                    LocalizationService.Format("Settings.Config.Error.SaveOnCloseFailed", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Settings"),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
                 if (result == DialogResult.Yes)
@@ -250,7 +442,7 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void InitializeToolViews()
         {
-            colToolsGroupName.FieldName = "GroupName";
+            colToolsGroupName.FieldName = "DisplayName";
             colToolsGroupEnable.FieldName = "IsRegistered";
             colToolName.FieldName = "DisplayName";
             colDescription.FieldName = "Description";
@@ -333,7 +525,7 @@ namespace OfficeCopilot.Settings.WinForms
             editor.Buttons.Clear();
             editor.Buttons.Add(new EditorButton(ButtonPredefines.Glyph)
             {
-                Caption = "查看",
+                Caption = LocalizationService.Get("Settings.Config.Tools.Details"),
                 Kind = ButtonPredefines.Glyph,
                 IsDefaultButton = true
             });
@@ -346,16 +538,6 @@ namespace OfficeCopilot.Settings.WinForms
         /// </summary>
         private void WireGeneralTabEvents()
         {
-            // Populate ComboBox items
-            //cbeDefaultSkillName.Properties.Items.AddRange(new string[] {
-            //    "read-analysis", "deterministic-write", "formula-authoring",
-            //    "formatting-write", "high-risk-mutation", "table-analysis",
-            //    "vba-fallback", "skillify"
-            //});
-            //cbeStorageMode.Properties.Items.AddRange(new string[] { "内存 (InMemory)", "JSONL 文件" });
-            cbeTranscriptLogMode.Properties.Items.AddRange(new string[] {
-                "禁用", "仅元数据", "脱敏内容", "原始内容"
-            });
             cbeRuntimeLogLevel.Properties.Items.AddRange(new string[] {
                 "Trace", "Debug", "Information", "Warning", "Error", "Critical", "None"
             });
@@ -421,7 +603,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载配置失败：" + ex.Message, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadSettings", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _settings = OfficeCopilotSettingsFactory.CreateDefault();
             }
 
@@ -787,7 +970,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("保存启用状态失败：" + ex.Message, "Skill 设置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Settings.Config.Error.SaveSkillEnabledState", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -811,11 +995,8 @@ namespace OfficeCopilot.Settings.WinForms
         {
             var result = MessageBox.Show(
                 this,
-                "要从当前会话创建 Skill，请在 Nixer Copilot 面板中输入：\n\n" +
-                "    \"帮我把这个流程做成 skill\"\n\n" +
-                "模型将自动分析会话、多轮访谈您，然后生成 SKILL.md 文件。\n\n" +
-                "是否现在打开新建 Skill 编辑器（手动创建）？",
-                "从会话创建 Skill",
+                LocalizationService.Get("Settings.Config.Skills.CreateFromSessionPrompt"),
+                LocalizationService.Get("Settings.Config.DialogTitle.CreateSkillFromSession"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information);
 
@@ -841,21 +1022,23 @@ namespace OfficeCopilot.Settings.WinForms
             var row = GetFocusedSkillRow();
             if (row == null)
             {
-                MessageBox.Show(this, "请先选择一个 Skill。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.SelectionRequired"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (row.IsReadOnly)
             {
                 MessageBox.Show(this,
-                    string.Format("内置 Skill \"{0}\" 不可直接编辑。\n\n如需自定义，请使用 \"新建\" 按钮创建一个同名文件系统 Skill 来覆盖。", row.Name),
-                    "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LocalizationService.Format("Settings.Config.Skills.BuiltinEditNotAllowed", row.Name),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (!File.Exists(row.FilePath))
             {
-                MessageBox.Show(this, "Skill 文件不存在：" + row.FilePath, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.FileMissing", row.FilePath),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -873,28 +1056,30 @@ namespace OfficeCopilot.Settings.WinForms
             var row = GetFocusedSkillRow();
             if (row == null)
             {
-                MessageBox.Show(this, "请先选择一个 Skill。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.SelectionRequired"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (row.IsReadOnly)
             {
                 MessageBox.Show(this,
-                    string.Format("内置 Skill \"{0}\" 不可删除。", row.Name),
-                    "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LocalizationService.Format("Settings.Config.Skills.BuiltinDeleteNotAllowed", row.Name),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(row.FilePath))
             {
-                MessageBox.Show(this, "无法删除：Skill 没有关联的文件路径。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.FilePathMissing"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var result = MessageBox.Show(
                 this,
-                string.Format("确定要删除 Skill \"{0}\" 吗？\n\n这将删除目录：{1}", row.Name, Path.GetDirectoryName(row.FilePath)),
-                "Skills",
+                LocalizationService.Format("Settings.Config.Skills.ConfirmDelete", row.Name, Path.GetDirectoryName(row.FilePath)),
+                LocalizationService.Get("Settings.Config.DialogTitle.Skills"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -915,7 +1100,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "删除失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.DeleteSkill", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -923,8 +1109,8 @@ namespace OfficeCopilot.Settings.WinForms
         {
             using (var dialog = new SaveFileDialog())
             {
-                dialog.Title = "导出 Skill 包（含 SKILL.md 文件）";
-                dialog.Filter = "Skill 包文件|*.nsk|JSON 文件（仅元数据）|*.json|所有文件|*.*";
+                dialog.Title = LocalizationService.Get("Settings.Config.Skills.ExportDialogTitle");
+                dialog.Filter = LocalizationService.Get("Settings.Config.Skills.ExportFilter");
                 dialog.FileName = "skills-export.nsk";
                 dialog.FilterIndex = 1;
 
@@ -946,11 +1132,13 @@ namespace OfficeCopilot.Settings.WinForms
                         ExportAsJson(dialog.FileName);
                     }
 
-                    MessageBox.Show(this, "导出完成。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ExportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "导出失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ExportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1034,8 +1222,8 @@ namespace OfficeCopilot.Settings.WinForms
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Title = "导入 Skill 包";
-                dialog.Filter = "Skill 包文件|*.nsk|JSON 文件|*.json|所有文件|*.*";
+                dialog.Title = LocalizationService.Get("Settings.Config.Skills.ImportDialogTitle");
+                dialog.Filter = LocalizationService.Get("Settings.Config.Skills.ImportFilter");
                 dialog.FilterIndex = 1;
 
                 if (dialog.ShowDialog(this) != DialogResult.OK)
@@ -1058,7 +1246,8 @@ namespace OfficeCopilot.Settings.WinForms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "导入失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ImportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1155,10 +1344,12 @@ namespace OfficeCopilot.Settings.WinForms
             }
 
             MessageBox.Show(this,
-                string.Format("导入完成。\n解压了 {0} 个文件{1}。\n\nSkill 变更将在重启应用后生效。",
+                LocalizationService.Format("Settings.Config.Skills.NskImportComplete",
                     extractedCount,
-                    skippedCount > 0 ? string.Format("，跳过了 {0} 个已存在的文件", skippedCount) : ""),
-                "Skills",
+                    skippedCount > 0
+                        ? LocalizationService.Format("Settings.Config.Skills.ExistingFilesSkipped", skippedCount)
+                        : ""),
+                LocalizationService.Get("Settings.Config.DialogTitle.Skills"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
@@ -1170,10 +1361,8 @@ namespace OfficeCopilot.Settings.WinForms
         {
             var confirm = MessageBox.Show(
                 this,
-                "JSON 格式仅包含元数据，不含 SKILL.md 文件内容。\n\n"
-                + "仅当目标机器上已存在相同路径的 Skill 文件时才能恢复状态。\n"
-                + "如需完整迁移 Skill，请使用 .nsk 格式导出。\n\n是否继续？",
-                "Skills",
+                LocalizationService.Get("Settings.Config.Skills.JsonImportWarning"),
+                LocalizationService.Get("Settings.Config.DialogTitle.Skills"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -1197,8 +1386,8 @@ namespace OfficeCopilot.Settings.WinForms
                     }
                 }
                 MessageBox.Show(this,
-                    string.Format("导入完成，更新了 {0} 个 Skill 的状态。\n\nSkill 变更将在重启应用后生效。", count),
-                    "Skills",
+                    LocalizationService.Format("Settings.Config.Skills.JsonImportComplete", count),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Skills"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
@@ -1263,7 +1452,11 @@ namespace OfficeCopilot.Settings.WinForms
 
             // 右键菜单：仅在 Fragment/IndexEntry 节点显示
             var ctxMenu = new ContextMenuStrip();
-            ctxMenu.Items.Add("删除片段", Properties.Resources.deletelist_16x16, OnDeleteMemFragment);
+            _memoryDeleteMenuItem = new ToolStripMenuItem(
+                LocalizationService.Get("Settings.Config.Memory.DeleteFragment"),
+                Properties.Resources.deletelist_16x16,
+                OnDeleteMemFragment);
+            ctxMenu.Items.Add(_memoryDeleteMenuItem);
             ctxMenu.Opening += (s, args) =>
             {
                 var node = tlMemFileTree.FocusedNode;
@@ -1354,7 +1547,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "Failed to load memory tree: " + ex.Message, "Memory Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadMemoryTree", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Memory"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -1439,7 +1633,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载记忆内容失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadMemoryContent", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Memory"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1473,7 +1668,9 @@ namespace OfficeCopilot.Settings.WinForms
                 var markdown = txtMarkDown.Text ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(markdown))
                 {
-                    webPreview.DocumentText = "<html><body style='font-family:Segoe UI,sans-serif;padding:16px;color:#999;'><p>暂无内容</p></body></html>";
+                    webPreview.DocumentText = "<html><body style='font-family:Segoe UI,sans-serif;padding:16px;color:#999;'><p>"
+                        + LocalizationService.Get("Settings.Config.Memory.EmptyPreview")
+                        + "</p></body></html>";
                     return;
                 }
 
@@ -1524,7 +1721,8 @@ a{color:#2980b9;}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveMemory", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Memory"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1534,7 +1732,9 @@ a{color:#2980b9;}
             {
                 var stats = Task.Run(() => _memoryManager.GetStatsAsync()).Result;
 
-                var dirtyMarker = _memoryDirty ? " ● 已修改" : "";
+                var dirtyMarker = _memoryDirty
+                    ? LocalizationService.Get("Settings.Config.Memory.ModifiedMarker")
+                    : "";
                 var nodeLabel = _currentMemNodeType switch
                 {
                     MemoryNodeType.Entrypoint => "MEMORY.md",
@@ -1547,30 +1747,34 @@ a{color:#2980b9;}
 
                 if (!string.IsNullOrEmpty(nodeLabel))
                 {
-                    bsiMemInfo.Caption = string.Format(
-                        "{0}{1} | 入口 {2}行/{3}字节 | 片段 {4}个/{5}字节{6}",
+                    bsiMemInfo.Caption = LocalizationService.Format(
+                        "Settings.Config.Memory.InfoWithNode",
                         nodeLabel,
                         dirtyMarker,
                         stats.EntrypointLineCount,
                         FormatBytes(stats.EntrypointSizeBytes),
                         stats.FragmentCount,
                         FormatBytes(stats.TotalFragmentsSizeBytes),
-                        stats.EntrypointTruncated ? " ⚠入口已截断" : "");
+                        stats.EntrypointTruncated
+                            ? LocalizationService.Get("Settings.Config.Memory.EntrypointTruncated")
+                            : "");
                 }
                 else
                 {
-                    bsiMemInfo.Caption = string.Format(
-                        "入口 {0}行/{1}字节 | 片段 {2}个/{3}字节{4}",
+                    bsiMemInfo.Caption = LocalizationService.Format(
+                        "Settings.Config.Memory.Info",
                         stats.EntrypointLineCount,
                         FormatBytes(stats.EntrypointSizeBytes),
                         stats.FragmentCount,
                         FormatBytes(stats.TotalFragmentsSizeBytes),
-                        stats.EntrypointTruncated ? " ⚠入口已截断" : "");
+                        stats.EntrypointTruncated
+                            ? LocalizationService.Get("Settings.Config.Memory.EntrypointTruncated")
+                            : "");
                 }
             }
             catch
             {
-                bsiMemInfo.Caption = "记忆管理器";
+                bsiMemInfo.Caption = LocalizationService.Get("Settings.Config.Memory.Manager");
             }
         }
 
@@ -1587,14 +1791,15 @@ a{color:#2980b9;}
 
             if (string.IsNullOrWhiteSpace(fragmentId))
             {
-                MessageBox.Show(this, "无法获取片段 ID。", "删除记忆片段", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.Memory.FragmentIdMissing"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.DeleteMemoryFragment"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var result = MessageBox.Show(
                 this,
-                string.Format("确定要删除片段 \"{0}\" 吗？\n\n这将同时删除 MEMORY.md 中的索引引用。", fragmentId + ".md"),
-                "删除记忆片段",
+                LocalizationService.Format("Settings.Config.Memory.ConfirmDeleteFragment", fragmentId + ".md"),
+                LocalizationService.Get("Settings.Config.DialogTitle.DeleteMemoryFragment"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -1624,7 +1829,8 @@ a{color:#2980b9;}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "删除失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.DeleteMemory", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Memory"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1864,7 +2070,8 @@ a{color:#2980b9;}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存内置工具配置失败：" + ex.Message, "内置工具", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveBuiltInTools", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoadSettings();
             }
         }
@@ -1883,7 +2090,8 @@ a{color:#2980b9;}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存 MCP 服务配置失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveMcp", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoadSettings();
             }
         }
@@ -2015,7 +2223,8 @@ a{color:#2980b9;}
 
             if (baseDefinition == null)
             {
-                MessageBox.Show(this, "未找到当前工具的基础定义。", "内置工具", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.Tools.BaseDefinitionMissing"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -2032,9 +2241,12 @@ a{color:#2980b9;}
                 if (!string.IsNullOrEmpty(ownerHostName))
                 {
                     toolHostName = ownerHostName;
-                    testBlockedReason = "该工具属于 " + ownerHostName + "，无法在当前 "
-                        + (string.IsNullOrWhiteSpace(_toolHostApplicationName) ? "宿主" : _toolHostApplicationName)
-                        + " 进程内执行。定义修改仍会正常保存，请在 " + ownerHostName + " 中打开设置进行调用测试。";
+                    testBlockedReason = LocalizationService.Format(
+                        "Settings.Config.Tools.TestBlockedReason",
+                        ownerHostName,
+                        string.IsNullOrWhiteSpace(_toolHostApplicationName)
+                            ? LocalizationService.Get("Settings.Config.Tools.Host")
+                            : _toolHostApplicationName);
                 }
             }
 
@@ -2070,7 +2282,8 @@ a{color:#2980b9;}
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "保存工具定义失败：" + ex.Message, "内置工具", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveToolDefinition", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     LoadSettings();
                 }
             }
@@ -2418,113 +2631,115 @@ a{color:#2980b9;}
         {
             if (string.Equals(groupName, ExcelToolGroups.Context, StringComparison.OrdinalIgnoreCase))
             {
-                return "Excel - 上下文";
+                return LocalizationService.Get("Settings.Config.Tools.Group.ExcelContext");
             }
 
             if (string.Equals(groupName, ExcelToolGroups.Read, StringComparison.OrdinalIgnoreCase))
             {
-                return "Excel - 读取";
+                return LocalizationService.Get("Settings.Config.Tools.Group.ExcelRead");
             }
 
             if (string.Equals(groupName, ExcelToolGroups.Write, StringComparison.OrdinalIgnoreCase))
             {
-                return "Excel - 写入";
+                return LocalizationService.Get("Settings.Config.Tools.Group.ExcelWrite");
             }
 
             if (string.Equals(groupName, ExcelToolGroups.Advanced, StringComparison.OrdinalIgnoreCase))
             {
-                return "Excel - 高级";
+                return LocalizationService.Get("Settings.Config.Tools.Group.ExcelAdvanced");
             }
 
             if (string.Equals(groupName, ExcelToolGroups.File, StringComparison.OrdinalIgnoreCase))
             {
-                return "Excel - 文件";
+                return LocalizationService.Get("Settings.Config.Tools.Group.ExcelFile");
             }
 
             // Word tool groups
             if (string.Equals(groupName, WordToolGroups.Context, StringComparison.OrdinalIgnoreCase))
             {
-                return "Word - 上下文";
+                return LocalizationService.Get("Settings.Config.Tools.Group.WordContext");
             }
 
             if (string.Equals(groupName, WordToolGroups.Read, StringComparison.OrdinalIgnoreCase))
             {
-                return "Word - 读取";
+                return LocalizationService.Get("Settings.Config.Tools.Group.WordRead");
             }
 
             if (string.Equals(groupName, WordToolGroups.Write, StringComparison.OrdinalIgnoreCase))
             {
-                return "Word - 写入";
+                return LocalizationService.Get("Settings.Config.Tools.Group.WordWrite");
             }
 
             if (string.Equals(groupName, WordToolGroups.Navigation, StringComparison.OrdinalIgnoreCase))
             {
-                return "Word - 导航";
+                return LocalizationService.Get("Settings.Config.Tools.Group.WordNavigation");
             }
 
             if (string.Equals(groupName, WordToolGroups.Advanced, StringComparison.OrdinalIgnoreCase))
             {
-                return "Word - 高级";
+                return LocalizationService.Get("Settings.Config.Tools.Group.WordAdvanced");
             }
 
             if (string.Equals(groupName, WordToolGroups.File, StringComparison.OrdinalIgnoreCase))
             {
-                return "Word - 文件";
+                return LocalizationService.Get("Settings.Config.Tools.Group.WordFile");
             }
 
             // PowerPoint tool groups
             if (string.Equals(groupName, PowerPointToolGroups.Context, StringComparison.OrdinalIgnoreCase))
             {
-                return "PowerPoint - 上下文";
+                return LocalizationService.Get("Settings.Config.Tools.Group.PowerPointContext");
             }
 
             if (string.Equals(groupName, PowerPointToolGroups.Read, StringComparison.OrdinalIgnoreCase))
             {
-                return "PowerPoint - 读取";
+                return LocalizationService.Get("Settings.Config.Tools.Group.PowerPointRead");
             }
 
             if (string.Equals(groupName, PowerPointToolGroups.Backup, StringComparison.OrdinalIgnoreCase))
             {
-                return "PowerPoint - 备份";
+                return LocalizationService.Get("Settings.Config.Tools.Group.PowerPointBackup");
             }
 
             if (string.Equals(groupName, PowerPointToolGroups.Style, StringComparison.OrdinalIgnoreCase))
             {
-                return "PowerPoint - 风格库";
+                return LocalizationService.Get("Settings.Config.Tools.Group.PowerPointStyle");
             }
 
             if (string.Equals(groupName, PowerPointToolGroups.Deck, StringComparison.OrdinalIgnoreCase))
             {
-                return "PowerPoint - 演示工作区";
+                return LocalizationService.Get("Settings.Config.Tools.Group.PowerPointDeck");
             }
 
             if (string.Equals(groupName, PowerPointToolGroups.File, StringComparison.OrdinalIgnoreCase))
             {
-                return "PowerPoint - 文件";
+                return LocalizationService.Get("Settings.Config.Tools.Group.PowerPointFile");
             }
 
             // Runtime tool groups
             if (string.Equals(groupName, RuntimeToolGroups.Shell, StringComparison.OrdinalIgnoreCase))
             {
-                return "运行时 - 命令行";
+                return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeShell");
             }
 
             if (string.Equals(groupName, RuntimeToolGroups.Interaction, StringComparison.OrdinalIgnoreCase))
             {
-                return "运行时 - 交互";
+                return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeInteraction");
             }
 
             if (string.Equals(groupName, RuntimeToolGroups.Planning, StringComparison.OrdinalIgnoreCase))
             {
-                return "运行时 - 计划与 Agent";
+                return LocalizationService.Get("Settings.Config.Tools.Group.RuntimePlanning");
             }
 
             if (string.Equals(groupName, RuntimeToolGroups.Notification, StringComparison.OrdinalIgnoreCase))
             {
-                return "运行时 - 通知";
+                return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeNotification");
             }
 
-            return string.IsNullOrWhiteSpace(groupName) ? "未分组" : groupName;
+            return string.IsNullOrWhiteSpace(groupName)
+                ? LocalizationService.Get("Settings.Config.Tools.Group.Ungrouped")
+                : groupName;
         }
 
         private void SaveSettings()
@@ -2800,54 +3015,54 @@ a{color:#2980b9;}
 
         private void InitializePowerPointSlidesSettingsControls()
         {
-            var group = new GroupBox
+            _pptSlidesGroup = new GroupBox
             {
                 Text = "PowerPoint Slides",
                 Location = new System.Drawing.Point(34, 490),
                 Size = new System.Drawing.Size(1109, 190),
                 Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold)
             };
-            xtpGeneral.Controls.Add(group);
+            xtpGeneral.Controls.Add(_pptSlidesGroup);
 
-            AddSlidesSettingLabel(group, "默认风格 slug", 24, 34, 150);
+            _pptDefaultStyleLabel = AddSlidesSettingLabel(_pptSlidesGroup, "Settings.Config.PowerPoint.DefaultStyle", 24, 34, 150);
             _pptDefaultStyle = new System.Windows.Forms.TextBox { Location = new System.Drawing.Point(180, 30), Size = new System.Drawing.Size(330, 24) };
-            group.Controls.Add(_pptDefaultStyle);
+            _pptSlidesGroup.Controls.Add(_pptDefaultStyle);
 
-            AddSlidesSettingLabel(group, "默认密度", 24, 72, 150);
+            _pptDefaultDensityLabel = AddSlidesSettingLabel(_pptSlidesGroup, "Settings.Config.PowerPoint.DefaultDensity", 24, 72, 150);
             _pptDefaultDensity = new System.Windows.Forms.ComboBox { Location = new System.Drawing.Point(180, 68), Size = new System.Drawing.Size(160, 24), DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList };
             _pptDefaultDensity.Items.AddRange(new object[] { "low", "medium", "high" });
-            group.Controls.Add(_pptDefaultDensity);
+            _pptSlidesGroup.Controls.Add(_pptDefaultDensity);
 
-            AddSlidesSettingLabel(group, "默认构建模式", 24, 110, 150);
+            _pptDefaultBuildModeLabel = AddSlidesSettingLabel(_pptSlidesGroup, "Settings.Config.PowerPoint.DefaultBuildMode", 24, 110, 150);
             _pptDefaultBuildMode = new System.Windows.Forms.ComboBox { Location = new System.Drawing.Point(180, 106), Size = new System.Drawing.Size(160, 24), DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList };
             _pptDefaultBuildMode.Items.AddRange(new object[] { "fidelity", "editable", "image" });
-            group.Controls.Add(_pptDefaultBuildMode);
+            _pptSlidesGroup.Controls.Add(_pptDefaultBuildMode);
 
-            AddSlidesSettingLabel(group, "修复迭代上限", 560, 34, 170);
+            _pptRepairIterationCapLabel = AddSlidesSettingLabel(_pptSlidesGroup, "Settings.Config.PowerPoint.RepairIterationCap", 560, 34, 170);
             _pptRepairIterationCap = new System.Windows.Forms.NumericUpDown { Location = new System.Drawing.Point(740, 30), Size = new System.Drawing.Size(110, 24), Minimum = 0, Maximum = 10 };
-            group.Controls.Add(_pptRepairIterationCap);
+            _pptSlidesGroup.Controls.Add(_pptRepairIterationCap);
 
-            AddSlidesSettingLabel(group, "工作区保留天数", 560, 72, 170);
+            _pptWorkspaceRetentionDaysLabel = AddSlidesSettingLabel(_pptSlidesGroup, "Settings.Config.PowerPoint.WorkspaceRetentionDays", 560, 72, 170);
             _pptWorkspaceRetentionDays = new System.Windows.Forms.NumericUpDown { Location = new System.Drawing.Point(740, 68), Size = new System.Drawing.Size(110, 24), Minimum = 1, Maximum = 3650 };
-            group.Controls.Add(_pptWorkspaceRetentionDays);
+            _pptSlidesGroup.Controls.Add(_pptWorkspaceRetentionDays);
 
             _pptEmbedFontsByDefault = new System.Windows.Forms.CheckBox
             {
-                Text = "默认嵌入字体",
+                Text = LocalizationService.Get("Settings.Config.PowerPoint.EmbedFontsByDefault"),
                 Location = new System.Drawing.Point(560, 108),
                 Size = new System.Drawing.Size(200, 24)
             };
-            group.Controls.Add(_pptEmbedFontsByDefault);
+            _pptSlidesGroup.Controls.Add(_pptEmbedFontsByDefault);
 
             _pptSelfTestButton = new System.Windows.Forms.Button
             {
-                Text = "运行工具自检",
+                Text = LocalizationService.Get("Settings.Config.PowerPoint.RunSelfTest"),
                 Location = new System.Drawing.Point(900, 106),
                 Size = new System.Drawing.Size(130, 26),
                 Visible = string.Equals(_toolHostApplicationName, "PowerPoint", StringComparison.OrdinalIgnoreCase)
             };
             _pptSelfTestButton.Click += (sender, args) => RunPowerPointToolSelfTest();
-            group.Controls.Add(_pptSelfTestButton);
+            _pptSlidesGroup.Controls.Add(_pptSelfTestButton);
 
             _pptDefaultStyle.Leave += GeneralSetting_Changed;
             _pptDefaultDensity.SelectedIndexChanged += GeneralSetting_Changed;
@@ -2857,34 +3072,107 @@ a{color:#2980b9;}
             _pptEmbedFontsByDefault.CheckedChanged += GeneralSetting_Changed;
         }
 
-        private static void AddSlidesSettingLabel(Control parent, string text, int x, int y, int width)
+        private static System.Windows.Forms.Label AddSlidesSettingLabel(Control parent, string key, int x, int y, int width)
         {
-            parent.Controls.Add(new System.Windows.Forms.Label
+            var label = new System.Windows.Forms.Label
             {
-                Text = text,
+                Text = LocalizationService.Get(key),
                 Location = new System.Drawing.Point(x, y + 3),
                 Size = new System.Drawing.Size(width, 20),
                 Font = new System.Drawing.Font("Microsoft YaHei UI", 9F)
-            });
+            };
+            parent.Controls.Add(label);
+            return label;
         }
 
         private void RunPowerPointToolSelfTest()
         {
             if (_toolRegistry == null || _toolServices == null)
             {
-                MessageBox.Show(this, "当前窗口没有可用的 PowerPoint 工具服务。", "工具自检", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Settings.Config.PowerPoint.SelfTestUnavailable"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.PowerPointSelfTest"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
                 var results = PowerPointToolSelfTestRunner.Run(_toolRegistry, _toolServices);
-                MessageBox.Show(this, PowerPointToolSelfTestRunner.BuildReport(results), "PowerPoint 工具自检", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, BuildPowerPointToolSelfTestReport(results),
+                    LocalizationService.Get("Settings.Config.DialogTitle.PowerPointSelfTest"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "PowerPoint 工具自检失败：" + ex.Message, "工具自检", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.PowerPointSelfTest", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.PowerPointSelfTest"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private static string BuildPowerPointToolSelfTestReport(IReadOnlyList<PowerPointToolSelfTestGroupResult> results)
+        {
+            if (results == null || results.Count == 0)
+            {
+                return LocalizationService.Get("Settings.Config.PowerPoint.SelfTestNoResults");
+            }
+
+            var success = 0;
+            var failed = 0;
+            var skipped = 0;
+            var lines = new List<string>
+            {
+                LocalizationService.Get("Settings.Config.PowerPoint.SelfTestReportTitle"),
+                LocalizationService.Format(
+                    "Settings.Config.PowerPoint.SelfTestGenerated",
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                string.Empty
+            };
+
+            foreach (var group in results)
+            {
+                lines.Add(LocalizationService.Format(
+                    "Settings.Config.PowerPoint.SelfTestGroup",
+                    GetGroupDisplayName(group.GroupName)));
+                lines.Add(LocalizationService.Format(
+                    "Settings.Config.PowerPoint.SelfTestRegistered",
+                    group.RegisteredToolCount));
+
+                foreach (var item in group.Items)
+                {
+                    var status = item.Status == PowerPointToolSelfTestStatus.Success
+                        ? LocalizationService.Get("Settings.Config.PowerPoint.SelfTestStatus.Passed")
+                        : item.Status == PowerPointToolSelfTestStatus.Failed
+                            ? LocalizationService.Get("Settings.Config.PowerPoint.SelfTestStatus.Failed")
+                            : LocalizationService.Get("Settings.Config.PowerPoint.SelfTestStatus.Skipped");
+                    if (item.Status == PowerPointToolSelfTestStatus.Success)
+                    {
+                        success++;
+                    }
+                    else if (item.Status == PowerPointToolSelfTestStatus.Failed)
+                    {
+                        failed++;
+                    }
+                    else
+                    {
+                        skipped++;
+                    }
+
+                    lines.Add(LocalizationService.Format(
+                        "Settings.Config.PowerPoint.SelfTestItem",
+                        status,
+                        item.DisplayName,
+                        item.ToolName,
+                        item.DurationMilliseconds,
+                        item.Message));
+                }
+
+                lines.Add(string.Empty);
+            }
+
+            lines.Insert(2, LocalizationService.Format(
+                "Settings.Config.PowerPoint.SelfTestSummary",
+                success,
+                failed,
+                skipped));
+            return string.Join(Environment.NewLine, lines);
         }
 
         private void SaveGeneralSettings()
@@ -2900,7 +3188,8 @@ a{color:#2980b9;}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存系统设置失败：" + ex.Message, "参数设置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveGeneralSettings", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Settings"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoadSettings();
             }
         }
@@ -2946,7 +3235,8 @@ a{color:#2980b9;}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "保存参数设置失败：" + ex.Message, "参数设置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveSettings", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Settings"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoadSettings();
             }
         }
@@ -3053,8 +3343,8 @@ a{color:#2980b9;}
 
             var result = MessageBox.Show(
                 this,
-                string.Format("确定要删除模型“{0}”吗？", current.Name),
-                "模型配置",
+                LocalizationService.Format("Settings.Config.Models.ConfirmDelete", current.Name),
+                LocalizationService.Get("Settings.Config.DialogTitle.Model"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -3082,8 +3372,8 @@ a{color:#2980b9;}
         {
             using (var dialog = new SaveFileDialog())
             {
-                dialog.Title = "导出模型列表";
-                dialog.Filter = "JSON 文件|*.json|所有文件|*.*";
+                dialog.Title = LocalizationService.Get("Settings.Config.Models.ExportDialogTitle");
+                dialog.Filter = LocalizationService.Get("Settings.Config.FileFilter.Json");
                 dialog.FileName = "model-providers.json";
 
                 if (dialog.ShowDialog(this) != DialogResult.OK)
@@ -3095,11 +3385,13 @@ a{color:#2980b9;}
                 {
                     var json = JsonConvert.SerializeObject(_models.OrderBy(m => m.Id).ToList(), Formatting.Indented);
                     File.WriteAllText(dialog.FileName, json, System.Text.Encoding.UTF8);
-                    MessageBox.Show(this, "导出完成。", "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ExportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "导出失败：" + ex.Message, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ExportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -3108,8 +3400,8 @@ a{color:#2980b9;}
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Title = "导入模型定义";
-                dialog.Filter = "JSON 文件|*.json|所有文件|*.*";
+                dialog.Title = LocalizationService.Get("Settings.Config.Models.ImportDialogTitle");
+                dialog.Filter = LocalizationService.Get("Settings.Config.FileFilter.Json");
 
                 if (dialog.ShowDialog(this) != DialogResult.OK)
                 {
@@ -3118,8 +3410,8 @@ a{color:#2980b9;}
 
                 var confirm = MessageBox.Show(
                     this,
-                    "导入将覆盖当前模型列表，是否继续？",
-                    "模型配置",
+                    LocalizationService.Get("Settings.Config.Models.ConfirmImport"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Model"),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
@@ -3153,11 +3445,13 @@ a{color:#2980b9;}
                     gvModels.RefreshData();
                     //gvModels.BestFitColumns();
 
-                    MessageBox.Show(this, "导入完成。", "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ImportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "导入失败：" + ex.Message, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ImportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -3345,8 +3639,8 @@ a{color:#2980b9;}
 
             var result = MessageBox.Show(
                 this,
-                string.Format("确定要删除 MCP 服务“{0}”吗？", server.DisplayName),
-                "MCP服务",
+                LocalizationService.Format("Settings.Config.Mcp.ConfirmDelete", server.DisplayName),
+                LocalizationService.Get("Settings.Config.DialogTitle.Mcp"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -3366,8 +3660,8 @@ a{color:#2980b9;}
         {
             using (var dialog = new SaveFileDialog())
             {
-                dialog.Title = "导出 MCP 配置";
-                dialog.Filter = "JSON 文件|*.json|所有文件|*.*";
+                dialog.Title = LocalizationService.Get("Settings.Config.Mcp.ExportDialogTitle");
+                dialog.Filter = LocalizationService.Get("Settings.Config.FileFilter.Json");
                 dialog.FileName = "mcp-servers.json";
 
                 if (dialog.ShowDialog(this) != DialogResult.OK)
@@ -3380,11 +3674,13 @@ a{color:#2980b9;}
                     EnsureSettings();
                     ApplyMcpSettings();
                     File.WriteAllText(dialog.FileName, JsonConvert.SerializeObject(_settings.McpServers, Formatting.Indented), System.Text.Encoding.UTF8);
-                    MessageBox.Show(this, "导出完成。", "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ExportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "导出失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ExportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -3393,8 +3689,8 @@ a{color:#2980b9;}
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Title = "导入 MCP 配置";
-                dialog.Filter = "JSON 文件|*.json|所有文件|*.*";
+                dialog.Title = LocalizationService.Get("Settings.Config.Mcp.ImportDialogTitle");
+                dialog.Filter = LocalizationService.Get("Settings.Config.FileFilter.Json");
 
                 if (dialog.ShowDialog(this) != DialogResult.OK)
                 {
@@ -3403,8 +3699,8 @@ a{color:#2980b9;}
 
                 var confirm = MessageBox.Show(
                     this,
-                    "导入将覆盖当前 MCP 服务列表，是否继续？",
-                    "MCP服务",
+                    LocalizationService.Get("Settings.Config.Mcp.ConfirmImport"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Mcp"),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
@@ -3419,11 +3715,13 @@ a{color:#2980b9;}
                     _settings.McpServers = ReadMcpServersFromFile(dialog.FileName);
                     SaveMcpSettings();
                     LoadMcpSettings();
-                    MessageBox.Show(this, "导入完成。", "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ImportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "导入失败：" + ex.Message, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ImportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -3497,7 +3795,10 @@ a{color:#2980b9;}
 
         private void RefreshPreviewButtonCaption()
         {
-            btnShowPreview.Caption = gvModels.OptionsView.ShowPreview ? "隐藏提示词预览" : "显示提示词预览";
+            btnShowPreview.Caption = LocalizationService.Get(
+                gvModels.OptionsView.ShowPreview
+                    ? "Settings.Config.Models.HidePromptPreview"
+                    : "Settings.Config.Models.ShowPromptPreview");
         }
 
         private void gvModels_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
@@ -3521,7 +3822,8 @@ a{color:#2980b9;}
                 bool boolValue;
                 if (TryConvertToBoolean(e.Value, out boolValue))
                 {
-                    e.DisplayText = boolValue ? "是" : "否";
+                    e.DisplayText = LocalizationService.Get(
+                        boolValue ? "Settings.Config.Value.Yes" : "Settings.Config.Value.No");
                 }
 
                 return;
@@ -3685,7 +3987,7 @@ a{color:#2980b9;}
 
             public string TestActionText
             {
-                get { return "查看"; }
+                get { return LocalizationService.Get("Settings.Config.Tools.Details"); }
             }
         }
 

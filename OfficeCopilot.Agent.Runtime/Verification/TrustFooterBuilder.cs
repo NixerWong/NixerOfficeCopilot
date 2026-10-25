@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Agent.Runtime.Verification
 {
@@ -13,11 +14,12 @@ namespace OfficeCopilot.Agent.Runtime.Verification
         private const int MaxBasisLength = 180;
         private const int MaxScopeCount = 5;
         private const int MaxScopeLength = 180;
+        private static readonly IUserTextLocalizer Localizer = new UserTextLocalizer();
         private static readonly Regex ModelFooterPattern = new Regex(
-            @"(?im)^[ \t]*(?:(?:[—-]{1,3}[ \t]*)(?:\r?\n[ \t]*)?)?校验[:：][^\r\n]*(?:\r?\n[ \t]*口径[:：][^\r\n]*)?[ \t]*$",
+            @"(?im)^[ \t]*(?:[—-]{1,3}[ \t]*(?:\r?\n[ \t]*)?)?(?:校验|Verification)[:：][^\r\n]*(?:\r?\n[ \t]*(?:检查对象|口径|未能找到直接证据的数字|Checked|Basis|Numbers without direct evidence)[:：][^\r\n]*)*[ \t]*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex ModelTierClaimPattern = new Regex(
-            @"(?im)^[ \t]*(?:#{1,6}[ \t]*)?(?:\d+[.、)）][ \t]*)?(?:验证档位|校验档位|校验级别)[^\r\n]*$",
+            @"(?im)^[ \t]*(?:#{1,6}[ \t]*)?(?:\d+[.、)）][ \t]*)?(?:验证档位|校验档位|校验级别|verification tier|trust tier|tier[ \t]*[abc])[^\r\n]*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex ExcessBlankLinesPattern = new Regex(
             @"(?:\r?\n[ \t]*){3,}",
@@ -26,7 +28,8 @@ namespace OfficeCopilot.Agent.Runtime.Verification
         public static string Build(
             VerificationLedgerSummary summary,
             IReadOnlyList<ExtractedNumber> unresolvedNumbers = null,
-            bool numberCorrectionSucceeded = false)
+            bool numberCorrectionSucceeded = false,
+            string uiCulture = null)
         {
             if (summary == null || !summary.HasExcelDataToolCalls)
             {
@@ -36,18 +39,22 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             var unresolved = (unresolvedNumbers ?? new List<ExtractedNumber>())
                 .Where(number => number != null)
                 .ToList();
-            var status = BuildStatus(summary, unresolved, numberCorrectionSucceeded);
-            var basis = BuildBasisSummary(summary.BasisJson);
-            var scope = BuildScopeSummary(summary.ScopeDescriptions);
-            var footer = "—\n校验：" + status;
+            var culture = ResolveCulture(uiCulture);
+            var status = BuildStatus(summary, unresolved, numberCorrectionSucceeded, culture);
+            var basis = BuildBasisSummary(summary.BasisJson, culture);
+            var scope = BuildScopeSummary(summary.ScopeDescriptions, culture);
+            var footer = "—\n" + Localizer.Get("trust.footer.status", culture)
+                + LabelSeparator(culture) + status;
             if (!string.IsNullOrWhiteSpace(scope))
             {
-                footer += "\n检查对象：" + scope;
+                footer += "\n" + Localizer.Get("trust.footer.scope", culture)
+                    + LabelSeparator(culture) + scope;
             }
             if ((summary.BasisJson != null && summary.BasisJson.Count > 0)
                 || string.IsNullOrWhiteSpace(scope))
             {
-                footer += "\n口径：" + basis;
+                footer += "\n" + Localizer.Get("trust.footer.basis", culture)
+                    + LabelSeparator(culture) + basis;
             }
             if (unresolved.Count > 0)
             {
@@ -56,8 +63,9 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     .Where(rawText => !string.IsNullOrWhiteSpace(rawText))
                     .Distinct(StringComparer.Ordinal)
                     .ToList();
-                footer += "\n未能找到直接证据的数字：" + string.Join("、", rawNumbers)
-                    + "（本轮自动追溯未能在用户消息或工具结果中匹配到这些数字）";
+                footer += "\n" + Localizer.Get("trust.footer.unmatched", culture) + LabelSeparator(culture)
+                    + string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "、" : ", ", rawNumbers)
+                    + LabelSeparator(culture) + Localizer.Get("trust.footer.unmatched.detail", culture);
             }
 
             return footer;
@@ -79,7 +87,8 @@ namespace OfficeCopilot.Agent.Runtime.Verification
         private static string BuildStatus(
             VerificationLedgerSummary summary,
             IReadOnlyList<ExtractedNumber> unresolvedNumbers,
-            bool numberCorrectionSucceeded)
+            bool numberCorrectionSucceeded,
+            CultureInfo culture)
         {
             var hasUnresolvedNumbers = unresolvedNumbers != null
                 && unresolvedNumbers.Any(number => number != null);
@@ -87,12 +96,12 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             var tier = GetEffectiveTier(summary, unresolvedNumbers, numberCorrectionSucceeded);
             if (hasUnresolvedNumbers)
             {
-                return "C级：尚未完成有效验证 —— 有部分结论数字未能找到直接证据";
+                return Localizer.Get("trust.footer.tier.c.unmatched", culture);
             }
 
             if (numberCorrectionSucceeded && ledgerTier == "A")
             {
-                return "B级：已复核，但仍有局限（最终回答中的数字经过订正）";
+                return Localizer.Get("trust.footer.tier.b.corrected", culture);
             }
 
             if (tier == "A")
@@ -102,49 +111,57 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     var verifiedResults = new List<string>();
                     if (summary.HasKeySetDifferenceCalculation)
                     {
-                        verifiedResults.Add("双向键集合差异已完整计算");
+                        verifiedResults.Add(Localizer.Get("trust.footer.verified.keysets", culture));
                     }
                     if (summary.HasHiddenRowsScan)
                     {
-                        verifiedResults.Add("隐藏行状态已完整扫描");
+                        verifiedResults.Add(Localizer.Get("trust.footer.verified.hidden", culture));
                     }
                     if (summary.AssertionCount > 0)
                     {
                         verifiedResults.Add(
-                            summary.AssertionCount.ToString("N0", CultureInfo.InvariantCulture)
-                            + " 项断言通过");
+                            Localizer.Format("trust.footer.tier.a.assertions", culture,
+                                summary.AssertionCount.ToString("N0", culture)));
                     }
                     verifiedResults.Add(
-                        "覆盖 " + summary.CoveredRows.ToString("N0", CultureInfo.InvariantCulture) + " 行");
-                    return "A级：全量独立复核通过（" + string.Join("；", verifiedResults) + "）";
+                        Localizer.Format("trust.footer.tier.a.coverage", culture,
+                            summary.CoveredRows.ToString("N0", culture)));
+                    return WrapStatus(
+                        Localizer.Get("trust.footer.tier.a.full", culture),
+                        string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ", verifiedResults),
+                        culture);
                 }
 
                 if (summary.AssertionCount > 0)
                 {
-                    return "A级：全量独立复核通过（"
-                        + summary.AssertionCount.ToString("N0", CultureInfo.InvariantCulture)
-                        + " 项断言通过，覆盖 "
-                        + summary.CoveredRows.ToString("N0", CultureInfo.InvariantCulture)
-                        + " 行）";
+                    return WrapStatus(
+                        Localizer.Get("trust.footer.tier.a.full", culture),
+                        Localizer.Format("trust.footer.tier.a.assertions", culture,
+                            summary.AssertionCount.ToString("N0", culture))
+                        + (culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "，" : ", ")
+                        + Localizer.Format("trust.footer.tier.a.coverage", culture,
+                            summary.CoveredRows.ToString("N0", culture)),
+                        culture);
                 }
 
-                return "A级：全量独立复核通过（"
-                    + summary.OutputItemCount.ToString("N0", CultureInfo.InvariantCulture)
-                    + " 个产出项通过独立全量验证）";
+                return WrapStatus(
+                    Localizer.Get("trust.footer.tier.a.full", culture),
+                    Localizer.Format("trust.footer.tier.a.outputs", culture,
+                        summary.OutputItemCount.ToString("N0", culture)),
+                    culture);
             }
 
             if (tier == "B")
             {
-                return "B级：已复核，但仍有局限（"
-                    + (string.IsNullOrWhiteSpace(summary.PrimaryReason)
-                        ? "验证证据未达到独立全量复核标准"
-                        : Truncate(CleanText(summary.PrimaryReason)))
-                    + "）";
+                return Localizer.Format("trust.footer.tier.b", culture,
+                    string.IsNullOrWhiteSpace(summary.PrimaryReason)
+                        ? Localizer.Get("trust.footer.reason.b", culture)
+                        : Truncate(CleanText(summary.PrimaryReason)));
             }
 
-            return "C级：尚未完成有效验证 —— "
-                + (string.IsNullOrWhiteSpace(summary.PrimaryReason)
-                    ? "至少一个产出项没有可用的验证证据"
+            return Localizer.Format("trust.footer.tier.c", culture,
+                string.IsNullOrWhiteSpace(summary.PrimaryReason)
+                    ? Localizer.Get("trust.footer.reason.c", culture)
                     : Truncate(CleanText(summary.PrimaryReason)));
         }
 
@@ -168,12 +185,12 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             return numberCorrectionSucceeded && tier == "A" ? "B" : tier;
         }
 
-        private static string BuildBasisSummary(IList<string> basisJson)
+        private static string BuildBasisSummary(IList<string> basisJson, CultureInfo culture)
         {
             var formatted = new List<string>();
             foreach (var json in basisJson ?? new List<string>())
             {
-                var basis = FormatBasis(json);
+                var basis = FormatBasis(json, culture);
                 if (!string.IsNullOrWhiteSpace(basis)
                     && !formatted.Any(existing => string.Equals(
                         existing,
@@ -186,19 +203,20 @@ namespace OfficeCopilot.Agent.Runtime.Verification
 
             if (formatted.Count == 0)
             {
-                return "未提供可解析的结构化口径";
+                return Localizer.Get("trust.footer.basis.unparseable", culture);
             }
 
             var visible = formatted.Take(MaxBasisCount).ToList();
             if (formatted.Count > MaxBasisCount)
             {
-                visible.Add("等 " + (formatted.Count - MaxBasisCount).ToString(CultureInfo.InvariantCulture) + " 项");
+                visible.Add(Localizer.Format("trust.footer.more", culture,
+                    (formatted.Count - MaxBasisCount).ToString("N0", culture)));
             }
 
-            return string.Join("；", visible);
+            return string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ", visible);
         }
 
-        private static string BuildScopeSummary(IList<string> scopeDescriptions)
+        private static string BuildScopeSummary(IList<string> scopeDescriptions, CultureInfo culture)
         {
             var scopes = (scopeDescriptions ?? new List<string>())
                 .Where(scope => !string.IsNullOrWhiteSpace(scope))
@@ -213,10 +231,11 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             var visible = scopes.Take(MaxScopeCount).ToList();
             if (scopes.Count > MaxScopeCount)
             {
-                visible.Add("等 " + (scopes.Count - MaxScopeCount).ToString(CultureInfo.InvariantCulture) + " 项");
+                visible.Add(Localizer.Format("trust.footer.more", culture,
+                    (scopes.Count - MaxScopeCount).ToString("N0", culture)));
             }
 
-            return string.Join("；", visible);
+            return string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ", visible);
         }
 
         private static string TruncateScope(string value)
@@ -229,7 +248,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             return value.Substring(0, MaxScopeLength - 1) + "…";
         }
 
-        private static string FormatBasis(string json)
+        private static string FormatBasis(string json, CultureInfo culture)
         {
             if (string.IsNullOrWhiteSpace(json))
             {
@@ -243,7 +262,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     var root = document.RootElement;
                     if (root.ValueKind != JsonValueKind.Object)
                     {
-                        return "口径信息无法解析";
+                        return Localizer.Get("trust.footer.basis.unparseable", culture);
                     }
 
                     var parts = new List<string>();
@@ -262,24 +281,27 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                         parts.Add(sourceName);
                     }
 
-                    var filters = FormatFilters(ReadProperty(root, "filters"));
+                    var filters = FormatFilters(ReadProperty(root, "filters"), culture);
                     if (filters.Count > 0)
                     {
-                        parts.Add("筛选 " + string.Join(" 且 ", filters));
+                        parts.Add(Localizer.Get("trust.footer.filter", culture)
+                            + string.Join(Localizer.Get("trust.footer.and", culture), filters));
                     }
 
                     var groupBy = ReadStringArray(ReadProperty(root, "groupBy"));
-                    var derivedGroupBy = FormatDerivedGroups(ReadProperty(root, "derivedGroupBy"));
+                    var derivedGroupBy = FormatDerivedGroups(ReadProperty(root, "derivedGroupBy"), culture);
                     var groupNames = groupBy.Concat(derivedGroupBy).ToList();
                     var measures = FormatMeasures(ReadProperty(root, "measures"));
                     if (groupNames.Count > 0 || measures.Count > 0)
                     {
                         var aggregation = groupNames.Count > 0
-                            ? "按 " + string.Join("、", groupNames) + " 汇总"
-                            : "全局汇总";
+                            ? Localizer.Get("trust.footer.group.by", culture)
+                                + string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "、" : ", ", groupNames)
+                                + Localizer.Get("trust.footer.group.aggregate", culture)
+                            : Localizer.Get("trust.footer.group.all", culture);
                         if (measures.Count > 0)
                         {
-                            aggregation += " " + string.Join("、", measures);
+                            aggregation += " " + string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "、" : ", ", measures);
                         }
                         parts.Add(aggregation);
                     }
@@ -292,20 +314,23 @@ namespace OfficeCopilot.Agent.Runtime.Verification
 
                     if (parts.Count == 0)
                     {
-                        return "未声明详细口径";
+                        return Localizer.Get("trust.footer.basis.unspecified", culture);
                     }
 
-                    return Truncate(string.Join("（", parts.Take(1))
-                        + (parts.Count > 1 ? "（" + string.Join("；", parts.Skip(1)) + "）" : string.Empty));
+                    var open = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "（" : " (";
+                    var close = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "）" : ")";
+                    var separator = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ";
+                    return Truncate(parts[0]
+                        + (parts.Count > 1 ? open + string.Join(separator, parts.Skip(1)) + close : string.Empty));
                 }
             }
             catch (JsonException)
             {
-                return "口径信息无法解析";
+                return Localizer.Get("trust.footer.basis.unparseable", culture);
             }
         }
 
-        private static List<string> FormatFilters(JsonElement filters)
+        private static List<string> FormatFilters(JsonElement filters, CultureInfo culture)
         {
             var result = new List<string>();
             if (filters.ValueKind != JsonValueKind.Array)
@@ -323,7 +348,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     continue;
                 }
 
-                var displayOperation = GetFilterOperator(operation);
+                var displayOperation = GetFilterOperator(operation, culture);
                 result.Add(CleanText(column) + displayOperation
                     + (string.IsNullOrWhiteSpace(value) ? string.Empty : CleanText(value)));
             }
@@ -354,7 +379,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             return result;
         }
 
-        private static List<string> FormatDerivedGroups(JsonElement derivedGroups)
+        private static List<string> FormatDerivedGroups(JsonElement derivedGroups, CultureInfo culture)
         {
             var result = new List<string>();
             if (derivedGroups.ValueKind != JsonValueKind.Array)
@@ -372,9 +397,11 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                 }
 
                 var alias = ReadString(group, "alias");
+                var open = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "（" : " (";
+                var close = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "）" : ")";
                 var label = CleanText(column) + "→"
                     + (string.IsNullOrWhiteSpace(alias) ? CleanText(transform) : CleanText(alias))
-                    + "（" + CleanText(transform);
+                    + open + CleanText(transform);
                 if (group.ValueKind == JsonValueKind.Object
                     && group.TryGetProperty("size", out var size)
                     && size.ValueKind == JsonValueKind.Number
@@ -383,22 +410,22 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                 {
                     if (string.Equals(transform, "numberBucket", StringComparison.OrdinalIgnoreCase))
                     {
-                        label += "，桶宽 ";
+                        label += Localizer.Get("trust.footer.bucket.width", culture);
                     }
                     else if (string.Equals(transform, "prefix", StringComparison.OrdinalIgnoreCase))
                     {
-                        label += "，前 ";
+                        label += Localizer.Get("trust.footer.prefix", culture);
                     }
                     if (string.Equals(transform, "numberBucket", StringComparison.OrdinalIgnoreCase)
                         || string.Equals(transform, "prefix", StringComparison.OrdinalIgnoreCase))
                     {
                         label += sizeValue.ToString("G", CultureInfo.InvariantCulture)
                             + (string.Equals(transform, "prefix", StringComparison.OrdinalIgnoreCase)
-                                ? " 字符"
+                                ? Localizer.Get("trust.footer.characters", culture)
                                 : string.Empty);
                     }
                 }
-                result.Add(label + "）");
+                result.Add(label + close);
             }
 
             return result;
@@ -447,7 +474,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             return string.Empty;
         }
 
-        private static string GetFilterOperator(string operation)
+        private static string GetFilterOperator(string operation, CultureInfo culture)
         {
             switch ((operation ?? string.Empty).Trim())
             {
@@ -457,11 +484,11 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                 case "ge": return "≥";
                 case "lt": return "<";
                 case "le": return "≤";
-                case "contains": return " 包含 ";
-                case "startsWith": return " 以…开头 ";
-                case "in": return " 属于 ";
-                case "isEmpty": return " 为空";
-                case "notEmpty": return " 非空";
+                case "contains": return Localizer.Get("trust.footer.operator.contains", culture);
+                case "startsWith": return Localizer.Get("trust.footer.operator.starts_with", culture);
+                case "in": return Localizer.Get("trust.footer.operator.in", culture);
+                case "isEmpty": return Localizer.Get("trust.footer.operator.is_empty", culture);
+                case "notEmpty": return Localizer.Get("trust.footer.operator.not_empty", culture);
                 default: return " " + CleanText(operation) + " ";
             }
         }
@@ -481,6 +508,28 @@ namespace OfficeCopilot.Agent.Runtime.Verification
             }
 
             return value.Substring(0, MaxBasisLength - 1) + "…";
+        }
+
+        private static CultureInfo ResolveCulture(string uiCulture)
+        {
+            if (!string.IsNullOrWhiteSpace(uiCulture))
+            {
+                return SupportedLanguages.ResolveCulture(uiCulture);
+            }
+
+            return CultureInfo.GetCultureInfo(SupportedLanguages.SimplifiedChinese);
+        }
+
+        private static string LabelSeparator(CultureInfo culture)
+        {
+            return culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? string.Empty : " ";
+        }
+
+        private static string WrapStatus(string heading, string detail, CultureInfo culture)
+        {
+            return culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
+                ? heading + "（" + detail + "）"
+                : heading + " (" + detail + ")";
         }
     }
 }

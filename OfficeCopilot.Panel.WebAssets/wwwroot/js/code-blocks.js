@@ -5,6 +5,7 @@ import { postMessage } from './host-bridge.js';
 import { ensureCodeBlockBackupElements } from './markdown.js';
 import { pendingCodeExecutionRequests, pendingOpenInVbaEditorRequests, state } from './state.js';
 import { appendCodeExecutionFailureMessage } from './tool-confirmation.js';
+import { t } from './i18n.js';
 
 export function parseFenceInfo(info) {
     const value = String(info || '').trim();
@@ -39,13 +40,17 @@ export function setCodeExecutionButtonBusy(button, isBusy) {
     button.classList.toggle('is-busy', !!isBusy);
 
     if (isBusy) {
-        button.title = '执行中';
-        button.setAttribute('aria-label', '执行中');
+        button.title = t('Web.code.running');
+        button.setAttribute('aria-label', button.title);
+        button.dataset.l10nTitle = 'Web.code.running';
+        button.dataset.l10nAria = 'Web.code.running';
     }
     else {
-        const originalTitle = button.dataset.originalTitle || '直接运行 VBA';
+        const originalTitle = t(button.dataset.l10nOriginalTitle || 'Web.action.runVba');
         button.title = originalTitle;
         button.setAttribute('aria-label', originalTitle);
+        button.dataset.l10nTitle = button.dataset.l10nOriginalTitle || 'Web.action.runVba';
+        button.dataset.l10nAria = button.dataset.l10nTitle;
     }
 }
 
@@ -225,10 +230,10 @@ export function onCodeBlockCopyButtonClick(button) {
 
     copyTextToClipboard(code)
         .then(function () {
-            flashButtonState(button, 'is-success', '已复制');
+            flashButtonState(button, 'is-success', t('Web.clipboard.copied'));
         })
         .catch(function () {
-            flashButtonState(button, 'is-error', '复制失败');
+            flashButtonState(button, 'is-error', t('Web.clipboard.copyFailed'));
         });
 }
 
@@ -270,11 +275,11 @@ export function handleCodeExecutionResult(data) {
         flashButtonState(
             button,
             success ? 'is-success' : 'is-error',
-            success ? '已运行' : (message || '运行失败'));
+            success ? t('Web.code.ran') : (message || t('Web.code.runFailed')));
     }
 
     if (!success) {
-        appendCodeExecutionFailureMessage(message || '运行失败');
+        appendCodeExecutionFailureMessage(message || t('Web.code.runFailed'));
     }
 }
 
@@ -294,7 +299,7 @@ export function handleOpenInVbaEditorResult(data) {
         flashButtonState(
             button,
             success ? 'is-success' : 'is-error',
-            success ? '已打开' : (message || '打开失败'));
+            success ? t('Web.code.opened') : (message || t('Web.code.openFailed')));
     }
 }
 

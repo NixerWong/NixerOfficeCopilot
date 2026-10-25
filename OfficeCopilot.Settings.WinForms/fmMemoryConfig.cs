@@ -4,6 +4,7 @@ using DevExpress.XtraTab;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Nodes;
 using Markdig;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Memory;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,16 @@ namespace OfficeCopilot.Settings.WinForms
         private MemoryNodeType _currentMemNodeType;
         private string _currentMemNodeId;
         private bool _loadingMemoryTree;
+        private ToolStripMenuItem _deleteFragmentMenuItem;
 
         public fmMemoryConfig()
         {
             InitializeComponent();
             InitializeMemoryTab();
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmMemoryConfig_Disposed;
         }
 
         private void WireEvents()
@@ -70,7 +75,8 @@ namespace OfficeCopilot.Settings.WinForms
             webPreview.Navigate("about:blank");
 
             var ctxMenu = new ContextMenuStrip();
-            ctxMenu.Items.Add("删除片段", Properties.Resources.deletelist_16x16, OnDeleteMemFragment);
+            _deleteFragmentMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Memory.DeleteFragment"), Properties.Resources.deletelist_16x16, OnDeleteMemFragment);
+            ctxMenu.Items.Add(_deleteFragmentMenuItem);
             ctxMenu.Opening += (s, args) =>
             {
                 var node = tlMemFileTree.FocusedNode;
@@ -86,14 +92,43 @@ namespace OfficeCopilot.Settings.WinForms
                     if (hitInfo.Node != null) tlMemFileTree.FocusedNode = hitInfo.Node;
                 }
             };
-            bsiMemInfo.Caption = "记忆管理器";
+            bsiMemInfo.Caption = LocalizationService.Get("Settings.Config.Memory.Manager");
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+            if (IsHandleCreated && !IsDisposed) _ = UpdateMemoryInfoBarAsync();
+        }
+
+        private void fmMemoryConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+            if (_memoryPreviewTimer != null)
+            {
+                _memoryPreviewTimer.Stop();
+                _memoryPreviewTimer.Dispose();
+                _memoryPreviewTimer = null;
+            }
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get("Settings.Config.Memory.Manager");
+            btnSaveMem.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+            xtpMemWebPreview.Text = LocalizationService.Get("Settings.Config.Memory.Preview");
+            xtpMemMarkDown.Text = LocalizationService.Get("Settings.Config.Memory.Markdown");
+            if (_deleteFragmentMenuItem != null)
+                _deleteFragmentMenuItem.Text = LocalizationService.Get("Settings.Config.Memory.DeleteFragment");
+            if (string.IsNullOrWhiteSpace(txtMarkDown.Text) && webPreview != null)
+                UpdateMemoryPreview();
         }
 
         // ========== Load ==========
 
         private async void fmMemoryConfig_Load(object sender, EventArgs e)
         {
-            bsiMemInfo.Caption = "正在加载记忆树...";
+            bsiMemInfo.Caption = LocalizationService.Get("Settings.Config.Memory.Loading");
             await LoadMemoryTreeAsync();
         }
 
@@ -127,7 +162,7 @@ namespace OfficeCopilot.Settings.WinForms
                 catch { }
                 await UpdateMemoryInfoBarAsync();
             }
-            catch (Exception ex) { MessageBox.Show(this, "加载记忆树失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadMemoryTree", ex.Message), LocalizationService.Get("Settings.Config.Memory.Manager"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
             finally { _loadingMemoryTree = false; }
         }
 
@@ -174,7 +209,7 @@ namespace OfficeCopilot.Settings.WinForms
                 UpdateMemoryPreview();
                 await UpdateMemoryInfoBarAsync();
             }
-            catch (Exception ex) { MessageBox.Show(this, "加载记忆内容失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadMemoryContent", ex.Message), LocalizationService.Get("Settings.Config.Memory.Manager"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         // ========== Edit & Save ==========
@@ -198,7 +233,7 @@ namespace OfficeCopilot.Settings.WinForms
                 var markdown = txtMarkDown.Text ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(markdown))
                 {
-                    webPreview.DocumentText = "<html><body style='font-family:Segoe UI,sans-serif;padding:16px;color:#999;'><p>暂无内容</p></body></html>";
+                    webPreview.DocumentText = "<html><body style='font-family:Segoe UI,sans-serif;padding:16px;color:#999;'><p>" + System.Net.WebUtility.HtmlEncode(LocalizationService.Get("Settings.Config.Memory.EmptyPreview")) + "</p></body></html>";
                     return;
                 }
                 var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
@@ -233,7 +268,7 @@ table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8
                 await Task.Run(() => _memoryManager.SaveContentAsync(_currentMemNodeType, _currentMemNodeId, content));
                 await UpdateMemoryInfoBarAsync();
             }
-            catch (Exception ex) { MessageBox.Show(this, "保存失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveMemory", ex.Message), LocalizationService.Get("Settings.Config.Memory.Manager"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private async Task UpdateMemoryInfoBarAsync()
@@ -249,12 +284,13 @@ table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8
                         ? _currentMemNodeId.Substring(6) + ".md" : _currentMemNodeId + ".md",
                     _ => ""
                 };
+                var truncated = stats.EntrypointTruncated ? LocalizationService.Get("Settings.Config.Memory.EntrypointTruncated") : string.Empty;
                 if (!string.IsNullOrEmpty(nodeLabel))
-                    bsiMemInfo.Caption = $"{nodeLabel} | 入口 {stats.EntrypointLineCount}行/{FormatBytes(stats.EntrypointSizeBytes)} | 片段 {stats.FragmentCount}个/{FormatBytes(stats.TotalFragmentsSizeBytes)}{(stats.EntrypointTruncated ? " ⚠入口已截断" : "")}";
+                    bsiMemInfo.Caption = LocalizationService.Format("Settings.Config.Memory.InfoWithNode", nodeLabel, string.Empty, stats.EntrypointLineCount, FormatBytes(stats.EntrypointSizeBytes), stats.FragmentCount, FormatBytes(stats.TotalFragmentsSizeBytes), truncated);
                 else
-                    bsiMemInfo.Caption = $"入口 {stats.EntrypointLineCount}行/{FormatBytes(stats.EntrypointSizeBytes)} | 片段 {stats.FragmentCount}个/{FormatBytes(stats.TotalFragmentsSizeBytes)}{(stats.EntrypointTruncated ? " ⚠入口已截断" : "")}";
+                    bsiMemInfo.Caption = LocalizationService.Format("Settings.Config.Memory.Info", stats.EntrypointLineCount, FormatBytes(stats.EntrypointSizeBytes), stats.FragmentCount, FormatBytes(stats.TotalFragmentsSizeBytes), truncated);
             }
-            catch { bsiMemInfo.Caption = "记忆管理器"; }
+            catch { bsiMemInfo.Caption = LocalizationService.Get("Settings.Config.Memory.Manager"); }
         }
 
         private async void OnDeleteMemFragment(object sender, EventArgs e)
@@ -264,8 +300,8 @@ table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8
                 || (tag.NodeType != MemoryNodeType.Fragment && tag.NodeType != MemoryNodeType.IndexEntry)) return;
             var fragmentId = tag.NodeType == MemoryNodeType.IndexEntry
                 ? (tag.NodeId.StartsWith("index:") ? tag.NodeId.Substring(6) : tag.NodeId) : tag.NodeId;
-            if (string.IsNullOrWhiteSpace(fragmentId)) { MessageBox.Show(this, "无法获取片段 ID。", "删除记忆片段", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            if (MessageBox.Show(this, $"确定要删除片段 \"{fragmentId}.md\" 吗？", "删除记忆片段",
+            if (string.IsNullOrWhiteSpace(fragmentId)) { MessageBox.Show(this, LocalizationService.Get("Settings.Config.Memory.FragmentIdMissing"), LocalizationService.Get("Settings.Config.Memory.DeleteFragment"), MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Memory.ConfirmDeleteFragment", fragmentId + ".md"), LocalizationService.Get("Settings.Config.Memory.DeleteFragment"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             try
             {
@@ -276,7 +312,7 @@ table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8
                 if (tlMemFileTree.Nodes.Count > 0) tlMemFileTree.FocusedNode = tlMemFileTree.Nodes[0];
                 await UpdateMemoryInfoBarAsync();
             }
-            catch (Exception ex) { MessageBox.Show(this, "删除失败：" + ex.Message, "记忆管理器", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.DeleteMemory", ex.Message), LocalizationService.Get("Settings.Config.Memory.Manager"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private static string FormatBytes(long bytes)

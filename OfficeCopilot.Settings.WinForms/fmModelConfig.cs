@@ -3,6 +3,7 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using System;
@@ -20,12 +21,17 @@ namespace OfficeCopilot.Settings.WinForms
         private OfficeCopilotSettings _settings;
         private BindingList<ModelProviderSettings> _models;
         private bool _loadingSettings;
+        private ToolStripMenuItem _editMenuItem;
+        private ToolStripMenuItem _deleteMenuItem;
 
         public fmModelConfig(ISettingsStore settingsStore)
         {
             InitializeComponent();
             _settingsStore = settingsStore ?? new JsonSettingsStore();
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmModelConfig_Disposed;
         }
 
         private void WireEvents()
@@ -44,8 +50,15 @@ namespace OfficeCopilot.Settings.WinForms
             gvModels.CustomColumnDisplayText += gvModels_CustomColumnDisplayText;
 
             var ctxModels = new ContextMenuStrip();
-            ctxModels.Items.Add("编辑", Properties.Resources.loadpagesetup_16x16, (s, ev) => EditFocusedModel());
-            ctxModels.Items.Add("删除", Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteModel_ItemClick(s, null));
+            _editMenuItem = new ToolStripMenuItem(
+                LocalizationService.Get("Settings.Config.Context.Edit"),
+                Properties.Resources.loadpagesetup_16x16,
+                (s, ev) => EditFocusedModel());
+            _deleteMenuItem = new ToolStripMenuItem(
+                LocalizationService.Get("Settings.Config.Context.Delete"),
+                Properties.Resources.deletelist_16x16,
+                (s, ev) => btnDeleteModel_ItemClick(s, null));
+            ctxModels.Items.AddRange(new ToolStripItem[] { _editMenuItem, _deleteMenuItem });
             ctxModels.Opening += (s, ev) => { ev.Cancel = GetFocusedModel() == null; };
             GridContextMenuHelper.AttachToDataRows(gcModels, gvModels, ctxModels);
         }
@@ -54,6 +67,7 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void fmModelConfig_Load(object sender, EventArgs e)
         {
+            ApplyLocalization();
             LoadSettings();
             gvModels.OptionsBehavior.Editable = true;
             gvModels.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -69,9 +83,54 @@ namespace OfficeCopilot.Settings.WinForms
             try { SaveSettings(); }
             catch (Exception ex)
             {
-                if (MessageBox.Show(this, "保存模型配置失败：" + ex.Message + "\n\n是否放弃修改并关闭？", "模型配置",
+                if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveOnCloseFailed", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Settings"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
                     e.Cancel = true;
+            }
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmModelConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            var wasLoadingSettings = _loadingSettings;
+            _loadingSettings = true;
+            try
+            {
+                Text = LocalizationService.Get("Settings.Config.DialogTitle.Model");
+                colId.Caption = LocalizationService.Get("Settings.Config.Models.Id");
+                colName.Caption = LocalizationService.Get("Settings.Config.Models.Name");
+                colProviderKind.Caption = LocalizationService.Get("Settings.Config.Models.ProviderKind");
+                colEndpoint.Caption = LocalizationService.Get("Settings.Config.Models.Endpoint");
+                colApiKey.Caption = LocalizationService.Get("Settings.Config.Models.ApiKey");
+                colModelId.Caption = LocalizationService.Get("Settings.Config.Models.ModelId");
+                colSupportsImageInput.Caption = LocalizationService.Get("Settings.Config.Models.Multimodal");
+                colIsEnabled.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+                btnAddModel.Caption = LocalizationService.Get("Settings.Config.Models.Add");
+                btnEditModel.Caption = LocalizationService.Get("Settings.Config.Models.Edit");
+                btnDeleteModel.Caption = LocalizationService.Get("Settings.Config.Models.Delete");
+                btnExportListToJson.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+                btnImportList.Caption = LocalizationService.Get("Settings.Config.Models.Import");
+                RefreshPreviewButtonCaption();
+
+                if (_editMenuItem != null)
+                {
+                    _editMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+                    _deleteMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Delete");
+                }
+            }
+            finally
+            {
+                _loadingSettings = wasLoadingSettings;
             }
         }
 
@@ -85,7 +144,8 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载配置失败：" + ex.Message, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadSettings", ex.Message),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _settings = OfficeCopilotSettingsFactory.CreateDefault();
             }
             if (_settings.ModelProviders == null) _settings.ModelProviders = new List<ModelProviderSettings>();
@@ -172,8 +232,9 @@ namespace OfficeCopilot.Settings.WinForms
         {
             var current = GetFocusedModel();
             if (current == null) return;
-            if (MessageBox.Show(this, string.Format("确定要删除模型 \"{0}\" 吗？", current.Name),
-                "模型配置", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Models.ConfirmDelete", current.Name),
+                LocalizationService.Get("Settings.Config.DialogTitle.Model"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             var list = _models.ToList();
             list.RemoveAll(m => m != null && m.Id == current.Id);
             if (_settings != null && _settings.DefaultModelProviderId.HasValue &&
@@ -188,25 +249,40 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void btnExportListToJson_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (var dialog = new SaveFileDialog { Title = "导出模型列表", Filter = "JSON 文件|*.json|所有文件|*.*", FileName = "model-providers.json" })
+            using (var dialog = new SaveFileDialog
+            {
+                Title = LocalizationService.Get("Settings.Config.Models.ExportDialogTitle"),
+                Filter = LocalizationService.Get("Settings.Config.FileFilter.Json"),
+                FileName = "model-providers.json"
+            })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
                 try
                 {
                     var json = JsonConvert.SerializeObject(_models.OrderBy(m => m.Id).ToList(), Formatting.Indented);
                     File.WriteAllText(dialog.FileName, json, System.Text.Encoding.UTF8);
-                    MessageBox.Show(this, "导出完成。", "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ExportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) { MessageBox.Show(this, "导出失败：" + ex.Message, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ExportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void btnImportList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (var dialog = new OpenFileDialog { Title = "导入模型定义", Filter = "JSON 文件|*.json|所有文件|*.*" })
+            using (var dialog = new OpenFileDialog
+            {
+                Title = LocalizationService.Get("Settings.Config.Models.ImportDialogTitle"),
+                Filter = LocalizationService.Get("Settings.Config.FileFilter.Json")
+            })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
-                if (MessageBox.Show(this, "导入将覆盖当前模型列表，是否继续？", "模型配置",
+                if (MessageBox.Show(this, LocalizationService.Get("Settings.Config.Models.ConfirmImport"),
+                    LocalizationService.Get("Settings.Config.DialogTitle.Model"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
                 try
                 {
@@ -218,9 +294,14 @@ namespace OfficeCopilot.Settings.WinForms
                     RebindModels(imported);
                     SaveSettings();
                     gvModels.RefreshData();
-                    MessageBox.Show(this, "导入完成。", "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ImportComplete"),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) { MessageBox.Show(this, "导入失败：" + ex.Message, "模型配置", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ImportFailed", ex.Message),
+                        LocalizationService.Get("Settings.Config.DialogTitle.Model"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -234,7 +315,10 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void RefreshPreviewButtonCaption()
         {
-            btnShowPreview.Caption = gvModels.OptionsView.ShowPreview ? "隐藏提示词预览" : "显示提示词预览";
+            btnShowPreview.Caption = LocalizationService.Get(
+                gvModels.OptionsView.ShowPreview
+                    ? "Settings.Config.Models.HidePromptPreview"
+                    : "Settings.Config.Models.ShowPromptPreview");
         }
 
         // ========== Display ==========
@@ -246,7 +330,11 @@ namespace OfficeCopilot.Settings.WinForms
             if (string.IsNullOrWhiteSpace(fn)) return;
             if (fn == "IsEnabled" || fn == "SupportsImageInput" || fn == "SupportsFunctionCalling" || fn == "SupportsDeepThinking")
             {
-                if (TryConvertToBoolean(e.Value, out bool bv)) e.DisplayText = bv ? "是" : "否";
+                if (TryConvertToBoolean(e.Value, out bool bv))
+                {
+                    e.DisplayText = LocalizationService.Get(
+                        bv ? "Settings.Config.Value.Yes" : "Settings.Config.Value.No");
+                }
             }
             else if (fn == "ProviderKind")
             {

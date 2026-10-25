@@ -3,6 +3,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using OfficeCopilot.Agent.Abstractions;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using System;
@@ -29,6 +30,7 @@ namespace OfficeCopilot.Settings.WinForms
         private RepositoryItemCheckEdit _toolRegistrationEditor;
         private RepositoryItemCheckEdit _toolAuthorizationEditor;
         private RepositoryItemButtonEdit _toolTestButtonEditor;
+        private ToolStripMenuItem _editMenuItem;
         private bool _loadingSettings;
 
         public fmBuiltinToolConfig(
@@ -45,6 +47,9 @@ namespace OfficeCopilot.Settings.WinForms
             _builtinToolStore = new BuiltinToolSettingsStore();
             InitializeToolViews();
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmBuiltinToolConfig_Disposed;
         }
 
         private void WireEvents()
@@ -98,9 +103,39 @@ namespace OfficeCopilot.Settings.WinForms
 
             // 右键菜单
             var ctxTools = new ContextMenuStrip();
-            ctxTools.Items.Add("编辑", Properties.Resources.edit_16x16, (s, ev) => OpenToolEditor(false));
+            _editMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Edit"), Properties.Resources.edit_16x16, (s, ev) => OpenToolEditor(false));
+            ctxTools.Items.Add(_editMenuItem);
             ctxTools.Opening += (s, ev) => { ev.Cancel = GetFocusedTool() == null; };
             GridContextMenuHelper.AttachToDataRows(gcTools, gvTools, ctxTools);
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmBuiltinToolConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get("Settings.Config.Tab.Tools");
+            colToolsGroupName.Caption = LocalizationService.Get("Settings.Config.Tools.Group");
+            colToolsGroupEnable.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+            colToolName.Caption = LocalizationService.Get("Settings.Config.Tools.Name");
+            colDescription.Caption = LocalizationService.Get("Settings.Config.Tools.Description");
+            colEnableTool.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+            colNeedConfirm.Caption = LocalizationService.Get("Settings.Config.Tools.NoConfirmation");
+            colTestTool.Caption = LocalizationService.Get("Settings.Config.Tools.Details");
+            if (_toolTestButtonEditor != null && _toolTestButtonEditor.Buttons.Count > 0)
+                _toolTestButtonEditor.Buttons[0].Caption = LocalizationService.Get("Settings.Config.Tools.Details");
+            if (_editMenuItem != null) _editMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+
+            if (_toolGroups != null)
+                foreach (var row in _toolGroups) row.DisplayName = GetGroupDisplayName(row.GroupName);
+            gcToolsGroup?.RefreshDataSource();
         }
 
         private static RepositoryItemCheckEdit CreateCheckEdit()
@@ -110,7 +145,7 @@ namespace OfficeCopilot.Settings.WinForms
         {
             var editor = new RepositoryItemButtonEdit { TextEditStyle = TextEditStyles.HideTextEditor };
             editor.Buttons.Clear();
-            editor.Buttons.Add(new EditorButton(ButtonPredefines.Glyph) { Caption = "查看", Kind = ButtonPredefines.Glyph, IsDefaultButton = true });
+            editor.Buttons.Add(new EditorButton(ButtonPredefines.Glyph) { Caption = LocalizationService.Get("Settings.Config.Tools.Details"), Kind = ButtonPredefines.Glyph, IsDefaultButton = true });
             editor.ButtonClick += (s, e) => OpenToolEditor(true);
             return editor;
         }
@@ -128,7 +163,7 @@ namespace OfficeCopilot.Settings.WinForms
             try { SaveSettings(); }
             catch (Exception ex)
             {
-                if (MessageBox.Show(this, "保存工具配置失败：" + ex.Message + "\n\n是否放弃修改并关闭？", "内置工具",
+                if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveOnCloseFailed", ex.Message), LocalizationService.Get("Settings.Config.Tab.Tools"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
                     e.Cancel = true;
             }
@@ -147,7 +182,7 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "加载配置失败：" + ex.Message, "内置工具", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadSettings", ex.Message), LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _settings = OfficeCopilotSettingsFactory.CreateDefault();
             }
             LoadToolSettings();
@@ -323,7 +358,7 @@ namespace OfficeCopilot.Settings.WinForms
                 baseDef = RuntimeBuiltInTools.GetAllDefinitions()
                     .FirstOrDefault(p => p != null && string.Equals(p.Name, tool.ToolName, StringComparison.OrdinalIgnoreCase));
 
-            if (baseDef == null) { MessageBox.Show(this, "未找到当前工具的基础定义。", "内置工具", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+            if (baseDef == null) { MessageBox.Show(this, LocalizationService.Get("Settings.Config.Tools.BaseDefinitionMissing"), LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
             var currentOverride = _settings?.GetToolDefinitionOverride(tool.ToolName);
             using (var form = new fmToolEditor(baseDef, currentOverride, _toolServices, _toolHostApplicationName, openTesterTab))
             {
@@ -341,7 +376,7 @@ namespace OfficeCopilot.Settings.WinForms
                     RebuildToolRegistry();
                     LoadToolSettings();
                 }
-                catch (Exception ex) { MessageBox.Show(this, "保存工具定义失败：" + ex.Message, "内置工具", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveToolDefinition", ex.Message), LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
         }
 
@@ -351,7 +386,7 @@ namespace OfficeCopilot.Settings.WinForms
         {
             if (_loadingSettings) return;
             try { ApplyToolSettings(); RebuildToolRegistry(); }
-            catch (Exception ex) { MessageBox.Show(this, "Save failed: " + ex.Message, "Tools", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveBuiltInTools", ex.Message), LocalizationService.Get("Settings.Config.Tab.Tools"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void SaveSettings()
@@ -404,7 +439,7 @@ namespace OfficeCopilot.Settings.WinForms
             if (string.IsNullOrWhiteSpace(appName) &&
                 (app.ToolRegistrations.Count > 0 || app.ToolGroupRegistrations.Count > 0))
             {
-                throw new InvalidOperationException("未识别宿主应用（Excel/Word/PowerPoint），应用专属工具的设置未能保存。共享工具设置已保存。");
+                throw new InvalidOperationException(LocalizationService.Get("Settings.Config.Tools.UnknownHostSaveWarning"));
             }
 
             // Update in-memory copy
@@ -464,15 +499,39 @@ namespace OfficeCopilot.Settings.WinForms
 
         private static string GetGroupDisplayName(string gn)
         {
-            if (gn.EndsWith(".context", StringComparison.OrdinalIgnoreCase)) return "上下文";
-            if (gn.EndsWith(".read", StringComparison.OrdinalIgnoreCase)) return "读取";
-            if (gn.EndsWith(".write", StringComparison.OrdinalIgnoreCase)) return "写入";
-            if (gn.EndsWith(".advanced", StringComparison.OrdinalIgnoreCase)) return "高级";
-            if (string.Equals(gn, RuntimeToolGroups.Shell, StringComparison.OrdinalIgnoreCase)) return "运行时 - 命令行";
-            if (string.Equals(gn, RuntimeToolGroups.Interaction, StringComparison.OrdinalIgnoreCase)) return "运行时 - 交互";
-            if (string.Equals(gn, RuntimeToolGroups.Planning, StringComparison.OrdinalIgnoreCase)) return "运行时 - 计划与 Agent";
-            if (string.Equals(gn, RuntimeToolGroups.Notification, StringComparison.OrdinalIgnoreCase)) return "运行时 - 通知";
+            var normalized = (gn ?? string.Empty).ToLowerInvariant();
+            var groupKey = GetToolGroupResourceKey(normalized);
+            if (groupKey != null) return LocalizationService.Get(groupKey);
+            if (string.Equals(gn, RuntimeToolGroups.Shell, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeShell");
+            if (string.Equals(gn, RuntimeToolGroups.Interaction, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeInteraction");
+            if (string.Equals(gn, RuntimeToolGroups.Planning, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimePlanning");
+            if (string.Equals(gn, RuntimeToolGroups.Notification, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeNotification");
             return gn;
+        }
+
+        private static string GetToolGroupResourceKey(string groupName)
+        {
+            switch (groupName)
+            {
+                case "excel.context": return "Settings.Config.Tools.Group.ExcelContext";
+                case "excel.read": return "Settings.Config.Tools.Group.ExcelRead";
+                case "excel.write": return "Settings.Config.Tools.Group.ExcelWrite";
+                case "excel.advanced": return "Settings.Config.Tools.Group.ExcelAdvanced";
+                case "excel.file": return "Settings.Config.Tools.Group.ExcelFile";
+                case "word.context": return "Settings.Config.Tools.Group.WordContext";
+                case "word.read": return "Settings.Config.Tools.Group.WordRead";
+                case "word.write": return "Settings.Config.Tools.Group.WordWrite";
+                case "word.navigation": return "Settings.Config.Tools.Group.WordNavigation";
+                case "word.advanced": return "Settings.Config.Tools.Group.WordAdvanced";
+                case "word.file": return "Settings.Config.Tools.Group.WordFile";
+                case "powerpoint.context": return "Settings.Config.Tools.Group.PowerPointContext";
+                case "powerpoint.read": return "Settings.Config.Tools.Group.PowerPointRead";
+                case "powerpoint.backup": return "Settings.Config.Tools.Group.PowerPointBackup";
+                case "powerpoint.style": return "Settings.Config.Tools.Group.PowerPointStyle";
+                case "powerpoint.deck": return "Settings.Config.Tools.Group.PowerPointDeck";
+                case "powerpoint.file": return "Settings.Config.Tools.Group.PowerPointFile";
+                default: return null;
+            }
         }
 
         private static bool IsDoubleClickOnRowCell(object sender)
@@ -499,7 +558,7 @@ namespace OfficeCopilot.Settings.WinForms
             public string Description { get; set; } = string.Empty;
             public bool IsRegistered { get; set; } = true;
             public bool IsAutomaticAuthorization { get; set; }
-            public string TestActionText => "查看";
+            public string TestActionText => LocalizationService.Get("Settings.Config.Tools.Details");
         }
     }
 }

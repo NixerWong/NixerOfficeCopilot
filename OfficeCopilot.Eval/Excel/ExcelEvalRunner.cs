@@ -156,8 +156,8 @@ namespace OfficeCopilot.Eval.Excel
             RegexOptions.Compiled);
 
         private static readonly Regex _trustTierPattern = new Regex(
-            @"校验\s*[:：]\s*(?:(?<tier>[ABC])(?:级)?(?![A-Za-z])|(?<phrase>全量独立复核通过|已复核，仍有局限|尚未完成有效验证))",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            @"(?:校验|Verification)\s*[:：]\s*(?:(?:Tier\s*)?(?<tier>[ABC])(?:级|[ -]?Tier)?(?![A-Za-z])|(?<phrase>全量独立复核通过|已复核，仍有局限|尚未完成有效验证|full independent verification passed|reviewed with limitations|not fully verified))",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
         private static readonly JavaScriptSerializer _serializer =
             ExcelEvalTaskSetLoader.CreateSerializer();
@@ -737,6 +737,12 @@ namespace OfficeCopilot.Eval.Excel
 
         private static string ExtractTrustTier(string answer)
         {
+            string structuredTier;
+            if (TryExtractStructuredTrustTier(answer, out structuredTier))
+            {
+                return structuredTier;
+            }
+
             var tierMatch = _trustTierPattern.Match(answer ?? string.Empty);
             if (!tierMatch.Success)
             {
@@ -752,14 +758,86 @@ namespace OfficeCopilot.Eval.Excel
             switch (tierMatch.Groups["phrase"].Value)
             {
                 case "全量独立复核通过":
+                case "full independent verification passed":
                     return "A";
                 case "已复核，仍有局限":
+                case "reviewed with limitations":
                     return "B";
                 case "尚未完成有效验证":
+                case "not fully verified":
                     return "C";
                 default:
                     return string.Empty;
             }
+        }
+
+        private static bool TryExtractStructuredTrustTier(string answer, out string tier)
+        {
+            tier = string.Empty;
+            if (string.IsNullOrWhiteSpace(answer))
+            {
+                return false;
+            }
+
+            object root;
+            try
+            {
+                root = _serializer.DeserializeObject(answer);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+
+            return TryFindStructuredTier(root, out tier);
+        }
+
+        private static bool TryFindStructuredTier(object value, out string tier)
+        {
+            tier = string.Empty;
+            var dictionary = value as IDictionary<string, object>;
+            if (dictionary != null)
+            {
+                foreach (var candidate in dictionary)
+                {
+                    if (string.Equals(candidate.Key, "trustTier", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(candidate.Key, "grade", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(candidate.Key, "tier", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var normalized = Convert.ToString(candidate.Value, CultureInfo.InvariantCulture);
+                        if (string.Equals(normalized, "A", StringComparison.OrdinalIgnoreCase)
+                            || string.Equals(normalized, "B", StringComparison.OrdinalIgnoreCase)
+                            || string.Equals(normalized, "C", StringComparison.OrdinalIgnoreCase))
+                        {
+                            tier = normalized.ToUpperInvariant();
+                            return true;
+                        }
+                    }
+
+                    if (TryFindStructuredTier(candidate.Value, out tier))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            var values = value as IEnumerable;
+            if (values != null && !(value is string))
+            {
+                foreach (var item in values)
+                {
+                    if (TryFindStructuredTier(item, out tier))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private static ExcelEvalCheck EvaluateAnswerNumbers(

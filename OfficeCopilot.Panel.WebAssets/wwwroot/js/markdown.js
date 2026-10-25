@@ -1,5 +1,6 @@
 import { isRunnableVbaLanguage, parseFenceInfo } from './code-blocks.js';
 import { chatList, hostCapabilities } from './state.js';
+import { t } from './i18n.js';
 
 export function escapeHtml(value) {
     return String(value || '')
@@ -149,14 +150,14 @@ export function renderCodeBlock(info, code) {
         + '  <div class="code-block-header">'
         + '    <span class="code-block-language">' + escapeHtml(fence.displayLabel) + '</span>'
         + '    <div class="code-block-actions">'
-        + '      <span class="code-block-backup-pending" hidden>备份中...</span>'
-        + '      <button type="button" class="code-block-action-btn view-code-backup-btn" title="查看备份" aria-label="查看备份" data-original-title="查看备份" hidden></button>'
-        + '      <button type="button" class="code-block-action-btn copy-code-btn" title="复制代码" aria-label="复制代码" data-original-title="复制代码"></button>'
+        + '      <span class="code-block-backup-pending" data-l10n-text="Web.backup.pending" hidden></span>'
+        + '      <button type="button" class="code-block-action-btn view-code-backup-btn" data-l10n-title="Web.action.viewBackup" data-l10n-aria="Web.action.viewBackup" data-l10n-original-title="Web.action.viewBackup" hidden></button>'
+        + '      <button type="button" class="code-block-action-btn copy-code-btn" data-l10n-title="Web.action.copyCode" data-l10n-aria="Web.action.copyCode" data-l10n-original-title="Web.action.copyCode"></button>'
         + (canOpenInVbaEditor
-            ? '      <button type="button" class="code-block-action-btn open-vba-editor-btn" title="在 VBA 编辑器中打开" aria-label="在 VBA 编辑器中打开" data-original-title="在 VBA 编辑器中打开"></button>'
+            ? '      <button type="button" class="code-block-action-btn open-vba-editor-btn" data-l10n-title="Web.action.openVba" data-l10n-aria="Web.action.openVba" data-l10n-original-title="Web.action.openVba"></button>'
             : '')
         + (canRun
-            ? '      <button type="button" class="code-block-action-btn run-code-btn" title="直接运行 VBA" aria-label="直接运行 VBA" data-original-title="直接运行 VBA"></button>'
+            ? '      <button type="button" class="code-block-action-btn run-code-btn" data-l10n-title="Web.action.runVba" data-l10n-aria="Web.action.runVba" data-l10n-original-title="Web.action.runVba"></button>'
             : '')
         + '    </div>'
         + '  </div>'
@@ -168,9 +169,12 @@ export function createRunCodeButton() {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'code-block-action-btn run-code-btn';
-    button.title = '直接运行 VBA';
-    button.setAttribute('aria-label', '直接运行 VBA');
-    button.dataset.originalTitle = '直接运行 VBA';
+    button.title = t('Web.action.runVba');
+    button.setAttribute('aria-label', button.title);
+    button.dataset.l10nTitle = 'Web.action.runVba';
+    button.dataset.l10nAria = 'Web.action.runVba';
+    button.dataset.l10nOriginalTitle = 'Web.action.runVba';
+    button.dataset.originalTitle = button.title;
     return button;
 }
 
@@ -178,9 +182,12 @@ export function createOpenVbaEditorButton() {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'code-block-action-btn open-vba-editor-btn';
-    button.title = '在 VBA 编辑器中打开';
-    button.setAttribute('aria-label', '在 VBA 编辑器中打开');
-    button.dataset.originalTitle = '在 VBA 编辑器中打开';
+    button.title = t('Web.action.openVba');
+    button.setAttribute('aria-label', button.title);
+    button.dataset.l10nTitle = 'Web.action.openVba';
+    button.dataset.l10nAria = 'Web.action.openVba';
+    button.dataset.l10nOriginalTitle = 'Web.action.openVba';
+    button.dataset.originalTitle = button.title;
     return button;
 }
 
@@ -198,7 +205,8 @@ export function ensureCodeBlockBackupElements(codeBlock) {
     if (!pendingEl) {
         pendingEl = document.createElement('span');
         pendingEl.className = 'code-block-backup-pending';
-        pendingEl.textContent = '备份中...';
+        pendingEl.textContent = t('Web.backup.pending');
+        pendingEl.dataset.l10nText = 'Web.backup.pending';
         pendingEl.hidden = true;
         actions.insertBefore(pendingEl, actions.firstChild);
     }
@@ -208,9 +216,12 @@ export function ensureCodeBlockBackupElements(codeBlock) {
         viewBtn = document.createElement('button');
         viewBtn.type = 'button';
         viewBtn.className = 'code-block-action-btn view-code-backup-btn';
-        viewBtn.title = '查看备份';
-        viewBtn.setAttribute('aria-label', '查看备份');
-        viewBtn.dataset.originalTitle = '查看备份';
+        viewBtn.title = t('Web.action.viewBackup');
+        viewBtn.setAttribute('aria-label', viewBtn.title);
+        viewBtn.dataset.l10nTitle = 'Web.action.viewBackup';
+        viewBtn.dataset.l10nAria = 'Web.action.viewBackup';
+        viewBtn.dataset.l10nOriginalTitle = 'Web.action.viewBackup';
+        viewBtn.dataset.originalTitle = viewBtn.title;
         viewBtn.hidden = true;
         actions.insertBefore(viewBtn, pendingEl.nextSibling);
     }

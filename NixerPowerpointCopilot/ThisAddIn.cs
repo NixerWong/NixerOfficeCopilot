@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Diagnostics.Logging;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
-using Office = Microsoft.Office.Core;
 
 namespace NixerPowerpointCopilot
 {
@@ -15,6 +15,7 @@ namespace NixerPowerpointCopilot
             try
             {
                 StartupTimingLog.Mark("ppt-startup-enter");
+                OfficeCopilot.Settings.WinForms.LocalizationBootstrap.Initialize();
                 OfficeCopilot.Settings.WinForms.HostFormIcon.Initialize(typeof(ThisAddIn).Assembly);
                 OfficeCopilot.Slides.Rendering.DeckPreviewForm.WindowIcon = OfficeCopilot.Settings.WinForms.HostFormIcon.Current;
                 OfficeCopilot.Settings.WinForms.DevExpressSkinBootstrap.Apply();
@@ -30,8 +31,11 @@ namespace NixerPowerpointCopilot
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    "PowerPoint 加载加载项时发生异常：\r\n\r\n" + ex,
-                    "NixerPowerPointCopilot",
+                    LocalizationService.Format(
+                        "Shell.Startup.LoadFailure",
+                        LocalizationService.Get("Shell.Host.PowerPoint"),
+                        ex),
+                    LocalizationService.Get("Shell.Product.PowerPoint"),
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Error);
             }

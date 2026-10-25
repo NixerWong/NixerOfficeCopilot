@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace OfficeCopilot.Agent.Client
 {
     public sealed class AgentBrokerEvent
@@ -15,6 +18,8 @@ namespace OfficeCopilot.Agent.Client
             BackupPath = string.Empty;
             ExpectedWriteEffect = string.Empty;
             ActualWriteEffect = string.Empty;
+            ToolDisplayName = string.Empty;
+            ErrorParameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         }
 
         public string EventType { get; set; }
@@ -31,11 +36,15 @@ namespace OfficeCopilot.Agent.Client
 
         public string ToolName { get; set; }
 
+        public string ToolDisplayName { get; set; }
+
         public bool Success { get; set; }
 
         public string ErrorCode { get; set; }
 
         public string ErrorMessage { get; set; }
+
+        public IDictionary<string, string> ErrorParameters { get; set; }
 
         public bool RequiresBackup { get; set; }
 

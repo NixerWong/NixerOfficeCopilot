@@ -7,10 +7,11 @@ import { renderMarkdown } from './markdown.js';
 import { createAssistantRole } from './scroll.js';
 import { state } from './state.js';
 import { getToolCallListElement } from './tool-calls.js';
+import { t } from './i18n.js';
 
 export function createTypingIndicator() {
     return ''
-        + '<div class="typing-indicator" aria-label="Nixer Copilot 正在应答" title="Nixer Copilot 正在应答">'
+        + '<div class="typing-indicator" data-l10n-aria="Web.code.typing" data-l10n-title="Web.code.typing">'
         + '  <span></span>'
         + '  <span></span>'
         + '  <span></span>'
@@ -240,11 +241,12 @@ export function createMessageElement(message) {
             + '  <div class="assistant-stream"></div>'
             + '</div>'
             + '<div class="message-toolbar">'
-            + '  <button type="button" class="message-icon-btn copy-message-btn" title="复制" aria-label="复制"></button>'
+            + '  <button type="button" class="message-icon-btn copy-message-btn" data-l10n-title="Web.action.copy" data-l10n-aria="Web.action.copy"></button>'
             + '</div>';
 
         const copyBtn = wrapper.querySelector('.copy-message-btn');
-        copyBtn.dataset.originalTitle = '复制';
+        copyBtn.dataset.originalTitle = t('Web.action.copy');
+        copyBtn.dataset.l10nOriginalTitle = 'Web.action.copy';
         copyBtn.addEventListener('click', function () {
             onCopyButtonClick(copyBtn, getMessageContent(wrapper));
         });
@@ -276,23 +278,25 @@ export function createMessageElement(message) {
     }
     else {
         wrapper.innerHTML = ''
-            + '<div class="chat-role">你</div>'
+            + '<div class="chat-role" data-l10n-text="Web.message.user"></div>'
             + '<div class="chat-text"></div>'
             + '<div class="message-toolbar">'
-            + '  <button type="button" class="message-icon-btn copy-message-btn" title="复制" aria-label="复制"></button>'
-            + '  <button type="button" class="message-icon-btn retry-message-btn" title="重试" aria-label="重试"></button>'
+            + '  <button type="button" class="message-icon-btn copy-message-btn" data-l10n-title="Web.action.copy" data-l10n-aria="Web.action.copy"></button>'
+            + '  <button type="button" class="message-icon-btn retry-message-btn" data-l10n-title="Web.action.retry" data-l10n-aria="Web.action.retry"></button>'
             + '</div>';
 
         wrapper.querySelector('.chat-text').textContent = message.content || '';
 
         const copyBtn = wrapper.querySelector('.copy-message-btn');
-        copyBtn.dataset.originalTitle = '复制';
+        copyBtn.dataset.originalTitle = t('Web.action.copy');
+        copyBtn.dataset.l10nOriginalTitle = 'Web.action.copy';
         copyBtn.addEventListener('click', function () {
             onCopyButtonClick(copyBtn, getMessageContent(wrapper));
         });
 
         const retryBtn = wrapper.querySelector('.retry-message-btn');
-        retryBtn.dataset.originalTitle = '重试';
+        retryBtn.dataset.originalTitle = t('Web.action.retry');
+        retryBtn.dataset.l10nOriginalTitle = 'Web.action.retry';
         retryBtn.addEventListener('click', function () {
             if (!state.busy) {
                 postMessage({

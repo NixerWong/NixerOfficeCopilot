@@ -30,8 +30,12 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         /// <summary>发出 tool_call.started 事件，携带备份路径等信息供 Panel 显示备份图标。</summary>
         Task EmitToolCallStartedAsync(string toolCallId, string toolName, string argumentsJson, bool requiresBackup, string backupPath, CancellationToken cancellationToken);
 
+        Task EmitToolCallStartedAsync(string toolCallId, string toolName, string toolDisplayName, string argumentsJson, bool requiresBackup, string backupPath, CancellationToken cancellationToken);
+
         /// <summary>发出 tool_call.completed 事件，携带备份路径等信息供 Panel 更新备份图标。</summary>
         Task EmitToolCallCompletedAsync(string toolCallId, string toolName, string text, bool success, bool requiresBackup, string backupPath, string errorCode, string errorMessage, CancellationToken cancellationToken);
+
+        Task EmitToolCallCompletedAsync(string toolCallId, string toolName, string toolDisplayName, string text, bool success, bool requiresBackup, string backupPath, string errorCode, string errorMessage, CancellationToken cancellationToken);
     }
 
     internal interface ITurnRoundReporter

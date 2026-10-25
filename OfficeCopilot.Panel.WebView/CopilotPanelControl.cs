@@ -17,6 +17,7 @@ using OfficeCopilot.Panel.WebView.Models;
 using OfficeCopilot.Panel.WebView.Presentation;
 using OfficeCopilot.Panel.WebView.Services;
 using OfficeCopilot.Panel.WebView.Services.References;
+using OfficeCopilot.Localization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,11 @@ namespace OfficeCopilot.Panel.WebView
 {
     public partial class CopilotPanelControl : UserControl
     {
-        private const string UserCanceledNotice = "已停止生成。";
+        private static string UserCanceledNotice
+        {
+            get { return LocalizationService.Get("Panel.Status.GenerationStopped"); }
+        }
+        private static readonly IUserTextLocalizer UserTextLocalizer = new UserTextLocalizer();
 
         public IAgentBrokerClient BrokerClient { get; set; }
 
@@ -55,6 +60,9 @@ namespace OfficeCopilot.Panel.WebView
         private bool _isSending;
         private bool _cancelRequestedByUser;
         private bool _loaded;
+        private string _activePlaceholderTitleKey;
+        private string _activePlaceholderMessageKey;
+        private Exception _lastPlaceholderException;
 
         private List<ChatSessionState> _sessions;
         private ChatSessionState _currentSession;
@@ -126,6 +134,9 @@ namespace OfficeCopilot.Panel.WebView
 
             InitializePlaceholderOverlay();
             WireEvents();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += CopilotPanelControl_Disposed;
+            ApplyPanelLocalization();
             LoadSessions();
             RefreshRuntimeSettings();
             StartupTimingLog.Mark("panel-init-done");
@@ -193,6 +204,7 @@ namespace OfficeCopilot.Panel.WebView
         {
             StartupTimingLog.Mark("panel-load-begin");
             _loaded = true;
+            ApplyPanelLocalization();
             RefreshRuntimeSettings();
             AdjustSplitterForDpi();
             var webViewReady = EnsureWebViewReadyAsync();
@@ -317,7 +329,7 @@ namespace OfficeCopilot.Panel.WebView
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "发送消息时发生未处理异常。");
-                MessageBox.Show("发送异常：" + ex.Message);
+                MessageBox.Show(LocalizationService.Format("Web.panel.sendException", ex.Message));
             }
             finally
             {
@@ -414,7 +426,7 @@ namespace OfficeCopilot.Panel.WebView
             btnAgentType.Down = mode == InteractiveMode.Agent;
             btnAsk.Down = mode == InteractiveMode.Ask;
 
-            menuInteractiveMode.Caption = mode == InteractiveMode.Agent ? "Agent" : "Ask";
+            menuInteractiveMode.Caption = LocalizationService.Get(mode == InteractiveMode.Agent ? "Web.panel.agent" : "Web.panel.ask");
         }
 
         private async Task EnsureWebViewReadyAsync()
@@ -438,6 +450,7 @@ namespace OfficeCopilot.Panel.WebView
                 {
                     case "ready":
                         _webBridge.IsClientReady = true;
+                        PostLocaleToWeb();
                         PushHostCapabilitiesToWeb();
                         PushAssistantAvatarToWeb();
                         PushCurrentSessionToWeb();
@@ -498,11 +511,106 @@ namespace OfficeCopilot.Panel.WebView
                             $"[CopilotPanelControl] JS received: type='{payload.Value<string>("msgType")}', requestId='{payload.Value<string>("requestId")}'");
                         break;
                 }
+
             }
             catch
             {
                 // 忽略前端非关键消息
             }
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            if (InvokeRequired)
+            {
+                if (IsHandleCreated)
+                {
+                    BeginInvoke(new Action(ApplyPanelLocalization));
+                }
+
+                return;
+            }
+
+            ApplyPanelLocalization();
+        }
+
+        private void CopilotPanelControl_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyPanelLocalization()
+        {
+            var get = new Func<string, string>(LocalizationService.Get);
+            topBar.Text = get("Web.panel.toolbar");
+            listHistoryChat.Caption = get("Web.panel.history");
+            btnNewChat.Caption = get("Web.panel.newSession");
+            btnDelChat.Caption = get("Web.panel.deleteSession");
+            btnSelectFiles.Caption = get("Web.panel.files");
+            btnAgentType.Caption = get("Web.panel.agent");
+            btnAsk.Caption = get("Web.panel.ask");
+            menuMruRefs.Caption = get("Web.panel.recent");
+            menuRefLinks.Caption = get("Web.panel.references");
+            beiInputWebUrl.Caption = get("Web.panel.url");
+            btnSend.Caption = get(_isSending ? "Web.panel.stop" : "Web.panel.send");
+            btnSend.Hint = get(_isSending ? "Web.panel.stop" : "Web.panel.send");
+            menuInteractiveMode.Caption = get(_interactiveMode == InteractiveMode.Agent ? "Web.panel.agent" : "Web.panel.ask");
+            if (!_modelMenu.HasModels)
+            {
+                menuModels.Caption = get("Web.panel.noModel");
+            }
+
+            _modelMenu.RefreshLocalizedLabels();
+            if (_webViewPlaceholderPanel != null && _webViewPlaceholderPanel.Visible)
+            {
+                if (!string.IsNullOrEmpty(_activePlaceholderTitleKey))
+                {
+                    _webViewPlaceholderTitleLabel.Text = get(_activePlaceholderTitleKey);
+                }
+
+                if (!string.IsNullOrEmpty(_activePlaceholderMessageKey))
+                {
+                    _webViewPlaceholderMessageLabel.Text = get(_activePlaceholderMessageKey);
+                }
+                else if (_lastPlaceholderException != null
+                    && _activePlaceholderTitleKey == "Web.panel.loadFailed")
+                {
+                    _webViewPlaceholderMessageLabel.Text = BuildInitializationErrorMessage(_lastPlaceholderException);
+                }
+            }
+            if (_lastContextPercent.HasValue)
+            {
+                UpdateContextUsageTooltip(_lastContextPercent, _lastContextTokens, _lastContextWindow);
+            }
+            foreach (var group in _recentReferenceGroups)
+            {
+                group.Caption = BuildRecentReferenceGroupCaption(group.References);
+            }
+
+            RefreshRecentReferenceMenu();
+            RefreshSelectedReferenceDisplay();
+            CompleteAttachmentPreparationProgress(_attachmentPreparationReferences, _attachmentPreparationPlan);
+            PostLocaleToWeb();
+        }
+
+        private void PostLocaleToWeb()
+        {
+            if (!_webBridge.CanPost)
+            {
+                return;
+            }
+
+            PostToWeb(new
+            {
+                type = "locale",
+                locale = LocalizationService.Preference,
+                messages = LocalizationService.GetAll("Web.")
+            });
         }
 
         private async Task RetryMessageAsync(string messageId)
@@ -543,7 +651,7 @@ namespace OfficeCopilot.Panel.WebView
                     type = "executionModePreferenceCleared",
                     success = false,
                     wasCleared = false,
-                    message = "当前任务仍在执行，请完成后再清除默认值。"
+                    message = LocalizationService.Get("Panel.Status.ClearExecutionModePreferenceBusy")
                 });
                 return;
             }
@@ -556,7 +664,7 @@ namespace OfficeCopilot.Panel.WebView
                     type = "executionModePreferenceCleared",
                     success = false,
                     wasCleared = false,
-                    message = "当前没有可操作的会话。"
+                    message = LocalizationService.Get("Panel.Status.NoSessionForClearExecutionModePreference")
                 });
                 return;
             }
@@ -577,7 +685,7 @@ namespace OfficeCopilot.Panel.WebView
                     success = result != null && result.Success,
                     wasCleared = result != null && result.WasCleared,
                     message = result == null
-                        ? "Broker 未返回清除结果。"
+                        ? LocalizationService.Get("Panel.Error.BrokerNoResult")
                         : (result.ErrorMessage ?? string.Empty)
                 });
             }
@@ -589,7 +697,7 @@ namespace OfficeCopilot.Panel.WebView
                     type = "executionModePreferenceCleared",
                     success = false,
                     wasCleared = false,
-                    message = "清除失败：" + ex.Message
+                    message = LocalizationService.Format("Panel.Status.ClearFailed", ex.Message)
                 });
             }
         }
@@ -610,7 +718,12 @@ namespace OfficeCopilot.Panel.WebView
             var model = GetSelectedModel();
             if (model == null)
             {
-                MessageBox.Show(this, "请先设置并选择模型。", "发送失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    this,
+                    LocalizationService.Get("Web.panel.modelRequired"),
+                    LocalizationService.Get("Web.panel.sendFailed"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
@@ -1326,7 +1439,9 @@ namespace OfficeCopilot.Panel.WebView
                     toolCalls = (m.ToolCalls ?? new List<ChatToolCallState>()).Select(t => new
                     {
                         toolCallId = t.ToolCallId,
-                        toolName = t.ToolName,
+                        toolName = string.IsNullOrWhiteSpace(t.DisplayName)
+                            ? UserTextLocalizer.GetToolDisplayName(t.ToolName, t.ToolName, LocalizationService.Culture)
+                            : t.DisplayName,
                         success = t.Success,
                         status = t.Status,
                         content = t.Content,
@@ -1629,23 +1744,23 @@ namespace OfficeCopilot.Panel.WebView
 
             if (snapshot == null)
             {
-                items.Add("当前未获取到有效宿主上下文");
+                items.Add(LocalizationService.Get("Web.info.noHostContext"));
                 return items;
             }
 
             if (!string.IsNullOrWhiteSpace(snapshot.DocumentName))
             {
-                items.Add("当前活动工作簿：" + snapshot.DocumentName.Trim());
+                items.Add(LocalizationService.Format("Web.info.activeDocument", snapshot.DocumentName.Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(snapshot.WorksheetName))
             {
-                items.Add("当前工作表：" + snapshot.WorksheetName.Trim());
+                items.Add(LocalizationService.Format("Web.info.worksheet", snapshot.WorksheetName.Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(snapshot.SelectionAddress))
             {
-                items.Add("当前选区：" + snapshot.SelectionAddress.Trim());
+                items.Add(LocalizationService.Format("Web.info.selection", snapshot.SelectionAddress.Trim()));
             }
 
             if (items.Count > 0)
@@ -1659,7 +1774,7 @@ namespace OfficeCopilot.Panel.WebView
                 return items;
             }
 
-            items.Add("当前未获取到有效宿主上下文");
+            items.Add(LocalizationService.Get("Web.info.noHostContext"));
             return items;
         }
 
@@ -1678,9 +1793,9 @@ namespace OfficeCopilot.Panel.WebView
                 return items;
             }
 
-            items.Add("工具：" + definitions.Count + " 个");
-            items.Add("/tools 查看已注册工具");
-            items.Add("/call <toolName> {json} 直接触发");
+            items.Add(LocalizationService.Format("Web.info.toolsCount", definitions.Count));
+            items.Add(LocalizationService.Get("Web.info.toolsHelp"));
+            items.Add(LocalizationService.Get("Web.info.callHelp"));
             return items;
         }
 
@@ -1725,7 +1840,7 @@ namespace OfficeCopilot.Panel.WebView
 
                 if (string.IsNullOrWhiteSpace(detail))
                 {
-                    items.Add("已加载宿主上下文");
+                    items.Add(LocalizationService.Get("Web.info.hostContextLoaded"));
                 }
                 else
                 {
@@ -1737,7 +1852,7 @@ namespace OfficeCopilot.Panel.WebView
 
             if (value.StartsWith("当前未获取到有效宿主上下文", StringComparison.OrdinalIgnoreCase))
             {
-                items.Add("当前未获取到有效宿主上下文");
+                items.Add(LocalizationService.Get("Web.info.noHostContext"));
                 return items;
             }
 
@@ -1750,10 +1865,10 @@ namespace OfficeCopilot.Panel.WebView
                     : string.Empty;
 
                 items.Add(string.IsNullOrWhiteSpace(countText)
-                    ? "工具：已注册"
-                    : "工具：" + countText + " 个");
-                items.Add("/tools 查看已注册工具");
-                items.Add("/call <toolName> {json} 直接触发");
+                    ? LocalizationService.Get("Web.info.toolsRegistered")
+                    : LocalizationService.Format("Web.info.toolsCount", countText));
+                items.Add(LocalizationService.Get("Web.info.toolsHelp"));
+                items.Add(LocalizationService.Get("Web.info.callHelp"));
                 return items;
             }
 
@@ -1808,7 +1923,7 @@ namespace OfficeCopilot.Panel.WebView
         private void UpdateSendButtonAppearance(bool busy)
         {
             btnSend.Caption = string.Empty;
-            btnSend.Hint = busy ? "停止生成" : "发送消息";
+            btnSend.Hint = LocalizationService.Get(busy ? "Web.panel.stop" : "Web.panel.send");
             btnSend.ImageOptions.SvgImage = busy
                 ? Properties.Resources.stop
                 : Properties.Resources.actions_send;
@@ -1844,8 +1959,11 @@ namespace OfficeCopilot.Panel.WebView
             {
                 var pct = Math.Min(100, Math.Max(0, _lastContextPercent.Value));
                 var tip = new DevExpress.Utils.SuperToolTip();
-                tip.Items.Add(new DevExpress.Utils.ToolTipTitleItem { Text = "发送消息" });
-                tip.Items.Add(new DevExpress.Utils.ToolTipItem { Text = $"上下文用量: {pct}%  ({_lastContextTokens.Value:N0} / {_lastContextWindow.Value:N0} tokens)" });
+                tip.Items.Add(new DevExpress.Utils.ToolTipTitleItem { Text = LocalizationService.Get("Web.panel.send") });
+                tip.Items.Add(new DevExpress.Utils.ToolTipItem
+                {
+                    Text = LocalizationService.Format("Web.context.tokens", pct, _lastContextTokens.Value, _lastContextWindow.Value)
+                });
                 btnSend.SuperTip = tip;
             }
             else
@@ -2035,7 +2153,7 @@ namespace OfficeCopilot.Panel.WebView
         {
             if (BrokerClient == null)
             {
-                throw new InvalidOperationException("未配置 Broker 客户端。");
+                throw new InvalidOperationException(LocalizationService.Get("Panel.Error.BrokerClientNotConfigured"));
             }
 
             var request = new AgentBrokerTurnRequest
@@ -2048,8 +2166,11 @@ namespace OfficeCopilot.Panel.WebView
                 InteractiveMode = SelectedInteractiveMode,
                 ModelProviderId = model == null ? (int?)null : model.Id,
                 ModelOptions = CreateBrokerModelOptions(model),
-                SessionId = _currentSession == null ? string.Empty : _currentSession.Id.ToString("D")
+                SessionId = _currentSession == null ? string.Empty : _currentSession.Id.ToString("D"),
+                UiCulture = SupportedLanguages.NormalizePreference(_settings == null ? null : _settings.UiLanguage)
             };
+
+            LocalizationService.SetLanguage(request.UiCulture);
 
             _activeBrokerRequestId = Guid.NewGuid().ToString("N");
             _activeBrokerConversationId = request.ConversationId ?? string.Empty;
@@ -2087,7 +2208,7 @@ namespace OfficeCopilot.Panel.WebView
 
             if (result == null)
             {
-                throw new InvalidOperationException("Broker 未返回结果。");
+                throw new InvalidOperationException(LocalizationService.Get("Panel.Error.BrokerNoResult"));
             }
 
             if (!string.IsNullOrWhiteSpace(result.Content))
@@ -2119,12 +2240,38 @@ namespace OfficeCopilot.Panel.WebView
                 PanelTrace.Write($"[CopilotPanelControl] Broker returned non-success turn: OperationalFailure={isOperationalFailure}, HasVisibleAssistantContent={hasVisibleAssistantContent}, ErrorCode='{result.ErrorCode}', ErrorMessage='{result.ErrorMessage}', FinishReason='{result.FinishReason}'");
                 if (isOperationalFailure)
                 {
-                    throw new InvalidOperationException(string.IsNullOrWhiteSpace(result.ErrorMessage) ? "Broker 执行失败。" : result.ErrorMessage);
+                    var errorMessage = UserTextLocalizer.GetErrorMessage(
+                        result.ErrorCode,
+                        string.IsNullOrWhiteSpace(result.ErrorMessage)
+                            ? LocalizationService.Get("Panel.Error.BrokerExecutionFailed")
+                            : result.ErrorMessage,
+                        LocalizationService.Culture,
+                        GetErrorArguments(result.ErrorParameters));
+                    if (assistantStream != null)
+                    {
+                        assistantStream.ReplaceVisibleContent(errorMessage);
+                    }
+                    throw new InvalidOperationException(errorMessage);
                 }
             }
 
             // Update context usage tooltip
             SafeUiInvoke(() => UpdateContextUsageTooltip(result.ContextUsagePercent, result.ContextUsageTokens, result.ContextWindowSize));
+        }
+
+        private static object[] GetErrorArguments(IDictionary<string, string> parameters)
+        {
+            if (parameters == null || parameters.Count == 0)
+            {
+                return new object[0];
+            }
+
+            var argument = parameters.ContainsKey("details")
+                ? parameters["details"]
+                : parameters.ContainsKey("toolDisplayName")
+                ? parameters["toolDisplayName"]
+                : parameters.ContainsKey("toolName") ? parameters["toolName"] : string.Empty;
+            return new object[] { argument };
         }
 
         /// <summary>
@@ -2336,8 +2483,8 @@ namespace OfficeCopilot.Panel.WebView
             if (cancelResult != null && !cancelResult.Success)
             {
                 PostStatusMessage(string.IsNullOrWhiteSpace(cancelResult.ErrorMessage)
-                    ? "当前回合取消失败。"
-                    : "取消失败：" + cancelResult.ErrorMessage);
+                    ? LocalizationService.Get("Panel.Status.CurrentTurnCancelFailed")
+                    : LocalizationService.Format("Panel.Status.CancelFailed", cancelResult.ErrorMessage));
             }
         }
 
@@ -2490,7 +2637,7 @@ namespace OfficeCopilot.Panel.WebView
             }
         }
 
-        private void RecordToolCallStarted(string assistantMessageId, ApiToolCall toolCall, string backupPath = null)
+        private void RecordToolCallStarted(string assistantMessageId, ApiToolCall toolCall, string backupPath = null, string toolDisplayName = null)
         {
             if (string.IsNullOrWhiteSpace(assistantMessageId) || toolCall == null)
             {
@@ -2513,6 +2660,10 @@ namespace OfficeCopilot.Panel.WebView
             }
 
             var toolName = toolCall.Function == null ? string.Empty : toolCall.Function.Name ?? string.Empty;
+            var displayName = UserTextLocalizer.GetToolDisplayName(
+                toolName,
+                string.IsNullOrWhiteSpace(toolDisplayName) ? toolName : toolDisplayName,
+                LocalizationService.Culture);
             var requiresBackup = ToolRequiresBackup(toolName);
             var sharedBackupPath = string.IsNullOrWhiteSpace(backupPath)
                 ? GetAssistantMessageBackupPath(assistantMessage)
@@ -2524,6 +2675,7 @@ namespace OfficeCopilot.Panel.WebView
             if (existing != null)
             {
                 existing.ToolName = toolName;
+                existing.DisplayName = displayName;
                 existing.Status = "running";
                 existing.StartedAt = DateTime.Now;
                 existing.RequiresBackup = requiresBackup;
@@ -2535,6 +2687,7 @@ namespace OfficeCopilot.Panel.WebView
                 {
                     ToolCallId = toolCall.Id ?? string.Empty,
                     ToolName = toolName,
+                    DisplayName = displayName,
                     Status = "running",
                     StartedAt = DateTime.Now,
                     RequiresBackup = requiresBackup,
@@ -2584,6 +2737,9 @@ namespace OfficeCopilot.Panel.WebView
             var backupPath = GetBackupPath(result);
 
             item.ToolName = result.ToolName ?? string.Empty;
+            item.DisplayName = string.IsNullOrWhiteSpace(result.ToolDisplayName)
+                ? UserTextLocalizer.GetToolDisplayName(item.ToolName, item.ToolName, LocalizationService.Culture)
+                : UserTextLocalizer.GetToolDisplayName(item.ToolName, result.ToolDisplayName, LocalizationService.Culture);
             item.Success = result.Success;
             item.Status = result.Success ? "completed" : "failed";
             item.Content = result.Content ?? string.Empty;
@@ -2600,7 +2756,7 @@ namespace OfficeCopilot.Panel.WebView
             _currentSession.UpdatedAt = DateTime.Now;
         }
 
-        private void PostToolCallStarted(string assistantMessageId, ApiToolCall toolCall, string backupPath = null)
+        private void PostToolCallStarted(string assistantMessageId, ApiToolCall toolCall, string backupPath = null, string toolDisplayName = null)
         {
             if (toolCall == null)
             {
@@ -2615,6 +2771,10 @@ namespace OfficeCopilot.Panel.WebView
                 assistantMessageId = assistantMessageId ?? string.Empty,
                 toolCallId = toolCall.Id ?? string.Empty,
                 toolName = toolName,
+                toolDisplayName = UserTextLocalizer.GetToolDisplayName(
+                    toolName,
+                    string.IsNullOrWhiteSpace(toolDisplayName) ? toolName : toolDisplayName,
+                    LocalizationService.Culture),
                 requiresBackup = ToolRequiresBackup(toolName),
                 backupPath = backupPath ?? string.Empty
             });
@@ -2642,10 +2802,24 @@ namespace OfficeCopilot.Panel.WebView
                 assistantMessageId = assistantMessageId ?? string.Empty,
                 toolCallId = result == null ? string.Empty : result.ToolCallId ?? string.Empty,
                 toolName = result == null ? string.Empty : result.ToolName ?? string.Empty,
+                toolDisplayName = result == null
+                    ? string.Empty
+                    : UserTextLocalizer.GetToolDisplayName(
+                        result.ToolName,
+                        result.ToolDisplayName ?? result.ToolName,
+                        LocalizationService.Culture),
                 success = result != null && result.Success,
                 content = result == null ? string.Empty : result.Content ?? string.Empty,
                 errorCode = result == null ? string.Empty : result.ErrorCode ?? string.Empty,
-                errorMessage = result == null ? string.Empty : result.ErrorMessage ?? string.Empty,
+                errorMessage = result == null
+                    ? string.Empty
+                    : UserTextLocalizer.GetErrorMessage(
+                        result.ErrorCode,
+                        result.ErrorMessage,
+                        LocalizationService.Culture,
+                        result.ErrorCode == "permission.denied_by_user"
+                            ? new object[] { UserTextLocalizer.GetToolDisplayName(result.ToolName, result.ToolName, LocalizationService.Culture) }
+                            : new object[0]),
                 backupPath = result == null ? string.Empty : GetBackupPath(result)
             });
         }
@@ -2837,13 +3011,15 @@ namespace OfficeCopilot.Panel.WebView
 
                 if (!isGenericToolFailure || failedToolLines.Count == 0)
                 {
-                    AppendUniqueParagraph(builder, "错误：" + exceptionMessage);
+                    AppendUniqueParagraph(
+                        builder,
+                        LocalizationService.Format("Panel.Error.ErrorDetails", exceptionMessage));
                 }
             }
 
             var finalText = builder.ToString().Trim();
             return string.IsNullOrWhiteSpace(finalText)
-                ? "错误：请求处理失败。"
+                ? LocalizationService.Get("Panel.Error.GenericRequestFailed")
                 : finalText;
         }
 
@@ -2873,9 +3049,12 @@ namespace OfficeCopilot.Panel.WebView
                         ? toolCall.Content
                         : !string.IsNullOrWhiteSpace(toolCall.ErrorCode)
                             ? toolCall.ErrorCode
-                            : "工具执行失败。";
+                            : LocalizationService.Get("Panel.Error.ToolExecutionFailed");
 
-                lines.Add("[" + (toolCall.ToolName ?? "tool") + "] 执行失败：" + detail.Trim());
+                lines.Add(LocalizationService.Format(
+                    "Panel.Error.ToolFailedLine",
+                    toolCall.ToolName ?? "tool",
+                    detail.Trim()));
             }
 
             return lines;
@@ -3231,8 +3410,8 @@ namespace OfficeCopilot.Panel.WebView
                             }
                         };
 
-                        _owner.RecordToolCallStarted(_assistantMessageId, toolCall, brokerEvent.BackupPath ?? string.Empty);
-                        _owner.PostToolCallStarted(_assistantMessageId, toolCall, brokerEvent.BackupPath ?? string.Empty);
+                        _owner.RecordToolCallStarted(_assistantMessageId, toolCall, brokerEvent.BackupPath ?? string.Empty, brokerEvent.ToolDisplayName);
+                        _owner.PostToolCallStarted(_assistantMessageId, toolCall, brokerEvent.BackupPath ?? string.Empty, brokerEvent.ToolDisplayName);
                         break;
 
                     case AgentBrokerEventTypes.ToolCallCompleted:
@@ -3240,10 +3419,15 @@ namespace OfficeCopilot.Panel.WebView
                         {
                             ToolCallId = brokerEvent.ToolCallId ?? string.Empty,
                             ToolName = brokerEvent.ToolName ?? string.Empty,
+                            ToolDisplayName = brokerEvent.ToolDisplayName ?? string.Empty,
                             Success = brokerEvent.Success,
                             Content = brokerEvent.Text ?? string.Empty,
                             ErrorCode = brokerEvent.ErrorCode ?? string.Empty,
-                            ErrorMessage = brokerEvent.ErrorMessage ?? string.Empty
+                            ErrorMessage = UserTextLocalizer.GetErrorMessage(
+                                brokerEvent.ErrorCode,
+                                brokerEvent.ErrorMessage,
+                                LocalizationService.Culture,
+                                GetErrorArguments(brokerEvent.ErrorParameters))
                         };
 
                         if (!string.IsNullOrWhiteSpace(brokerEvent.BackupPath))
@@ -3302,6 +3486,17 @@ namespace OfficeCopilot.Panel.WebView
 
                     case AgentBrokerEventTypes.Error:
                         _owner._logger?.LogWarning("Broker 返回错误事件。Tool={ToolName} Code={ErrorCode} Message={ErrorMessage}", brokerEvent.ToolName ?? string.Empty, brokerEvent.ErrorCode ?? string.Empty, string.IsNullOrWhiteSpace(brokerEvent.ErrorMessage) ? (brokerEvent.Text ?? string.Empty) : brokerEvent.ErrorMessage);
+                        var errorMessage = UserTextLocalizer.GetErrorMessage(
+                            brokerEvent.ErrorCode,
+                            string.IsNullOrWhiteSpace(brokerEvent.ErrorMessage)
+                                ? brokerEvent.Text
+                                : brokerEvent.ErrorMessage,
+                            LocalizationService.Culture,
+                            GetErrorArguments(brokerEvent.ErrorParameters));
+                        if (!string.IsNullOrWhiteSpace(errorMessage))
+                        {
+                            _owner.PostStatusMessage(errorMessage);
+                        }
                         break;
                 }
 

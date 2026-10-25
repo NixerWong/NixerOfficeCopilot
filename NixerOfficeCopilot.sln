@@ -100,6 +100,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeCopilot.Slides.Render
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeCopilot.Eval", "OfficeCopilot.Eval\OfficeCopilot.Eval.csproj", "{3D171F37-5EB9-440E-AC5D-C6FC83BFC1C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeCopilot.Localization", "OfficeCopilot.Localization\OfficeCopilot.Localization.csproj", "{F7F66934-012D-4E89-A044-119F044149EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -578,6 +580,18 @@ Global
 		{3D171F37-5EB9-440E-AC5D-C6FC83BFC1C7}.Release|x64.Build.0 = Release|Any CPU
 		{3D171F37-5EB9-440E-AC5D-C6FC83BFC1C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{3D171F37-5EB9-440E-AC5D-C6FC83BFC1C7}.Release|x86.Build.0 = Release|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Debug|x64.Build.0 = Debug|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Release|x64.ActiveCfg = Release|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Release|x64.Build.0 = Release|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7F66934-012D-4E89-A044-119F044149EA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -628,6 +642,7 @@ Global
 		{59C60057-DB85-48B8-9E95-4F2E3C98296C} = {DBA8B11C-ACC9-4503-82F4-054E7D148ED8}
 		{721AE9B0-113C-43BC-9AAE-310C30702A35} = {DBA8B11C-ACC9-4503-82F4-054E7D148ED8}
 		{3D171F37-5EB9-440E-AC5D-C6FC83BFC1C7} = {091CB7FB-F862-4BB4-996B-57115FFC8B7D}
+		{F7F66934-012D-4E89-A044-119F044149EA} = {DBA8B11C-ACC9-4503-82F4-054E7D148ED8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54B83EAC-0226-4BCC-8311-B570AA6C6FAC}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Panel.WebView.Services.References
 {
@@ -83,13 +84,13 @@ namespace OfficeCopilot.Panel.WebView.Services.References
 
             return string.Join("|", new[]
             {
-                "支持的文件", BuildPattern(allExtensions),
-                "文本文件", BuildPattern(TextExtensions),
-                "图片文件", BuildPattern(ImageExtensions),
-                "PDF 文件", BuildPattern(PdfExtensions),
-                "Excel 工作簿", BuildPattern(SpreadsheetExtensions),
-                "Word 文档", BuildPattern(WordExtensions),
-                "PowerPoint 演示文稿", BuildPattern(PowerPointExtensions)
+                LocalizationService.Get("Panel.Attachments.Filter.AllSupported"), BuildPattern(allExtensions),
+                LocalizationService.Get("Panel.Attachments.Filter.Text"), BuildPattern(TextExtensions),
+                LocalizationService.Get("Panel.Attachments.Filter.Images"), BuildPattern(ImageExtensions),
+                LocalizationService.Get("Panel.Attachments.Filter.Pdf"), BuildPattern(PdfExtensions),
+                LocalizationService.Get("Panel.Attachments.Filter.Spreadsheet"), BuildPattern(SpreadsheetExtensions),
+                LocalizationService.Get("Panel.Attachments.Filter.Word"), BuildPattern(WordExtensions),
+                LocalizationService.Get("Panel.Attachments.Filter.PowerPoint"), BuildPattern(PowerPointExtensions)
             });
         }
 

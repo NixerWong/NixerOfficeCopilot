@@ -3,6 +3,7 @@ using Microsoft.Web.WebView2.WinForms;
 using Newtonsoft.Json;
 using OfficeCopilot.Agent.Persistence.Jsonl;
 using OfficeCopilot.Panel.WebAssets;
+using OfficeCopilot.Localization;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -75,7 +76,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
             }
 
             _initializing = true;
-            _showPlaceholder("正在加载界面", "WebView2 正在初始化，请稍候...");
+            _showPlaceholder(LocalizationService.Get("Web.panel.loading"), LocalizationService.Get("Web.panel.initializing"));
 
             try
             {
@@ -92,7 +93,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
             }
             catch (Exception ex)
             {
-                _showPlaceholder("界面加载失败", _buildInitializationErrorMessage(ex));
+                _showPlaceholder(LocalizationService.Get("Web.panel.loadFailed"), _buildInitializationErrorMessage(ex));
             }
             finally
             {
@@ -191,12 +192,14 @@ namespace OfficeCopilot.Panel.WebView.Presentation
             var indexPath = Path.Combine(GetWebAssetsRoot(), "index.html");
             if (!File.Exists(indexPath))
             {
-                _showPlaceholder("界面加载失败", "未找到前端页面资源：\r\n\r\n" + indexPath);
+                _showPlaceholder(
+                    LocalizationService.Get("Web.panel.loadFailed"),
+                    LocalizationService.Format("Web.panel.pageMissing", "\r\n", indexPath));
                 return;
             }
 
             IsClientReady = false;
-            _showPlaceholder("正在加载界面", "正在加载本地页面资源，请稍候...");
+            _showPlaceholder(LocalizationService.Get("Web.panel.loading"), LocalizationService.Get("Web.panel.loadingAssets"));
             _webView.CoreWebView2.Navigate("https://" + WebAssetsHostName + "/index.html");
         }
 
@@ -205,7 +208,7 @@ namespace OfficeCopilot.Panel.WebView.Presentation
             var assetsRoot = WebAssetsLocator.EnsureAssetsRoot();
             if (string.IsNullOrWhiteSpace(assetsRoot) || !Directory.Exists(assetsRoot))
             {
-                throw new DirectoryNotFoundException("未找到 Web 资源目录：" + assetsRoot);
+                throw new DirectoryNotFoundException(LocalizationService.Format("Web.panel.webAssetsMissing", assetsRoot));
             }
 
             return assetsRoot;
@@ -220,13 +223,8 @@ namespace OfficeCopilot.Panel.WebView.Presentation
             }
 
             _showPlaceholder(
-                "界面加载失败",
-                "页面资源加载失败。"
-                + "\r\n\r\n状态："
-                + e.WebErrorStatus
-                + "\r\n\r\n页面：https://"
-                + WebAssetsHostName
-                + "/index.html");
+                LocalizationService.Get("Web.panel.loadFailed"),
+                LocalizationService.Format("Web.panel.pageLoadFailed", "\r\n", e.WebErrorStatus, WebAssetsHostName));
         }
 
         /// <summary>
