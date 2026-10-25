@@ -21,6 +21,12 @@
   <data name="Language.Japanese" xml:space="preserve">
     <value>Japanese</value>
   </data>
+  <data name="Language.German" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="Language.Spanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
   <data name="Settings.SysConfig.Text" xml:space="preserve">
     <value>System Config</value>
   </data>

@@ -16,12 +16,20 @@ export function setLocale(data) {
         ? 'zh-Hans'
         : requestedLocale && requestedLocale.indexOf('ja') === 0
             ? 'ja'
-            : 'en';
+            : requestedLocale && requestedLocale.indexOf('de') === 0
+                ? 'de'
+                : requestedLocale && requestedLocale.indexOf('es') === 0
+                    ? 'es'
+                    : 'en';
     document.documentElement.lang = locale === 'zh-Hans'
         ? 'zh-CN'
         : locale === 'ja'
             ? 'ja-JP'
-            : 'en';
+            : locale === 'de'
+                ? 'de-DE'
+                : locale === 'es'
+                    ? 'es-ES'
+                    : 'en';
     document.title = t('Web.panel.documentTitle');
     applyLocalizedAttributes(document);
     if (!localizationObserver && document.body) {

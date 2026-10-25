@@ -1,6 +1,6 @@
 # 多语言（i18n）方案与开发步骤（Blueprint）
 
-> 目标：整个产品（三个 VSTO 加载项 + 设置窗体 + 任务窗格面板 + Broker 用户可见文本）支持 **English / 简体中文 / 日本語** 切换，并为以后增加其他语言（如繁體中文）留好扩展点。入口为 [fmSysConfig](../OfficeCopilot.Settings.WinForms/fmSysConfig.cs) 的 `cbeLanguage` 下拉框。
+> 目标：整个产品（三个 VSTO 加载项 + 设置窗体 + 任务窗格面板 + Broker 用户可见文本）支持 **English / 简体中文 / 日本語 / Deutsch / Español** 切换，并为以后增加其他语言留好扩展点。入口为 [fmSysConfig](../OfficeCopilot.Settings.WinForms/fmSysConfig.cs) 的 `cbeLanguage` 下拉框。
 >
 > 原则：
 > 1. **只有一个语言源**：一份设置 → 一个 `LocalizationService` → 所有 UI 层（WinForms / DevExpress / Ribbon / WebView2 / Broker）。
@@ -10,19 +10,18 @@
 
 ## 实施进度（截至 2026-10-25）
 
-**English、简体中文和日语（`ja`）的本地化资源均已覆盖全部 773 个自有资源键；可选择日语并加载 DevExpress 日语界面。代码与资源已完成日语接入，Office 实机下的日语布局和热切换仍需验收。**
+**现已接入英语、简体中文、日语、德语（`de`）和西班牙语（`es`）。** 德语、西班牙语资源和回答语言策略已加入；DevExpress 官方 `de` / `es` 语言包仍需另行下载并放入安装包 staging，Office 实机界面布局仍待验收。
 
-- 新增 `OfficeCopilot.Localization`（`netstandard2.0`），含 English 中性资源、`zh-Hans` / `ja` 全量资源和显式 Culture 查找；无效或旧的 `auto` 设置归一为 English，`ja-JP` 归一为 `ja`。
+- 新增 `OfficeCopilot.Localization`（`netstandard2.0`），含 English 中性资源及 `zh-Hans` / `ja` / `de` / `es` 卫星资源和显式 Culture 查找；五种资源的键集合及复合格式占位符一致。无效或旧的 `auto` 设置归一为 English，区域代码分别规范为受支持的基础 Culture。
 - 三个 VSTO 加载项启动时读取保存的 `UiLanguage`，设置当前 UI 线程的 `CurrentUICulture`；运行时切换也会立即设置当前 UI 线程，不修改 `CurrentCulture` 或 `DefaultThreadCurrentUICulture`。设置读取遇到 I/O、权限或安全异常时会记录警告并回退 English。
 - 设置模型新增 `UiLanguage`，配置版本为 8；默认值为 English，旧配置和未知值归一为 English。
-- `fmSysConfig.cbeLanguage` 提供 English / 简体中文 / 日本語；保存语言变化后立即刷新当前窗体，不再提示重启。用户已实测 DevExpress 热切换及 Ribbon 即时切换通过；WebView 也会设置 `ja-JP` 文档语言。
-- 自有 `OfficeCopilot.Localization.resources.dll` 已验证自动复制到 Excel / Word / PowerPoint 输出目录的 `zh-Hans` 和 `ja` 子目录。
-- DevExpress Framework 安装目录中的 `de` / `es` / `ja` 各有 79 个卫星程序集；当前应用 staging 中各有 18 个，三种文件集相同，且覆盖当前应用所有有对应 DevExpress 语言资源的程序集。当前 `installer\staging\ja` 已包含这 18 个文件。
-- **按用户澄清，DevExpress 语言包由发布人员在运行 `Stage-Package.ps1` 后手动复制到最终发布目录根目录的对应 Culture 子目录。** 当前 `installer\staging\zh-Hans` 已有 126 个 DevExpress 卫星程序集；脚本每次会重建 staging，因此官方语言包必须在脚本之后复制。脚本会校验自有 `OfficeCopilot.Localization.resources.dll` 已进入 `zh-Hans` 和 `ja`；DevExpress 包的复制与最终发布目录检查沿用现有安装包流程。
-- Phase 3–6 已完成：所有设置窗体（含 Skill PropertyGrid 元数据和示例模板）、校验消息、任务窗格 WinForms/WebView UI、附件筛选器、Broker 错误提示、TrustFooter、工具显示名及模型回答语言策略均已接入 English / 简体中文 / 日语；WinForms 与 WebView UI 订阅语言变化即时刷新，Broker turn 显式接收 UI Culture。
-- 日语资源已补齐全部 773 个键；Excel / Word / PowerPoint 的内置 Ask / Agent 提示词及运行时工作流指令以英文单一版本维护，运行时在最终 system prompt 开头按 UI 语言加入一条对应语种的默认回答语言指令。
+- `fmSysConfig.cbeLanguage` 提供 English / 简体中文 / 日本語 / Deutsch / Español；保存语言变化后立即刷新当前窗体，不再提示重启。WebView 的 `lang` 属性映射为对应区域 Culture。
+- 自有 `OfficeCopilot.Localization.resources.dll` 由构建输出生成；`Stage-Package.ps1` 校验 `zh-Hans`、`ja`、`de` 和 `es` 卫星程序集已进入 staging。
+- **按用户澄清，DevExpress 官方语言包需要下载，并在运行 `Stage-Package.ps1` 后手动复制到最终发布根目录对应的 Culture 子目录。** 脚本每次会重建 staging，因此复制操作必须在脚本之后；发布前需确认 `zh-Hans`、`ja`、`de` 和 `es` 的 DevExpress DLL 均存在。
+- 已有设置窗体、校验消息、任务窗格 WinForms/WebView UI、附件筛选器、Broker 错误提示、TrustFooter、工具显示名及回答语言策略通过共享资源机制本地化；新增语言需完成全量翻译和实际 Office 布局验收。
+- Excel / Word / PowerPoint 的内置 Ask / Agent 提示词及运行时工作流指令以英文单一版本维护，运行时在最终 system prompt 开头按 UI 语言加入对应语种的默认回答语言指令。
 - `HostSystemPromptStore` 会更新带有效 `.seed` 且未修改的旧默认副本；没有匹配 `.seed` 的非空文件或已编辑的提示词按用户自定义内容保留，不会自动覆盖。`fmSysConfig` 中的 Ask / Agent 提示词按钮只会在文件不存在时写入内置默认，然后用记事本打开；当前没有专用提示词编辑器或“恢复默认”按钮。
-- 验证：完整解决方案 Debug 构建成功；完整 MSTest **977 通过 / 4 跳过 / 0 失败**；21 个前端 JS 文件通过 `node --check`；English / 简体中文 / 日语三套资源各有 773 个无重复键，且占位符、标记和 URL 一致。三个宿主的 Debug 输出均生成 `ja\OfficeCopilot.Localization.resources.dll`，并包含 18 个应用所需的 DevExpress 日语卫星程序集。Ribbon 的中英文热切换已由用户手测通过；日语下其他窗体 / 面板布局和三宿主热切换仍需实际 Office 手测。
+- 验证：完整解决方案 Debug 构建成功；完整 MSTest **980 通过 / 4 跳过 / 0 失败**；`i18n.js` 语法检查通过；所有语言资源键和复合格式占位符检查通过。三个 VSTO 宿主及 Broker 的 Debug 输出均生成 `de` / `es` 自有卫星程序集。DevExpress 官方 DLL 下载、staging 复制及 Office 实机布局/热切换验收仍待完成。
 
 ---
 
@@ -40,9 +39,8 @@
 ### 0.2 DevExpress 本地化资源
 
 - DevExpress 26.1.3 通过安装目录 `$(ProgramW6432)\DevExpress 26.1\Components\Bin\Framework` 引用（[Settings.WinForms](../OfficeCopilot.Settings.WinForms/OfficeCopilot.Settings.WinForms.csproj)、[Panel.WebView](../OfficeCopilot.Panel.WebView/OfficeCopilot.Panel.WebView.csproj)、[Slides.Rendering](../OfficeCopilot.Slides.Rendering/OfficeCopilot.Slides.Rendering.csproj)）。
-- 安装目录只自带 `de` / `es` / `ja` 三种卫星程序集，构建时被 MSBuild 自动带进 `bin`；**`zh-Hans` 不在安装目录里**，是从 DevExpress Localization Service 单独下载的语言包。
-- `zh-Hans` 的 DevExpress `*.resources.dll` 目前在 Excel 的 Debug/Release 输出中；Word / PowerPoint 的独立 `bin` 中没有。按发布布局，这不是缺陷：用户确认运行时需要的是**最终发布根目录**下的 `zh-Hans` 文件夹。
-- [Stage-Package.ps1](../installer/Stage-Package.ps1) 合并四个宿主输出目录并保留相对目录，检查自有 `zh-Hans` 卫星程序集；官方 DevExpress 语言包由发布流程在 staging 完成后手动复制。
+- 自有应用的资源程序集由 MSBuild 为 `zh-Hans` / `ja` / `de` / `es` 生成。**DevExpress 官方 `de` / `es` 语言包需另行下载**；不要假定本机 DevExpress 安装或历史 staging 中已包含可发布的对应文件。
+- [Stage-Package.ps1](../installer/Stage-Package.ps1) 合并四个宿主输出目录并保留相对目录，检查自有 `zh-Hans` / `ja` / `de` / `es` 卫星程序集；官方 DevExpress 语言包由发布流程在 staging 完成后手动复制。
 - 不需要自定义 `XtraLocalizer` / `QueryLocalizedString` 翻译层；DevExpress 提供的语言包目录负责内置控件文字。用户已确认控件会在语言切换后热更新。
 
 ### 0.3 硬编码中文规模（字符串字面量，排除测试 / Eval / 注释）
@@ -76,10 +74,10 @@
 
 | 项 | 行为 |
 |---|---|
-| 可选语言 | `English` / `简体中文`；列表由 `SupportedLanguages` 注册表生成，新增语言不改 UI 代码 |
-| 下拉显示 | 每种语言用**其自身语言**显示（English、简体中文、日本語），与当前 UI 语言无关，避免用户切错后看不懂 |
-| 存储 | `OfficeCopilotSettings.UiLanguage`，取值 `"en"` / `"zh-Hans"`（BCP-47，与 DevExpress 卫星目录名一致）；旧值 `"auto"` 迁移为 `"en"` |
-| 默认/异常值 | English；仅接受已注册的语言代码，`zh-CN` / `zh-SG` 规范化为 `zh-Hans` |
+| 可选语言 | `English` / `简体中文` / `日本語` / `Deutsch` / `Español`；列表由 `SupportedLanguages` 注册表生成 |
+| 下拉显示 | 每种语言用**其自身语言**显示，与当前 UI 语言无关，避免用户切错后看不懂 |
+| 存储 | `OfficeCopilotSettings.UiLanguage`，取值 `"en"` / `"zh-Hans"` / `"ja"` / `"de"` / `"es"`；区域代码规范为对应的受支持 Culture |
+| 默认/异常值 | English；仅接受已注册的语言代码，未知值回退 English |
 | 回退链 | 缺失翻译的 key 回退到中性资源（English），绝不显示 key 名或空串 |
 | 生效时机 | 当前宿主内立即设置 UI Culture；DevExpress 已由用户验证可热切换。其他自有 UI 随后逐步接入 `LanguageChanged` |
 | 不变的部分 | `CurrentCulture`（数字/日期格式）、会话历史内容、用户写的提示词与 Skill；模型默认按 UI 语言回答，用户明确指定其他回答语言时从其指定（见 §4.9） |
@@ -120,7 +118,7 @@
 VSTO 先调用 `CreateRibbonExtensibilityObject` 再触发 `ThisAddIn_Startup`；Ribbon Designer 的 `InitializeComponent` 会写入中文 Label。所以：
 
 - Ribbon 可能先于 `ThisAddIn_Startup` 创建；当前启动引导在 `ThisAddIn_Startup` 应用已保存语言。若将来 Ribbon 在创建阶段就需要本地化资源，需把初始化前移并保持幂等。
-- 语言设置在 `ThisAddIn_Startup` 读取并应用；当前支持显式 English / 简体中文 / 日本語，不依赖 Office UI 语言探测。
+- 语言设置在 `ThisAddIn_Startup` 读取并应用；支持显式 English / 简体中文 / 日本語 / Deutsch / Español，不依赖 Office UI 语言探测。
 - Ribbon 在 `Load` 事件里调用 `ApplyLocalization()` 覆盖 Designer 的 Label；运行时修改 `RibbonButton.Label` 会自动刷新，天然支持即时切换。
 
 ### 3.3 多进程
@@ -168,12 +166,13 @@ graph TB
 
 | 类型 | 职责 |
 |---|---|
-| `SupportedLanguages` | 语言注册表：`Code`（`en` / `zh-Hans` / `ja`）、`NativeName`（English / 简体中文 / 日本語）、`Culture`。新增语言只改这里 + 加 resx |
-| `SupportedLanguages` | 显式语言代码注册表；处理 `zh-CN` / `zh-SG`→`zh-Hans`、未知及旧值→`en` |
+| `SupportedLanguages` | 语言注册表：`en` / `zh-Hans` / `ja` / `de` / `es`，含区域代码规范化 |
 | `LocalizationService`（静态门面 `L`） | `CurrentLanguage`、`Culture`、`Get(key)`、`Format(key, args)`、`GetForCulture(key, culture)`（Broker 用）、`event LanguageChanged`、`GetAll(prefix)`（给前端导出子集） |
 | `Resources\Strings.resx` | 中性资源 = **English**，`PublicResXFileCodeGenerator` 生成强类型 `Strings.Settings_SysConfig_grpLanguage_Text` 等属性 |
 | `Resources\Strings.zh-Hans.resx` | 简体中文 → 输出 `zh-Hans\OfficeCopilot.Localization.resources.dll` |
 | `Resources\Strings.ja.resx` | 日本語 → 输出 `ja\OfficeCopilot.Localization.resources.dll` |
+| `Resources\Strings.de.resx` | Deutsch → 输出 `de\OfficeCopilot.Localization.resources.dll` |
+| `Resources\Strings.es.resx` | Español → 输出 `es\OfficeCopilot.Localization.resources.dll` |
 | `[assembly: NeutralResourcesLanguage("en")]` | 中性资源即英文，避免英文环境下多一次卫星探测 |
 
 > 为什么集中到一个工程而不是每个工程各自一份 resx：
@@ -250,8 +249,8 @@ public partial class fmSysConfig : HostAwareForm, ILocalizable
 
 1. DevExpress 语言包由用户从官方 Localization Service 下载；不把第三方卫星程序集逐个复制到各个 VSTO 工程的中间输出。
 2. 发布人员在运行 [Stage-Package.ps1](../installer/Stage-Package.ps1) 后，将官方下载的 `<Culture>` 文件夹复制到 `installer\staging\<Culture>\`；脚本会重建 staging，因此复制操作必须在脚本之后。
-3. `Stage-Package.ps1` 校验自有 `zh-Hans\OfficeCopilot.Localization.resources.dll` 已合并到 staging；发布流程还应确认 DevExpress satellite DLL 已存在于对应 Culture 目录。不要求每个宿主的独立 `bin` 都重复携带 DevExpress 语言包。
-4. 可按正式发布的语言集合复制对应文件夹；未声明支持的 de/es/ja 是否保留作为包体积策略，不影响本地化加载机制。
+3. `Stage-Package.ps1` 校验自有 `zh-Hans` / `ja` / `de` / `es` `OfficeCopilot.Localization.resources.dll` 已合并到 staging；发布人员必须在 staging 后复制下载的 DevExpress DLL，并确认对应 Culture 文件夹已存在。不要求每个宿主的独立 `bin` 都重复携带 DevExpress 语言包。
+4. 本次启用 `de` / `es`，并保留已有 `ja`；仅将实际发布支持的语言包复制到安装包，避免额外包体积。
 5. DevExpress 使用发布根目录中的官方 Culture 卫星程序集；启动和运行时切换均按显式设置更新当前 UI 线程的 UI Culture。
 
 ### 4.6 VSTO 外壳（Ribbon / About / 启动提示）
@@ -299,7 +298,7 @@ function applyStatic() { document.querySelectorAll('[data-i18n-title]').forEach(
 ### 4.9 面向模型的文本与“回答语言”策略（D/E 类）
 
 - 系统提示词、工具 description、工具结果、上下文注入等 D 类内容不按 UI 语言制作整套翻译副本，以免行为漂移；宿主默认提示、运行时工作流指令、记忆抽取、子代理、验证/重试及跨轮上下文提示统一以英文维护。
-- `DefaultContextBuilder` 在最终 system prompt 的最前面注入一条本地化的默认回答语言指令：English UI 使用英文指令并默认英文回答；简体中文 UI 使用中文指令并默认简体中文回答；日语 UI 使用日文指令并默认日语回答。该默认规则优先于宿主或其他系统提示中的冲突语言要求；用户明确要求其他回答语言时，以用户要求为准。
+- `DefaultContextBuilder` 在最终 system prompt 的最前面注入一条本地化的默认回答语言指令：English / 简体中文 / 日语 / 德语 / 西班牙语界面分别默认使用对应语言回答。该默认规则优先于宿主或其他系统提示中的冲突语言要求；用户明确要求其他回答语言时，以用户要求为准。
 - 已有 `Excel.ask.txt` / `Excel.agent.txt` 等非空提示词文件若没有匹配 `.seed` 或被编辑过，会按用户自定义内容保留；不会因升级而静默覆盖。当前没有恢复默认 UI。对确认仍是旧内置内容的文件，可先备份，再手动清空或删除；空文件会回退到新版内置提示词。不要对含有用户自定义内容的文件执行此操作。
 - 后续可选（独立专题，不在本蓝图内）：
   - `HostSystemPromptStore` 支持按语言的默认提示词文件（`excel.agent.en.md`）；
@@ -354,15 +353,15 @@ sequenceDiagram
 
 ### Phase 1 · 基础设施（MVP 骨架）
 
-1. 新建 `OfficeCopilot.Localization`（netstandard2.0），加入 sln；实现 §4.1 的类型与空的 `Strings.resx` / `Strings.zh-Hans.resx`。
+1. 新建 `OfficeCopilot.Localization`（netstandard2.0），加入 sln；实现 §4.1 的类型与中性及卫星资源。
 2. `OfficeCopilotSettings.UiLanguage` + 版本迁移 + Normalize。
 3. 三个 `ThisAddIn_Startup` 调用 `LocalizationBootstrap.Initialize`；读取保存的显式 `UiLanguage`，默认 English。
 4. 启动和运行时切换均设置当前 UI 线程 `CurrentUICulture`、保留 `CurrentCulture`；不引入自定义 DevExpress Localizer。跨宿主及第三方加载项影响仍在 S1 验证。
 5. `Stage-Package.ps1` 保留合并宿主输出的 Culture 子目录，并校验自有简体中文卫星程序集；官方下载的 DevExpress Culture 文件夹按现有流程在 staging 后手动复制。不要求三个加载项的独立输出目录重复携带 DevExpress 语言包。
-6. `fmSysConfig.cbeLanguage` 的 English / 简体中文选择、持久化、当前窗体热刷新及窗体其余可见文本已接通。
+6. `fmSysConfig.cbeLanguage` 的语言选择、持久化、当前窗体热刷新及窗体其余可见文本已接通。
 7. `HostAwareForm` 增加 `ILocalizable` 订阅/退订基础设施；开发期“控件文本导出 resx 草稿”工具。
 
-**验收**：三个宿主中切换 English / 简体中文 / 日本語均即时应用；DevExpress 内置文本及已迁移的自有 UI 使用对应语言；最终发布根目录包含启用语言的 Culture 文件夹；旧配置中的 `auto` 及无效值安全迁移为 English。
+**验收**：三个宿主中切换五种已支持语言均即时应用；DevExpress 内置文本及已迁移的自有 UI 使用对应语言；最终发布根目录包含启用语言的 Culture 文件夹；旧配置中的 `auto` 及无效值安全迁移为 English。
 
 ### Phase 2 · VSTO 外壳（~100 条，三份共享约 40 个 key）
 
@@ -376,24 +375,24 @@ sequenceDiagram
 
 ### Phase 4 · 面板（~270 C# + ~70 JS）
 
-`CopilotPanelControl`（含 AttachmentReferences / CodeExecution / ToolSafety / Placeholder partial）、`AskUserQuestionDialog`、`PlanApprovalDialog`、`PanelModelMenuPresenter`、`BrokerToPanelConverter` 中的可见文本；附件文件筛选器；WebAssets `i18n.js` 与 `panel.locale` 消息；`index.html` 的 `lang`。共 166 个 `Web.*` 文案由共享 resx 下发，English / 简体中文 / 日语均已翻译；未覆盖的新语言回退 English。
+`CopilotPanelControl`（含 AttachmentReferences / CodeExecution / ToolSafety / Placeholder partial）、`AskUserQuestionDialog`、`PlanApprovalDialog`、`PanelModelMenuPresenter`、`BrokerToPanelConverter` 中的可见文本；附件文件筛选器；WebAssets `i18n.js` 与 `panel.locale` 消息；`index.html` 的 `lang`。共 166 个 `Web.*` 文案由共享 resx 下发，五种支持语言均提供资源。
 **验收**：代码完成；WebView 接收初始语言并在切换时即时刷新，用户 / 模型消息正文和协议值保持原样。实际 Office WebView 手测仍待执行。
 
 ### Phase 5 · Broker / Runtime 用户可见文本
 
 `uiCulture` 透传到 Broker turn；共享 resx 驱动的 `IUserTextLocalizer`；`TrustFooterBuilder`（含双语剥离正则）；工具 `DisplayName`；Broker→Panel 错误码化；`ExcelEvalRunner` 改为解析结构化等级。
-**验收**：代码和 TrustFooter / Eval 相关测试通过；English / 简体中文 / 日语 UI Culture 下 TrustFooter、工具显示名和错误提示按语言生成，旧中英日页脚均可剥离。
+**验收**：代码和 TrustFooter / Eval 相关测试通过；五种 UI Culture 下 TrustFooter、工具显示名和错误提示按语言生成，旧语言页脚均可剥离。
 
 ### Phase 6 · 模型回答语言策略
 
-`DefaultContextBuilder` 在最终 system prompt 最前面注入本地化的默认回答语言指令：优先遵从用户明确指定的回答语言，否则按 UI 语言对应的 English / 简体中文 / 日本語回答；未知 UI 语言回退 English。Excel / Word / PowerPoint 六种内置宿主提示词以及运行时工作流指令统一用英语维护。单元测试覆盖语言指令内容、顺序和默认提示词语言；需要真实模型调用的回归仍是发布前验收项。
+`DefaultContextBuilder` 在最终 system prompt 最前面注入本地化的默认回答语言指令：优先遵从用户明确指定的回答语言，否则按 UI 语言对应的英语 / 简体中文 / 日语 / 德语 / 西班牙语回答；未知 UI 语言回退 English。Excel / Word / PowerPoint 六种内置宿主提示词以及运行时工作流指令统一用英语维护。单元测试覆盖语言指令内容、顺序和默认提示词语言；需要真实模型调用的回归仍是发布前验收项。
 
 ### Phase 7 · 加固与扩展
 
 - 即时切换补全（其他窗体订阅、`FileSystemWatcher` 跨宿主同步）。
 - 伪本地化语言 `qps-ploc` 作为隐藏选项（仅 Debug 构建可见）。
 - 翻译流程：resx ↔ XLIFF/Excel 导入导出脚本，交给翻译人员。
-- “新增一种语言”检查清单验证（用 `ja` 走一遍，但不发布）：`SupportedLanguages` 加一行 → 加 `Strings.ja.resx` → `OfficeCopilotUiCultures` 加 `ja` → 准备 DevExpress `ja`（安装目录自带）→ 运行门禁测试。
+- “新增一种语言”检查清单：`SupportedLanguages` 注册代码和区域别名 → 加完整资源文件 → 验证语言选择与模型回答指令 → Stage 校验自有卫星程序集 → 下载并复制对应 DevExpress Culture DLL → 运行资源、构建和 Office 冒烟测试。
 
 ---
 
@@ -403,7 +402,7 @@ sequenceDiagram
 
 - 每种语言的 resx key 集合与中性资源**完全一致**（多出 = 废弃 key，缺少 = 漏翻）。
 - 同一 key 在各语言中的占位符 `{n}` 集合一致；`|` 分隔的列表项数量一致（防止 ComboBox 索引错位）。
-- `SupportedLanguages` 中每种语言都有对应 resx；旧值 `auto` / 无效值回退 English，`zh-CN` / `zh-SG` 规范化为 `zh-Hans`。
+- `SupportedLanguages` 中每种语言都有对应 resx；旧值 `auto` / 无效值回退 English；`zh-CN` / `zh-SG`、`ja-JP`、`de-DE` 和 `es-ES` 规范化到受支持的 Culture。
 
 ### 7.2 “禁止新增硬编码 UI 中文”门禁
 
@@ -446,7 +445,7 @@ sequenceDiagram
 | Q3 | DevExpress 语言包来源 | 外部下载目录 / 由发布人员直接放入 staging | **已确认：**运行 `Stage-Package` 后，由发布人员手动复制到 staging |
 | Q4 | 切换后的生效时机 | 重启 Office / 当前界面即时刷新 | **已确认：**当前 Office 宿主内即时切换 |
 | Q5 | 即时切换的程度 | MVP 重启生效 / 全量即时 | **已确认：**已翻译界面均按当前语言即时刷新；其他 Office 进程跨进程同步另行实现 |
-| Q6 | 是否打包 DevExpress 的 de/es/ja | 保留 / 剔除 | 剔除，未声明支持的语言不发布 |
+| Q6 | 是否打包 DevExpress 的 de/es/ja | 仅打包已启用语言 | **已确认：**按发布语言集合下载并复制官方 Culture 文件夹；本次启用 `de` / `es`，日语 `ja` 保持支持 |
 
 ---
 
@@ -500,7 +499,7 @@ sequenceDiagram
 ## 附录 B · 新增一种语言的步骤（目标状态）
 
 1. `SupportedLanguages` 增加语言代码及区域别名，更新 `fmSysConfig` 语言选项与索引映射；不根据 Office UI 语言自动选择。
-2. 新增 `Strings.<code>.resx` 并翻译所有资源键；未翻译键会回退 English，但正式支持前应通过 §7.1 一致性测试并人工审校。当前日语资源仅部分翻译。
-3. 确认构建生成 `<code>\OfficeCopilot.Localization.resources.dll` 并由 `Stage-Package.ps1` 校验；准备对应 DevExpress 卫星程序集（`ja` / `de` / `es` 安装目录自带，其他语言从 DevExpress Localization Service 下载）。
+2. 新增 `Strings.<code>.resx` 并翻译所有资源键；未翻译键会回退 English，但正式支持前应通过 §7.1 一致性测试并人工审校。
+3. 确认构建生成 `<code>\OfficeCopilot.Localization.resources.dll` 并由 `Stage-Package.ps1` 校验；从 DevExpress 官方 Localization Service 下载对应语言卫星程序集。
 4. 更新回答语言策略、语言切换测试、TrustFooter/工具显示名等依赖语言的行为，并验证 WebView `GetAll` 的完整资源回退。
 5. 伪本地化与三宿主截图检查；按需补充 E 类关键词（独立专题）。

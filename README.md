@@ -83,7 +83,7 @@ Agent Broker（每个 Office 窗口独立运行）
 
 脚本会查找 Visual Studio MSBuild、还原 NuGet 包、构建解决方案，并检查独立 Broker 输出中的 Runtime 程序集是否为最新版本。`OfficeCopilot.Agent.Tests` 是 legacy MSTest 工程，测试通过 Visual Studio Test Platform 运行。
 
-部署文件暂存可使用 `installer/Stage-Package.ps1`；该脚本将三个加载项与 Broker 输出整理到 `installer/staging/`，供后续安装包流程使用。脚本会重建 staging，因此制作安装包时，应先运行该脚本，再将 DevExpress 官方语言包中的 `<Culture>` 文件夹复制到 `installer/staging/<Culture>/`（例如 `zh-Hans`）。增加其他语言时同样复制对应 Culture 文件夹，并确认它位于最终发布目录根目录。
+部署文件暂存可使用 `installer/Stage-Package.ps1`；该脚本将三个加载项与 Broker 输出整理到 `installer/staging/`，供后续安装包流程使用，并校验自有界面资源卫星程序集。脚本会重建 staging，因此制作安装包时，应先运行该脚本，再将从 DevExpress 下载的语言包 `<Culture>` 文件夹（如 `zh-Hans`、`de`、`es`）复制到 `installer/staging/<Culture>/`，确认它们位于最终发布目录根目录。
 
 ## 配置与本地数据
 

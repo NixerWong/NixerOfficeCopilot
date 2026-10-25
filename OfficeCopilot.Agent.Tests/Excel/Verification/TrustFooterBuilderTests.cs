@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeCopilot.Agent.Runtime.Verification;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Agent.Tests.Excel.Verification
 {
@@ -122,6 +123,32 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
             StringAssert.Contains(footer, "、");
             Assert.IsFalse(footer.Contains("Verification"));
             Assert.IsFalse(footer.Contains("; "));
+        }
+
+        [TestMethod]
+        public void Build_UsesGermanAndSpanishStatusLabels()
+        {
+            var summary = new VerificationLedgerSummary
+            {
+                HasExcelDataToolCalls = true,
+                Tier = "A"
+            };
+            var englishStatus = LocalizationService.Get(
+                "trust.footer.status",
+                SupportedLanguages.ResolveCulture("en"));
+            var germanStatus = LocalizationService.Get(
+                "trust.footer.status",
+                SupportedLanguages.ResolveCulture("de"));
+            var spanishStatus = LocalizationService.Get(
+                "trust.footer.status",
+                SupportedLanguages.ResolveCulture("es"));
+            var germanFooter = TrustFooterBuilder.Build(summary, uiCulture: "de");
+            var spanishFooter = TrustFooterBuilder.Build(summary, uiCulture: "es");
+
+            Assert.AreNotEqual(englishStatus, germanStatus);
+            Assert.AreNotEqual(englishStatus, spanishStatus);
+            StringAssert.Contains(germanFooter, germanStatus);
+            StringAssert.Contains(spanishFooter, spanishStatus);
         }
 
         [TestMethod]

@@ -8,6 +8,8 @@ namespace OfficeCopilot.Localization
         public const string English = "en";
         public const string SimplifiedChinese = "zh-Hans";
         public const string Japanese = "ja";
+        public const string German = "de";
+        public const string Spanish = "es";
 
         public static string NormalizePreference(string preference)
         {
@@ -29,6 +31,18 @@ namespace OfficeCopilot.Localization
                 return Japanese;
             }
 
+            if (string.Equals(preference, German, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(preference, "de-DE", StringComparison.OrdinalIgnoreCase))
+            {
+                return German;
+            }
+
+            if (string.Equals(preference, Spanish, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(preference, "es-ES", StringComparison.OrdinalIgnoreCase))
+            {
+                return Spanish;
+            }
+
             return English;
         }
 
@@ -43,6 +57,8 @@ namespace OfficeCopilot.Localization
             {
                 case 1: return SimplifiedChinese;
                 case 2: return Japanese;
+                case 3: return German;
+                case 4: return Spanish;
                 default: return English;
             }
         }
@@ -53,6 +69,8 @@ namespace OfficeCopilot.Localization
             {
                 case SimplifiedChinese: return 1;
                 case Japanese: return 2;
+                case German: return 3;
+                case Spanish: return 4;
                 default: return 0;
             }
         }

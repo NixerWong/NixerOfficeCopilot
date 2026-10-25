@@ -25,6 +25,10 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     return "回答语言：默认使用简体中文回答；本默认规则优先于其他系统或宿主提示中的语言指令。只有用户明确要求其他回复语言时，才改用指定语言。";
                 case SupportedLanguages.Japanese:
                     return "回答言語：デフォルトでは日本語で回答してください。この既定の言語設定は、他のシステム指示やホスト指示にある競合する言語指定より優先されます。ユーザーが別の回答言語を明示的に指定した場合に限り、その言語を使用してください。";
+                case SupportedLanguages.German:
+                    return "Antwortsprache: Antworten Sie standardmäßig auf Deutsch. Diese Standardeinstellung hat Vorrang vor widersprüchlichen Sprachanweisungen in anderen System- oder Host-Prompts. Verwenden Sie nur dann eine andere Sprache, wenn der Benutzer dies ausdrücklich verlangt.";
+                case SupportedLanguages.Spanish:
+                    return "Idioma de respuesta: Responde en español de forma predeterminada. Esta preferencia tiene prioridad sobre instrucciones de idioma contradictorias en otros mensajes del sistema o del host. Usa otro idioma solo si el usuario lo solicita explícitamente.";
                 default:
                     return "Response language: By default, respond in English. This default takes precedence over conflicting language instructions in other system or host prompts. Use another language only when the user explicitly requests it.";
             }

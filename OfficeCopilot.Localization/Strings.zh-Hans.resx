@@ -21,6 +21,12 @@
   <data name="Language.Japanese" xml:space="preserve">
     <value>日语</value>
   </data>
+  <data name="Language.German" xml:space="preserve">
+    <value>德语</value>
+  </data>
+  <data name="Language.Spanish" xml:space="preserve">
+    <value>西班牙语</value>
+  </data>
   <data name="Settings.SysConfig.Text" xml:space="preserve">
     <value>系统配置</value>
   </data>

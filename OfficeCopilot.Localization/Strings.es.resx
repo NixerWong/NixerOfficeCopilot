@@ -1,0 +1,2377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language.English" xml:space="preserve">
+    <value>Inglés</value>
+  </data>
+  <data name="Language.SimplifiedChinese" xml:space="preserve">
+    <value>Chino simplificado</value>
+  </data>
+  <data name="Language.Japanese" xml:space="preserve">
+    <value>Japonés</value>
+  </data>
+  <data name="Language.German" xml:space="preserve">
+    <value>Alemán</value>
+  </data>
+  <data name="Language.Spanish" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="Settings.SysConfig.Text" xml:space="preserve">
+    <value>Configuración del sistema</value>
+  </data>
+  <data name="Settings.SysConfig.grpLanguage.Text" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Settings.SysConfig.lbLanguage.Text" xml:space="preserve">
+    <value>Idioma de la interfaz:</value>
+  </data>
+  <data name="Settings.Config.Title" xml:space="preserve">
+    <value>Configuración de parámetros</value>
+  </data>
+  <data name="Settings.Config.Tab.Models" xml:space="preserve">
+    <value>Modelos</value>
+  </data>
+  <data name="Settings.Config.Tab.Tools" xml:space="preserve">
+    <value>Herramientas integradas</value>
+  </data>
+  <data name="Settings.Config.Tab.Mcp" xml:space="preserve">
+    <value>Servidores MCP</value>
+  </data>
+  <data name="Settings.Config.Tab.Skills" xml:space="preserve">
+    <value>Habilidades</value>
+  </data>
+  <data name="Settings.Config.Tab.Memory" xml:space="preserve">
+    <value>Memoria</value>
+  </data>
+  <data name="Settings.Config.Tab.General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Settings.Config.Models.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Models.Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Settings.Config.Models.ProviderKind" xml:space="preserve">
+    <value>Protocolo de API</value>
+  </data>
+  <data name="Settings.Config.Models.Endpoint" xml:space="preserve">
+    <value>Punto de conexión de la API</value>
+  </data>
+  <data name="Settings.Config.Models.ApiKey" xml:space="preserve">
+    <value>Clave de API</value>
+  </data>
+  <data name="Settings.Config.Models.ModelId" xml:space="preserve">
+    <value>ID del modelo</value>
+  </data>
+  <data name="Settings.Config.Models.Multimodal" xml:space="preserve">
+    <value>Multimodal</value>
+  </data>
+  <data name="Settings.Config.Models.Add" xml:space="preserve">
+    <value>Añadir modelo</value>
+  </data>
+  <data name="Settings.Config.Models.Edit" xml:space="preserve">
+    <value>Editar el modelo seleccionado</value>
+  </data>
+  <data name="Settings.Config.Models.Delete" xml:space="preserve">
+    <value>Eliminar el modelo seleccionado</value>
+  </data>
+  <data name="Settings.Config.Models.Import" xml:space="preserve">
+    <value>Importar definiciones de modelos</value>
+  </data>
+  <data name="Settings.Config.Models.ShowPromptPreview" xml:space="preserve">
+    <value>Mostrar vista previa de las instrucciones</value>
+  </data>
+  <data name="Settings.Config.Models.HidePromptPreview" xml:space="preserve">
+    <value>Ocultar vista previa de las instrucciones</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Title.Add" xml:space="preserve">
+    <value>Añadir modelo</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Title.Edit" xml:space="preserve">
+    <value>Editar modelo</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ModelParameters" xml:space="preserve">
+    <value>Parámetros del modelo</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ModelName" xml:space="preserve">
+    <value>Nombre del modelo</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SystemPrompt" xml:space="preserve">
+    <value>Instrucción adicional para el modelo (se añade después de la instrucción del sistema de la aplicación; opcional)</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.AdditionalParameters" xml:space="preserve">
+    <value>Parámetros adicionales</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.BasicParameters" xml:space="preserve">
+    <value>Parámetros básicos</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HttpHeaders" xml:space="preserve">
+    <value>Encabezados de solicitud HTTP</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SaveAndClose" xml:space="preserve">
+    <value>Guardar y cerrar</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.TestConnection" xml:space="preserve">
+    <value>Probar conexión</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.EnableModel" xml:space="preserve">
+    <value>Habilitar este modelo</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ParameterName" xml:space="preserve">
+    <value>Parámetro</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ParameterValue" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HeaderName" xml:space="preserve">
+    <value>Encabezado</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HeaderValue" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ConnectionTestSucceeded" xml:space="preserve">
+    <value>La URL del servicio está disponible.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ConnectionTestFailed" xml:space="preserve">
+    <value>Error de conexión: {0}</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ModelNameRequired" xml:space="preserve">
+    <value>Escriba un nombre para el modelo.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.BasicParametersUnavailable" xml:space="preserve">
+    <value>Los parámetros básicos no están disponibles.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.EndpointRequired" xml:space="preserve">
+    <value>Escriba un punto de conexión de API.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.EndpointInvalid" xml:space="preserve">
+    <value>El punto de conexión de la API debe ser una URL http o https válida.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ModelIdRequired" xml:space="preserve">
+    <value>Escriba un ID de modelo.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterNameRequired" xml:space="preserve">
+    <value>El nombre de un parámetro adicional no puede estar vacío.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterNameDuplicate" xml:space="preserve">
+    <value>El parámetro adicional «{0}» está duplicado. Compruébelo.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterValueInvalid" xml:space="preserve">
+    <value>El valor del parámetro adicional «{0}» no es válido: {1}</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.HeaderNameRequired" xml:space="preserve">
+    <value>El nombre de un encabezado HTTP no puede estar vacío.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.HeaderNameDuplicate" xml:space="preserve">
+    <value>El encabezado HTTP «{0}» está duplicado. Compruébelo.</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.DeleteCurrentRow" xml:space="preserve">
+    <value>Eliminar fila actual</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Category.Connection" xml:space="preserve">
+    <value>Conexión</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.MaxContextTokens" xml:space="preserve">
+    <value>Longitud máxima del contexto</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ProviderKind" xml:space="preserve">
+    <value>Protocolo de API</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Category.Capabilities" xml:space="preserve">
+    <value>Capacidades</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SupportedInputFileTypes" xml:space="preserve">
+    <value>Tipos de archivo compatibles</value>
+  </data>
+  <data name="Settings.Config.Mcp.Add" xml:space="preserve">
+    <value>Añadir MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.Edit" xml:space="preserve">
+    <value>Editar el MCP seleccionado</value>
+  </data>
+  <data name="Settings.Config.Mcp.Delete" xml:space="preserve">
+    <value>Eliminar MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.Import" xml:space="preserve">
+    <value>Importar configuración de MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Mcp.Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Settings.Config.Mcp.Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Settings.Config.Skills.Add" xml:space="preserve">
+    <value>Añadir habilidad</value>
+  </data>
+  <data name="Settings.Config.Skills.Edit" xml:space="preserve">
+    <value>Editar la habilidad seleccionada</value>
+  </data>
+  <data name="Settings.Config.Skills.Delete" xml:space="preserve">
+    <value>Eliminar la habilidad seleccionada</value>
+  </data>
+  <data name="Settings.Config.Skills.Import" xml:space="preserve">
+    <value>Importar configuración de habilidades</value>
+  </data>
+  <data name="Settings.Config.Skills.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Skills.Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Settings.Config.Skills.Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Settings.Config.Tools.Group" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="Settings.Config.Tools.Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Settings.Config.Tools.Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Settings.Config.Tools.NoConfirmation" xml:space="preserve">
+    <value>Sin confirmación</value>
+  </data>
+  <data name="Settings.Config.Tools.Details" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="Settings.Config.Common.Enabled" xml:space="preserve">
+    <value>Habilitado</value>
+  </data>
+  <data name="Settings.Config.Common.ExportList" xml:space="preserve">
+    <value>Exportar lista</value>
+  </data>
+  <data name="Settings.Config.Common.Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Settings.Config.Common.Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Settings.Config.Common.Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="Settings.Config.Common.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Settings.Config.Context.Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Settings.Config.Context.Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Settings.Config.Value.Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="Settings.Config.Value.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Settings.Config.Memory.Preview" xml:space="preserve">
+    <value>Vista previa de la habilidad</value>
+  </data>
+  <data name="Settings.Config.Memory.Markdown" xml:space="preserve">
+    <value>Editor de Markdown</value>
+  </data>
+  <data name="Settings.Config.Memory.DeleteFragment" xml:space="preserve">
+    <value>Eliminar fragmento</value>
+  </data>
+  <data name="Settings.Config.Memory.ModifiedMarker" xml:space="preserve">
+    <value> ● Modificado</value>
+  </data>
+  <data name="Settings.Config.Memory.EntrypointTruncated" xml:space="preserve">
+    <value> ⚠ Punto de entrada truncado</value>
+  </data>
+  <data name="Settings.Config.Memory.InfoWithNode" xml:space="preserve">
+    <value>{0}{1} | Punto de entrada: {2} líneas/{3} | Fragmentos: {4}/{5}{6}</value>
+  </data>
+  <data name="Settings.Config.Memory.Info" xml:space="preserve">
+    <value>Punto de entrada: {0} líneas/{1} | Fragmentos: {2}/{3}{4}</value>
+  </data>
+  <data name="Settings.Config.Memory.Manager" xml:space="preserve">
+    <value>Administrador de memoria</value>
+  </data>
+  <data name="Settings.Config.General.Logging" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMaxLength" xml:space="preserve">
+    <value>Longitud máxima del contenido de la transcripción (0 = sin límite):</value>
+  </data>
+  <data name="Settings.Config.General.ToolCallLogEnabled" xml:space="preserve">
+    <value>Habilitar el registro de llamadas a herramientas</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptHostContext" xml:space="preserve">
+    <value>Incluir el contexto de la aplicación en los registros de conversación</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptToolCalls" xml:space="preserve">
+    <value>Incluir las llamadas a herramientas en los registros de conversación</value>
+  </data>
+  <data name="Settings.Config.General.RetainedFileCount" xml:space="preserve">
+    <value>Número de archivos de registro que se conservan:</value>
+  </data>
+  <data name="Settings.Config.General.MaxFileSize" xml:space="preserve">
+    <value>Tamaño máximo del archivo de registro (MB):</value>
+  </data>
+  <data name="Settings.Config.General.RuntimeLogLevel" xml:space="preserve">
+    <value>Nivel de registro del entorno de ejecución:</value>
+  </data>
+  <data name="Settings.Config.General.RuntimeLogEnabled" xml:space="preserve">
+    <value>Habilitar el registro del entorno de ejecución</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptLogMode" xml:space="preserve">
+    <value>Nivel de detalle del registro de conversaciones:</value>
+  </data>
+  <data name="Settings.Config.General.Runtime" xml:space="preserve">
+    <value>Parámetros del entorno de ejecución</value>
+  </data>
+  <data name="Settings.Config.General.AutoMemoryRecorder" xml:space="preserve">
+    <value>Habilitar el resumen automático de memoria</value>
+  </data>
+  <data name="Settings.Config.General.AutoCompact" xml:space="preserve">
+    <value>Habilitar compactación automática del contexto (AutoCompact)</value>
+  </data>
+  <data name="Settings.Config.General.ModelParameters" xml:space="preserve">
+    <value>Parámetros de solicitud del modelo</value>
+  </data>
+  <data name="Settings.Config.General.RequestTimeout" xml:space="preserve">
+    <value>Tiempo de espera de la solicitud (segundos):</value>
+  </data>
+  <data name="Settings.Config.General.NativeFileSizeLimit" xml:space="preserve">
+    <value>Límite de tamaño de archivo nativo (KB):</value>
+  </data>
+  <data name="Settings.Config.General.InlineTextFileSizeLimit" xml:space="preserve">
+    <value>Límite de tamaño de archivo de InlineText (MB):</value>
+  </data>
+  <data name="Settings.Config.General.AutoResizeImages" xml:space="preserve">
+    <value>Cambiar automáticamente el tamaño de imágenes grandes para ajustarlas al límite de tamaño de archivo nativo</value>
+  </data>
+  <data name="Settings.Config.General.ToolFetchFileSizeLimit" xml:space="preserve">
+    <value>Límite de tamaño de archivo de ToolFetch (MB):</value>
+  </data>
+  <data name="Settings.Config.General.AttachmentFileCountLimit" xml:space="preserve">
+    <value>Número máximo de archivos adjuntos de referencia:</value>
+  </data>
+  <data name="Settings.Config.General.AttachmentInlineCharacterBudget" xml:space="preserve">
+    <value>Presupuesto de caracteres para adjuntos en línea:</value>
+  </data>
+  <data name="Settings.Config.General.MaxVisualPages" xml:space="preserve">
+    <value>Número máximo de páginas visuales por turno:</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Disabled" xml:space="preserve">
+    <value>Deshabilitado</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Metadata" xml:space="preserve">
+    <value>Solo metadatos</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Redacted" xml:space="preserve">
+    <value>Contenido censurado</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Raw" xml:space="preserve">
+    <value>Contenido sin procesar</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.Group" xml:space="preserve">
+    <value>Diapositivas de PowerPoint</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultStyle" xml:space="preserve">
+    <value>Identificador del estilo predeterminado</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultDensity" xml:space="preserve">
+    <value>Densidad predeterminada</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultBuildMode" xml:space="preserve">
+    <value>Modo de creación predeterminado</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.RepairIterationCap" xml:space="preserve">
+    <value>Número máximo de iteraciones de reparación</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.WorkspaceRetentionDays" xml:space="preserve">
+    <value>Retención del espacio de trabajo (días)</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.EmbedFontsByDefault" xml:space="preserve">
+    <value>Incrustar fuentes de forma predeterminada</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.RunSelfTest" xml:space="preserve">
+    <value>Ejecutar autodiagnóstico de herramientas</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSession" xml:space="preserve">
+    <value>Crear a partir de la sesión</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSessionHint" xml:space="preserve">
+    <value>En el panel de Copilot, diga «Convierte este flujo de trabajo en una habilidad» para crearla automáticamente.</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Model" xml:space="preserve">
+    <value>Configuración del modelo</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Mcp" xml:space="preserve">
+    <value>Configuración de MCP</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Skills" xml:space="preserve">
+    <value>Habilidades</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Memory" xml:space="preserve">
+    <value>Administrador de memoria</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Tools" xml:space="preserve">
+    <value>Herramientas integradas</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Settings" xml:space="preserve">
+    <value>Configuración de parámetros</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.CreateSkillFromSession" xml:space="preserve">
+    <value>Crear habilidad a partir de la sesión</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.DeleteMemoryFragment" xml:space="preserve">
+    <value>Eliminar fragmento de memoria</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.PowerPointSelfTest" xml:space="preserve">
+    <value>Autodiagnóstico de herramientas de PowerPoint</value>
+  </data>
+  <data name="Settings.Config.FileFilter.Json" xml:space="preserve">
+    <value>Archivos JSON|*.json|Todos los archivos|*.*</value>
+  </data>
+  <data name="Settings.Config.Common.ExportComplete" xml:space="preserve">
+    <value>Exportación completada.</value>
+  </data>
+  <data name="Settings.Config.Common.ExportFailed" xml:space="preserve">
+    <value>Error al exportar: {0}</value>
+  </data>
+  <data name="Settings.Config.Common.ImportComplete" xml:space="preserve">
+    <value>Importación completada.</value>
+  </data>
+  <data name="Settings.Config.Common.ImportFailed" xml:space="preserve">
+    <value>Error al importar: {0}</value>
+  </data>
+  <data name="Settings.Config.Models.ConfirmDelete" xml:space="preserve">
+    <value>¿Eliminar el modelo «{0}»?</value>
+  </data>
+  <data name="Settings.Config.Models.ExportDialogTitle" xml:space="preserve">
+    <value>Exportar lista de modelos</value>
+  </data>
+  <data name="Settings.Config.Models.ImportDialogTitle" xml:space="preserve">
+    <value>Importar definiciones de modelos</value>
+  </data>
+  <data name="Settings.Config.Models.ConfirmImport" xml:space="preserve">
+    <value>La importación reemplazará la lista de modelos actual. ¿Desea continuar?</value>
+  </data>
+  <data name="Settings.Config.Mcp.ConfirmDelete" xml:space="preserve">
+    <value>¿Eliminar el servidor MCP «{0}»?</value>
+  </data>
+  <data name="Settings.Config.Mcp.ExportDialogTitle" xml:space="preserve">
+    <value>Exportar configuración de MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.ImportDialogTitle" xml:space="preserve">
+    <value>Importar configuración de MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.ConfirmImport" xml:space="preserve">
+    <value>La importación reemplazará la lista actual de servidores MCP. ¿Desea continuar?</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSessionPrompt" xml:space="preserve">
+    <value>Para crear una habilidad a partir de la conversación actual, escriba esto en el panel de Nixer Copilot:
+
+    «Convierte este flujo de trabajo en una habilidad»
+
+El modelo analizará la conversación, le hará preguntas y generará un archivo SKILL.md.
+
+¿Desea abrir ahora el editor de habilidades para crear una manualmente?</value>
+  </data>
+  <data name="Settings.Config.Skills.SelectionRequired" xml:space="preserve">
+    <value>Seleccione primero una habilidad.</value>
+  </data>
+  <data name="Settings.Config.Skills.BuiltinEditNotAllowed" xml:space="preserve">
+    <value>La habilidad integrada «{0}» no se puede editar directamente.
+
+Para personalizarla, pulse el botón Nuevo y cree una habilidad en el sistema de archivos con el mismo nombre para reemplazarla.</value>
+  </data>
+  <data name="Settings.Config.Skills.FileMissing" xml:space="preserve">
+    <value>No se encuentra el archivo de la habilidad: {0}</value>
+  </data>
+  <data name="Settings.Config.Skills.BuiltinDeleteNotAllowed" xml:space="preserve">
+    <value>La habilidad integrada «{0}» no se puede eliminar.</value>
+  </data>
+  <data name="Settings.Config.Skills.FilePathMissing" xml:space="preserve">
+    <value>No se puede eliminar esta habilidad porque no tiene una ruta de archivo asociada.</value>
+  </data>
+  <data name="Settings.Config.Skills.ConfirmDelete" xml:space="preserve">
+    <value>¿Eliminar la habilidad «{0}»?
+
+Se eliminará este directorio: {1}</value>
+  </data>
+  <data name="Settings.Config.Skills.ExportDialogTitle" xml:space="preserve">
+    <value>Exportar paquete de habilidades (incluidos los archivos SKILL.md)</value>
+  </data>
+  <data name="Settings.Config.Skills.ExportFilter" xml:space="preserve">
+    <value>Paquetes de habilidades|*.nsk|Archivos JSON (solo metadatos)|*.json|Todos los archivos|*.*</value>
+  </data>
+  <data name="Settings.Config.Skills.ImportDialogTitle" xml:space="preserve">
+    <value>Importar paquete de habilidades</value>
+  </data>
+  <data name="Settings.Config.Skills.ImportFilter" xml:space="preserve">
+    <value>Paquetes de habilidades|*.nsk|Archivos JSON|*.json|Todos los archivos|*.*</value>
+  </data>
+  <data name="Settings.Config.Skills.NskImportComplete" xml:space="preserve">
+    <value>Importación completada.
+Se han extraído {0} archivos{1}.
+
+Los cambios en las habilidades se aplicarán al reiniciar la aplicación.</value>
+  </data>
+  <data name="Settings.Config.Skills.ExistingFilesSkipped" xml:space="preserve">
+    <value> (se han omitido {0} archivos existentes)</value>
+  </data>
+  <data name="Settings.Config.Skills.JsonImportWarning" xml:space="preserve">
+    <value>Los archivos JSON solo contienen metadatos, no el contenido de SKILL.md.
+
+El estado solo se puede restaurar si los archivos de habilidades ya existen en las mismas rutas del equipo de destino.
+Para migrar las habilidades por completo, exporte el paquete en formato .nsk.
+
+¿Desea continuar?</value>
+  </data>
+  <data name="Settings.Config.Skills.JsonImportComplete" xml:space="preserve">
+    <value>Importación completada. Se ha actualizado el estado de {0} habilidades.
+
+Los cambios en las habilidades se aplicarán al reiniciar la aplicación.</value>
+  </data>
+  <data name="Settings.Config.Tools.BaseDefinitionMissing" xml:space="preserve">
+    <value>No se ha encontrado la definición base de la herramienta seleccionada.</value>
+  </data>
+  <data name="Settings.Config.Tools.TestBlockedReason" xml:space="preserve">
+    <value>Esta herramienta pertenece a {0} y no se puede ejecutar en el proceso {1} actual. Los cambios en su definición se guardarán igualmente. Abra la configuración en {0} para probarla.</value>
+  </data>
+  <data name="Settings.Config.Tools.Host" xml:space="preserve">
+    <value>aplicación anfitriona</value>
+  </data>
+  <data name="Settings.Config.Memory.FragmentIdMissing" xml:space="preserve">
+    <value>No se ha podido determinar el ID del fragmento.</value>
+  </data>
+  <data name="Settings.Config.Memory.ConfirmDeleteFragment" xml:space="preserve">
+    <value>¿Eliminar el fragmento «{0}»?
+
+También se quitará su referencia del índice de MEMORY.md.</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestUnavailable" xml:space="preserve">
+    <value>Los servicios de herramientas de PowerPoint no están disponibles en esta ventana.</value>
+  </data>
+  <data name="Settings.Config.Error.LoadSettings" xml:space="preserve">
+    <value>Error al cargar la configuración: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveSkillEnabledState" xml:space="preserve">
+    <value>Error al guardar el estado de habilitación de la habilidad: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.DeleteSkill" xml:space="preserve">
+    <value>Error al eliminar la habilidad: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.LoadMemoryTree" xml:space="preserve">
+    <value>Error al cargar el árbol de memoria: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.LoadMemoryContent" xml:space="preserve">
+    <value>Error al cargar el contenido de memoria: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveMemory" xml:space="preserve">
+    <value>Error al guardar la memoria: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.DeleteMemory" xml:space="preserve">
+    <value>Error al eliminar la memoria: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveBuiltInTools" xml:space="preserve">
+    <value>Error al guardar la configuración de las herramientas integradas: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveMcp" xml:space="preserve">
+    <value>Error al guardar la configuración del servidor MCP: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveToolDefinition" xml:space="preserve">
+    <value>Error al guardar la definición de la herramienta: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.PowerPointSelfTest" xml:space="preserve">
+    <value>Error en el autodiagnóstico de las herramientas de PowerPoint: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveOnCloseFailed" xml:space="preserve">
+    <value>Error al guardar la configuración: {0}
+
+¿Desea descartar los cambios y cerrar la ventana?
+(Seleccione No para volver y corregir la configuración.)</value>
+  </data>
+  <data name="Settings.Config.Error.SaveGeneralSettings" xml:space="preserve">
+    <value>Error al guardar la configuración del sistema: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveSettings" xml:space="preserve">
+    <value>Error al guardar la configuración: {0}</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelContext" xml:space="preserve">
+    <value>Excel - Contexto</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelRead" xml:space="preserve">
+    <value>Excel - Lectura</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelWrite" xml:space="preserve">
+    <value>Excel - Escritura</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelAdvanced" xml:space="preserve">
+    <value>Excel - Avanzado</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelFile" xml:space="preserve">
+    <value>Excel - Archivos</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordContext" xml:space="preserve">
+    <value>Word - Contexto</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordRead" xml:space="preserve">
+    <value>Word - Lectura</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordWrite" xml:space="preserve">
+    <value>Word - Escritura</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordNavigation" xml:space="preserve">
+    <value>Word - Navegación</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordAdvanced" xml:space="preserve">
+    <value>Word - Avanzado</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordFile" xml:space="preserve">
+    <value>Word - Archivos</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointContext" xml:space="preserve">
+    <value>PowerPoint - Contexto</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointRead" xml:space="preserve">
+    <value>PowerPoint - Lectura</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointBackup" xml:space="preserve">
+    <value>PowerPoint - Copias de seguridad</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointStyle" xml:space="preserve">
+    <value>PowerPoint - Biblioteca de estilos</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointDeck" xml:space="preserve">
+    <value>PowerPoint - Espacio de trabajo de presentaciones</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointFile" xml:space="preserve">
+    <value>PowerPoint - Archivos</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeShell" xml:space="preserve">
+    <value>Entorno de ejecución - Línea de comandos</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeInteraction" xml:space="preserve">
+    <value>Entorno de ejecución - Interacción</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimePlanning" xml:space="preserve">
+    <value>Entorno de ejecución - Planificación y agente</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
+    <value>Entorno de ejecución - Notificaciones</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
+    <value>Sin agrupar</value>
+  </data>
+  <data name="Settings.Config.Memory.EmptyPreview" xml:space="preserve">
+    <value>Sin contenido</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestNoResults" xml:space="preserve">
+    <value>No hay resultados de autodiagnóstico que mostrar.</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestReportTitle" xml:space="preserve">
+    <value>Informe de autodiagnóstico de las herramientas integradas de PowerPoint</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestGenerated" xml:space="preserve">
+    <value>Generado: {0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestGroup" xml:space="preserve">
+    <value>Grupo: {0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestRegistered" xml:space="preserve">
+    <value>Herramientas registradas: {0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Passed" xml:space="preserve">
+    <value>Correcto</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Failed" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Skipped" xml:space="preserve">
+    <value>Omitido</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestItem" xml:space="preserve">
+    <value>- [{0}] {1} / {2} ({3} ms) {4}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestSummary" xml:space="preserve">
+    <value>Resumen: {0} correctas, {1} con errores, {2} omitidas</value>
+  </data>
+  <data name="Shell.Host.Excel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="Shell.Host.Word" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="Shell.Host.PowerPoint" xml:space="preserve">
+    <value>PowerPoint</value>
+  </data>
+  <data name="Shell.Product.Excel" xml:space="preserve">
+    <value>Nixer Excel Copilot</value>
+  </data>
+  <data name="Shell.Product.Word" xml:space="preserve">
+    <value>Nixer Word Copilot</value>
+  </data>
+  <data name="Shell.Product.PowerPoint" xml:space="preserve">
+    <value>Nixer PowerPoint Copilot</value>
+  </data>
+  <data name="Shell.Ribbon.ExcelGroup" xml:space="preserve">
+    <value>Asistente de Excel</value>
+  </data>
+  <data name="Shell.Ribbon.WordGroup" xml:space="preserve">
+    <value>Asistente de Word</value>
+  </data>
+  <data name="Shell.Ribbon.PowerPointGroup" xml:space="preserve">
+    <value>Asistente de PowerPoint</value>
+  </data>
+  <data name="Shell.Ribbon.TogglePane" xml:space="preserve">
+    <value>Panel</value>
+  </data>
+  <data name="Shell.Ribbon.ModelConfig" xml:space="preserve">
+    <value>Modelos</value>
+  </data>
+  <data name="Shell.Ribbon.McpConfig" xml:space="preserve">
+    <value>MCP</value>
+  </data>
+  <data name="Shell.Ribbon.SkillsConfig" xml:space="preserve">
+    <value>Habilidades</value>
+  </data>
+  <data name="Shell.Ribbon.MemoryConfig" xml:space="preserve">
+    <value>Memoria</value>
+  </data>
+  <data name="Shell.Ribbon.BuiltinToolsConfig" xml:space="preserve">
+    <value>Herramientas</value>
+  </data>
+  <data name="Shell.Ribbon.SystemSettings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="Shell.Ribbon.About" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Shell.Status.CreatingPane" xml:space="preserve">
+    <value>Creando el panel; espere…</value>
+  </data>
+  <data name="Shell.Status.OpeningModelConfig" xml:space="preserve">
+    <value>Abriendo la configuración del modelo…</value>
+  </data>
+  <data name="Shell.Status.OpeningMcpConfig" xml:space="preserve">
+    <value>Abriendo la configuración de MCP…</value>
+  </data>
+  <data name="Shell.Status.OpeningSkillsConfig" xml:space="preserve">
+    <value>Abriendo la configuración de habilidades…</value>
+  </data>
+  <data name="Shell.Status.OpeningMemoryConfig" xml:space="preserve">
+    <value>Abriendo la configuración de memoria…</value>
+  </data>
+  <data name="Shell.Status.OpeningBuiltinToolsConfig" xml:space="preserve">
+    <value>Abriendo la configuración de las herramientas integradas…</value>
+  </data>
+  <data name="Shell.Status.OpeningSystemSettings" xml:space="preserve">
+    <value>Abriendo la configuración del sistema…</value>
+  </data>
+  <data name="Shell.Status.OpeningAbout" xml:space="preserve">
+    <value>Abriendo «Acerca de»…</value>
+  </data>
+  <data name="Shell.Error.OperationFailed" xml:space="preserve">
+    <value>Error en la operación:
+
+{0}</value>
+  </data>
+  <data name="Shell.Error.ConfigurationTitle" xml:space="preserve">
+    <value>Error de configuración</value>
+  </data>
+  <data name="Shell.Error.AddInUnavailable" xml:space="preserve">
+    <value>El complemento de Office no está disponible.</value>
+  </data>
+  <data name="Shell.Error.TaskPaneUnavailable" xml:space="preserve">
+    <value>El administrador del panel de tareas no está inicializado.</value>
+  </data>
+  <data name="Shell.Error.OpenModelConfigFailed" xml:space="preserve">
+    <value>Error al abrir la configuración del modelo: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenMcpConfigFailed" xml:space="preserve">
+    <value>Error al abrir la configuración de MCP: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenSkillsConfigFailed" xml:space="preserve">
+    <value>Error al abrir la configuración de habilidades: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenMemoryConfigFailed" xml:space="preserve">
+    <value>Error al abrir la configuración de memoria: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenBuiltinToolsConfigFailed" xml:space="preserve">
+    <value>Error al abrir la configuración de las herramientas integradas: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenSystemSettingsFailed" xml:space="preserve">
+    <value>Error al abrir la configuración del sistema: {0}</value>
+  </data>
+  <data name="Shell.Startup.LoadFailure" xml:space="preserve">
+    <value>Error al cargar el complemento de {0}:
+
+{1}</value>
+  </data>
+  <data name="Shell.Excel.ProtectionRecoveryFailure" xml:space="preserve">
+    <value>Nixer Excel Copilot no ha podido restaurar automáticamente la protección de estas hojas de cálculo:
+
+{0}
+
+Revise la pestaña Revisar de Excel y desproteja manualmente las hojas que no tengan contraseña.</value>
+  </data>
+  <data name="Shell.About.Title" xml:space="preserve">
+    <value>Acerca de {0}</value>
+  </data>
+  <data name="Shell.About.Version" xml:space="preserve">
+    <value>Versión {0}</value>
+  </data>
+  <data name="Shell.About.Project" xml:space="preserve">
+    <value>Proyecto:</value>
+  </data>
+  <data name="Shell.About.Contact" xml:space="preserve">
+    <value>Contacto:</value>
+  </data>
+  <data name="Shell.About.ContactValue" xml:space="preserve">
+    <value>Incidencias de GitHub</value>
+  </data>
+  <data name="Shell.About.License" xml:space="preserve">
+    <value>Licencia:</value>
+  </data>
+  <data name="Shell.About.Author" xml:space="preserve">
+    <value>Autor:</value>
+  </data>
+  <data name="Shell.About.Ok" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Web.action.copy" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="Web.action.copyCode" xml:space="preserve">
+    <value>Copiar código</value>
+  </data>
+  <data name="Web.action.retry" xml:space="preserve">
+    <value>Reintentar</value>
+  </data>
+  <data name="Web.action.restore" xml:space="preserve">
+    <value>Deshacer este cambio (crear una copia restaurada desde la copia de seguridad; el archivo original no se sobrescribe)</value>
+  </data>
+  <data name="Web.action.viewBackup" xml:space="preserve">
+    <value>Ver copia de seguridad</value>
+  </data>
+  <data name="Web.action.viewBackupsCount" xml:space="preserve">
+    <value>Ver copias de seguridad ({0})</value>
+  </data>
+  <data name="Web.action.openVba" xml:space="preserve">
+    <value>Abrir en el editor de VBA</value>
+  </data>
+  <data name="Web.action.runVba" xml:space="preserve">
+    <value>Ejecutar VBA directamente</value>
+  </data>
+  <data name="Web.action.scrollBottom" xml:space="preserve">
+    <value>Desplazarse hasta el final y reanudar el seguimiento automático</value>
+  </data>
+  <data name="Web.action.follow" xml:space="preserve">
+    <value>Seguir</value>
+  </data>
+  <data name="Web.backup.pending" xml:space="preserve">
+    <value>Creando copia de seguridad…</value>
+  </data>
+  <data name="Web.code.running" xml:space="preserve">
+    <value>En ejecución…</value>
+  </data>
+  <data name="Web.code.ran" xml:space="preserve">
+    <value>Ejecutado</value>
+  </data>
+  <data name="Web.code.runFailed" xml:space="preserve">
+    <value>Error de ejecución</value>
+  </data>
+  <data name="Web.code.opened" xml:space="preserve">
+    <value>Abierto</value>
+  </data>
+  <data name="Web.code.openFailed" xml:space="preserve">
+    <value>Error al abrir</value>
+  </data>
+  <data name="Web.code.typing" xml:space="preserve">
+    <value>Nixer Copilot está respondiendo</value>
+  </data>
+  <data name="Web.code.vbaFailure" xml:space="preserve">
+    <value>Error al ejecutar VBA</value>
+  </data>
+  <data name="Web.message.user" xml:space="preserve">
+    <value>Tú</value>
+  </data>
+  <data name="Web.message.toolCall" xml:space="preserve">
+    <value>Llamada a herramienta</value>
+  </data>
+  <data name="Web.message.executing" xml:space="preserve">
+    <value>En ejecución</value>
+  </data>
+  <data name="Web.message.completed" xml:space="preserve">
+    <value>Completado</value>
+  </data>
+  <data name="Web.message.failed" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Web.confirmation.heading" xml:space="preserve">
+    <value>La ejecución requiere su confirmación.</value>
+  </data>
+  <data name="Web.confirmation.title" xml:space="preserve">
+    <value>Confirmación de herramienta de alto riesgo</value>
+  </data>
+  <data name="Web.confirmation.titleSuffix" xml:space="preserve">
+    <value>{0} - Confirmación de ejecución</value>
+  </data>
+  <data name="Web.confirmation.warningText" xml:space="preserve">
+    <value>Esta operación puede modificar el documento de Office actual. Revísela antes de continuar.</value>
+  </data>
+  <data name="Web.confirmation.preExecutionBackup" xml:space="preserve">
+    <value>Copia de seguridad previa a la ejecución: </value>
+  </data>
+  <data name="Web.confirmation.argumentsSummary" xml:space="preserve">
+    <value>Resumen de argumentos:</value>
+  </data>
+  <data name="Web.confirmation.choices" xml:space="preserve">
+    <value>Elija Sí para continuar o No para cancelar.</value>
+  </data>
+  <data name="Web.confirmation.operation" xml:space="preserve">
+    <value>Operación</value>
+  </data>
+  <data name="Web.confirmation.tool" xml:space="preserve">
+    <value>Herramienta</value>
+  </data>
+  <data name="Web.confirmation.risk" xml:space="preserve">
+    <value>Nivel de riesgo</value>
+  </data>
+  <data name="Web.confirmation.document" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="Web.confirmation.backup" xml:space="preserve">
+    <value>Copia de seguridad</value>
+  </data>
+  <data name="Web.confirmation.details" xml:space="preserve">
+    <value>Ver JSON completo de los argumentos</value>
+  </data>
+  <data name="Web.confirmation.summary" xml:space="preserve">
+    <value>Ver resumen de argumentos</value>
+  </data>
+  <data name="Web.confirmation.waiting" xml:space="preserve">
+    <value>Esperando confirmación</value>
+  </data>
+  <data name="Web.confirmation.denied" xml:space="preserve">
+    <value>Rechazado</value>
+  </data>
+  <data name="Web.confirmation.accepted" xml:space="preserve">
+    <value>Confirmado; continuando</value>
+  </data>
+  <data name="Web.confirmation.deny" xml:space="preserve">
+    <value>Rechazar</value>
+  </data>
+  <data name="Web.confirmation.allowOnce" xml:space="preserve">
+    <value>Permitir una vez</value>
+  </data>
+  <data name="Web.confirmation.allowSession" xml:space="preserve">
+    <value>Permitir automáticamente durante esta sesión</value>
+  </data>
+  <data name="Web.confirmation.allowAlways" xml:space="preserve">
+    <value>Permitir siempre automáticamente</value>
+  </data>
+  <data name="Web.confirmation.confirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="Web.ask.submit" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="Web.ask.header" xml:space="preserve">
+    <value>Nixer Copilot necesita su respuesta</value>
+  </data>
+  <data name="Web.ask.cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Web.ask.other" xml:space="preserve">
+    <value>Otro:</value>
+  </data>
+  <data name="Web.ask.otherPlaceholder" xml:space="preserve">
+    <value>Escriba una respuesta personalizada…</value>
+  </data>
+  <data name="Web.ask.previewPrompt" xml:space="preserve">
+    <value>Seleccione una opción para ver su vista previa</value>
+  </data>
+  <data name="Web.ask.previewEnlarge" xml:space="preserve">
+    <value>Haga clic para ampliar</value>
+  </data>
+  <data name="Web.clipboard.copied" xml:space="preserve">
+    <value>Copiado</value>
+  </data>
+  <data name="Web.clipboard.copyFailed" xml:space="preserve">
+    <value>Error al copiar</value>
+  </data>
+  <data name="Web.thinking.active" xml:space="preserve">
+    <value>Pensando</value>
+  </data>
+  <data name="Web.thinking.completed" xml:space="preserve">
+    <value>Proceso de razonamiento</value>
+  </data>
+  <data name="Web.info.noHostContext" xml:space="preserve">
+    <value>No hay disponible un contexto válido de la aplicación</value>
+  </data>
+  <data name="Web.info.registeredTools" xml:space="preserve">
+    <value>Herramientas: {0}</value>
+  </data>
+  <data name="Web.info.toolsRegistered" xml:space="preserve">
+    <value>Herramientas: registradas</value>
+  </data>
+  <data name="Web.info.toolsHelp" xml:space="preserve">
+    <value>/tools para mostrar las herramientas registradas</value>
+  </data>
+  <data name="Web.info.callHelp" xml:space="preserve">
+    <value>/call &lt;toolName&gt; {json} para invocarla directamente</value>
+  </data>
+  <data name="Web.panel.noModel" xml:space="preserve">
+    <value>Configure primero un modelo</value>
+  </data>
+  <data name="Web.panel.toolbar" xml:space="preserve">
+    <value>Herramientas</value>
+  </data>
+  <data name="Web.panel.newSession" xml:space="preserve">
+    <value>Nueva conversación</value>
+  </data>
+  <data name="Web.panel.files" xml:space="preserve">
+    <value>Archivos</value>
+  </data>
+  <data name="Web.panel.model" xml:space="preserve">
+    <value>Modelo {0}</value>
+  </data>
+  <data name="Web.panel.loading" xml:space="preserve">
+    <value>Cargando la interfaz</value>
+  </data>
+  <data name="Web.panel.loadingAssets" xml:space="preserve">
+    <value>Cargando los recursos de la página local. Espere…</value>
+  </data>
+  <data name="Web.panel.documentTitle" xml:space="preserve">
+    <value>Panel de Office Copilot</value>
+  </data>
+  <data name="Web.panel.initializing" xml:space="preserve">
+    <value>WebView2 se está inicializando. Espere…</value>
+  </data>
+  <data name="Web.panel.loadFailed" xml:space="preserve">
+    <value>No se puede cargar la interfaz</value>
+  </data>
+  <data name="Web.panel.initializationError" xml:space="preserve">
+    <value>Error al inicializar WebView2; se muestra un marcador de posición.{0}{0}{1}{0}{0}Carpeta de datos del usuario: {2}</value>
+  </data>
+  <data name="Web.panel.webAssetsMissing" xml:space="preserve">
+    <value>No se encuentra la carpeta de recursos web: {0}</value>
+  </data>
+  <data name="Web.panel.pageMissing" xml:space="preserve">
+    <value>No se ha encontrado el recurso de la página del cliente:{0}{0}{1}</value>
+  </data>
+  <data name="Web.panel.pageLoadFailed" xml:space="preserve">
+    <value>Error al cargar los recursos de la página.{0}{0}Estado: {1}{0}{0}Página: https://{2}/index.html</value>
+  </data>
+  <data name="Web.panel.noQuestions" xml:space="preserve">
+    <value>(No hay preguntas que mostrar)</value>
+  </data>
+  <data name="Web.panel.askTitle" xml:space="preserve">
+    <value>Nixer Copilot — Se necesita su respuesta</value>
+  </data>
+  <data name="Web.panel.submit" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="Web.panel.cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Web.panel.customAnswer" xml:space="preserve">
+    <value>Otro (escriba su respuesta):</value>
+  </data>
+  <data name="Web.panel.customAnswerPlaceholder" xml:space="preserve">
+    <value>Escriba una respuesta personalizada…</value>
+  </data>
+  <data name="Web.panel.notes" xml:space="preserve">
+    <value>Notas (opcional):</value>
+  </data>
+  <data name="Web.panel.notesPlaceholder" xml:space="preserve">
+    <value>Añada notas…</value>
+  </data>
+  <data name="Web.panel.planTitle" xml:space="preserve">
+    <value>Nixer Copilot — Aprobación del plan</value>
+  </data>
+  <data name="Web.panel.planHeader" xml:space="preserve">
+    <value>▎El agente ha preparado un plan de implementación para que lo revise.</value>
+  </data>
+  <data name="Web.panel.planDescription" xml:space="preserve">
+    <value>Revise el plan siguiente. Edítelo si es necesario y seleccione Aprobar para continuar o Rechazar para cancelar.</value>
+  </data>
+  <data name="Web.panel.approve" xml:space="preserve">
+    <value>✓ Aprobar</value>
+  </data>
+  <data name="Web.panel.reject" xml:space="preserve">
+    <value>✗ Rechazar</value>
+  </data>
+  <data name="Web.panel.history" xml:space="preserve">
+    <value>Historial de chat</value>
+  </data>
+  <data name="Web.panel.deleteSession" xml:space="preserve">
+    <value>Eliminar conversación</value>
+  </data>
+  <data name="Web.panel.recent" xml:space="preserve">
+    <value>Recientes</value>
+  </data>
+  <data name="Web.panel.references" xml:space="preserve">
+    <value>Enlaces</value>
+  </data>
+  <data name="Web.panel.url" xml:space="preserve">
+    <value>URL:</value>
+  </data>
+  <data name="Web.panel.send" xml:space="preserve">
+    <value>Enviar mensaje</value>
+  </data>
+  <data name="Web.panel.stop" xml:space="preserve">
+    <value>Detener generación</value>
+  </data>
+  <data name="Web.panel.agent" xml:space="preserve">
+    <value>Agente</value>
+  </data>
+  <data name="Web.panel.ask" xml:space="preserve">
+    <value>Preguntar</value>
+  </data>
+  <data name="Web.panel.noBackup" xml:space="preserve">
+    <value>No se ha encontrado ninguna copia de seguridad de la configuración.</value>
+  </data>
+  <data name="Web.panel.viewBackup" xml:space="preserve">
+    <value>Ver copia de seguridad</value>
+  </data>
+  <data name="Web.panel.restore" xml:space="preserve">
+    <value>Deshacer este cambio</value>
+  </data>
+  <data name="Web.panel.restoreMissing" xml:space="preserve">
+    <value>El archivo de copia de seguridad no existe y no se puede restaurar.</value>
+  </data>
+  <data name="Web.panel.restoreUnsupported" xml:space="preserve">
+    <value>La aplicación actual no admite la restauración desde una copia de seguridad.</value>
+  </data>
+  <data name="Web.panel.restoreConfirm" xml:space="preserve">
+    <value>Crear una copia restaurada desde este punto de la copia de seguridad (no se sobrescribirá el archivo original):{0}{0}{1}</value>
+  </data>
+  <data name="Web.panel.restoreDetailedConfirm" xml:space="preserve">
+    <value>Crear una copia restaurada desde este punto de la copia de seguridad:{0}{0}{1}{0}{0}La copia se guardará junto al documento original (con el sufijo _restored_; los documentos sin guardar se guardarán en la carpeta de copias de seguridad). No se sobrescribirá el archivo original. ¿Desea continuar?</value>
+  </data>
+  <data name="Web.panel.restoreResult" xml:space="preserve">
+    <value>{0}{1}{1}Copia restaurada: {2}</value>
+  </data>
+  <data name="Web.panel.openBackupFailed" xml:space="preserve">
+    <value>Error al abrir la copia de seguridad: {0}</value>
+  </data>
+  <data name="Web.panel.attachmentTitle" xml:space="preserve">
+    <value>Referencias</value>
+  </data>
+  <data name="Web.panel.pasteReference" xml:space="preserve">
+    <value>Pegar referencia</value>
+  </data>
+  <data name="Web.panel.emptyRecent" xml:space="preserve">
+    <value>No hay referencias recientes</value>
+  </data>
+  <data name="Web.panel.referenceLimit" xml:space="preserve">
+    <value>Se ha alcanzado el número máximo de archivos adjuntos de referencia.</value>
+  </data>
+  <data name="Web.panel.duplicateRecent" xml:space="preserve">
+    <value>Todas estas referencias recientes ya están en la lista actual.</value>
+  </data>
+  <data name="Web.panel.pasteFailed" xml:space="preserve">
+    <value>Error al leer el contenido del portapapeles: {0}</value>
+  </data>
+  <data name="Web.panel.clipboardImageFailed" xml:space="preserve">
+    <value>Error al guardar la imagen del portapapeles.</value>
+  </data>
+  <data name="Web.panel.noNewReferences" xml:space="preserve">
+    <value>No se han añadido referencias nuevas.</value>
+  </data>
+  <data name="Web.panel.noNewClipboardImages" xml:space="preserve">
+    <value>No se han añadido imágenes nuevas del portapapeles.</value>
+  </data>
+  <data name="Web.panel.noSupportedFiles" xml:space="preserve">
+    <value>No se han añadido archivos de referencia compatibles.</value>
+  </data>
+  <data name="Web.panel.dragReferences" xml:space="preserve">
+    <value>Arrastre y suelte referencias</value>
+  </data>
+  <data name="Web.panel.fileReferences" xml:space="preserve">
+    <value>Referencias de archivos</value>
+  </data>
+  <data name="Web.panel.addReferenceFiles" xml:space="preserve">
+    <value>Añadir archivos de referencia</value>
+  </data>
+  <data name="Web.panel.webReference" xml:space="preserve">
+    <value>Referencia web</value>
+  </data>
+  <data name="Web.panel.webReferenceDuplicate" xml:space="preserve">
+    <value>Este enlace ya está en la lista actual de referencias.</value>
+  </data>
+  <data name="Web.panel.webReferenceFailed" xml:space="preserve">
+    <value>Error al añadir la referencia web: {0}</value>
+  </data>
+  <data name="Web.panel.referenceFileMissing" xml:space="preserve">
+    <value>El archivo de referencia no existe y no se puede abrir.</value>
+  </data>
+  <data name="Web.panel.referenceContentFailed" xml:space="preserve">
+    <value>Error al abrir el contenido de la referencia: {0}</value>
+  </data>
+  <data name="Web.panel.referenceLimitTitle" xml:space="preserve">
+    <value>Límite de referencias</value>
+  </data>
+  <data name="Web.panel.referenceLimitCount" xml:space="preserve">
+    <value>Se ha alcanzado el límite de referencias ({0}).</value>
+  </data>
+  <data name="Web.panel.unnamedReference" xml:space="preserve">
+    <value>Referencia sin nombre</value>
+  </data>
+  <data name="Web.panel.otherReferencesCount" xml:space="preserve">
+    <value> y {0} más</value>
+  </data>
+  <data name="Web.panel.pasteTitle" xml:space="preserve">
+    <value>Pegar referencia</value>
+  </data>
+  <data name="Web.panel.openReferenceTitle" xml:space="preserve">
+    <value>Referencia</value>
+  </data>
+  <data name="Web.panel.recentTitle" xml:space="preserve">
+    <value>Referencias recientes</value>
+  </data>
+  <data name="Web.attachment.parsed" xml:space="preserve">
+    <value>Preparación de referencias completada: {0}</value>
+  </data>
+  <data name="Web.attachment.count" xml:space="preserve">
+    <value>{0} elementos</value>
+  </data>
+  <data name="Web.attachment.truncatedCount" xml:space="preserve">
+    <value>{0} truncados</value>
+  </data>
+  <data name="Web.attachment.failedCount" xml:space="preserve">
+    <value>{0} con errores</value>
+  </data>
+  <data name="Web.attachment.parseComplete" xml:space="preserve">
+    <value>Analizado</value>
+  </data>
+  <data name="Web.attachment.noParseResult" xml:space="preserve">
+    <value>Sin resultado de análisis</value>
+  </data>
+  <data name="Web.attachment.parseFailed" xml:space="preserve">
+    <value>Error de análisis: {0}</value>
+  </data>
+  <data name="Web.attachment.parseTruncated" xml:space="preserve">
+    <value>Analizado; el contenido se ha truncado</value>
+  </data>
+  <data name="Web.attachment.pages" xml:space="preserve">
+    <value>{0} páginas</value>
+  </data>
+  <data name="Web.attachment.visibleWorksheets" xml:space="preserve">
+    <value>{0} hojas de cálculo visibles</value>
+  </data>
+  <data name="Web.attachment.slides" xml:space="preserve">
+    <value>{0} diapositivas</value>
+  </data>
+  <data name="Web.attachment.contentTruncated" xml:space="preserve">
+    <value>Contenido truncado</value>
+  </data>
+  <data name="Web.attachment.parseFailure" xml:space="preserve">
+    <value>Error de análisis</value>
+  </data>
+  <data name="Web.attachment.previewTitle" xml:space="preserve">
+    <value>Título: {0}</value>
+  </data>
+  <data name="Web.attachment.previewUrl" xml:space="preserve">
+    <value>URL: {0}</value>
+  </data>
+  <data name="Web.attachment.previewEncoding" xml:space="preserve">
+    <value>Codificación: {0}</value>
+  </data>
+  <data name="Web.attachment.previewSummary" xml:space="preserve">
+    <value>Resumen:</value>
+  </data>
+  <data name="Web.attachment.previewContent" xml:space="preserve">
+    <value>Contenido extraído:</value>
+  </data>
+  <data name="Web.attachment.emptyContent" xml:space="preserve">
+    <value>[Sin contenido]</value>
+  </data>
+  <data name="Web.attachment.clipboardImageFile" xml:space="preserve">
+    <value>Imagen del portapapeles-{0:D2}.png</value>
+  </data>
+  <data name="Web.attachment.noTempFile" xml:space="preserve">
+    <value>No se ha podido crear un archivo temporal para la imagen del portapapeles.</value>
+  </data>
+  <data name="Web.attachment.summarySuffix" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Web.attachment.nameSeparator" xml:space="preserve">
+    <value>; </value>
+  </data>
+  <data name="Web.attachment.listSeparator" xml:space="preserve">
+    <value>; </value>
+  </data>
+  <data name="Web.panel.sendError" xml:space="preserve">
+    <value>Error al enviar: {0}</value>
+  </data>
+  <data name="Web.panel.sendException" xml:space="preserve">
+    <value>Error de envío: {0}</value>
+  </data>
+  <data name="Web.panel.modelRequired" xml:space="preserve">
+    <value>Configure y seleccione primero un modelo.</value>
+  </data>
+  <data name="Web.panel.sendFailed" xml:space="preserve">
+    <value>Error al enviar</value>
+  </data>
+  <data name="Web.info.activeDocument" xml:space="preserve">
+    <value>Documento activo: {0}</value>
+  </data>
+  <data name="Web.info.worksheet" xml:space="preserve">
+    <value>Hoja actual: {0}</value>
+  </data>
+  <data name="Web.info.selection" xml:space="preserve">
+    <value>Selección actual: {0}</value>
+  </data>
+  <data name="Web.info.toolsCount" xml:space="preserve">
+    <value>Herramientas: {0}</value>
+  </data>
+  <data name="Web.info.hostContextLoaded" xml:space="preserve">
+    <value>Contexto de la aplicación cargado</value>
+  </data>
+  <data name="Web.context.tokens" xml:space="preserve">
+    <value>Uso del contexto: {0}%  ({1:N0} / {2:N0} tokens)</value>
+  </data>
+  <data name="Web.panel.backupFailed" xml:space="preserve">
+    <value>Error en la operación: {0}</value>
+  </data>
+  <data name="trust.footer.status" xml:space="preserve">
+    <value>Verificación:</value>
+  </data>
+  <data name="trust.footer.scope" xml:space="preserve">
+    <value>Comprobado:</value>
+  </data>
+  <data name="trust.footer.basis" xml:space="preserve">
+    <value>Base:</value>
+  </data>
+  <data name="trust.footer.unmatched" xml:space="preserve">
+    <value>Números sin pruebas directas:</value>
+  </data>
+  <data name="trust.footer.unmatched.detail" xml:space="preserve">
+    <value>(el rastreo automático no ha encontrado estos números en el mensaje del usuario ni en los resultados de las herramientas)</value>
+  </data>
+  <data name="trust.footer.tier.c.unmatched" xml:space="preserve">
+    <value>Nivel C: no verificado por completo; algunos números de las conclusiones carecen de pruebas directas</value>
+  </data>
+  <data name="trust.footer.tier.b.corrected" xml:space="preserve">
+    <value>Nivel B: revisado con limitaciones (se han corregido los números de la respuesta final)</value>
+  </data>
+  <data name="trust.footer.tier.a.full" xml:space="preserve">
+    <value>Nivel A: se ha superado la verificación independiente completa</value>
+  </data>
+  <data name="trust.footer.tier.a.assertions" xml:space="preserve">
+    <value>{0} comprobaciones superadas</value>
+  </data>
+  <data name="trust.footer.tier.a.coverage" xml:space="preserve">
+    <value>que abarcan {0} filas</value>
+  </data>
+  <data name="trust.footer.tier.a.outputs" xml:space="preserve">
+    <value>{0} resultados superaron la verificación independiente completa</value>
+  </data>
+  <data name="trust.footer.tier.b" xml:space="preserve">
+    <value>Nivel B: revisado con limitaciones ({0})</value>
+  </data>
+  <data name="trust.footer.tier.c" xml:space="preserve">
+    <value>Nivel C: no verificado por completo — {0}</value>
+  </data>
+  <data name="trust.footer.reason.b" xml:space="preserve">
+    <value>las pruebas de verificación no alcanzaron el estándar de verificación independiente completa</value>
+  </data>
+  <data name="trust.footer.reason.c" xml:space="preserve">
+    <value>al menos un elemento de salida no tiene pruebas de verificación utilizables</value>
+  </data>
+  <data name="trust.footer.verified.keysets" xml:space="preserve">
+    <value>diferencias entre conjuntos de claves calculadas en ambas direcciones</value>
+  </data>
+  <data name="trust.footer.verified.hidden" xml:space="preserve">
+    <value>estados de filas ocultas examinados por completo</value>
+  </data>
+  <data name="trust.footer.basis.unparseable" xml:space="preserve">
+    <value>No se ha podido analizar la información de la base</value>
+  </data>
+  <data name="trust.footer.basis.unspecified" xml:space="preserve">
+    <value>No se ha declarado una base detallada</value>
+  </data>
+  <data name="trust.footer.filter" xml:space="preserve">
+    <value>filtro </value>
+  </data>
+  <data name="trust.footer.and" xml:space="preserve">
+    <value> y </value>
+  </data>
+  <data name="trust.footer.group.by" xml:space="preserve">
+    <value>por </value>
+  </data>
+  <data name="trust.footer.group.aggregate" xml:space="preserve">
+    <value> agregado</value>
+  </data>
+  <data name="trust.footer.group.all" xml:space="preserve">
+    <value>agregado general</value>
+  </data>
+  <data name="trust.footer.more" xml:space="preserve">
+    <value>y {0} más</value>
+  </data>
+  <data name="trust.footer.bucket.width" xml:space="preserve">
+    <value>; ancho del intervalo </value>
+  </data>
+  <data name="trust.footer.prefix" xml:space="preserve">
+    <value>; primero </value>
+  </data>
+  <data name="trust.footer.characters" xml:space="preserve">
+    <value> caracteres</value>
+  </data>
+  <data name="trust.footer.operator.contains" xml:space="preserve">
+    <value> contiene </value>
+  </data>
+  <data name="trust.footer.operator.starts_with" xml:space="preserve">
+    <value> empieza por </value>
+  </data>
+  <data name="trust.footer.operator.in" xml:space="preserve">
+    <value> está en </value>
+  </data>
+  <data name="trust.footer.operator.is_empty" xml:space="preserve">
+    <value> está vacío</value>
+  </data>
+  <data name="trust.footer.operator.not_empty" xml:space="preserve">
+    <value> no está vacío</value>
+  </data>
+  <data name="panel.tool_confirmation.title" xml:space="preserve">
+    <value>Confirmación de herramienta de alto riesgo</value>
+  </data>
+  <data name="panel.tool_confirmation.title_suffix" xml:space="preserve">
+    <value>{0} - Confirmación de ejecución</value>
+  </data>
+  <data name="panel.tool_confirmation.warning" xml:space="preserve">
+    <value>Esta operación puede modificar el documento de Office actual. Revísela antes de continuar.</value>
+  </data>
+  <data name="panel.tool_confirmation.tool" xml:space="preserve">
+    <value>Herramienta: </value>
+  </data>
+  <data name="panel.tool_confirmation.risk" xml:space="preserve">
+    <value>Nivel de riesgo: </value>
+  </data>
+  <data name="panel.tool_confirmation.document" xml:space="preserve">
+    <value>Documento: </value>
+  </data>
+  <data name="panel.tool_confirmation.operation" xml:space="preserve">
+    <value>Operación: </value>
+  </data>
+  <data name="panel.tool_confirmation.backup" xml:space="preserve">
+    <value>Copia de seguridad previa a la ejecución: </value>
+  </data>
+  <data name="panel.tool_confirmation.arguments" xml:space="preserve">
+    <value>Resumen de argumentos:</value>
+  </data>
+  <data name="panel.tool_confirmation.choices" xml:space="preserve">
+    <value>Elija Sí para continuar o No para cancelar.</value>
+  </data>
+  <data name="panel.error.broker.transport.not_connected" xml:space="preserve">
+    <value>El intermediario no está conectado.</value>
+  </data>
+  <data name="panel.error.broker.transport.invalid_payload" xml:space="preserve">
+    <value>El intermediario ha devuelto una respuesta no válida.</value>
+  </data>
+  <data name="panel.error.broker.transport.no_response" xml:space="preserve">
+    <value>El intermediario no ha devuelto ninguna respuesta.</value>
+  </data>
+  <data name="panel.error.broker.pipe.invalid_request" xml:space="preserve">
+    <value>La solicitud al intermediario no era válida.</value>
+  </data>
+  <data name="panel.error.runtime.turn_failed" xml:space="preserve">
+    <value>No se ha podido completar el turno: {0}</value>
+  </data>
+  <data name="panel.error.runtime.cancelled" xml:space="preserve">
+    <value>Se ha cancelado el turno.</value>
+  </data>
+  <data name="panel.error.host.capabilities_unavailable" xml:space="preserve">
+    <value>Las herramientas de Office no están disponibles. Vuelva a abrir el documento o reinicie el complemento de Office y vuelva a intentarlo.</value>
+  </data>
+  <data name="panel.error.tool.confirmation_handler_unavailable" xml:space="preserve">
+    <value>No hay disponible un controlador de confirmación para esta herramienta.</value>
+  </data>
+  <data name="panel.error.permission.denied_by_user" xml:space="preserve">
+    <value>El usuario ha denegado la herramienta «{0}».</value>
+  </data>
+  <data name="tool.runtime.compact.display_name" xml:space="preserve">
+    <value>Compactar contexto</value>
+  </data>
+  <data name="tool.excel_get_active_workbook.display_name" xml:space="preserve">
+    <value>Obtener libro activo</value>
+  </data>
+  <data name="tool.excel_get_selection.display_name" xml:space="preserve">
+    <value>Obtener selección</value>
+  </data>
+  <data name="tool.excel_list_worksheets.display_name" xml:space="preserve">
+    <value>Listar hojas de cálculo</value>
+  </data>
+  <data name="tool.excel_read_range.display_name" xml:space="preserve">
+    <value>Leer rango</value>
+  </data>
+  <data name="tool.excel_write_range.display_name" xml:space="preserve">
+    <value>Escribir rango</value>
+  </data>
+  <data name="tool.ppt_extract_content.display_name" xml:space="preserve">
+    <value>Extraer esquema de la presentación</value>
+  </data>
+  <data name="tool.ppt_export_slide_image.display_name" xml:space="preserve">
+    <value>Exportar imagen de diapositiva</value>
+  </data>
+  <data name="tool.ppt_check_fonts.display_name" xml:space="preserve">
+    <value>Comprobar fuentes</value>
+  </data>
+  <data name="tool.ppt_save_with_fonts.display_name" xml:space="preserve">
+    <value>Guardar copia con fuentes incrustadas</value>
+  </data>
+  <data name="tool.ppt_save_copy.display_name" xml:space="preserve">
+    <value>Guardar copia de la presentación</value>
+  </data>
+  <data name="tool.ppt_execute_vba.display_name" xml:space="preserve">
+    <value>Ejecutar VBA</value>
+  </data>
+  <data name="tool.ppt_get_active_presentation.display_name" xml:space="preserve">
+    <value>Obtener presentación activa</value>
+  </data>
+  <data name="tool.ppt_get_selection.display_name" xml:space="preserve">
+    <value>Obtener selección</value>
+  </data>
+  <data name="tool.ppt_list_slides.display_name" xml:space="preserve">
+    <value>Listar diapositivas</value>
+  </data>
+  <data name="tool.ppt_read_slide.display_name" xml:space="preserve">
+    <value>Leer diapositiva</value>
+  </data>
+  <data name="tool.ppt_list_backups.display_name" xml:space="preserve">
+    <value>Listar copias de seguridad</value>
+  </data>
+  <data name="tool.ppt_restore_backup.display_name" xml:space="preserve">
+    <value>Restaurar desde una copia de seguridad</value>
+  </data>
+  <data name="tool.ppt_style_search.display_name" xml:space="preserve">
+    <value>Buscar en la biblioteca de estilos</value>
+  </data>
+  <data name="tool.ppt_style_get.display_name" xml:space="preserve">
+    <value>Leer detalles del estilo</value>
+  </data>
+  <data name="tool.ppt_deck_build.display_name" xml:space="preserve">
+    <value>Crear presentación desde el espacio de trabajo</value>
+  </data>
+  <data name="tool.word_toggle_track_changes.display_name" xml:space="preserve">
+    <value>Activar o desactivar el control de cambios</value>
+  </data>
+  <data name="tool.word_list_styles.display_name" xml:space="preserve">
+    <value>Listar estilos</value>
+  </data>
+  <data name="tool.word_add_comment.display_name" xml:space="preserve">
+    <value>Añadir comentario</value>
+  </data>
+  <data name="tool.word_set_paragraph_format.display_name" xml:space="preserve">
+    <value>Establecer formato de párrafo</value>
+  </data>
+  <data name="tool.word_add_hyperlink.display_name" xml:space="preserve">
+    <value>Añadir hipervínculo</value>
+  </data>
+  <data name="tool.word_set_page_setup.display_name" xml:space="preserve">
+    <value>Configurar página</value>
+  </data>
+  <data name="tool.word_add_content_control.display_name" xml:space="preserve">
+    <value>Añadir control de contenido</value>
+  </data>
+  <data name="tool.word_select_paragraph.display_name" xml:space="preserve">
+    <value>Seleccionar párrafo</value>
+  </data>
+  <data name="tool.word_set_header_footer.display_name" xml:space="preserve">
+    <value>Establecer encabezado y pie de página</value>
+  </data>
+  <data name="tool.word_select_document.display_name" xml:space="preserve">
+    <value>Seleccionar todo el documento</value>
+  </data>
+  <data name="tool.word_add_bookmark.display_name" xml:space="preserve">
+    <value>Añadir marcador</value>
+  </data>
+  <data name="tool.word_move_to_end.display_name" xml:space="preserve">
+    <value>Ir al final del documento</value>
+  </data>
+  <data name="tool.word_insert_paragraph.display_name" xml:space="preserve">
+    <value>Insertar salto de párrafo</value>
+  </data>
+  <data name="tool.word_insert_text.display_name" xml:space="preserve">
+    <value>Insertar texto</value>
+  </data>
+  <data name="tool.word_insert_table.display_name" xml:space="preserve">
+    <value>Insertar tabla</value>
+  </data>
+  <data name="tool.word_insert_field.display_name" xml:space="preserve">
+    <value>Insertar campo</value>
+  </data>
+  <data name="tool.word_file_watermark.display_name" xml:space="preserve">
+    <value>Marca de agua</value>
+  </data>
+  <data name="tool.word_file_field.display_name" xml:space="preserve">
+    <value>Insertar campo</value>
+  </data>
+  <data name="tool.word_format_selection.display_name" xml:space="preserve">
+    <value>Dar formato a la selección</value>
+  </data>
+  <data name="tool.word_format_paragraphs.display_name" xml:space="preserve">
+    <value>Dar formato a los párrafos (por lotes)</value>
+  </data>
+  <data name="tool.word_file_toc.display_name" xml:space="preserve">
+    <value>Reconstruir tabla de contenido</value>
+  </data>
+  <data name="tool.word_file_numbering.display_name" xml:space="preserve">
+    <value>Crear lista numerada</value>
+  </data>
+  <data name="tool.word_find_replace.display_name" xml:space="preserve">
+    <value>Buscar y reemplazar</value>
+  </data>
+  <data name="tool.word_apply_style.display_name" xml:space="preserve">
+    <value>Aplicar estilo</value>
+  </data>
+  <data name="tool.word_get_selection.display_name" xml:space="preserve">
+    <value>Obtener selección</value>
+  </data>
+  <data name="tool.word_get_active_document.display_name" xml:space="preserve">
+    <value>Obtener documento activo</value>
+  </data>
+  <data name="tool.word_read_table.display_name" xml:space="preserve">
+    <value>Leer tabla</value>
+  </data>
+  <data name="tool.word_read_outline.display_name" xml:space="preserve">
+    <value>Leer esquema</value>
+  </data>
+  <data name="tool.word_read_paragraphs.display_name" xml:space="preserve">
+    <value>Leer párrafos</value>
+  </data>
+  <data name="tool.word_read_document.display_name" xml:space="preserve">
+    <value>Leer documento</value>
+  </data>
+  <data name="tool.excel_execute_vba.display_name" xml:space="preserve">
+    <value>Ejecutar código VBA</value>
+  </data>
+  <data name="tool.excel_clear_range.display_name" xml:space="preserve">
+    <value>Borrar rango</value>
+  </data>
+  <data name="tool.excel_create_worksheet.display_name" xml:space="preserve">
+    <value>Crear hoja de cálculo</value>
+  </data>
+  <data name="tool.excel_set_range_format.display_name" xml:space="preserve">
+    <value>Establecer formato del rango</value>
+  </data>
+  <data name="tool.excel_set_range_formulas.display_name" xml:space="preserve">
+    <value>Establecer fórmulas del rango</value>
+  </data>
+  <data name="tool.excel_assert.display_name" xml:space="preserve">
+    <value>Comprobaciones de Excel</value>
+  </data>
+  <data name="tool.excel_analyze_range.display_name" xml:space="preserve">
+    <value>Analizar rango</value>
+  </data>
+  <data name="tool.excel_aggregate.display_name" xml:space="preserve">
+    <value>Agregar datos</value>
+  </data>
+  <data name="tool.excel_cleanup_workspace.display_name" xml:space="preserve">
+    <value>Limpiar tablas intermedias</value>
+  </data>
+  <data name="tool.excel_capture_worksheet_screenshot.display_name" xml:space="preserve">
+    <value>Capturar imagen de la hoja de cálculo</value>
+  </data>
+  <data name="tool.excel_compare_key_sets.display_name" xml:space="preserve">
+    <value>Comparar conjuntos de claves de Excel</value>
+  </data>
+  <data name="tool.excel_check_power_query_errors.display_name" xml:space="preserve">
+    <value>Comprobar errores de Power Query</value>
+  </data>
+  <data name="tool.excel_list_data_model_calculated_columns.display_name" xml:space="preserve">
+    <value>Listar columnas calculadas del modelo de datos</value>
+  </data>
+  <data name="tool.excel_list_data_model_measures.display_name" xml:space="preserve">
+    <value>Listar medidas del modelo de datos</value>
+  </data>
+  <data name="tool.excel_list_data_model_relationships.display_name" xml:space="preserve">
+    <value>Listar relaciones del modelo de datos</value>
+  </data>
+  <data name="tool.excel_list_data_model_tables.display_name" xml:space="preserve">
+    <value>Listar tablas del modelo de datos</value>
+  </data>
+  <data name="tool.excel_list_connections.display_name" xml:space="preserve">
+    <value>Listar conexiones</value>
+  </data>
+  <data name="tool.excel_list_power_queries.display_name" xml:space="preserve">
+    <value>Listar consultas de Power Query</value>
+  </data>
+  <data name="tool.excel_list_tables.display_name" xml:space="preserve">
+    <value>Listar tablas</value>
+  </data>
+  <data name="tool.excel_read_table_data.display_name" xml:space="preserve">
+    <value>Leer datos de la tabla</value>
+  </data>
+  <data name="tool.excel_validate_power_query.display_name" xml:space="preserve">
+    <value>Validar Power Query</value>
+  </data>
+  <data name="tool.excel_view_connection.display_name" xml:space="preserve">
+    <value>Ver conexión</value>
+  </data>
+  <data name="tool.excel_view_data_model_calculated_column.display_name" xml:space="preserve">
+    <value>Ver columna calculada del modelo de datos</value>
+  </data>
+  <data name="tool.excel_refresh_power_query.display_name" xml:space="preserve">
+    <value>Actualizar Power Query</value>
+  </data>
+  <data name="tool.excel_view_data_model_measure.display_name" xml:space="preserve">
+    <value>Ver medida del modelo de datos</value>
+  </data>
+  <data name="tool.excel_view_table.display_name" xml:space="preserve">
+    <value>Ver tabla</value>
+  </data>
+  <data name="tool.excel_find_in_range.display_name" xml:space="preserve">
+    <value>Buscar en el rango</value>
+  </data>
+  <data name="tool.excel_get_range_hyperlinks.display_name" xml:space="preserve">
+    <value>Leer hipervínculos del rango</value>
+  </data>
+  <data name="tool.excel_get_range_info.display_name" xml:space="preserve">
+    <value>Leer información del rango</value>
+  </data>
+  <data name="tool.excel_get_named_range_value.display_name" xml:space="preserve">
+    <value>Leer valor del rango con nombre</value>
+  </data>
+  <data name="tool.excel_get_range_merge_info.display_name" xml:space="preserve">
+    <value>Leer estado de combinación del rango</value>
+  </data>
+  <data name="tool.excel_get_range_lock_info.display_name" xml:space="preserve">
+    <value>Leer estado de bloqueo del rango</value>
+  </data>
+  <data name="tool.excel_get_range_style.display_name" xml:space="preserve">
+    <value>Leer formato del rango</value>
+  </data>
+  <data name="tool.excel_get_range_number_formats.display_name" xml:space="preserve">
+    <value>Leer formatos numéricos del rango</value>
+  </data>
+  <data name="tool.excel_get_range_validation.display_name" xml:space="preserve">
+    <value>Leer validación de datos del rango</value>
+  </data>
+  <data name="tool.excel_list_backups.display_name" xml:space="preserve">
+    <value>Listar copias de seguridad</value>
+  </data>
+  <data name="tool.excel_profile_range.display_name" xml:space="preserve">
+    <value>Analizar estructura de la tabla</value>
+  </data>
+  <data name="tool.excel_list_vba_modules.display_name" xml:space="preserve">
+    <value>Listar módulos de VBA</value>
+  </data>
+  <data name="tool.excel_list_named_ranges.display_name" xml:space="preserve">
+    <value>Listar rangos con nombre</value>
+  </data>
+  <data name="tool.excel_read_range_formulas.display_name" xml:space="preserve">
+    <value>Leer fórmulas del rango</value>
+  </data>
+  <data name="tool.excel_view_power_query.display_name" xml:space="preserve">
+    <value>Ver Power Query</value>
+  </data>
+  <data name="tool.excel_read_worksheet_data.display_name" xml:space="preserve">
+    <value>Leer datos de la hoja de cálculo</value>
+  </data>
+  <data name="tool.excel_reconcile.display_name" xml:space="preserve">
+    <value>Resumen de conciliación</value>
+  </data>
+  <data name="tool.excel_restore_backup.display_name" xml:space="preserve">
+    <value>Restaurar desde una copia de seguridad</value>
+  </data>
+  <data name="tool.excel_validate_range_formulas.display_name" xml:space="preserve">
+    <value>Validar fórmulas del rango</value>
+  </data>
+  <data name="tool.excel_view_vba_module.display_name" xml:space="preserve">
+    <value>Ver módulo de VBA</value>
+  </data>
+  <data name="tool.ppt_style_preview.display_name" xml:space="preserve">
+    <value>Vista previa del estilo de presentación</value>
+  </data>
+  <data name="tool.ppt_deck_create.display_name" xml:space="preserve">
+    <value>Crear borrador de presentación</value>
+  </data>
+  <data name="tool.ppt_deck_put_slides.display_name" xml:space="preserve">
+    <value>Añadir o actualizar diapositivas</value>
+  </data>
+  <data name="tool.ppt_deck_get_slides.display_name" xml:space="preserve">
+    <value>Leer diapositivas del borrador</value>
+  </data>
+  <data name="tool.ppt_deck_remove_slides.display_name" xml:space="preserve">
+    <value>Quitar diapositivas del borrador</value>
+  </data>
+  <data name="tool.ppt_deck_reorder.display_name" xml:space="preserve">
+    <value>Reordenar diapositivas del borrador</value>
+  </data>
+  <data name="tool.ppt_deck_preview.display_name" xml:space="preserve">
+    <value>Vista previa del borrador de presentación</value>
+  </data>
+  <data name="tool.ppt_deck_validate.display_name" xml:space="preserve">
+    <value>Validar borrador de presentación</value>
+  </data>
+  <data name="tool.ppt_set_shape_text.display_name" xml:space="preserve">
+    <value>Establecer texto de forma</value>
+  </data>
+  <data name="tool.ppt_format_shapes.display_name" xml:space="preserve">
+    <value>Dar formato a las formas</value>
+  </data>
+  <data name="tool.ppt_arrange_shapes.display_name" xml:space="preserve">
+    <value>Organizar formas</value>
+  </data>
+  <data name="tool.ppt_delete_shapes.display_name" xml:space="preserve">
+    <value>Eliminar formas</value>
+  </data>
+  <data name="tool.ppt_add_text_box.display_name" xml:space="preserve">
+    <value>Añadir cuadro de texto</value>
+  </data>
+  <data name="tool.ppt_insert_picture.display_name" xml:space="preserve">
+    <value>Insertar imagen</value>
+  </data>
+  <data name="tool.ppt_set_notes.display_name" xml:space="preserve">
+    <value>Establecer notas de diapositiva</value>
+  </data>
+  <data name="tool.ppt_add_slides.display_name" xml:space="preserve">
+    <value>Añadir diapositivas</value>
+  </data>
+  <data name="tool.ppt_delete_slides.display_name" xml:space="preserve">
+    <value>Eliminar diapositivas</value>
+  </data>
+  <data name="tool.ppt_move_slide.display_name" xml:space="preserve">
+    <value>Mover diapositiva</value>
+  </data>
+  <data name="Settings.Config.Context.DeleteCurrentRow" xml:space="preserve">
+    <value>Eliminar fila actual</value>
+  </data>
+  <data name="Settings.Config.McpEditor.EnvironmentVariables" xml:space="preserve">
+    <value>Variables de entorno</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.EmptyResponse" xml:space="preserve">
+    <value>Respuesta vacía</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.Initialize" xml:space="preserve">
+    <value>Error al inicializar MCP: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.InitializeTimeout" xml:space="preserve">
+    <value>Se ha agotado el tiempo de espera del protocolo de enlace MCP: no se recibió respuesta de inicialización.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.JsonParse" xml:space="preserve">
+    <value>Error al analizar JSON: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ListTools" xml:space="preserve">
+    <value>Error en tools/list: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ListToolsTimeout" xml:space="preserve">
+    <value>Se ha agotado el tiempo de espera del protocolo de enlace MCP: no se recibió respuesta de tools/list.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProcessExited" xml:space="preserve">
+    <value>El proceso del servidor se ha cerrado sin responder.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProcessStartFailed" xml:space="preserve">
+    <value>No se ha podido iniciar el proceso. Compruebe que el comando esté en PATH.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProtocolTest" xml:space="preserve">
+    <value>Error al probar el protocolo MCP: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.RequestFailed" xml:space="preserve">
+    <value>Error en la solicitud: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ResponseMissingResult" xml:space="preserve">
+    <value>La respuesta no contiene ni resultado ni error.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.TestFailed" xml:space="preserve">
+    <value>Error en la prueba: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Headers" xml:space="preserve">
+    <value>Encabezados de solicitud</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Arguments" xml:space="preserve">
+    <value>Argumentos de línea de comandos</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Command" xml:space="preserve">
+    <value>Comando</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Endpoint" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.TransportMode" xml:space="preserve">
+    <value>Tipo de transporte</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.WorkingDirectory" xml:space="preserve">
+    <value>Directorio de trabajo</value>
+  </data>
+  <data name="Settings.Config.McpEditor.TestSuccess" xml:space="preserve">
+    <value>✅ La prueba de conexión MCP se ha completado correctamente.
+
+Servidor: {0} v{1}
+Herramientas encontradas: {2}
+Versión del protocolo: {3}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.ToolListMore" xml:space="preserve">
+    <value>… hay {0} herramientas más que no se muestran</value>
+  </data>
+  <data name="Settings.Config.McpEditor.TypePrompt" xml:space="preserve">
+    <value>Tipo de MCP</value>
+  </data>
+  <data name="Settings.Config.McpEditor.UnknownError" xml:space="preserve">
+    <value>Error desconocido</value>
+  </data>
+  <data name="Settings.Config.McpEditor.UnknownServer" xml:space="preserve">
+    <value>Desconocido</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.CommandRequired" xml:space="preserve">
+    <value>Escriba un comando.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.EndpointInvalid" xml:space="preserve">
+    <value>La URL de MCP no es válida; debe usar HTTP o HTTPS.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.EndpointRequired" xml:space="preserve">
+    <value>Escriba la URL de un servicio MCP.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.HttpParametersMissing" xml:space="preserve">
+    <value>Los parámetros HTTP no están inicializados.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameRequired" xml:space="preserve">
+    <value>Escriba un nombre para MCP.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameValueDuplicate" xml:space="preserve">
+    <value>{0} «{1}» duplicado; compruebe las entradas.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameValueRequired" xml:space="preserve">
+    <value>El nombre de {0} es obligatorio.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.StdioParametersMissing" xml:space="preserve">
+    <value>Los parámetros de Stdio no están inicializados.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.WorkingDirectoryMissing" xml:space="preserve">
+    <value>El directorio de trabajo no existe.</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Settings.Config.Memory.Loading" xml:space="preserve">
+    <value>Cargando el árbol de memoria…</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.EditTitle" xml:space="preserve">
+    <value>Editar habilidad</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Error.LoadFile" xml:space="preserve">
+    <value>Error al cargar el archivo de la habilidad: {0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Error.SaveFile" xml:space="preserve">
+    <value>Error al guardar: {0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.NewTitle" xml:space="preserve">
+    <value>Nueva habilidad</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.SaveComplete" xml:space="preserve">
+    <value>Guardado. Los cambios en las habilidades se aplicarán al reiniciar la aplicación.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Validation.NameRequired" xml:space="preserve">
+    <value>Escriba un nombre para la habilidad.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ArgumentsFormatted" xml:space="preserve">
+    <value>Se ha dado formato al JSON de argumentos de prueba.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.CheckSyntax" xml:space="preserve">
+    <value>Comprobar sintaxis</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.DefinitionTab" xml:space="preserve">
+    <value>Configuración de definición de herramienta</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.DisplayNamePrompt" xml:space="preserve">
+    <value>Nombre para mostrar de la herramienta</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.EditTitle" xml:space="preserve">
+    <value>Editar herramienta integrada</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.EditTitleWithName" xml:space="preserve">
+    <value>Editar herramienta integrada — {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Error.TestFailed" xml:space="preserve">
+    <value>Error al probar la herramienta: {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.FormatArguments" xml:space="preserve">
+    <value>Dar formato a los argumentos</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.FormatSchema" xml:space="preserve">
+    <value>Dar formato al esquema</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Loaded" xml:space="preserve">
+    <value>Se ha cargado la definición de la herramienta y se ha generado una plantilla de argumentos de prueba.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.RunTest" xml:space="preserve">
+    <value>Ejecutar prueba</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.RuntimeInstanceMissing" xml:space="preserve">
+    <value>No se ha encontrado la instancia en tiempo de ejecución de esta herramienta.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SchemaFormatted" xml:space="preserve">
+    <value>Se ha dado formato al JSON del esquema.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SyntaxCheckFailed" xml:space="preserve">
+    <value>Error al comprobar la sintaxis de JSON.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SyntaxCheckPassed" xml:space="preserve">
+    <value>La sintaxis de JSON es correcta.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestCompleted" xml:space="preserve">
+    <value>La prueba de la herramienta ha finalizado. Consulte el resultado.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestFailed" xml:space="preserve">
+    <value>Error en la prueba de la herramienta.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestRunning" xml:space="preserve">
+    <value>Ejecutando prueba de la herramienta…</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestSucceeded" xml:space="preserve">
+    <value>La prueba de la herramienta se ha completado correctamente.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestTab" xml:space="preserve">
+    <value>Prueba de herramienta</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestUnavailable" xml:space="preserve">
+    <value>El entorno actual no está disponible, por lo que no se puede probar la herramienta.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Validation.JsonInvalid" xml:space="preserve">
+    <value>JSON no válido: {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Validation.JsonRequired" xml:space="preserve">
+    <value>El contenido JSON no puede estar vacío.</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ViewTitle" xml:space="preserve">
+    <value>Ver herramienta</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ViewTitleWithName" xml:space="preserve">
+    <value>Ver herramienta — {0}</value>
+  </data>
+  <data name="Settings.Config.Tools.UnknownHostSaveWarning" xml:space="preserve">
+    <value>No se reconoce la aplicación anfitriona; no se pudo guardar la configuración específica de sus herramientas. Se guardó la configuración compartida.</value>
+  </data>
+  <data name="Settings.SysConfig.EditAgentPrompt" xml:space="preserve">
+    <value>Editar la instrucción del sistema del modo Agente de {0}</value>
+  </data>
+  <data name="Settings.SysConfig.EditAskPrompt" xml:space="preserve">
+    <value>Editar la instrucción del sistema del modo Preguntar de {0}</value>
+  </data>
+  <data name="Settings.SysConfig.Error.OpenPromptFailed" xml:space="preserve">
+    <value>Error al abrir el archivo de instrucciones del sistema: {0}</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode" xml:space="preserve">
+    <value>Modo de permisos de ejecución de herramientas:</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode.AlwaysAllow" xml:space="preserve">
+    <value>Permitir siempre</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode.Confirm" xml:space="preserve">
+    <value>Solicitar confirmación</value>
+  </data>
+  <data name="Settings.Validation.ApplicationLogFileNameRequired" xml:space="preserve">
+    <value>ApplicationLogFileName es obligatorio si se habilita el registro en archivo.</value>
+  </data>
+  <data name="Settings.Validation.ChatDefaultsMissing" xml:space="preserve">
+    <value>Falta la configuración predeterminada del chat.</value>
+  </data>
+  <data name="Settings.Validation.DefaultModelProviderMissing" xml:space="preserve">
+    <value>No se encuentra la configuración del modelo predeterminado: {0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateMcpId" xml:space="preserve">
+    <value>ID de servidor MCP duplicado: {0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateMcpName" xml:space="preserve">
+    <value>Nombre de servidor MCP duplicado (sin distinguir mayúsculas y minúsculas): {0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateModelId" xml:space="preserve">
+    <value>ID de configuración de modelo duplicado: {0}</value>
+  </data>
+  <data name="Settings.Validation.EnabledModelIdRequired" xml:space="preserve">
+    <value>Un modelo habilitado debe especificar ModelId. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.HttpEndpointRequired" xml:space="preserve">
+    <value>La configuración HTTP de MCP debe especificar Endpoint. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.LoggingMissing" xml:space="preserve">
+    <value>Falta la configuración del registro.</value>
+  </data>
+  <data name="Settings.Validation.MaxContextTokensPositive" xml:space="preserve">
+    <value>La longitud máxima del contexto debe ser mayor que 0. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.McpIdRequired" xml:space="preserve">
+    <value>El ID del servidor MCP es obligatorio.</value>
+  </data>
+  <data name="Settings.Validation.McpNameRequired" xml:space="preserve">
+    <value>El nombre del servidor MCP es obligatorio.</value>
+  </data>
+  <data name="Settings.Validation.McpServersRequired" xml:space="preserve">
+    <value>La lista de servidores MCP no puede ser nula.</value>
+  </data>
+  <data name="Settings.Validation.McpTransportExclusive" xml:space="preserve">
+    <value>La configuración de MCP no puede especificar Stdio y Http a la vez. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.McpTransportRequired" xml:space="preserve">
+    <value>Seleccione un transporte para la configuración de MCP. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.ModelIdPositive" xml:space="preserve">
+    <value>El ID de configuración del modelo debe ser mayor que 0.</value>
+  </data>
+  <data name="Settings.Validation.ModelNameRequired" xml:space="preserve">
+    <value>El nombre de configuración del modelo es obligatorio.</value>
+  </data>
+  <data name="Settings.Validation.ModelProvidersRequired" xml:space="preserve">
+    <value>La lista de proveedores de modelos no puede ser nula.</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptFileNameRequired" xml:space="preserve">
+    <value>FileName es obligatorio si se habilita el registro de transcripciones del modelo.</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptLoggingMissing" xml:space="preserve">
+    <value>Falta la configuración del registro de transcripciones del modelo.</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptMaxContentLengthNonNegative" xml:space="preserve">
+    <value>MaxContentLength de la transcripción del modelo no puede ser menor que 0.</value>
+  </data>
+  <data name="Settings.Validation.NullMcpServer" xml:space="preserve">
+    <value>Una entrada del servidor MCP es nula.</value>
+  </data>
+  <data name="Settings.Validation.NullModelProvider" xml:space="preserve">
+    <value>Una entrada de configuración del modelo es nula.</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLogMaxSizePositive" xml:space="preserve">
+    <value>El límite de tamaño del archivo de registro del entorno de ejecución debe ser mayor que 0.</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLogRetainedCountPositive" xml:space="preserve">
+    <value>El número de archivos de registro del entorno de ejecución que se conservan debe ser mayor que 0.</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLoggingMissing" xml:space="preserve">
+    <value>Falta la configuración del registro del entorno de ejecución.</value>
+  </data>
+  <data name="Settings.Validation.SettingsRequired" xml:space="preserve">
+    <value>La configuración no puede ser nula.</value>
+  </data>
+  <data name="Settings.Validation.StdioCommandRequired" xml:space="preserve">
+    <value>La configuración Stdio de MCP debe especificar Command. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.TemperatureRange" xml:space="preserve">
+    <value>Temperature debe estar entre 0 y 2. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Validation.TopPRange" xml:space="preserve">
+    <value>TopP debe estar entre 0 y 1. Nombre: {0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.BasicInfo" xml:space="preserve">
+    <value>Información básica</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.TriggerConditions" xml:space="preserve">
+    <value>Condiciones de activación</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.ToolPermissions" xml:space="preserve">
+    <value>Permisos de herramientas</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.RelatedSkills" xml:space="preserve">
+    <value>Habilidades relacionadas</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.SafetyPolicy" xml:space="preserve">
+    <value>Política de seguridad</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.Advanced" xml:space="preserve">
+    <value>Avanzado</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.DisplayName" xml:space="preserve">
+    <value>Nombre para mostrar</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.UseWhen" xml:space="preserve">
+    <value>Palabras clave de activación</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AvoidWhen" xml:space="preserve">
+    <value>Palabras clave para omitir</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowedTools" xml:space="preserve">
+    <value>Herramientas permitidas</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.PreferredTools" xml:space="preserve">
+    <value>Herramientas preferidas</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.VerificationTools" xml:space="preserve">
+    <value>Herramientas de verificación</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.CompanionSkills" xml:space="preserve">
+    <value>Habilidades complementarias</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.FallbackSkills" xml:space="preserve">
+    <value>Habilidades alternativas</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequiresConfirmation" xml:space="preserve">
+    <value>Requerir confirmación del usuario</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequiresBackup" xml:space="preserve">
+    <value>Requerir copia de seguridad</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequireVerification" xml:space="preserve">
+    <value>Requerir verificación</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowHighRiskTools" xml:space="preserve">
+    <value>Permitir herramientas de alto riesgo</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowCodeExecution" xml:space="preserve">
+    <value>Permitir alternativa de ejecución de código</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.MaxToolRoundCount" xml:space="preserve">
+    <value>Número máximo de rondas de llamadas a herramientas</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.Enabled" xml:space="preserve">
+    <value>Si está deshabilitada, esta habilidad no se carga ni se activa.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.DisplayName" xml:space="preserve">
+    <value>Nombre para mostrar de la habilidad; si se deja en blanco, se usa Name.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.Category" xml:space="preserve">
+    <value>Categoría de la habilidad, por ejemplo, red, archivos, Office o utilidades.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.UseWhen" xml:space="preserve">
+    <value>Activar automáticamente la habilidad cuando coincidan estas palabras clave (separadas por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AvoidWhen" xml:space="preserve">
+    <value>No activar esta habilidad cuando aparezcan estas palabras clave (separadas por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowedTools" xml:space="preserve">
+    <value>Lista de herramientas permitidas que puede usar esta habilidad (separadas por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.PreferredTools" xml:space="preserve">
+    <value>Herramientas preferidas para esta habilidad (separadas por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.VerificationTools" xml:space="preserve">
+    <value>Herramientas usadas para verificar el resultado (separadas por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.CompanionSkills" xml:space="preserve">
+    <value>Nombres de las habilidades que se usarán conjuntamente (separados por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.FallbackSkills" xml:space="preserve">
+    <value>Habilidades alternativas que se usarán si esta habilidad falla (separadas por comas).</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequiresConfirmation" xml:space="preserve">
+    <value>Indica si se requiere la confirmación del usuario antes de la ejecución.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequiresBackup" xml:space="preserve">
+    <value>Indica si se debe crear una copia de seguridad antes de la ejecución.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequireVerification" xml:space="preserve">
+    <value>Indica si se debe verificar el resultado después de la ejecución.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowHighRiskTools" xml:space="preserve">
+    <value>Indica si se pueden usar herramientas de alto riesgo.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowCodeExecution" xml:space="preserve">
+    <value>Indica si se permite la alternativa de ejecución de código.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.MaxToolRoundCount" xml:space="preserve">
+    <value>Número máximo de rondas de llamadas a herramientas durante la ejecución de la habilidad.</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Markdown.NewSkillHeading" xml:space="preserve">
+    <value>Nombre de la habilidad</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Markdown.NewSkillBody" xml:space="preserve">
+    <value>Escriba aquí las instrucciones y la lógica de la habilidad…</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleValue" xml:space="preserve">
+    <value>Valor de ejemplo</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleDisplayName" xml:space="preserve">
+    <value>Nombre para mostrar de ejemplo</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleDescription" xml:space="preserve">
+    <value>Descripción de ejemplo</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleText" xml:space="preserve">
+    <value>Texto de ejemplo</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SamplePrefix" xml:space="preserve">
+    <value>Ejemplo de {0}</value>
+  </data>
+  <data name="panel.error.broker.start_failed" xml:space="preserve">
+    <value>Error al iniciar Broker. Compruebe el ejecutable de Broker y vuelva a intentarlo.</value>
+  </data>
+  <data name="panel.error.broker.restart_failed" xml:space="preserve">
+    <value>Broker no está disponible y se ha producido un error al reiniciarlo automáticamente.</value>
+  </data>
+  <data name="panel.error.broker.retry_failed" xml:space="preserve">
+    <value>Error al reintentar con Broker.</value>
+  </data>
+  <data name="panel.error.broker.not_healthy" xml:space="preserve">
+    <value>Broker no ha respondido. No se pudo enviar la solicitud de cancelación; se gestionará localmente.</value>
+  </data>
+  <data name="panel.error.broker.not_available" xml:space="preserve">
+    <value>Broker no está disponible; no se pudo completar la operación solicitada.</value>
+  </data>
+  <data name="Panel.Error.BrokerClientNotConfigured" xml:space="preserve">
+    <value>El cliente de Broker no está configurado.</value>
+  </data>
+  <data name="Panel.Error.BrokerNoResult" xml:space="preserve">
+    <value>Broker no ha devuelto ningún resultado.</value>
+  </data>
+  <data name="Panel.Error.BrokerExecutionFailed" xml:space="preserve">
+    <value>Error en la operación de Broker.</value>
+  </data>
+  <data name="Panel.Error.GenericRequestFailed" xml:space="preserve">
+    <value>Error: no se pudo procesar la solicitud.</value>
+  </data>
+  <data name="Panel.Error.ErrorDetails" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="Panel.Error.ToolExecutionFailed" xml:space="preserve">
+    <value>Error al ejecutar la herramienta.</value>
+  </data>
+  <data name="Panel.Error.ToolFailedLine" xml:space="preserve">
+    <value>[{0}] ha fallado: {1}</value>
+  </data>
+  <data name="Panel.Status.GenerationStopped" xml:space="preserve">
+    <value>Generación detenida.</value>
+  </data>
+  <data name="Panel.Status.ClearFailed" xml:space="preserve">
+    <value>Error al borrar: {0}</value>
+  </data>
+  <data name="Panel.Status.CurrentTurnCancelFailed" xml:space="preserve">
+    <value>Error al cancelar el turno actual.</value>
+  </data>
+  <data name="Panel.Status.CancelFailed" xml:space="preserve">
+    <value>Error al cancelar: {0}</value>
+  </data>
+  <data name="Panel.Status.ClearExecutionModePreferenceBusy" xml:space="preserve">
+    <value>Hay una tarea en ejecución. Espere a que termine antes de borrar la opción predeterminada.</value>
+  </data>
+  <data name="Panel.Status.NoSessionForClearExecutionModePreference" xml:space="preserve">
+    <value>No hay ninguna conversación activa que actualizar.</value>
+  </data>
+  <data name="Panel.Attachments.Filter.AllSupported" xml:space="preserve">
+    <value>Archivos compatibles</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Text" xml:space="preserve">
+    <value>Archivos de texto</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Images" xml:space="preserve">
+    <value>Archivos de imagen</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Pdf" xml:space="preserve">
+    <value>Archivos PDF</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Spreadsheet" xml:space="preserve">
+    <value>Libros de Excel</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Word" xml:space="preserve">
+    <value>Documentos de Word</value>
+  </data>
+  <data name="Panel.Attachments.Filter.PowerPoint" xml:space="preserve">
+    <value>Presentaciones de PowerPoint</value>
+  </data>
+</root>

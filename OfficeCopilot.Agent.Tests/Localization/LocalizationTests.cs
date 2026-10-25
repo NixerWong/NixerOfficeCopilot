@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.Resources;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeCopilot.Agent.Client;
@@ -23,6 +24,10 @@ namespace OfficeCopilot.Agent.Tests.Localization
             Assert.AreEqual("zh-Hans", SupportedLanguages.ResolveCulture("zh-Hans").Name);
             Assert.AreEqual("ja", SupportedLanguages.ResolveCulture("ja").Name);
             Assert.AreEqual("ja", SupportedLanguages.ResolveCulture("ja-JP").Name);
+            Assert.AreEqual("de", SupportedLanguages.ResolveCulture("de").Name);
+            Assert.AreEqual("de", SupportedLanguages.ResolveCulture("de-DE").Name);
+            Assert.AreEqual("es", SupportedLanguages.ResolveCulture("es").Name);
+            Assert.AreEqual("es", SupportedLanguages.ResolveCulture("es-ES").Name);
             Assert.AreEqual("en", SupportedLanguages.ResolveCulture("en").Name);
             Assert.AreEqual("en", SupportedLanguages.ResolveCulture("auto").Name);
             Assert.AreEqual("en", SupportedLanguages.ResolveCulture("unsupported").Name);
@@ -36,6 +41,10 @@ namespace OfficeCopilot.Agent.Tests.Localization
             Assert.AreEqual("ja", SupportedLanguages.NormalizePreference("ja-JP"));
             Assert.AreEqual(2, SupportedLanguages.GetIndex("ja"));
             Assert.AreEqual("ja", SupportedLanguages.GetCodeAt(2));
+            Assert.AreEqual(3, SupportedLanguages.GetIndex("de-DE"));
+            Assert.AreEqual("de", SupportedLanguages.GetCodeAt(3));
+            Assert.AreEqual(4, SupportedLanguages.GetIndex("es-ES"));
+            Assert.AreEqual("es", SupportedLanguages.GetCodeAt(4));
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference("EN"));
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference("auto"));
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference("fr"));
@@ -90,6 +99,30 @@ namespace OfficeCopilot.Agent.Tests.Localization
                 Assert.AreEqual("关于 Nixer Excel Copilot", LocalizationService.Format("Shell.About.Title", "Nixer Excel Copilot"));
                 Assert.AreEqual("操作失败：\r\n\r\nDetails", LocalizationService.Format("Shell.Error.OperationFailed", "Details"));
                 Assert.AreEqual("zh-Hans", CultureInfo.CurrentUICulture.Name);
+                Assert.AreEqual(originalCulture, CultureInfo.CurrentCulture);
+
+                LocalizationService.SetLanguage("de");
+                Assert.AreEqual("Copilot", LocalizationService.Get("Shell.Ribbon.TogglePane"));
+                Assert.AreEqual("Modelle", LocalizationService.Get("Shell.Ribbon.ModelConfig"));
+                Assert.AreEqual("MCP", LocalizationService.Get("Shell.Ribbon.McpConfig"));
+                Assert.AreEqual("Skills", LocalizationService.Get("Shell.Ribbon.SkillsConfig"));
+                Assert.AreEqual("Speicher", LocalizationService.Get("Shell.Ribbon.MemoryConfig"));
+                Assert.AreEqual("Tools", LocalizationService.Get("Shell.Ribbon.BuiltinToolsConfig"));
+                Assert.AreEqual("Einstellungen", LocalizationService.Get("Shell.Ribbon.SystemSettings"));
+                Assert.AreEqual("Info", LocalizationService.Get("Shell.Ribbon.About"));
+                Assert.AreEqual("de", CultureInfo.CurrentUICulture.Name);
+                Assert.AreEqual(originalCulture, CultureInfo.CurrentCulture);
+
+                LocalizationService.SetLanguage("es");
+                Assert.AreEqual("Panel", LocalizationService.Get("Shell.Ribbon.TogglePane"));
+                Assert.AreEqual("Modelos", LocalizationService.Get("Shell.Ribbon.ModelConfig"));
+                Assert.AreEqual("MCP", LocalizationService.Get("Shell.Ribbon.McpConfig"));
+                Assert.AreEqual("Habilidades", LocalizationService.Get("Shell.Ribbon.SkillsConfig"));
+                Assert.AreEqual("Memoria", LocalizationService.Get("Shell.Ribbon.MemoryConfig"));
+                Assert.AreEqual("Herramientas", LocalizationService.Get("Shell.Ribbon.BuiltinToolsConfig"));
+                Assert.AreEqual("Ajustes", LocalizationService.Get("Shell.Ribbon.SystemSettings"));
+                Assert.AreEqual("Info", LocalizationService.Get("Shell.Ribbon.About"));
+                Assert.AreEqual("es", CultureInfo.CurrentUICulture.Name);
                 Assert.AreEqual(originalCulture, CultureInfo.CurrentCulture);
 
                 LocalizationService.SetLanguage("en");
@@ -160,20 +193,76 @@ namespace OfficeCopilot.Agent.Tests.Localization
         }
 
         [TestMethod]
-        public void JapaneseSatelliteContainsAllNeutralResourceKeys()
+        public void LocalizationService_UsesGermanAndSpanishResources()
+        {
+            var originalUiCulture = Thread.CurrentThread.CurrentUICulture;
+            try
+            {
+                LocalizationService.SetLanguage("de");
+                Assert.AreEqual("Deutsch", LocalizationService.Get("Language.German"));
+                Assert.AreNotEqual("System Config", LocalizationService.Get("Settings.SysConfig.Text"));
+                Assert.AreEqual("de", Thread.CurrentThread.CurrentUICulture.Name);
+
+                LocalizationService.SetLanguage("es");
+                Assert.AreEqual("Español", LocalizationService.Get("Language.Spanish"));
+                Assert.AreNotEqual("System Config", LocalizationService.Get("Settings.SysConfig.Text"));
+                Assert.AreEqual("es", Thread.CurrentThread.CurrentUICulture.Name);
+            }
+            finally
+            {
+                LocalizationService.SetLanguage("en");
+                Thread.CurrentThread.CurrentUICulture = originalUiCulture;
+            }
+        }
+
+        [TestMethod]
+        public void SupportedLanguageSatellitesContainAllNeutralResourceKeys()
         {
             var resources = new ResourceManager(
                 "OfficeCopilot.Localization.Strings",
                 typeof(LocalizationService).Assembly);
             var english = resources.GetResourceSet(CultureInfo.InvariantCulture, true, true);
-            var japanese = resources.GetResourceSet(SupportedLanguages.ResolveCulture("ja"), true, false);
-
             Assert.IsNotNull(english);
-            Assert.IsNotNull(japanese);
-
             var englishKeys = GetResourceKeys(english);
-            var japaneseKeys = GetResourceKeys(japanese);
-            CollectionAssert.AreEquivalent(englishKeys, japaneseKeys);
+
+            foreach (var language in new[] { "zh-Hans", "ja", "de", "es" })
+            {
+                var localized = resources.GetResourceSet(
+                    SupportedLanguages.ResolveCulture(language),
+                    true,
+                    false);
+                Assert.IsNotNull(localized, language + " satellite resources must be built.");
+                CollectionAssert.AreEquivalent(
+                    englishKeys,
+                    GetResourceKeys(localized),
+                    language + " must contain every neutral resource key.");
+            }
+        }
+
+        [TestMethod]
+        public void SupportedLanguageResources_PreserveCompositeFormatPlaceholders()
+        {
+            var resources = new ResourceManager(
+                "OfficeCopilot.Localization.Strings",
+                typeof(LocalizationService).Assembly);
+
+            foreach (var language in new[] { "zh-Hans", "ja", "de", "es" })
+            {
+                var culture = SupportedLanguages.ResolveCulture(language);
+                var localized = resources.GetResourceSet(culture, true, false);
+                Assert.IsNotNull(localized, language + " satellite resources must be built.");
+
+                foreach (DictionaryEntry entry in localized)
+                {
+                    var key = (string)entry.Key;
+                    var source = resources.GetString(key, CultureInfo.InvariantCulture) ?? string.Empty;
+                    var translated = (string)entry.Value;
+                    CollectionAssert.AreEquivalent(
+                        GetCompositeFormatItems(source),
+                        GetCompositeFormatItems(translated),
+                        language + "/" + key + " must preserve format placeholders.");
+                }
+            }
         }
 
         private static ArrayList GetResourceKeys(ResourceSet resourceSet)
@@ -185,6 +274,19 @@ namespace OfficeCopilot.Agent.Tests.Localization
             }
 
             return keys;
+        }
+
+        private static ArrayList GetCompositeFormatItems(string value)
+        {
+            var placeholders = new ArrayList();
+            foreach (Match match in Regex.Matches(
+                value ?? string.Empty,
+                @"(?<!\{)\{(\d+)(?:,[^{}]*)?(?::[^{}]*)?\}(?!\})"))
+            {
+                placeholders.Add(match.Value);
+            }
+
+            return placeholders;
         }
 
         [TestMethod]
@@ -201,6 +303,14 @@ namespace OfficeCopilot.Agent.Tests.Localization
             var japaneseInstruction = ResponseLanguagePolicy.BuildInstruction("ja");
             StringAssert.Contains(japaneseInstruction, "デフォルトでは日本語で回答してください");
             StringAssert.Contains(japaneseInstruction, "別の回答言語を明示的に指定");
+
+            var germanInstruction = ResponseLanguagePolicy.BuildInstruction("de");
+            StringAssert.Contains(germanInstruction, "Antworten Sie standardmäßig auf Deutsch");
+            StringAssert.Contains(germanInstruction, "wenn der Benutzer dies ausdrücklich verlangt");
+
+            var spanishInstruction = ResponseLanguagePolicy.BuildInstruction("es");
+            StringAssert.Contains(spanishInstruction, "Responde en español de forma predeterminada");
+            StringAssert.Contains(spanishInstruction, "el usuario lo solicita explícitamente");
 
             Assert.AreEqual(englishInstruction, ResponseLanguagePolicy.BuildInstruction("unsupported"));
         }
@@ -353,6 +463,12 @@ namespace OfficeCopilot.Agent.Tests.Localization
 
             var japaneseSettings = new OfficeCopilotSettings { UiLanguage = "ja-JP" };
             Assert.AreEqual("ja", OfficeCopilotSettingsFactory.Normalize(japaneseSettings).UiLanguage);
+
+            var germanSettings = new OfficeCopilotSettings { UiLanguage = "de-DE" };
+            Assert.AreEqual("de", OfficeCopilotSettingsFactory.Normalize(germanSettings).UiLanguage);
+
+            var spanishSettings = new OfficeCopilotSettings { UiLanguage = "es-ES" };
+            Assert.AreEqual("es", OfficeCopilotSettingsFactory.Normalize(spanishSettings).UiLanguage);
 
             var invalidSettings = new OfficeCopilotSettings { UiLanguage = "unsupported" };
             Assert.AreEqual("en", OfficeCopilotSettingsFactory.Normalize(invalidSettings).UiLanguage);
