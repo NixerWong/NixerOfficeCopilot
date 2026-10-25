@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using System.Globalization;
+using System.Resources;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OfficeCopilot.Agent.Client;
 using OfficeCopilot.Agent.Runtime.Turn;
+using OfficeCopilot.HostBridge.Contracts;
 using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
@@ -17,6 +21,8 @@ namespace OfficeCopilot.Agent.Tests.Localization
         {
             Assert.AreEqual("zh-Hans", SupportedLanguages.ResolveCulture("zh-CN").Name);
             Assert.AreEqual("zh-Hans", SupportedLanguages.ResolveCulture("zh-Hans").Name);
+            Assert.AreEqual("ja", SupportedLanguages.ResolveCulture("ja").Name);
+            Assert.AreEqual("ja", SupportedLanguages.ResolveCulture("ja-JP").Name);
             Assert.AreEqual("en", SupportedLanguages.ResolveCulture("en").Name);
             Assert.AreEqual("en", SupportedLanguages.ResolveCulture("auto").Name);
             Assert.AreEqual("en", SupportedLanguages.ResolveCulture("unsupported").Name);
@@ -27,6 +33,9 @@ namespace OfficeCopilot.Agent.Tests.Localization
         {
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference(null));
             Assert.AreEqual("zh-Hans", SupportedLanguages.NormalizePreference("zh-CN"));
+            Assert.AreEqual("ja", SupportedLanguages.NormalizePreference("ja-JP"));
+            Assert.AreEqual(2, SupportedLanguages.GetIndex("ja"));
+            Assert.AreEqual("ja", SupportedLanguages.GetCodeAt(2));
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference("EN"));
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference("auto"));
             Assert.AreEqual("en", SupportedLanguages.NormalizePreference("fr"));
@@ -96,6 +105,30 @@ namespace OfficeCopilot.Agent.Tests.Localization
         }
 
         [TestMethod]
+        public void LocalizationService_UsesJapaneseResources()
+        {
+            var originalUiCulture = Thread.CurrentThread.CurrentUICulture;
+            var originalCulture = Thread.CurrentThread.CurrentCulture;
+            try
+            {
+                LocalizationService.SetLanguage("ja");
+
+                Assert.AreEqual("日本語", LocalizationService.Get("Language.Japanese"));
+                Assert.AreEqual("システム設定", LocalizationService.Get("Settings.SysConfig.Text"));
+                Assert.AreEqual("モデル", LocalizationService.Get("Settings.Config.Tab.Models"));
+                Assert.AreEqual("エージェント", LocalizationService.Get("Web.panel.agent"));
+                Assert.AreEqual("質問", LocalizationService.Get("Web.panel.ask"));
+                Assert.AreEqual("ja", Thread.CurrentThread.CurrentUICulture.Name);
+                Assert.AreEqual(originalCulture, Thread.CurrentThread.CurrentCulture);
+            }
+            finally
+            {
+                LocalizationService.SetLanguage("en");
+                Thread.CurrentThread.CurrentUICulture = originalUiCulture;
+            }
+        }
+
+        [TestMethod]
         public void LocalizationService_GetAllReturnsFullKeysAndOverlaysCurrentCulture()
         {
             var originalUiCulture = Thread.CurrentThread.CurrentUICulture;
@@ -112,6 +145,12 @@ namespace OfficeCopilot.Agent.Tests.Localization
                 Assert.AreEqual(english.Count, chinese.Count);
                 Assert.AreEqual("复制", chinese["Web.action.copy"]);
                 Assert.IsTrue(chinese.ContainsKey("Web.action.retry"));
+
+                LocalizationService.SetLanguage("ja");
+                var japanese = LocalizationService.GetAll("Web.");
+                Assert.AreEqual(english.Count, japanese.Count);
+                Assert.AreNotEqual(english["Web.action.copy"], japanese["Web.action.copy"]);
+                Assert.AreNotEqual(english["Web.action.retry"], japanese["Web.action.retry"]);
             }
             finally
             {
@@ -121,18 +160,138 @@ namespace OfficeCopilot.Agent.Tests.Localization
         }
 
         [TestMethod]
-        public void ResponseLanguagePolicy_UsesUiLanguageOnlyAsTheAmbiguousLanguageFallback()
+        public void JapaneseSatelliteContainsAllNeutralResourceKeys()
+        {
+            var resources = new ResourceManager(
+                "OfficeCopilot.Localization.Strings",
+                typeof(LocalizationService).Assembly);
+            var english = resources.GetResourceSet(CultureInfo.InvariantCulture, true, true);
+            var japanese = resources.GetResourceSet(SupportedLanguages.ResolveCulture("ja"), true, false);
+
+            Assert.IsNotNull(english);
+            Assert.IsNotNull(japanese);
+
+            var englishKeys = GetResourceKeys(english);
+            var japaneseKeys = GetResourceKeys(japanese);
+            CollectionAssert.AreEquivalent(englishKeys, japaneseKeys);
+        }
+
+        private static ArrayList GetResourceKeys(ResourceSet resourceSet)
+        {
+            var keys = new ArrayList();
+            foreach (DictionaryEntry entry in resourceSet)
+            {
+                keys.Add(entry.Key);
+            }
+
+            return keys;
+        }
+
+        [TestMethod]
+        public void ResponseLanguagePolicy_UsesSelectedUiLanguageUnlessTheUserRequestsAnotherLanguage()
         {
             var englishInstruction = ResponseLanguagePolicy.BuildInstruction("en");
-            StringAssert.Contains(englishInstruction, "Follow any explicit response-language request");
-            StringAssert.Contains(englishInstruction, "same language as the user's latest message");
-            StringAssert.Contains(englishInstruction, "reply in English");
+            StringAssert.Contains(englishInstruction, "By default, respond in English");
+            StringAssert.Contains(englishInstruction, "Use another language only when the user explicitly requests it");
 
             var chineseInstruction = ResponseLanguagePolicy.BuildInstruction("zh-Hans");
-            StringAssert.Contains(chineseInstruction, "same language as the user's latest message");
-            StringAssert.Contains(chineseInstruction, "reply in Simplified Chinese");
+            StringAssert.Contains(chineseInstruction, "默认使用简体中文回答");
+            StringAssert.Contains(chineseInstruction, "只有用户明确要求其他回复语言时");
 
-            StringAssert.Contains(ResponseLanguagePolicy.BuildInstruction("unsupported"), "reply in English");
+            var japaneseInstruction = ResponseLanguagePolicy.BuildInstruction("ja");
+            StringAssert.Contains(japaneseInstruction, "デフォルトでは日本語で回答してください");
+            StringAssert.Contains(japaneseInstruction, "別の回答言語を明示的に指定");
+
+            Assert.AreEqual(englishInstruction, ResponseLanguagePolicy.BuildInstruction("unsupported"));
+        }
+
+        [TestMethod]
+        public void CombinedSystemPrompt_StartsWithTheSelectedLanguageInstruction()
+        {
+            var request = new AgentBrokerTurnRequest
+            {
+                UiCulture = "zh-Hans",
+                ModelOptions = new AgentModelOptions
+                {
+                    SystemPrompt = "Custom host instructions."
+                }
+            };
+
+            var prompt = DefaultContextBuilder.BuildCombinedModelSystemPrompt(request, null, null);
+
+            StringAssert.StartsWith(
+                prompt,
+                ResponseLanguagePolicy.BuildInstruction("zh-Hans"));
+            Assert.IsTrue(
+                prompt.IndexOf("Custom host instructions.", StringComparison.Ordinal) > 0,
+                "The selected-language instruction must precede the configured system prompt.");
+
+            var englishPrompt = DefaultContextBuilder.BuildCombinedModelSystemPrompt(
+                new AgentBrokerTurnRequest
+                {
+                    UiCulture = "en",
+                    InteractiveMode = "agent",
+                    ModelOptions = new AgentModelOptions { SystemPrompt = "Custom host instructions." }
+                },
+                new HostContextSnapshotDto
+                {
+                    HostApplicationName = "Excel",
+                    DocumentName = "Report.xlsx",
+                    Summary = "Workbook summary",
+                    CurrentLocalTime = "2026-10-01 10:00 UTC"
+                },
+                null);
+            AssertHasNoCjkCharacters(englishPrompt, "English combined system prompt");
+        }
+
+        [TestMethod]
+        public void BuiltInHostPrompts_UseEnglishForInternalInstructions()
+        {
+            var hosts = new[] { "Excel", "Word", "PowerPoint" };
+            var modes = new[] { HostPromptMode.Ask, HostPromptMode.Agent };
+
+            foreach (var host in hosts)
+            {
+                foreach (var mode in modes)
+                {
+                    var prompt = BuiltInHostPrompts.Get(host, mode);
+                    AssertHasNoFixedChineseResponseLanguage(prompt, $"{host}/{mode} built-in prompt");
+                    AssertHasNoCjkCharacters(prompt, $"{host}/{mode} built-in prompt");
+                }
+            }
+
+            var defaultRuntimePrompt = DefaultContextBuilder.BuildModelSystemPrompt(null);
+            StringAssert.Contains(defaultRuntimePrompt, "You are an Office assistant");
+            AssertHasNoFixedChineseResponseLanguage(defaultRuntimePrompt, "default runtime prompt");
+            AssertHasNoCjkCharacters(defaultRuntimePrompt, "default runtime prompt");
+            AssertHasNoFixedChineseResponseLanguage(
+                LoopGuardPolicy.BuildSystemPrompt(null),
+                "loop guard prompt");
+            AssertHasNoCjkCharacters(LoopGuardPolicy.BuildSystemPrompt(null), "loop guard prompt");
+            AssertHasNoFixedChineseResponseLanguage(
+                SkillPlanSupport.BuildVerificationRetryLimitSystemPrompt(null, null, null),
+                "verification retry prompt");
+            AssertHasNoCjkCharacters(
+                SkillPlanSupport.BuildVerificationRetryLimitSystemPrompt(null, null, null),
+                "verification retry prompt");
+        }
+
+        private static void AssertHasNoCjkCharacters(string prompt, string promptName)
+        {
+            foreach (var character in prompt)
+            {
+                Assert.IsFalse(
+                    character >= '\u4e00' && character <= '\u9fff',
+                    $"{promptName} must keep internal instructions in English.");
+            }
+        }
+
+        private static void AssertHasNoFixedChineseResponseLanguage(string prompt, string promptName)
+        {
+            Assert.IsFalse(
+                prompt.IndexOf("Chinese", StringComparison.OrdinalIgnoreCase) >= 0
+                    || prompt.Contains("中文"),
+                $"{promptName} must not force Chinese responses.");
         }
 
         [TestMethod]
@@ -191,6 +350,9 @@ namespace OfficeCopilot.Agent.Tests.Localization
 
             var autoSettings = new OfficeCopilotSettings { UiLanguage = "auto" };
             Assert.AreEqual("en", OfficeCopilotSettingsFactory.Normalize(autoSettings).UiLanguage);
+
+            var japaneseSettings = new OfficeCopilotSettings { UiLanguage = "ja-JP" };
+            Assert.AreEqual("ja", OfficeCopilotSettingsFactory.Normalize(japaneseSettings).UiLanguage);
 
             var invalidSettings = new OfficeCopilotSettings { UiLanguage = "unsupported" };
             Assert.AreEqual("en", OfficeCopilotSettingsFactory.Normalize(invalidSettings).UiLanguage);

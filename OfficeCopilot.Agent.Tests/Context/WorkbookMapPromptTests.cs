@@ -28,7 +28,7 @@ namespace OfficeCopilot.Agent.Tests.Context
                         + "- 汇总 [可见]; UsedRange=A1:B10"
                 });
 
-            StringAssert.Contains(prompt, "工作簿工作表地图");
+            StringAssert.Contains(prompt, "Workbook worksheet map");
             StringAssert.Contains(prompt, "订单号 | 金额");
             StringAssert.Contains(prompt, "表头相似候选组");
             StringAssert.Contains(prompt, "唯一性未验证");
@@ -95,11 +95,11 @@ namespace OfficeCopilot.Agent.Tests.Context
             var roundTrip = JsonSerializer.Deserialize<HostContextSnapshotDto>(
                 JsonSerializer.Serialize(snapshot));
 
-            StringAssert.Contains(prompt, "工作簿工作表地图");
+            StringAssert.Contains(prompt, "Workbook worksheet map");
             StringAssert.Contains(prompt, "CodeName=Sheet1");
             StringAssert.Contains(prompt, "Order ID | Date | Revenue");
             StringAssert.Contains(prompt, "header-group-1");
-            StringAssert.Contains(prompt, "唯一性未验证");
+            StringAssert.Contains(prompt, "uniqueness is unverified");
             Assert.IsTrue(DefaultContextBuilder.HasSnapshotData(roundTrip));
             Assert.AreEqual(
                 "Order ID",
@@ -134,14 +134,14 @@ namespace OfficeCopilot.Agent.Tests.Context
 
             StringAssert.Contains(prompt, "runtime.ask_user_question");
             StringAssert.Contains(prompt, "clarifications");
-            StringAssert.Contains(prompt, "候选只是模型预告");
-            StringAssert.Contains(prompt, "HostBridge 预检结果才是实际级别");
-            StringAssert.Contains(prompt, "单候选预告不能作为最终结论");
-            StringAssert.Contains(prompt, "必须调用相应的目标写入工具触发宿主预检");
+            StringAssert.Contains(prompt, "A candidate is only a model preview");
+            StringAssert.Contains(prompt, "Only a HostBridge preflight triggered by a write tool establishes the actual level");
+            StringAssert.Contains(prompt, "a single-candidate preview is not a final result");
+            StringAssert.Contains(prompt, "Call the relevant target write tool to trigger host preflight");
             StringAssert.Contains(prompt, "writeEffect.actualWriteEffect");
-            StringAssert.Contains(prompt, "绝不能再报告“未写入”或“已取消”");
-            StringAssert.Contains(prompt, "绝不能只在最终文本中列出选项");
-            StringAssert.Contains(prompt, "必须遵守用户的停止条件");
+            StringAssert.Contains(prompt, "never report that it was not written or cancelled");
+            StringAssert.Contains(prompt, "Never present choices or ask only in final prose");
+            StringAssert.Contains(prompt, "Respect any stop condition the user sets");
         }
 
         [TestMethod]
@@ -169,9 +169,9 @@ namespace OfficeCopilot.Agent.Tests.Context
             var tokenLimitedSummary = DefaultContextBuilder.LimitWorkbookMapSummary(summary);
 
             Assert.IsTrue(summary.Length <= 4000);
-            StringAssert.Contains(summary, "工作簿地图摘要已截断");
+            StringAssert.Contains(summary, "Workbook map summary truncated");
             Assert.IsTrue(new RoughTokenEstimator().EstimateTokens(tokenLimitedSummary) <= 1500);
-            StringAssert.Contains(tokenLimitedSummary, "估算 token 预算截断");
+            StringAssert.Contains(tokenLimitedSummary, "estimated token budget");
         }
     }
 }

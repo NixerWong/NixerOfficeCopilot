@@ -11,8 +11,17 @@ export function t(key, ...args) {
 
 export function setLocale(data) {
     messages = data && data.messages ? data.messages : Object.create(null);
-    locale = data && String(data.locale || '').toLowerCase().indexOf('zh') === 0 ? 'zh-Hans' : 'en';
-    document.documentElement.lang = locale === 'zh-Hans' ? 'zh-CN' : 'en';
+    const requestedLocale = data && String(data.locale || '').toLowerCase();
+    locale = requestedLocale && requestedLocale.indexOf('zh') === 0
+        ? 'zh-Hans'
+        : requestedLocale && requestedLocale.indexOf('ja') === 0
+            ? 'ja'
+            : 'en';
+    document.documentElement.lang = locale === 'zh-Hans'
+        ? 'zh-CN'
+        : locale === 'ja'
+            ? 'ja-JP'
+            : 'en';
     document.title = t('Web.panel.documentTitle');
     applyLocalizedAttributes(document);
     if (!localizationObserver && document.body) {

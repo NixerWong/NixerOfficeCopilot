@@ -16,10 +16,10 @@ namespace OfficeCopilot.Agent.Runtime.Verification
         private const int MaxScopeLength = 180;
         private static readonly IUserTextLocalizer Localizer = new UserTextLocalizer();
         private static readonly Regex ModelFooterPattern = new Regex(
-            @"(?im)^[ \t]*(?:[—-]{1,3}[ \t]*(?:\r?\n[ \t]*)?)?(?:校验|Verification)[:：][^\r\n]*(?:\r?\n[ \t]*(?:检查对象|口径|未能找到直接证据的数字|Checked|Basis|Numbers without direct evidence)[:：][^\r\n]*)*[ \t]*$",
+            @"(?im)^[ \t]*(?:[—-]{1,3}[ \t]*(?:\r?\n[ \t]*)?)?(?:校验|検証|Verification)[:：][^\r\n]*(?:\r?\n[ \t]*(?:检查对象|口径|未能找到直接证据的数字|確認対象|検証対象|集計条件|根拠|根拠が確認できない数値|直接証拠のない数値|直接的な根拠のない数値|根拠のない数値|Checked|Basis|Numbers without direct evidence)[:：][^\r\n]*)*[ \t]*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex ModelTierClaimPattern = new Regex(
-            @"(?im)^[ \t]*(?:#{1,6}[ \t]*)?(?:\d+[.、)）][ \t]*)?(?:验证档位|校验档位|校验级别|verification tier|trust tier|tier[ \t]*[abc])[^\r\n]*$",
+            @"(?im)^[ \t]*(?:#{1,6}[ \t]*)?(?:\d+[.、)）][ \t]*)?(?:検証ランク|検証レベル|検証段階|信頼ランク|信頼レベル|[ABC]級|验证档位|校验档位|校验级别|verification tier|trust tier|tier[ \t]*[abc])[^\r\n]*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex ExcessBlankLinesPattern = new Regex(
             @"(?:\r?\n[ \t]*){3,}",
@@ -64,7 +64,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     .Distinct(StringComparer.Ordinal)
                     .ToList();
                 footer += "\n" + Localizer.Get("trust.footer.unmatched", culture) + LabelSeparator(culture)
-                    + string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "、" : ", ", rawNumbers)
+                    + string.Join(ListSeparator(culture), rawNumbers)
                     + LabelSeparator(culture) + Localizer.Get("trust.footer.unmatched.detail", culture);
             }
 
@@ -128,7 +128,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                             summary.CoveredRows.ToString("N0", culture)));
                     return WrapStatus(
                         Localizer.Get("trust.footer.tier.a.full", culture),
-                        string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ", verifiedResults),
+                        string.Join(ClauseSeparator(culture), verifiedResults),
                         culture);
                 }
 
@@ -138,7 +138,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                         Localizer.Get("trust.footer.tier.a.full", culture),
                         Localizer.Format("trust.footer.tier.a.assertions", culture,
                             summary.AssertionCount.ToString("N0", culture))
-                        + (culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "，" : ", ")
+                        + InlineSeparator(culture)
                         + Localizer.Format("trust.footer.tier.a.coverage", culture,
                             summary.CoveredRows.ToString("N0", culture)),
                         culture);
@@ -213,7 +213,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     (formatted.Count - MaxBasisCount).ToString("N0", culture)));
             }
 
-            return string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ", visible);
+            return string.Join(ClauseSeparator(culture), visible);
         }
 
         private static string BuildScopeSummary(IList<string> scopeDescriptions, CultureInfo culture)
@@ -235,7 +235,7 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     (scopes.Count - MaxScopeCount).ToString("N0", culture)));
             }
 
-            return string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ", visible);
+            return string.Join(ClauseSeparator(culture), visible);
         }
 
         private static string TruncateScope(string value)
@@ -296,12 +296,12 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                     {
                         var aggregation = groupNames.Count > 0
                             ? Localizer.Get("trust.footer.group.by", culture)
-                                + string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "、" : ", ", groupNames)
+                                + string.Join(ListSeparator(culture), groupNames)
                                 + Localizer.Get("trust.footer.group.aggregate", culture)
                             : Localizer.Get("trust.footer.group.all", culture);
                         if (measures.Count > 0)
                         {
-                            aggregation += " " + string.Join(culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "、" : ", ", measures);
+                            aggregation += WordSeparator(culture) + string.Join(ListSeparator(culture), measures);
                         }
                         parts.Add(aggregation);
                     }
@@ -317,9 +317,9 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                         return Localizer.Get("trust.footer.basis.unspecified", culture);
                     }
 
-                    var open = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "（" : " (";
-                    var close = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "）" : ")";
-                    var separator = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "；" : "; ";
+                    var open = UsesFullWidthParentheses(culture) ? "（" : " (";
+                    var close = UsesFullWidthParentheses(culture) ? "）" : ")";
+                    var separator = ClauseSeparator(culture);
                     return Truncate(parts[0]
                         + (parts.Count > 1 ? open + string.Join(separator, parts.Skip(1)) + close : string.Empty));
                 }
@@ -397,8 +397,8 @@ namespace OfficeCopilot.Agent.Runtime.Verification
                 }
 
                 var alias = ReadString(group, "alias");
-                var open = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "（" : " (";
-                var close = culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "）" : ")";
+                var open = UsesFullWidthParentheses(culture) ? "（" : " (";
+                var close = UsesFullWidthParentheses(culture) ? "）" : ")";
                 var label = CleanText(column) + "→"
                     + (string.IsNullOrWhiteSpace(alias) ? CleanText(transform) : CleanText(alias))
                     + open + CleanText(transform);
@@ -522,14 +522,52 @@ namespace OfficeCopilot.Agent.Runtime.Verification
 
         private static string LabelSeparator(CultureInfo culture)
         {
-            return culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? string.Empty : " ";
+            return UsesFullWidthParentheses(culture)
+                    ? string.Empty
+                    : " ";
         }
 
         private static string WrapStatus(string heading, string detail, CultureInfo culture)
         {
-            return culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
+            return UsesFullWidthParentheses(culture)
                 ? heading + "（" + detail + "）"
                 : heading + " (" + detail + ")";
+        }
+
+        private static string ListSeparator(CultureInfo culture)
+        {
+            return UsesFullWidthParentheses(culture) ? "、" : ", ";
+        }
+
+        private static string InlineSeparator(CultureInfo culture)
+        {
+            return culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
+                ? "，"
+                : culture.Name.StartsWith("ja", StringComparison.OrdinalIgnoreCase)
+                    ? "、"
+                    : ", ";
+        }
+
+        private static string WordSeparator(CultureInfo culture)
+        {
+            return culture.Name.StartsWith("ja", StringComparison.OrdinalIgnoreCase)
+                ? string.Empty
+                : " ";
+        }
+
+        private static string ClauseSeparator(CultureInfo culture)
+        {
+            return culture.Name.StartsWith("ja", StringComparison.OrdinalIgnoreCase)
+                ? "、"
+                : culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
+                    ? "；"
+                    : "; ";
+        }
+
+        private static bool UsesFullWidthParentheses(CultureInfo culture)
+        {
+            return culture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
+                || culture.Name.StartsWith("ja", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

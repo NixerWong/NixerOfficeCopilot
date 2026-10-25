@@ -147,7 +147,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 sb.AppendLine().Append("Context: ").Append(args);
             }
 
-            sb.AppendLine().AppendLine().Append("Follow the instructions above. When finished, summarize in Chinese.");
+            sb.AppendLine().AppendLine().Append("Follow the instructions above. When finished, summarize the outcome.");
 
             return sb.ToString();
         }
@@ -177,4 +177,3 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         }
     }
 }
-

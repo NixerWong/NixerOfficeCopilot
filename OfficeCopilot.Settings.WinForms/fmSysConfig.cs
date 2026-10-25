@@ -295,7 +295,8 @@ namespace OfficeCopilot.Settings.WinForms
                 cbeLanguage.Properties.Items.AddRange(new[]
                 {
                     LocalizationService.Get("Language.English"),
-                    LocalizationService.Get("Language.SimplifiedChinese")
+                    LocalizationService.Get("Language.SimplifiedChinese"),
+                    LocalizationService.Get("Language.Japanese")
                 });
                 cbeLanguage.SelectedIndex = selectedLanguageIndex < 0 ? 0 : selectedLanguageIndex;
 

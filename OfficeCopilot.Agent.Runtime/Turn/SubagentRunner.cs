@@ -169,7 +169,6 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             sb.AppendLine("- Be concise and focused on the specific task.");
             sb.AppendLine("- If you have tools, use them to gather information, then synthesize.");
             sb.AppendLine("- Do NOT ask the user questions - you are running autonomously.");
-            sb.AppendLine("- Respond in Chinese if the task involves Office/Excel data.");
             sb.AppendLine("- Provide your final answer directly without requesting confirmation.");
 
             return sb.ToString();

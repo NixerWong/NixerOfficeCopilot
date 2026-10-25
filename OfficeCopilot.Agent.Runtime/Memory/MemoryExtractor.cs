@@ -83,24 +83,24 @@ namespace OfficeCopilot.Agent.Runtime.Memory
         private static string BuildExtractionPrompt(IList<OfficeCopilot.Agent.Persistence.BrokerConversationMessage> messages)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("你是一个记忆抽取助手。请审阅以下对话，判断是否有值得保存为持久记忆的有用信息。");
+            sb.AppendLine("You are a memory-extraction assistant. Review the conversation and determine whether it contains useful information worth saving as persistent memory.");
             sb.AppendLine();
-            sb.AppendLine("仅在对话包含以下内容时才抽取：");
-            sb.AppendLine("- 用户偏好（如「我喜欢用 Python 而非 C#」）");
-            sb.AppendLine("- 用户经常使用的模式或工作流");
-            sb.AppendLine("- 犯过的错误和经验教训");
-            sb.AppendLine("- 重要的决策或约束条件");
-            sb.AppendLine("- 用户环境或工具有用的事实信息");
+            sb.AppendLine("Extract a memory only when the conversation contains:");
+            sb.AppendLine("- User preferences (for example, \"I prefer Python over C#\")");
+            sb.AppendLine("- Patterns or workflows the user often follows");
+            sb.AppendLine("- Mistakes and lessons learned");
+            sb.AppendLine("- Important decisions or constraints");
+            sb.AppendLine("- Useful facts about the user's environment or tools");
             sb.AppendLine();
-            sb.AppendLine("如果对话中没有值得保存的内容，请回复：{\"extract\": false}");
-            sb.AppendLine("如果有值得保存的内容，请用中文回复一个 JSON 对象：");
+            sb.AppendLine("If there is nothing worth saving, respond with: {\"extract\": false}");
+            sb.AppendLine("If there is something worth saving, respond with one JSON object:");
             sb.AppendLine("{");
             sb.AppendLine("  \"extract\": true,");
-            sb.AppendLine("  \"tags\": [\"标签1\", \"标签2\"],");
-            sb.AppendLine("  \"content\": \"用中文总结的记忆内容，1-3 句话。\"");
+            sb.AppendLine("  \"tags\": [\"tag1\", \"tag2\"],");
+            sb.AppendLine("  \"content\": \"Summarize the memory in the language used by the user in the conversation, in 1-3 sentences.\"");
             sb.AppendLine("}");
             sb.AppendLine();
-            sb.AppendLine("--- 对话内容 ---");
+            sb.AppendLine("--- Conversation ---");
 
             var recentMessages = messages.Skip(Math.Max(0, messages.Count - 10)).ToList();
             foreach (var msg in recentMessages)
@@ -168,7 +168,7 @@ namespace OfficeCopilot.Agent.Runtime.Memory
         private static string TruncateSummary(string content)
         {
             if (string.IsNullOrWhiteSpace(content))
-                return "(空)";
+                return "(empty)";
 
             var maxLen = Math.Min(content.Length, 80);
             var summary = content.Substring(0, maxLen);

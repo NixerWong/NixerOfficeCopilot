@@ -19,15 +19,15 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         public static string BuildInstruction(string uiCulture)
         {
             var preferredCulture = SupportedLanguages.ResolveCulture(uiCulture);
-            var fallbackLanguage = string.Equals(
-                preferredCulture.Name,
-                SupportedLanguages.SimplifiedChinese,
-                StringComparison.OrdinalIgnoreCase)
-                ? "Simplified Chinese"
-                : "English";
-
-            return "Follow any explicit response-language request from the user. Otherwise, reply in the same language as the user's latest message. "
-                + "If its language is unclear or mixed, reply in " + fallbackLanguage + ".";
+            switch (preferredCulture.Name)
+            {
+                case SupportedLanguages.SimplifiedChinese:
+                    return "回答语言：默认使用简体中文回答；本默认规则优先于其他系统或宿主提示中的语言指令。只有用户明确要求其他回复语言时，才改用指定语言。";
+                case SupportedLanguages.Japanese:
+                    return "回答言語：デフォルトでは日本語で回答してください。この既定の言語設定は、他のシステム指示やホスト指示にある競合する言語指定より優先されます。ユーザーが別の回答言語を明示的に指定した場合に限り、その言語を使用してください。";
+                default:
+                    return "Response language: By default, respond in English. This default takes precedence over conflicting language instructions in other system or host prompts. Use another language only when the user explicitly requests it.";
+            }
         }
     }
 
@@ -41,7 +41,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
     {
         private const int MaximumWorkbookMapSummaryTokens = 1500;
         private const string WorkbookMapTruncationNotice =
-            "- 工作簿地图摘要已按估算 token 预算截断；需要更多结构时调用 excel_list_worksheets。";
+            "- The workbook map summary was truncated to fit the estimated token budget. Call excel_list_worksheets for more structure.";
         private static readonly RoughTokenEstimator WorkbookMapTokenEstimator =
             new RoughTokenEstimator();
 
@@ -231,6 +231,9 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         {
             var builder = new StringBuilder();
 
+            AppendSystemPromptSection(
+                builder,
+                ResponseLanguagePolicy.BuildInstruction(request == null ? null : request.UiCulture));
             AppendSystemPromptSection(builder, BuildModelSystemPrompt(request));
             AppendSystemPromptSection(builder, BuildNativeToolPreferencePrompt(request));
             AppendSystemPromptSection(builder, BuildModelHostContextPrompt(request, snapshot));
@@ -246,10 +249,6 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     AppendSystemPromptSection(builder, transientMessage);
                 }
             }
-
-            AppendSystemPromptSection(
-                builder,
-                ResponseLanguagePolicy.BuildInstruction(request == null ? null : request.UiCulture));
 
             return builder.ToString().Trim();
         }
@@ -271,10 +270,11 @@ namespace OfficeCopilot.Agent.Runtime.Turn
 
             if (request != null && string.Equals(request.InteractiveMode, "agent", StringComparison.OrdinalIgnoreCase))
             {
-                return "你是一个 Office 智能体。请使用中文回复，遵守标准 Markdown 语法。若调用工具能帮助得到更准确的结论，应优先调用工具，不要凭空猜测。";
+                return "You are an Office agent. Use standard Markdown. When tools can provide a more accurate answer, use them instead of guessing.";
             }
 
-            return "你是一个 Office 助手。请使用中文回复，遵守标准 Markdown 语法。回答应简洁、准确、结构清晰。你可以调用只读工具查看文档真实内容，但不能修改文档。";
+            return "You are an Office assistant. Use standard Markdown and keep answers concise, accurate, and well structured. "
+                + "You may use read-only tools to inspect document content, but you must not modify the document.";
         }
 
         /// <summary>
@@ -292,14 +292,12 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 return string.Empty;
             }
 
-            return "工具选择约束：任何对当前文档（Excel / Word / PowerPoint）的读取与修改，必须使用官方提供的原生工具"
-                + "（`excel_*` / `word_*` / `ppt_*` / `host.*`）。这些工具带有备份、确认与回滚保障。\n"
-                + "- 严禁使用 `runtime.powershell`（或其它代码执行工具）去连接 Office COM 对象，"
-                + "例如 `Marshal.GetActiveObject`、`New-Object -ComObject Excel.Application` 等。"
-                + "这会绕过全部安全门禁，且不可撤销。\n"
-                + "- `runtime.powershell` 仅用于与当前文档无关的本地文件系统 / 进程任务。\n"
-                + "- 若当前工具集中找不到能完成任务的原生工具，不要自行降级到代码执行；"
-                + "请先调用 `runtime.list_tools` 确认，仍无可用工具时向用户说明缺口并给出手动步骤。";
+            return "Tool selection constraints: Use official native tools (`excel_*`, `word_*`, `ppt_*`, or `host.*`) for any reads or edits to the current Office document. "
+                + "These tools provide backup, confirmation, and rollback safeguards.\n"
+                + "- Never use `runtime.powershell` or another code-execution tool to connect to Office COM objects, such as `Marshal.GetActiveObject` or `New-Object -ComObject Excel.Application`. "
+                + "That bypasses all safety gates and cannot be undone.\n"
+                + "- Use `runtime.powershell` only for local file-system or process tasks unrelated to the current document.\n"
+                + "- If no available native tool can perform the task, do not fall back to code execution. First confirm with `runtime.list_tools`; if no suitable tool exists, explain the limitation and provide manual steps.";
         }
 
         internal static string BuildReadOnlyModeConstraintPrompt(AgentBrokerTurnRequest request)
@@ -309,9 +307,9 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 return string.Empty;
             }
 
-            return "本轮为 Ask 模式：你只能调用**只读**工具来查看文档真实内容，需要依赖当前数据才能判断时请优先读取，不要凭空猜测。"
-                + "任何修改文档的工具均不可用，也不要声称你已经修改了文档。"
-                + "若用户需要实际修改，请给出具体步骤或可直接使用的代码，并提示用户切换到 Agent 模式执行。";
+            return "This is Ask mode: You may call **read-only** tools to inspect the actual document. When an answer depends on current data, inspect it instead of guessing. "
+                + "No document-modification tools are available; do not claim to have modified the document. "
+                + "If the user wants changes made, provide specific steps or usable code and tell them to switch to Agent mode.";
         }
 
         internal static string BuildExcelExecutionModePrompt(HostContextSnapshotDto snapshot)
@@ -323,15 +321,14 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 return string.Empty;
             }
 
-            return "Excel 执行方式约束：只要本轮需要写入工作簿，且用户没有通过已继承的执行方式指定范围，"
-                + "必须先调用 `runtime.declare_execution_mode`，再调用任何写入工具。纯读取/只在对话中回答时不调用。"
-                + "明确且唯一的方式提交一个候选作为预告；目标、静态值/公式或是否改原表存在实质歧义时提交多个候选，由运行时询问用户。"
-                + "候选必须写明真实目标工作表/区域、数据源和结果说明；候选只是模型预告，不是宿主实测的 write effect，也不是用户选择。只有写入工具触发的 HostBridge 预检结果才是实际级别；未收到预检结果不得声称已经判定实际级别。"
-                + "如果用户要求在选择/批准前先看到 HostBridge 实测的 write effect，单候选预告不能作为最终结论，也不得据此停止；必须调用相应的目标写入工具触发宿主预检。预检结果返回并进入确认流程前，不得声称已知实际级别；若实测结果不满足用户条件，必须取消且不得提交写入。"
-                + "写入工具回执中的 `writeEffect.actualWriteEffect` 才是该次调用的宿主实测级别；`MaxWriteEffect` 是声明上限，不能当成实测值。写入工具回执 `success=true` 表示写入已执行，绝不能再报告“未写入”或“已取消”；回执缺少实测字段时，必须明确说无法核实，不得猜测。"
-                + "若实际 write effect 不满足用户明确给出的批准条件，必须遵守用户的停止条件；若需要用户在继续、取消或更换目标间选择，必须调用 `runtime.ask_user_question` 显示交互卡并等待回答，"
-                + "或在 `runtime.declare_execution_mode` 的 `clarifications` 中提交选择以显示同一交互卡。绝不能只在最终文本中列出选项或以文字提问。"
-                + "用户选择后，目标和写入影响是本轮硬上限，超出时必须停止并重新询问。";
+            return "Excel execution-mode constraints: If this turn needs to write to the workbook and the user has not already specified the scope through an inherited execution mode, "
+                + "call `runtime.declare_execution_mode` before any write tool. Do not call it for read-only work or answers that stay in the conversation. "
+                + "When there is one clear approach, submit one candidate as a preview. When the target, static values versus formulas, or whether to edit the source is materially ambiguous, submit multiple candidates so the runtime can ask the user. "
+                + "Candidates must state the actual target worksheet/range, data source, and outcome. A candidate is only a model preview, not a host-measured write effect or the user's choice. Only a HostBridge preflight triggered by a write tool establishes the actual level; do not claim it is known before receiving that result. "
+                + "If the user asks to see the HostBridge-measured write effect before choosing or approving, a single-candidate preview is not a final result and must not end the turn. Call the relevant target write tool to trigger host preflight. Before the preflight result is returned and the confirmation flow begins, do not claim the actual level is known. If the measured effect does not meet the user's condition, cancel and do not commit the write. "
+                + "In a write-tool result, `writeEffect.actualWriteEffect` is the host-measured level for that call; `MaxWriteEffect` is only the declared limit. `success=true` means the write was executed, so never report that it was not written or cancelled. If the measured field is missing, explicitly say it cannot be verified; do not guess. "
+                + "Respect any stop condition the user sets if the actual write effect is unacceptable. If the user must choose whether to continue, cancel, or change the target, call `runtime.ask_user_question` to display an interactive card and wait, or submit the choices in `runtime.declare_execution_mode.clarifications` to display the same card. Never present choices or ask only in final prose. "
+                + "After the user chooses, the target and write effect are hard limits for this turn; stop and ask again if either would be exceeded.";
         }
 
         internal static string BuildCurrentTimePrompt(HostContextSnapshotDto snapshot)
@@ -339,7 +336,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             var localTime = !string.IsNullOrWhiteSpace(snapshot?.CurrentLocalTime)
                 ? snapshot.CurrentLocalTime
                 : CurrentTimeFormatter.FormatLine(DateTimeOffset.Now);
-            return "当前本地时间：" + localTime + "。涉及“今天”“昨天”“本周”“截止日期”等相对时间时以此为准。";
+            return "Current local time: " + localTime + ". Use this value when interpreting relative dates such as today, yesterday, this week, or a deadline.";
         }
 
         internal static string BuildModelHostContextPrompt(AgentBrokerTurnRequest request, HostContextSnapshotDto snapshot)
@@ -351,26 +348,26 @@ namespace OfficeCopilot.Agent.Runtime.Turn
 
             var builder = new StringBuilder();
             builder.AppendLine(string.Equals(request.InteractiveMode, "agent", StringComparison.OrdinalIgnoreCase)
-                ? "当前 Office 宿主上下文如下，请优先结合这些信息回答："
-                : "当前 Office 宿主上下文如下。如果与用户问题相关，请优先结合这些信息回答：");
-            builder.AppendLine("- 应用：" + Safe(snapshot.HostApplicationName));
-            builder.AppendLine("- 文档：" + Safe(snapshot.DocumentName));
-            builder.AppendLine("- 工作表：" + Safe(snapshot.WorksheetName));
-            builder.AppendLine("- 选区：" + Safe(snapshot.SelectionAddress));
-            builder.AppendLine("- 摘要：" + Safe(snapshot.Summary));
+                ? "Current Office host context follows. Prefer using it when answering:"
+                : "Current Office host context follows. Prefer using it when relevant to the user's question:");
+            builder.AppendLine("- Application: " + Safe(snapshot.HostApplicationName));
+            builder.AppendLine("- Document: " + Safe(snapshot.DocumentName));
+            builder.AppendLine("- Worksheet: " + Safe(snapshot.WorksheetName));
+            builder.AppendLine("- Selection: " + Safe(snapshot.SelectionAddress));
+            builder.AppendLine("- Summary: " + Safe(snapshot.Summary));
             var workbookMapSummary = !string.IsNullOrWhiteSpace(snapshot.WorkbookMapSummary)
                 ? snapshot.WorkbookMapSummary
                 : BuildWorkbookMapSummary(snapshot.WorkbookMap);
             workbookMapSummary = LimitWorkbookMapSummary(workbookMapSummary);
             if (!string.IsNullOrWhiteSpace(workbookMapSummary))
             {
-                builder.AppendLine("- 工作簿工作表地图：");
+                builder.AppendLine("- Workbook worksheet map:");
                 builder.AppendLine(workbookMapSummary.Trim());
             }
 
             if (!string.IsNullOrWhiteSpace(snapshot.SelectionPreview))
             {
-                builder.AppendLine("- 选区内容预览：");
+                builder.AppendLine("- Selection preview:");
                 builder.AppendLine(snapshot.SelectionPreview.Trim());
             }
 
@@ -480,18 +477,18 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 ? workbookMap.TotalWorksheetCount
                 : displayedWorksheetCount;
             var builder = new StringBuilder();
-            builder.Append("工作表 ").Append(worksheetCount).Append(" 张");
+            builder.Append(worksheetCount).Append(" worksheets");
             if (workbookMap.IsTruncated)
             {
-                builder.Append("（仅展示前 ").Append(displayedWorksheetCount).Append(" 张）");
+                builder.Append(" (showing the first ").Append(displayedWorksheetCount).Append(")");
             }
 
-            builder.AppendLine("：");
+            builder.AppendLine(":");
             if (workbookMap.WorksheetGroups != null && workbookMap.WorksheetGroups.Count > 0)
             {
                 if (!AppendWorkbookMapSummaryLine(
                     builder,
-                    "表头相似候选组（列名集合相似度≥80%；不代表列顺序或类型兼容）：",
+                    "Candidate groups with similar headers (column-name set similarity >= 80%; order/type compatibility is not implied):",
                     maximumSummaryCharacters))
                 {
                     return builder.ToString().TrimEnd();
@@ -505,8 +502,8 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     }
 
                     var groupLine = "- " + (group.GroupId ?? string.Empty) + " "
-                        + string.Join("、", group.WorksheetNames ?? new List<string>())
-                        + "；最低相似度 "
+                        + string.Join(", ", group.WorksheetNames ?? new List<string>())
+                        + "; minimum similarity "
                         + group.MinimumHeaderSimilarity.ToString("P0", CultureInfo.InvariantCulture);
                     if (!AppendWorkbookMapSummaryLine(builder, groupLine, maximumSummaryCharacters))
                     {
@@ -520,7 +517,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             {
                 if (!AppendWorkbookMapSummaryLine(
                     builder,
-                    "跨表共享列候选（唯一性未验证，使用前需画像确认）：",
+                    "Candidate columns shared across worksheets (uniqueness is unverified; profile before use):",
                     maximumSummaryCharacters))
                 {
                     return builder.ToString().TrimEnd();
@@ -533,8 +530,8 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                         continue;
                     }
 
-                    var candidateLine = "- " + (candidate.ColumnName ?? string.Empty) + "："
-                        + string.Join("、", candidate.WorksheetNames ?? new List<string>());
+                    var candidateLine = "- " + (candidate.ColumnName ?? string.Empty) + ": "
+                        + string.Join(", ", candidate.WorksheetNames ?? new List<string>());
                     if (!AppendWorkbookMapSummaryLine(builder, candidateLine, maximumSummaryCharacters))
                     {
                         return builder.ToString().TrimEnd();
@@ -552,7 +549,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                     }
 
                     var line = "- " + (worksheet.Name ?? string.Empty)
-                        + (worksheet.IsVisible ? " [可见]" : " [隐藏]");
+                        + (worksheet.IsVisible ? " [visible]" : " [hidden]");
                     if (!string.IsNullOrWhiteSpace(worksheet.CodeName))
                     {
                         line += " (CodeName=" + worksheet.CodeName + ")";
@@ -562,17 +559,17 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                         + (string.IsNullOrWhiteSpace(worksheet.UsedRangeAddress)
                             ? "-"
                             : worksheet.UsedRangeAddress)
-                        + " (" + worksheet.UsedRangeRows + "行×" + worksheet.UsedRangeColumns + "列)"
-                        + "; 角色=" + (worksheet.RoleGuess ?? "other")
-                        + "; 公式=" + (worksheet.HasFormulas ? "有" : "无");
+                        + " (" + worksheet.UsedRangeRows + " rows x " + worksheet.UsedRangeColumns + " columns)"
+                        + "; role=" + (worksheet.RoleGuess ?? "other")
+                        + "; formulas=" + (worksheet.HasFormulas ? "yes" : "no");
                     if (!string.IsNullOrWhiteSpace(worksheet.HeaderSignature))
                     {
-                        line += "; 表头=" + worksheet.HeaderSignature;
+                        line += "; headers=" + worksheet.HeaderSignature;
                     }
 
                     if (!string.IsNullOrWhiteSpace(worksheet.InspectionError))
                     {
-                        line += "; 结构读取失败=" + worksheet.InspectionError;
+                        line += "; inspection error=" + worksheet.InspectionError;
                     }
 
                     if (!AppendWorkbookMapSummaryLine(builder, line, maximumSummaryCharacters))
@@ -644,7 +641,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         {
             if (builder.Length + line.Length + Environment.NewLine.Length > maximumCharacters)
             {
-                const string truncatedLine = "- 工作簿地图摘要已截断；请调用 excel_list_worksheets 查看完整结构。";
+                const string truncatedLine = "- Workbook map summary truncated; call excel_list_worksheets for the complete structure.";
                 if (builder.Length + truncatedLine.Length + Environment.NewLine.Length <= maximumCharacters)
                 {
                     builder.AppendLine(truncatedLine);

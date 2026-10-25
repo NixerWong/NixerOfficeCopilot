@@ -99,7 +99,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             }
 
             var builder = new StringBuilder();
-            builder.AppendLine("用户正在询问上一轮的过程。以下是已完成的工具轨迹，只用于解释，不要重新调用工具：");
+            builder.AppendLine("The user is asking about the previous turn's process. The completed tool trace below is for explanation only; do not call these tools again:");
             var step = 0;
             foreach (var message in toolMessages)
             {
@@ -107,15 +107,15 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 {
                     step++;
                     builder.Append(step)
-                        .Append(". 调用 ")
+                        .Append(". Call ")
                         .Append(string.IsNullOrWhiteSpace(message.Name) ? message.Content : message.Name)
-                        .Append("，参数：")
+                        .Append("; arguments: ")
                         .AppendLine(Compact(message.StructuredContentJson, MaxResultPreviewLength));
                     continue;
                 }
 
-                builder.Append("   结果：")
-                    .Append(message.Success ? "成功。" : "失败。")
+                builder.Append("   Result: ")
+                    .Append(message.Success ? "Succeeded. " : "Failed. ")
                     .AppendLine(Compact(message.Content, MaxResultPreviewLength));
             }
 

@@ -712,7 +712,7 @@ After `runtime.create_skill` succeeds, tell the user:
 - How to invoke it: describe the task naturally, or the model will auto-invoke based on `whenToUse`
 - That they can edit the SKILL.md directly at %APPDATA%/NixerOfficeCopilot/skills/<name>/SKILL.md
 
-Follow the instructions above. When finished, summarize in Chinese.";
+Follow the instructions above. When finished, summarize the outcome.";
         }
 
         private static SkillDefinition CreateRecordToMemorySkill()
@@ -720,9 +720,9 @@ Follow the instructions above. When finished, summarize in Chinese.";
             var skill = new SkillDefinition
             {
                 Name = "record-to-memory",
-                DisplayName = "记忆写入",
-                Category = "系统工具",
-                Description = "当用户说'记住'、'记录下来'、'写入记忆'时，将内容持久化到记忆系统。",
+                DisplayName = "Save to memory",
+                Category = "System tools",
+                Description = "Persist information in memory when the user asks to remember or record it.",
                 MaxToolRoundCount = 5,
                 IsEnabled = true,
             };
@@ -740,7 +740,7 @@ Follow the instructions above. When finished, summarize in Chinese.";
 
             skill.Metadata["skill.userInvocable"] = "true";
             skill.Metadata[SkillMetadataKeys.RequireKeywordMatch] = "true";
-            skill.Metadata["skill.argumentHint"] = "[要记录的内容]";
+            skill.Metadata["skill.argumentHint"] = "[content to remember]";
 
             skill.Metadata["skill.prompt"] = GetRecordToMemoryPromptBody();
 
@@ -749,32 +749,32 @@ Follow the instructions above. When finished, summarize in Chinese.";
 
         private static string GetRecordToMemoryPromptBody()
         {
-            return @"# 记忆写入 Skill
+            return @"# Save to Memory Skill
 
-## 目标
-当用户说""记住xx""、""把xx记录下来""、""把xx写入记忆""等时，将内容持久化到 NixerOfficeCopilot 的记忆系统。
+## Goal
+When the user asks to remember or record information, persist it in the NixerOfficeCopilot memory system.
 
-## 执行步骤
+## Steps
 
-### 1. 理解用户意图
-从用户的表述中提取：
-- **要记录的内容**（content）：用户明确说要记住的内容
-- **标签**（tags）：从内容中提取关键词，如 ""偏好""、""规则""、""项目""、""用户信息"" 等
-- **作用域**（scope）：默认为 `user`（用户级，跨所有工作区）
+### 1. Understand the request
+Extract the following from the user's request:
+- **Content**: the information the user explicitly asked to remember
+- **Tags**: keywords describing the content, such as ""preference"", ""rule"", ""project"", or ""user information""
+- **Scope**: default to `user` (user-wide, across all workspaces)
 
-### 2. 调用记忆写入工具
-使用 `runtime.record_memory` 工具写入：
+### 2. Call the memory tool
+Use `runtime.record_memory` to save the information:
 
 ```json
 {
-  ""content"": ""<用户要记住的内容>"",
-  ""tags"": [""<关键词1>"", ""<关键词2>""],
+  ""content"": ""<content the user asked to remember>"",
+  ""tags"": [""<keyword1>"", ""<keyword2>""],
   ""scope"": ""user""
 }
 ```
 
-### 3. 确认结果
-工具执行后告知用户记忆是否写入成功。";
+### 3. Confirm the result
+After the tool runs, tell the user whether the memory was saved successfully.";
         }
 
         private static SkillDefinition CreateExcelSkill(

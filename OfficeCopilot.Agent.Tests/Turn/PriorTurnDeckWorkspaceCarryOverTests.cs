@@ -27,7 +27,7 @@ namespace OfficeCopilot.Agent.Tests.Turn
 
             StringAssert.Contains(note, DeckId);
             StringAssert.Contains(note, "决策模型接口 授课");
-            StringAssert.Contains(note, "页数：10");
+            StringAssert.Contains(note, "Slide count: 10");
         }
 
         [TestMethod]

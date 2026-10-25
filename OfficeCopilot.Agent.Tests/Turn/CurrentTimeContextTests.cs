@@ -40,7 +40,7 @@ namespace OfficeCopilot.Agent.Tests.Turn
 
             var prompt = DefaultContextBuilder.BuildCurrentTimePrompt(snapshot);
 
-            StringAssert.Contains(prompt, "当前本地时间：2026-10-12 18:57（星期一），时区 UTC+08:00");
+            StringAssert.Contains(prompt, "Current local time: 2026-10-12 18:57（星期一），时区 UTC+08:00");
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace OfficeCopilot.Agent.Tests.Turn
 
             StringAssert.Matches(
                 prompt,
-                new System.Text.RegularExpressions.Regex(@"当前本地时间：\d{4}-\d{2}-\d{2} \d{2}:\d{2}（星期[日一二三四五六]），时区 UTC[+-]\d{2}:\d{2}"));
+                new System.Text.RegularExpressions.Regex(@"Current local time: \d{4}-\d{2}-\d{2} \d{2}:\d{2}（星期[日一二三四五六]），时区 UTC[+-]\d{2}:\d{2}"));
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace OfficeCopilot.Agent.Tests.Turn
             harness.Run("你好");
 
             var request = harness.Model.Requests[0];
-            StringAssert.Contains(request.SystemText, "当前本地时间：");
+            StringAssert.Contains(request.SystemText, "Current local time:");
             StringAssert.Contains(request.SystemText, "（星期");
             CollectionAssert.Contains(request.ToolNames, CurrentTimeTool.ToolName);
         }

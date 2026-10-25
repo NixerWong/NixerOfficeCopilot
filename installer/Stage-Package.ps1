@@ -196,6 +196,7 @@ $required = @(
 $required += @($fontFaceFiles.Keys)
 $required += @($fontLicenseFiles.Keys)
 $required += (Join-Path 'zh-Hans' 'OfficeCopilot.Localization.resources.dll')
+$required += (Join-Path 'ja' 'OfficeCopilot.Localization.resources.dll')
 $missing = @($required | Where-Object { -not (Test-Path -LiteralPath (Join-Path $stagingDir $_)) })
 if ($missing.Count -gt 0) {
     throw "Staging is missing required entries: $($missing -join ', ')"

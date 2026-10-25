@@ -181,7 +181,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             }
 
             content.AppendLine();
-            content.Append("When finished, summarize in Chinese.");
+            content.Append("When finished, summarize the outcome.");
 
             return new ToolExecutionOutcome
             {
@@ -193,4 +193,3 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         }
     }
 }
-

@@ -100,6 +100,31 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
         }
 
         [TestMethod]
+        public void Build_UsesJapaneseTextAndPunctuation()
+        {
+            var footer = TrustFooterBuilder.Build(new VerificationLedgerSummary
+            {
+                HasExcelDataToolCalls = true,
+                Tier = "A",
+                AssertionCount = 2,
+                CoveredRows = 1234,
+                ScopeDescriptions = new List<string> { "Sheet A", "Sheet B" },
+                BasisJson = new List<string>
+                {
+                    "{\"source\":{\"worksheetName\":\"販売\"},"
+                    + "\"groupBy\":[\"地域\",\"商品\"],"
+                    + "\"measures\":[{\"column\":\"金額\",\"function\":\"sum\"}]}"
+                }
+            }, uiCulture: "ja");
+
+            StringAssert.Contains(footer, "検証：");
+            StringAssert.Contains(footer, "（");
+            StringAssert.Contains(footer, "、");
+            Assert.IsFalse(footer.Contains("Verification"));
+            Assert.IsFalse(footer.Contains("; "));
+        }
+
+        [TestMethod]
         public void Build_DowngradesUntracedNumbersAndCapsCorrectedAnswersAtTierB()
         {
             var summary = new VerificationLedgerSummary
@@ -215,6 +240,21 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
             var cleaned = TrustFooterBuilder.RemoveModelGeneratedTrustText(content);
 
             Assert.AreEqual("A2 原值为 S0001。", cleaned);
+        }
+
+        [TestMethod]
+        public void RemoveModelGeneratedTrustText_RemovesJapaneseFooter()
+        {
+            const string content =
+                "回答本文。\n\n"
+                + "—\n検証：A級：モデルの自己申告\n"
+                + "確認対象：全シート\n"
+                + "根拠：売上データ\n"
+                + "直接的な根拠のない数値：999";
+
+            Assert.AreEqual(
+                "回答本文。",
+                TrustFooterBuilder.RemoveModelGeneratedTrustText(content));
         }
 
         [TestMethod]

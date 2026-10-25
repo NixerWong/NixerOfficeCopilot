@@ -246,12 +246,12 @@ namespace OfficeCopilot.Agent.Tests.References
             Assert.AreEqual(6, imageMessages[0].ContentParts.Count(part => part.Type == "input_image"));
             Assert.AreEqual(Convert.ToBase64String(new byte[] { 0 }),
                 imageMessages[0].ContentParts.First(part => part.Type == "input_image").FileContentBase64);
-            Assert.IsTrue(imageMessages[0].ContentParts.Any(part => (part.Text ?? string.Empty).Contains("2 张工具图片")));
+            Assert.IsTrue(imageMessages[0].ContentParts.Any(part => (part.Text ?? string.Empty).Contains("2 tool image(s) were not sent")));
 
             var textOnlyMessages = new List<ModelClientMessage>();
             ToolImageMessages.Append(textOnlyMessages, outcomes, false);
             Assert.AreEqual(1, textOnlyMessages.Count);
-            StringAssert.Contains(textOnlyMessages[0].Content, "不支持图像输入");
+            StringAssert.Contains(textOnlyMessages[0].Content, "current model does not support image input");
             Assert.AreEqual(0, textOnlyMessages[0].ContentParts.Count);
         }
 
