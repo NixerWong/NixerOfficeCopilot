@@ -23,14 +23,14 @@ export function showPlanApproval(data) {
     container.innerHTML = ''
         + '<div class="plan-approval-header">'
         + '  <span>\ud83d\udccb</span>'
-        + '  <span>Agent \u5df2\u51c6\u5907\u597d\u5b9e\u65bd\u8ba1\u5212\uff0c\u8bf7\u5ba1\u67e5</span>'
+        + '  <span data-l10n-text="Web.panel.planHeader"></span>'
         + '</div>'
         + '<div class="plan-approval-body">'
         + '  <textarea class="plan-approval-text" rows="12">' + escapeHtml(planText) + '</textarea>'
         + '</div>'
         + '<div class="plan-approval-footer">'
-        + '  <button type="button" class="plan-reject-btn">\u2717 \u62d2\u7edd</button>'
-        + '  <button type="button" class="plan-approve-btn">\u2713 \u6279\u51c6</button>'
+        + '  <button type="button" class="plan-reject-btn" data-l10n-text="Web.panel.reject"></button>'
+        + '  <button type="button" class="plan-approve-btn" data-l10n-text="Web.panel.approve"></button>'
         + '</div>';
 
     _pendingPlanApprovals[requestId] = { container: container };

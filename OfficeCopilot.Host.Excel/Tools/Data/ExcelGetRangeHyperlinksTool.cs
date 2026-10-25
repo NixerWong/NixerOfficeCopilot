@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_range_hyperlinks",
-            DisplayName = "读取区域超链接",
-            Description = "列出指定区域中的超链接；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Hyperlinks",
+            Description = "Lists hyperlinks in the specified range. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

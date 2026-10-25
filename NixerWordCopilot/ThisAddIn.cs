@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Diagnostics.Logging;
 using Word = Microsoft.Office.Interop.Word;
-using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Word;
 
 namespace NixerWordCopilot
@@ -16,6 +16,7 @@ namespace NixerWordCopilot
             try
             {
                 StartupTimingLog.Mark("word-startup-enter");
+                OfficeCopilot.Settings.WinForms.LocalizationBootstrap.Initialize();
                 OfficeCopilot.Settings.WinForms.HostFormIcon.Initialize(typeof(ThisAddIn).Assembly);
                 OfficeCopilot.Settings.WinForms.DevExpressSkinBootstrap.Apply();
 
@@ -30,8 +31,11 @@ namespace NixerWordCopilot
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    "Word 加载加载项时发生异常：\r\n\r\n" + ex,
-                    "NixerWordCopilot",
+                    LocalizationService.Format(
+                        "Shell.Startup.LoadFailure",
+                        LocalizationService.Get("Shell.Host.Word"),
+                        ex),
+                    LocalizationService.Get("Shell.Product.Word"),
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Error);
             }

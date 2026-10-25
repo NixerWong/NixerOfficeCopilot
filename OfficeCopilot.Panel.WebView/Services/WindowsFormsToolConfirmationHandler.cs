@@ -1,4 +1,5 @@
 using OfficeCopilot.Host.Abstractions;
+using OfficeCopilot.Localization;
 using System;
 using System.Text;
 using System.Windows.Forms;
@@ -7,6 +8,7 @@ namespace OfficeCopilot.Panel.WebView.Services
 {
     public sealed class WindowsFormsToolConfirmationHandler : IToolConfirmationHandler
     {
+        private static readonly IUserTextLocalizer UserTextLocalizer = new UserTextLocalizer();
         private readonly Control _owner;
 
         public WindowsFormsToolConfirmationHandler(Control owner)
@@ -17,10 +19,15 @@ namespace OfficeCopilot.Panel.WebView.Services
         public bool Confirm(ToolConfirmationRequest request)
         {
             request = request ?? new ToolConfirmationRequest();
+            var culture = LocalizationService.Culture;
+            var displayName = UserTextLocalizer.GetToolDisplayName(
+                request.ToolName,
+                request.ToolDisplayName,
+                culture);
             var title = string.IsNullOrWhiteSpace(request.ToolDisplayName)
-                ? "高风险工具确认"
-                : request.ToolDisplayName + " - 执行确认";
-            var message = BuildMessage(request);
+                ? LocalizationService.Get("Web.confirmation.title")
+                : LocalizationService.Format("Web.confirmation.titleSuffix", displayName);
+            var message = BuildMessage(request, displayName);
 
             DialogResult result = DialogResult.No;
             if (_owner != null && _owner.IsHandleCreated)
@@ -45,37 +52,38 @@ namespace OfficeCopilot.Panel.WebView.Services
             return result == DialogResult.Yes;
         }
 
-        private static string BuildMessage(ToolConfirmationRequest request)
+        private static string BuildMessage(ToolConfirmationRequest request, string displayName)
         {
+            var culture = LocalizationService.Culture;
             var builder = new StringBuilder();
-            builder.AppendLine("该操作可能修改当前 Office 文档。请确认后继续。");
-            builder.AppendLine("工具：" + Safe(request.ToolDisplayName, request.ToolName));
-            builder.AppendLine("风险级别：" + Safe(request.RiskLevel, "high"));
+            builder.AppendLine(LocalizationService.Get("Web.confirmation.warningText"));
+            builder.AppendLine(LocalizationService.Get("Web.confirmation.tool") + ": " + Safe(displayName, request.ToolName));
+            builder.AppendLine(LocalizationService.Get("Web.confirmation.risk") + ": " + Safe(request.RiskLevel, "high"));
 
             if (!string.IsNullOrWhiteSpace(request.DocumentName))
             {
-                builder.AppendLine("文档：" + request.DocumentName);
+                builder.AppendLine(LocalizationService.Get("Web.confirmation.document") + ": " + request.DocumentName);
             }
 
             if (!string.IsNullOrWhiteSpace(request.OperationSummary))
             {
-                builder.AppendLine("操作：" + request.OperationSummary);
+                builder.AppendLine(LocalizationService.Get("Web.confirmation.operation") + ": " + request.OperationSummary);
             }
 
             if (!string.IsNullOrWhiteSpace(request.BackupPath))
             {
-                builder.AppendLine("执行前备份：" + request.BackupPath);
+                builder.AppendLine(LocalizationService.Get("Web.confirmation.preExecutionBackup") + request.BackupPath);
             }
 
             if (!string.IsNullOrWhiteSpace(request.ArgumentsSummary))
             {
                 builder.AppendLine();
-                builder.AppendLine("参数摘要：");
+                builder.AppendLine(LocalizationService.Get("Web.confirmation.argumentsSummary"));
                 builder.AppendLine(request.ArgumentsSummary);
             }
 
             builder.AppendLine();
-            builder.Append("选择“是”继续执行，选择“否”取消。");
+            builder.Append(LocalizationService.Get("Web.confirmation.choices"));
             return builder.ToString().Trim();
         }
 

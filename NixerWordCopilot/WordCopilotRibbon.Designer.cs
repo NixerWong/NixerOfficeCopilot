@@ -78,7 +78,7 @@ namespace NixerWordCopilot
             // 
             this.btnModelConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnModelConfig.Image = global::NixerWordCopilot.Properties.Resources.Suggestion_32x32;
-            this.btnModelConfig.Label = "模型管理";
+            this.btnModelConfig.Label = "模型配置";
             this.btnModelConfig.Name = "btnModelConfig";
             this.btnModelConfig.ShowImage = true;
             this.btnModelConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnModelConfig_Click);
@@ -87,7 +87,7 @@ namespace NixerWordCopilot
             // 
             this.btnMcpConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnMcpConfig.Image = global::NixerWordCopilot.Properties.Resources.ModelEditor_Action_Modules_32x32;
-            this.btnMcpConfig.Label = "MCP管理";
+            this.btnMcpConfig.Label = "MCP配置";
             this.btnMcpConfig.Name = "btnMcpConfig";
             this.btnMcpConfig.ShowImage = true;
             this.btnMcpConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnMcpConfig_Click);
@@ -96,7 +96,7 @@ namespace NixerWordCopilot
             // 
             this.btnSkillsConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnSkillsConfig.Image = global::NixerWordCopilot.Properties.Resources.Wizard_32x32;
-            this.btnSkillsConfig.Label = "Skills管理";
+            this.btnSkillsConfig.Label = "Skills配置";
             this.btnSkillsConfig.Name = "btnSkillsConfig";
             this.btnSkillsConfig.ShowImage = true;
             this.btnSkillsConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSkillsConfig_Click);
@@ -105,7 +105,7 @@ namespace NixerWordCopilot
             // 
             this.btnMemoryConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnMemoryConfig.Image = global::NixerWordCopilot.Properties.Resources.Bookmark_32x321;
-            this.btnMemoryConfig.Label = "记忆管理";
+            this.btnMemoryConfig.Label = "记忆配置";
             this.btnMemoryConfig.Name = "btnMemoryConfig";
             this.btnMemoryConfig.ShowImage = true;
             this.btnMemoryConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnMemoryConfig_Click);
@@ -127,7 +127,7 @@ namespace NixerWordCopilot
             // 
             this.btnConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnConfig.Image = global::NixerWordCopilot.Properties.Resources.Condif;
-            this.btnConfig.Label = "系统设置";
+            this.btnConfig.Label = "系统配置";
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.ShowImage = true;
             this.btnConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnConfig_Click);

@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_clear_range",
-            DisplayName = "清空区域",
-            Description = "清空指定单元格区域中的值和公式，但保留样式与格式；若未提供地址，可回退清空当前选区。",
+            DisplayName = "Clear Range",
+            Description = "Clears values and formulas in the specified cell range while preserving styles and formatting. If no address is provided, falls back to clearing the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,

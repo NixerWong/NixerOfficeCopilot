@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using OfficeCopilot.Localization;
 using Newtonsoft.Json;
 using OfficeCopilot.Agent.Client;
 
@@ -33,11 +34,14 @@ namespace OfficeCopilot.Panel.WebView
 
             InitializeForm();
             ParseAndRenderQuestions();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += (sender, args) => LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+            ApplyLocalization();
         }
 
         private void InitializeForm()
         {
-            Text = "Nixer Copilot — 需要您的回答";
+            Text = LocalizationService.Get("Web.panel.askTitle");
             Size = new Size(600, 500);
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -64,7 +68,8 @@ namespace OfficeCopilot.Panel.WebView
             {
                 var lbl = new Label
                 {
-                    Text = "(No questions to display)",
+                    Text = LocalizationService.Get("Web.panel.noQuestions"),
+                    Tag = "Web.panel.noQuestions",
                     AutoSize = true,
                     Location = new Point(16, 16)
                 };
@@ -86,7 +91,8 @@ namespace OfficeCopilot.Panel.WebView
             // Buttons
             _submitButton = new Button
             {
-                Text = "提交",
+                Text = LocalizationService.Get("Web.panel.submit"),
+                Tag = "Web.panel.submit",
                 Location = new Point(ClientSize.Width - 200, yOffset + 8),
                 Size = new Size(80, 30),
                 DialogResult = DialogResult.OK
@@ -94,7 +100,8 @@ namespace OfficeCopilot.Panel.WebView
 
             _cancelButton = new Button
             {
-                Text = "取消",
+                Text = LocalizationService.Get("Web.panel.cancel"),
+                Tag = "Web.panel.cancel",
                 Location = new Point(ClientSize.Width - 110, yOffset + 8),
                 Size = new Size(80, 30),
                 DialogResult = DialogResult.Cancel
@@ -104,6 +111,53 @@ namespace OfficeCopilot.Panel.WebView
             Controls.Add(_cancelButton);
 
             ClientSize = new Size(600, yOffset + 60);
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(ApplyLocalization));
+                return;
+            }
+
+            ApplyLocalization();
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get("Web.panel.askTitle");
+            ApplyLocalizationToControls(Controls);
+        }
+
+        private static void ApplyLocalizationToControls(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                var key = control.Tag as string;
+                if (!string.IsNullOrEmpty(key) && key.StartsWith("Web.", StringComparison.Ordinal))
+                {
+                    var value = LocalizationService.Get(key);
+                    if (control is TextBox && control.IsHandleCreated)
+                    {
+                        SendMessage(control.Handle, EM_SETCUEBANNER, IntPtr.Zero, value);
+                    }
+                    else
+                    {
+                        control.Text = value;
+                    }
+                }
+
+                if (control.HasChildren)
+                {
+                    ApplyLocalizationToControls(control.Controls);
+                }
+            }
         }
 
         /// <summary>
@@ -261,7 +315,8 @@ namespace OfficeCopilot.Panel.WebView
                 // "Other" freeform input
                 var otherLabel = new Label
                 {
-                    Text = "其他（自由输入）：",
+                    Text = LocalizationService.Get("Web.panel.customAnswer"),
+                    Tag = "Web.panel.customAnswer",
                     AutoSize = true,
                     Location = new Point(16, y),
                     Font = new Font(form.Font.FontFamily, 8f, FontStyle.Italic)
@@ -275,13 +330,15 @@ namespace OfficeCopilot.Panel.WebView
                     Size = new Size(_maxWidth - 16, 24)
                 };
                 form.Controls.Add(_otherTextBox);
-                SendMessage(_otherTextBox.Handle, EM_SETCUEBANNER, IntPtr.Zero, "输入自定义回答...");
+                _otherTextBox.Tag = "Web.panel.customAnswerPlaceholder";
+                SendMessage(_otherTextBox.Handle, EM_SETCUEBANNER, IntPtr.Zero, LocalizationService.Get("Web.panel.customAnswerPlaceholder"));
                 y += _otherTextBox.Height + 8;
 
                 // Notes field
                 var notesLabel = new Label
                 {
-                    Text = "备注（可选）：",
+                    Text = LocalizationService.Get("Web.panel.notes"),
+                    Tag = "Web.panel.notes",
                     AutoSize = true,
                     Location = new Point(16, y),
                     Font = new Font(form.Font.FontFamily, 8f, FontStyle.Italic)
@@ -295,7 +352,8 @@ namespace OfficeCopilot.Panel.WebView
                     Size = new Size(_maxWidth - 16, 24)
                 };
                 form.Controls.Add(_notesTextBox);
-                SendMessage(_notesTextBox.Handle, EM_SETCUEBANNER, IntPtr.Zero, "添加备注...");
+                _notesTextBox.Tag = "Web.panel.notesPlaceholder";
+                SendMessage(_notesTextBox.Handle, EM_SETCUEBANNER, IntPtr.Zero, LocalizationService.Get("Web.panel.notesPlaceholder"));
                 y += _notesTextBox.Height + 4;
 
                 BottomY = y;

@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_find_in_range",
-            DisplayName = "在区域中查找",
-            Description = "在指定区域中查找文本或公式内容；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Find in Range",
+            Description = "Finds text or formula content in the specified range. If no address is provided, falls back to searching the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_data_model_calculated_columns",
-            DisplayName = "列出数据模型计算列",
-            Description = "列出当前工作簿 Data Model 中的计算列。",
+            DisplayName = "List Data Model Calculated Columns",
+            Description = "Lists the calculated columns in the current workbook's Data Model.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.Utils.Menu;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 
@@ -29,12 +30,27 @@ namespace OfficeCopilot.Settings.WinForms
         {
         }
 
+        private sealed class LocalizedDisplayNameAttribute : DisplayNameAttribute
+        {
+            private readonly string _key;
+
+            public LocalizedDisplayNameAttribute(string key)
+            {
+                _key = key;
+            }
+
+            public override string DisplayName => LocalizationService.Get(_key);
+        }
+
         public fmMcpEditor(McpServerSettings server)
         {
             InitializeComponent();
 
             McpServer = CreateEditableServer(server);
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmMcpEditor_Disposed;
         }
 
         private static McpServerSettings CreateEditableServer(McpServerSettings server)
@@ -77,17 +93,47 @@ namespace OfficeCopilot.Settings.WinForms
         {
             InitializeEditor();
             BindServerToForm();
+            ApplyLocalization();
         }
 
         private void InitializeEditor()
         {
-            Text = string.IsNullOrWhiteSpace(McpServer.Name) ? "新增MCP服务" : "编辑MCP服务";
-
             pgParameters.OptionsView.ShowRootCategories = false;
 
             cmbMcpType.Properties.Items.Clear();
             cmbMcpType.Properties.Items.AddRange(new object[] { "Stdio", "HTTP" });
             cmbMcpType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmMcpEditor_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get(string.IsNullOrWhiteSpace(McpServer.Name)
+                ? "Settings.Config.Mcp.Add"
+                : "Settings.Config.Mcp.Edit");
+            txtMcpName.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.Mcp.Name");
+            txtDesc.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.Mcp.Description");
+            cmbMcpType.Properties.NullValuePrompt = LocalizationService.Get("Settings.Config.McpEditor.TypePrompt");
+            btnTest.Caption = LocalizationService.Get("Settings.Config.ModelEditor.TestConnection");
+            btnSave.Caption = LocalizationService.Get("Settings.Config.Common.Save");
+            btnCancel.Caption = LocalizationService.Get("Settings.Config.Common.Cancel");
+            if (gvHttpHeaders != null && gvHttpHeaders.Columns["Name"] != null && gvHttpHeaders.Columns["Value"] != null)
+            {
+                gvHttpHeaders.Columns["Name"].Caption = cmbMcpType.SelectedIndex == 1
+                    ? LocalizationService.Get("Settings.Config.McpEditor.Headers")
+                    : LocalizationService.Get("Settings.Config.McpEditor.EnvironmentVariables");
+                gvHttpHeaders.Columns["Value"].Caption = LocalizationService.Get("Settings.Config.McpEditor.Value");
+            }
+            if (pgParameters != null) pgParameters.Refresh();
         }
 
         private void BindServerToForm()
@@ -138,8 +184,8 @@ namespace OfficeCopilot.Settings.WinForms
 
             ConfigureNameValueGrid(
                 gvHttpHeaders,
-                isHttp ? "请求头" : "变量名",
-                "值");
+                isHttp ? LocalizationService.Get("Settings.Config.McpEditor.Headers") : LocalizationService.Get("Settings.Config.McpEditor.EnvironmentVariables"),
+                LocalizationService.Get("Settings.Config.McpEditor.Value"));
 
             gcParameters.RefreshDataSource();
             gvHttpHeaders.BestFitColumns();
@@ -175,7 +221,7 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage, LocalizationService.Get("Settings.Config.DialogTitle.Mcp"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -195,7 +241,7 @@ namespace OfficeCopilot.Settings.WinForms
             string validationMessage;
             if (!ValidateInputs(out validationMessage))
             {
-                MessageBox.Show(this, validationMessage, "测试MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, validationMessage, LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -215,7 +261,7 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "测试失败：" + ex.Message, "测试MCP服务", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.McpEditor.Error.TestFailed", ex.Message), LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -229,7 +275,7 @@ namespace OfficeCopilot.Settings.WinForms
 
             if (string.IsNullOrWhiteSpace(txtMcpName.Text))
             {
-                message = "请填写 MCP 名称。";
+                message = LocalizationService.Get("Settings.Config.McpEditor.Validation.NameRequired");
                 return false;
             }
 
@@ -237,13 +283,13 @@ namespace OfficeCopilot.Settings.WinForms
             {
                 if (_httpParameters == null)
                 {
-                    message = "HTTP 参数未初始化。";
+                    message = LocalizationService.Get("Settings.Config.McpEditor.Validation.HttpParametersMissing");
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(_httpParameters.Endpoint))
                 {
-                    message = "请填写 MCP 服务 URL。";
+                    message = LocalizationService.Get("Settings.Config.McpEditor.Validation.EndpointRequired");
                     return false;
                 }
 
@@ -251,12 +297,12 @@ namespace OfficeCopilot.Settings.WinForms
                 if (!Uri.TryCreate(_httpParameters.Endpoint.Trim(), UriKind.Absolute, out endpointUri)
                     || (endpointUri.Scheme != Uri.UriSchemeHttp && endpointUri.Scheme != Uri.UriSchemeHttps))
                 {
-                    message = "MCP 服务 URL 格式不正确，必须是 http 或 https。";
+                    message = LocalizationService.Get("Settings.Config.McpEditor.Validation.EndpointInvalid");
                     return false;
                 }
 
                 List<NameValueItem> headers;
-                if (!TryBuildNameValueItems(_httpHeaderRows, "HTTP 请求头", out headers, out message))
+                if (!TryBuildNameValueItems(_httpHeaderRows, LocalizationService.Get("Settings.Config.McpEditor.Headers"), out headers, out message))
                 {
                     return false;
                 }
@@ -265,25 +311,25 @@ namespace OfficeCopilot.Settings.WinForms
             {
                 if (_stdioParameters == null)
                 {
-                    message = "Stdio 参数未初始化。";
+                    message = LocalizationService.Get("Settings.Config.McpEditor.Validation.StdioParametersMissing");
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(_stdioParameters.Command))
                 {
-                    message = "请填写命令。";
+                    message = LocalizationService.Get("Settings.Config.McpEditor.Validation.CommandRequired");
                     return false;
                 }
 
                 if (!string.IsNullOrWhiteSpace(_stdioParameters.WorkingDirectory)
                     && !System.IO.Directory.Exists(_stdioParameters.WorkingDirectory.Trim()))
                 {
-                    message = "工作目录不存在。";
+                    message = LocalizationService.Get("Settings.Config.McpEditor.Validation.WorkingDirectoryMissing");
                     return false;
                 }
 
                 List<NameValueItem> environmentVariables;
-                if (!TryBuildNameValueItems(_environmentVariableRows, "环境变量", out environmentVariables, out message))
+                if (!TryBuildNameValueItems(_environmentVariableRows, LocalizationService.Get("Settings.Config.McpEditor.EnvironmentVariables"), out environmentVariables, out message))
                 {
                     return false;
                 }
@@ -321,7 +367,7 @@ namespace OfficeCopilot.Settings.WinForms
 
                 List<NameValueItem> headers;
                 string message;
-                if (!TryBuildNameValueItems(_httpHeaderRows, "HTTP 请求头", out headers, out message))
+                if (!TryBuildNameValueItems(_httpHeaderRows, LocalizationService.Get("Settings.Config.McpEditor.Headers"), out headers, out message))
                 {
                     throw new InvalidOperationException(message);
                 }
@@ -336,7 +382,7 @@ namespace OfficeCopilot.Settings.WinForms
 
                 List<NameValueItem> environmentVariables;
                 string message;
-                if (!TryBuildNameValueItems(_environmentVariableRows, "环境变量", out environmentVariables, out message))
+                if (!TryBuildNameValueItems(_environmentVariableRows, LocalizationService.Get("Settings.Config.McpEditor.EnvironmentVariables"), out environmentVariables, out message))
                 {
                     throw new InvalidOperationException(message);
                 }
@@ -378,10 +424,10 @@ namespace OfficeCopilot.Settings.WinForms
                 var initResult = ParseJsonRpcResult(initReply.Body);
                 if (initResult.error != null)
                 {
-                    throw new InvalidOperationException($"MCP initialize 失败: {initResult.error}");
+                    throw new InvalidOperationException(LocalizationService.Format("Settings.Config.McpEditor.Error.Initialize", initResult.error));
                 }
 
-                string serverName = "未知";
+                string serverName = LocalizationService.Get("Settings.Config.McpEditor.UnknownServer");
                 string serverVersion = "?";
                 var initObj = initResult.result as JObject;
                 if (initObj != null)
@@ -406,7 +452,7 @@ namespace OfficeCopilot.Settings.WinForms
                 var listResult = ParseJsonRpcResult(listReply.Body);
                 if (listResult.error != null)
                 {
-                    throw new InvalidOperationException($"tools/list 失败: {listResult.error}");
+                    throw new InvalidOperationException(LocalizationService.Format("Settings.Config.McpEditor.Error.ListTools", listResult.error));
                 }
 
                 var toolNames = new List<string>();
@@ -427,16 +473,14 @@ namespace OfficeCopilot.Settings.WinForms
                     }
                 }
 
-                var resultMsg = $"✅ MCP 连接测试成功！\n\n"
-                    + $"服务器: {serverName} v{serverVersion}\n"
-                    + $"协议版本: 2024-11-05\n"
-                    + $"发现工具: {toolCount} 个\n"
+                var resultMsg = LocalizationService.Format("Settings.Config.McpEditor.TestSuccess",
+                    serverName, serverVersion, toolCount, "2024-11-05") + "\n"
                     + FormatToolList(toolNames);
 
                 MessageBox.Show(
                     this,
                     resultMsg,
-                    "测试MCP服务",
+                    LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
@@ -447,13 +491,13 @@ namespace OfficeCopilot.Settings.WinForms
             var command = server.Stdio == null ? string.Empty : server.Stdio.Command ?? string.Empty;
             if (string.IsNullOrWhiteSpace(command))
             {
-                throw new InvalidOperationException("未配置命令。");
+                throw new InvalidOperationException(LocalizationService.Get("Settings.Config.McpEditor.Validation.CommandRequired"));
             }
 
             var workingDirectory = server.Stdio == null ? string.Empty : server.Stdio.WorkingDirectory ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(workingDirectory) && !System.IO.Directory.Exists(workingDirectory))
             {
-                throw new InvalidOperationException("工作目录不存在。");
+                throw new InvalidOperationException(LocalizationService.Get("Settings.Config.McpEditor.Validation.WorkingDirectoryMissing"));
             }
 
             var args = server.Stdio?.Arguments != null
@@ -489,7 +533,7 @@ namespace OfficeCopilot.Settings.WinForms
             {
                 if (process == null)
                 {
-                    throw new InvalidOperationException("无法启动进程，请检查命令是否在 PATH 中。");
+                    throw new InvalidOperationException(LocalizationService.Get("Settings.Config.McpEditor.Error.ProcessStartFailed"));
                 }
 
                 // 异步读取 stderr（避免阻塞）
@@ -517,17 +561,17 @@ namespace OfficeCopilot.Settings.WinForms
                     var initResponse = await ReadJsonRpcResponseAsync(process, initId, timeoutMs: 15000);
                     if (initResponse == null)
                     {
-                        throw new InvalidOperationException("MCP 握手超时：initialize 无响应。");
+                        throw new InvalidOperationException(LocalizationService.Get("Settings.Config.McpEditor.Error.InitializeTimeout"));
                     }
 
                     var initResult = ParseJsonRpcResult(initResponse);
                     if (initResult.error != null)
                     {
-                        throw new InvalidOperationException($"MCP initialize 失败: {initResult.error}");
+                        throw new InvalidOperationException(LocalizationService.Format("Settings.Config.McpEditor.Error.Initialize", initResult.error));
                     }
 
                     // 提取 serverInfo
-                    string serverName = "未知";
+                    string serverName = LocalizationService.Get("Settings.Config.McpEditor.UnknownServer");
                     string serverVersion = "?";
                     var initObj = initResult.result as JObject;
                     if (initObj != null)
@@ -555,13 +599,13 @@ namespace OfficeCopilot.Settings.WinForms
                     var listResponse = await ReadJsonRpcResponseAsync(process, listId, timeoutMs: 15000);
                     if (listResponse == null)
                     {
-                        throw new InvalidOperationException("MCP 握手超时：tools/list 无响应。");
+                        throw new InvalidOperationException(LocalizationService.Get("Settings.Config.McpEditor.Error.ListToolsTimeout"));
                     }
 
                     var listResult = ParseJsonRpcResult(listResponse);
                     if (listResult.error != null)
                     {
-                        throw new InvalidOperationException($"tools/list 失败: {listResult.error}");
+                        throw new InvalidOperationException(LocalizationService.Format("Settings.Config.McpEditor.Error.ListTools", listResult.error));
                     }
 
                     // 提取工具列表
@@ -584,16 +628,14 @@ namespace OfficeCopilot.Settings.WinForms
                     }
 
                     // 成功！
-                    var resultMsg = $"✅ MCP 连接测试成功！\n\n"
-                        + $"服务器: {serverName} v{serverVersion}\n"
-                        + $"协议版本: 2024-11-05\n"
-                        + $"发现工具: {toolCount} 个\n"
+                    var resultMsg = LocalizationService.Format("Settings.Config.McpEditor.TestSuccess",
+                        serverName, serverVersion, toolCount, "2024-11-05") + "\n"
                         + FormatToolList(toolNames);
 
                     MessageBox.Show(
                         this,
                         resultMsg,
-                        "测试MCP服务",
+                        LocalizationService.Get("Settings.Config.ModelEditor.TestConnection"),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
@@ -603,7 +645,7 @@ namespace OfficeCopilot.Settings.WinForms
                 }
                 catch (Exception ex)
                 {
-                    throw new InvalidOperationException($"MCP 协议测试异常: {ex.Message}", ex);
+                    throw new InvalidOperationException(LocalizationService.Format("Settings.Config.McpEditor.Error.ProtocolTest", ex.Message), ex);
                 }
                 finally
                 {
@@ -660,13 +702,13 @@ namespace OfficeCopilot.Settings.WinForms
 
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    message = displayName + "名称不能为空。";
+                    message = LocalizationService.Format("Settings.Config.McpEditor.Validation.NameValueRequired", displayName);
                     return false;
                 }
 
                 if (items.Any(p => string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase)))
                 {
-                    message = string.Format("{0}“{1}”重复，请检查。", displayName, name);
+                    message = LocalizationService.Format("Settings.Config.McpEditor.Validation.NameValueDuplicate", displayName, name);
                     return false;
                 }
 
@@ -696,7 +738,7 @@ namespace OfficeCopilot.Settings.WinForms
             }
 
             view.FocusedRowHandle = rowHandle;
-            e.Menu.Items.Add(new DXMenuItem("删除当前行", delegate
+            e.Menu.Items.Add(new DXMenuItem(LocalizationService.Get("Settings.Config.Context.DeleteCurrentRow"), delegate
             {
                 DeleteRow(view, rowHandle);
             }));
@@ -846,7 +888,7 @@ namespace OfficeCopilot.Settings.WinForms
             var result = "  • " + string.Join("\n  • ", shown);
 
             if (toolNames.Count > MaxToolDisplay)
-                result += $"\n  ... 还有 {toolNames.Count - MaxToolDisplay} 个工具未展示";
+                result += "\n" + LocalizationService.Format("Settings.Config.McpEditor.ToolListMore", toolNames.Count - MaxToolDisplay);
 
             return result;
         }
@@ -894,7 +936,7 @@ namespace OfficeCopilot.Settings.WinForms
 
                 var line = await readTask.ConfigureAwait(false);
                 if (line == null)
-                    throw new InvalidOperationException("服务进程已退出，未返回应答。");
+                    throw new InvalidOperationException(LocalizationService.Get("Settings.Config.McpEditor.Error.ProcessExited"));
 
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
@@ -920,7 +962,7 @@ namespace OfficeCopilot.Settings.WinForms
         private static (object result, string error) ParseJsonRpcResult(string line)
         {
             if (string.IsNullOrWhiteSpace(line))
-                return (null, "空响应");
+                return (null, LocalizationService.Get("Settings.Config.McpEditor.Error.EmptyResponse"));
 
             try
             {
@@ -929,7 +971,7 @@ namespace OfficeCopilot.Settings.WinForms
                 var err = root["error"] as JObject;
                 if (err != null)
                 {
-                    var msg = (string)err["message"] ?? "未知错误";
+                    var msg = (string)err["message"] ?? LocalizationService.Get("Settings.Config.McpEditor.UnknownError");
                     return (null, msg);
                 }
 
@@ -940,11 +982,11 @@ namespace OfficeCopilot.Settings.WinForms
                     return (res, null);
                 }
 
-                return (null, "响应中既无 result 也无 error");
+                return (null, LocalizationService.Get("Settings.Config.McpEditor.Error.ResponseMissingResult"));
             }
             catch (Newtonsoft.Json.JsonException ex)
             {
-                return (null, $"JSON 解析失败: {ex.Message}");
+                return (null, LocalizationService.Format("Settings.Config.McpEditor.Error.JsonParse", ex.Message));
             }
         }
 
@@ -1021,7 +1063,7 @@ namespace OfficeCopilot.Settings.WinForms
                 for (var inner = ex.InnerException; inner != null; inner = inner.InnerException)
                     detail += " → " + inner.Message;
 
-                throw new InvalidOperationException("发送请求失败：" + detail, ex);
+                throw new InvalidOperationException(LocalizationService.Format("Settings.Config.McpEditor.Error.RequestFailed", detail), ex);
             }
         }
 
@@ -1078,15 +1120,15 @@ namespace OfficeCopilot.Settings.WinForms
         private sealed class StdioParametersModel
         {
             [Category("Stdio")]
-            [DisplayName("命令")]
+            [LocalizedDisplayName("Settings.Config.McpEditor.Property.Command")]
             public string Command { get; set; }
 
             [Category("Stdio")]
-            [DisplayName("命令行参数")]
+            [LocalizedDisplayName("Settings.Config.McpEditor.Property.Arguments")]
             public string ArgumentsText { get; set; }
 
             [Category("Stdio")]
-            [DisplayName("工作目录")]
+            [LocalizedDisplayName("Settings.Config.McpEditor.Property.WorkingDirectory")]
             public string WorkingDirectory { get; set; }
 
             public static StdioParametersModel FromServer(StdioMcpServerSettings settings)
@@ -1177,11 +1219,11 @@ namespace OfficeCopilot.Settings.WinForms
         private sealed class HttpParametersModel
         {
             [Category("HTTP")]
-            [DisplayName("URL")]
+            [LocalizedDisplayName("Settings.Config.McpEditor.Property.Endpoint")]
             public string Endpoint { get; set; }
 
             [Category("HTTP")]
-            [DisplayName("类型")]
+            [LocalizedDisplayName("Settings.Config.McpEditor.Property.TransportMode")]
             public HttpTransportMode TransportMode { get; set; }
 
             public static HttpParametersModel FromServer(HttpMcpServerSettings settings)

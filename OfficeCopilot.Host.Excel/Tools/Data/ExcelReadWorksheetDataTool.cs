@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_read_worksheet_data",
-            DisplayName = "读取工作表数据",
-            Description = "读取指定工作表中的区域数据；未提供地址时默认读取 UsedRange。",
+            DisplayName = "Read Worksheet Data",
+            Description = "Reads range data from the specified worksheet. If no address is provided, reads UsedRange by default.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

@@ -1,9 +1,9 @@
 using System;
 using System.Diagnostics;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Diagnostics.Logging;
 using OfficeCopilot.Host.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
-using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 
 namespace NixerExcelCopilot
@@ -20,6 +20,7 @@ namespace NixerExcelCopilot
             try
             {
                 StartupTimingLog.Mark("excel-startup-enter");
+                OfficeCopilot.Settings.WinForms.LocalizationBootstrap.Initialize();
                 _uiProbeAnchor = new System.Windows.Forms.Control();
                 _uiProbeAnchor.CreateControl();
                 _uiProbe = UiResponsivenessProbe.Start(action => _uiProbeAnchor.BeginInvoke(action));
@@ -47,8 +48,11 @@ namespace NixerExcelCopilot
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    "Excel 加载加载项时发生异常：\r\n\r\n" + ex,
-                    "NixerExcelCopilot",
+                    LocalizationService.Format(
+                        "Shell.Startup.LoadFailure",
+                        LocalizationService.Get("Shell.Host.Excel"),
+                        ex),
+                    LocalizationService.Get("Shell.Product.Excel"),
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Error);
             }
@@ -215,10 +219,10 @@ namespace NixerExcelCopilot
             }
 
             System.Windows.Forms.MessageBox.Show(
-                "Nixer Excel Copilot 未能自动恢复以下工作表保护：\r\n\r\n"
-                    + string.Join("\r\n", failures)
-                    + "\r\n\r\n请在 Excel「审阅」中检查并手动撤销无密码保护。",
-                "Nixer Excel Copilot",
+                LocalizationService.Format(
+                    "Shell.Excel.ProtectionRecoveryFailure",
+                    string.Join("\r\n", failures)),
+                LocalizationService.Get("Shell.Product.Excel"),
                 System.Windows.Forms.MessageBoxButtons.OK,
                 System.Windows.Forms.MessageBoxIcon.Warning);
         }

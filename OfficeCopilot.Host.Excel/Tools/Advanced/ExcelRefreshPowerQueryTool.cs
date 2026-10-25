@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_refresh_power_query",
-            DisplayName = "刷新 Power Query",
-            Description = "刷新指定 Power Query 及其底层连接。",
+            DisplayName = "Refresh Power Query",
+            Description = "Refreshes the specified Power Query and its underlying connection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,

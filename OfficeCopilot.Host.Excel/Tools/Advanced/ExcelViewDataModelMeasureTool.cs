@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_view_data_model_measure",
-            DisplayName = "查看数据模型 Measure",
-            Description = "查看指定 Data Model Measure 的完整 DAX 公式。",
+            DisplayName = "View Data Model Measure",
+            Description = "Shows the complete DAX formula for the specified Data Model measure.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

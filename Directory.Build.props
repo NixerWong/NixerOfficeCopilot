@@ -21,7 +21,7 @@
     <Company>Nixer</Company>
     <Product>Nixer Office Copilot</Product>
     <Copyright>Copyright © Nixer</Copyright>
-    <NixerProductVersion>2.3.61020</NixerProductVersion>
+    <NixerProductVersion>2.4.61025</NixerProductVersion>
     <Version>$(NixerProductVersion)</Version>
   </PropertyGroup>
 

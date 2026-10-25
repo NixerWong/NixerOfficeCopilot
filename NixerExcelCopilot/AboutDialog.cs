@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using OfficeCopilot.Localization;
 
 namespace NixerExcelCopilot
 {
@@ -23,7 +24,9 @@ namespace NixerExcelCopilot
             AutoScaleMode = AutoScaleMode.Font;
             Font = new Font("Segoe UI", 9F);
 
-            Text = "关于 NixerExcelCopilot";
+            Text = LocalizationService.Format(
+                "Shell.About.Title",
+                LocalizationService.Get("Shell.Product.Excel"));
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -58,17 +61,17 @@ namespace NixerExcelCopilot
 
             var titleLabel = new Label
             {
-                Text = "NixerExcelCopilot",
+                Text = LocalizationService.Get("Shell.Product.Excel"),
                 Font = new Font("Segoe UI", 18, FontStyle.Bold),
                 ForeColor = Color.FromArgb(0, 114, 54),
                 AutoSize = true,
                 Margin = new Padding(0, 0, 0, 4)
             };
 
-            var version = "2.3.61019";
+            var version = GetVersionString();
             var versionLabel = new Label
             {
-                Text = $"Version {version}",
+                Text = LocalizationService.Format("Shell.About.Version", version),
                 Font = new Font("Segoe UI", 10),
                 ForeColor = Color.Gray,
                 AutoSize = true
@@ -102,10 +105,10 @@ namespace NixerExcelCopilot
 
             // Info rows
             int row = 4;
-            AddInfoRow(mainPanel, "Project:", "https://github.com/NixerWong/NixerOfficeCopilot", ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot");
-            AddInfoRow(mainPanel, "Contact:", "GitHub Issues", ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot/issues");
-            AddInfoRow(mainPanel, "License:", "GNU GPL v3.0", ref row);
-            AddInfoRow(mainPanel, "Author:", "Nixer", ref row);
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.Project"), "https://github.com/NixerWong/NixerOfficeCopilot", ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot");
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.Contact"), LocalizationService.Get("Shell.About.ContactValue"), ref row, isLink: true, target: "https://github.com/NixerWong/NixerOfficeCopilot/issues");
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.License"), "GNU GPL v3.0", ref row);
+            AddInfoRow(mainPanel, LocalizationService.Get("Shell.About.Author"), "Nixer", ref row);
 
             // OK button
             var buttonPanel = new FlowLayoutPanel
@@ -118,7 +121,7 @@ namespace NixerExcelCopilot
 
             var okButton = new Button
             {
-                Text = "OK",
+                Text = LocalizationService.Get("Shell.About.Ok"),
                 Size = new Size(88, 30),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(0, 114, 54),
@@ -192,11 +195,11 @@ namespace NixerExcelCopilot
                 var version = assembly.GetName().Version;
                 if (version != null)
                 {
-                    return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+                    return $"{version.Major}.{version.Minor}.{version.Build}";
                 }
             }
             catch { /* fall through */ }
-            return "2.3.61020.0";
+            return "2.4.61025";
         }
     }
 }

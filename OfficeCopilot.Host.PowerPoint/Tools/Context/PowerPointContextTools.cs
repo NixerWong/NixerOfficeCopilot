@@ -10,9 +10,9 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.GetActivePresentation,
-            DisplayName = "读取当前演示文稿",
-            Description = "返回当前演示文稿信息：名称、路径（未保存为空）、是否只读、页数、当前页、页面尺寸（磅）。"
-                + "若文稿由演示工作区构建，还返回 deckId，可直接用 ppt_deck_get_slides 重开该工作区继续修改。",
+            DisplayName = "Get Active Presentation",
+            Description = "Returns information about the active presentation: name, path (empty if unsaved), read-only status, slide count, current slide, and page dimensions in points."
+                + " If the presentation was built from a deck workspace, also returns deckId, which can be used with ppt_deck_get_slides to reopen and continue editing that workspace.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,
@@ -50,8 +50,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.GetSelection,
-            DisplayName = "读取当前选区",
-            Description = "返回当前选区：类型（none/slides/shapes/text）、所在页、选中形状名、选中文本。",
+            DisplayName = "Get Selection",
+            Description = "Returns the current selection: type (none/slides/shapes/text), slide index, selected shape names, and selected text.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = true,

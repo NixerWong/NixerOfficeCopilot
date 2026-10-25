@@ -52,10 +52,10 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             }
 
             var builder = new StringBuilder();
-            builder.AppendLine("本会话之前轮次的 Word 工作进度（工具结果原文不会回放给你，以下由程序提取）：");
+            builder.AppendLine("Word progress from earlier turns in this session (original tool results are not replayed; the following was extracted by the runtime):");
             if (answers.Count > 0)
             {
-                builder.AppendLine("用户已在问答中确认（继续有效，不要重复询问）：");
+                builder.AppendLine("The user confirmed the following in a prior question (still valid; do not ask again):");
                 foreach (var answer in answers)
                 {
                     builder.Append("- ").AppendLine(Compact(StripAnswerHeader(answer.Result), MaxAnswerLength));
@@ -67,8 +67,8 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                 AppendWrites(builder, withWrites);
             }
 
-            builder.Append("如果用户要求继续：先用 word_read_paragraphs / word_read_outline 读一次文档核对现状，只完成尚未完成的部分；")
-                .Append("已经成功的修改不要重做，不要从第 1 段开始重新排版。");
+            builder.Append("If the user asks to continue, first inspect the current document once with word_read_paragraphs / word_read_outline, then complete only the remaining work. ")
+                .Append("Do not repeat successful edits or restart formatting from paragraph 1.");
             return builder.ToString();
         }
 
@@ -86,27 +86,27 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         {
             var writes = turn.Calls.Where(c => IsWriteTool(c.Name)).ToList();
             var succeeded = writes.Count(c => c.Success);
-            builder.Append("最近一次有写操作的轮次：工具调用 ").Append(turn.Calls.Count).Append(" 次，写操作 ")
-                .Append(writes.Count).Append(" 次（成功 ").Append(succeeded).Append("）。");
+            builder.Append("Most recent turn with writes: ").Append(turn.Calls.Count).Append(" tool calls, ")
+                .Append(writes.Count).Append(" write operations (").Append(succeeded).Append(" succeeded). ");
             var distribution = writes
                 .GroupBy(c => c.Name, StringComparer.OrdinalIgnoreCase)
                 .Select(g => g.Key + " ×" + g.Count())
                 .ToList();
-            builder.Append("写操作分布：").Append(string.Join("、", distribution)).AppendLine("。");
+            builder.Append("Write operations by tool: ").Append(string.Join(", ", distribution)).AppendLine(".");
 
             var batch = writes.LastOrDefault(c => c.Success && string.Equals(c.Name, "word_format_paragraphs", StringComparison.OrdinalIgnoreCase));
             if (batch != null)
             {
-                builder.Append("最近一次批量排版结果：").AppendLine(Compact(batch.Result, MaxResultPreviewLength));
+                builder.Append("Most recent batch-formatting result: ").AppendLine(Compact(batch.Result, MaxResultPreviewLength));
             }
 
-            builder.AppendLine("最近的写操作（按时间顺序）：");
+            builder.AppendLine("Recent write operations (chronological):");
             foreach (var call in writes.Skip(Math.Max(0, writes.Count - MaxRecentWrites)))
             {
                 builder.Append("- ").Append(call.Success ? "✓ " : "✗ ").Append(call.Name);
                 if (call.SelectedParagraph.HasValue)
                 {
-                    builder.Append("（第 ").Append(call.SelectedParagraph.Value).Append(" 段）");
+                    builder.Append(" (paragraph ").Append(call.SelectedParagraph.Value).Append(")");
                 }
 
                 builder.Append(' ').Append(Compact(call.Arguments, MaxArgumentPreviewLength));

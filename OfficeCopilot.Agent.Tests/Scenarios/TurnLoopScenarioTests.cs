@@ -301,13 +301,13 @@ namespace OfficeCopilot.Agent.Tests.Scenarios
 
             Assert.IsTrue(result.Success);
             Assert.AreEqual(4, harness.Model.CallCount);
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "数字“999”");
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "完整、未舍入的算式");
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "两个操作数来自同一条可信消息");
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "仅复述算式而操作数无来源");
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "自称调用过工具");
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "不得先写数字再声称工具已计算");
-            StringAssert.Contains(harness.Model.Requests[2].SystemText, "不得复述未溯源数字的原始值");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "- Number \"999\"");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "complete, unrounded equation");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "both operands came from the same trusted message");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "Repeating an equation without sourced operands");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "claiming that a tool was used is not evidence");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "Do not state a number first and then claim the tool calculated it");
+            StringAssert.Contains(harness.Model.Requests[2].SystemText, "do not repeat an untraceable number's original value");
             CollectionAssert.Contains(harness.Model.Requests[2].ToolNames, "runtime.calculate");
             StringAssert.Contains(result.Content, "总金额是 999。");
             StringAssert.Contains(result.Content, "**更正**");
@@ -356,8 +356,8 @@ namespace OfficeCopilot.Agent.Tests.Scenarios
 
             Assert.IsTrue(result.Success);
             Assert.AreEqual(5, harness.Model.CallCount);
-            StringAssert.Contains(harness.Model.Requests[3].SystemText, "上一条更正仍有数字无法");
-            StringAssert.Contains(harness.Model.Requests[3].SystemText, "自称调用过工具");
+            StringAssert.Contains(harness.Model.Requests[3].SystemText, "Some numbers in the previous correction still cannot be traced");
+            StringAssert.Contains(harness.Model.Requests[3].SystemText, "claiming that a tool was used is not evidence");
             CollectionAssert.Contains(harness.Model.Requests[3].ToolNames, "runtime.calculate");
             StringAssert.Contains(result.Content, "**再次核验**");
             StringAssert.Contains(result.Content, "校验：B级：已复核，但仍有局限（最终回答中的数字经过订正）");
@@ -767,8 +767,8 @@ namespace OfficeCopilot.Agent.Tests.Scenarios
 
             harness.Run("一直翻页读");
 
-            Assert.IsFalse(harness.Model.Requests[2].SystemText.Contains("只剩"), "剩余轮次充足时不提醒。");
-            StringAssert.Contains(harness.Model.Requests[3].SystemText, "只剩 5 轮");
+            Assert.IsFalse(harness.Model.Requests[2].SystemText.Contains("tool-call round(s) remain"), "剩余轮次充足时不提醒。");
+            StringAssert.Contains(harness.Model.Requests[3].SystemText, "Only 5 tool-call round(s) remain");
         }
 
         [TestMethod]
@@ -1011,7 +1011,7 @@ namespace OfficeCopilot.Agent.Tests.Scenarios
             Assert.AreEqual("完整回答。", result.Content);
             StringAssert.Contains(
                 harness.Model.Requests[1].SystemText,
-                "被截断",
+                "Your previous response was truncated before any text was produced",
                 "重试轮必须让模型知道上一轮被截断。");
         }
 

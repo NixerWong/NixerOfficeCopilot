@@ -13,16 +13,16 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_assert",
-            DisplayName = "Excel 断言验证",
-            Description = "按明确的数据口径验证 Excel 结果。支持 scalar、rowCount、nonBlank、groupMatch、keySet 和 sorted；"
-                + "keySet 用于断言两侧集合相等；只需双向差异数量和有限样例时请用 excel_compare_key_sets；"
-                + "union basis 的 scalar source 可按 basis.sources 逐源计算并汇总，仅支持 sum、count、counta、rowCount、nonBlank、errorCount 等可加口径；"
-                + "target 必须与待验证结果范围一致；单工作表 target 不能代表多源 union 的汇总结果；"
-                + "average、countDistinct、min/max 等不可加指标必须先在 union 后计算；"
-                + "单源 scalar/groupMatch 的 target/source 可分别排除工作表行号或小计/合计标签行；"
-                + "source.column 与 target.column/columns 必须分别使用各自区域的实际表头；basis.measures 定义源侧指标，不会自动映射目标列；"
-                + "目标表头与源指标不同时必须显式指定 target.column，例如源 Amount 对比输出 Value；带表头的目标区域应包含表头行并设置正确的 basis.headerMode；"
-                + "返回完整覆盖、后端独立性与差异报告，不修改工作簿。",
+            DisplayName = "Excel Assertions",
+            Description = "Validates Excel results against explicit data criteria. Supports scalar, rowCount, nonBlank, groupMatch, keySet, and sorted assertions;"
+                + " keySet asserts that both sets are equal; use excel_compare_key_sets when you only need bidirectional difference counts and bounded samples;"
+                + " for a union basis, scalar sources can be calculated per basis.sources and aggregated; only additive metrics such as sum, count, counta, rowCount, nonBlank, and errorCount are supported;"
+                + " target must match the result range being validated; a single-sheet target cannot represent an aggregate across multiple union sources;"
+                + " non-additive metrics such as average, countDistinct, min, and max must be calculated after the union;"
+                + " for single-source scalar/groupMatch assertions, target/source can exclude worksheet row numbers or subtotal/total label rows;"
+                + " source.column and target.column/columns must use the actual headers from their respective ranges; basis.measures defines source-side metrics and does not automatically map target columns;"
+                + " when target headers differ from source metrics, specify target.column explicitly (for example, compare source Amount with output Value); target ranges with headers must include the header row and use the correct basis.headerMode;"
+                + " returns coverage, backend independence, and difference reports without modifying the workbook.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,
@@ -42,7 +42,7 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"keys\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},"
                 + "\"join\":{\"type\":\"string\",\"enum\":[\"left\",\"inner\"]},"
                 + "\"headerMode\":{\"type\":\"string\",\"enum\":[\"auto\",\"yes\",\"no\"],"
-                + "\"description\":\"源/目标区域的表头模式；比较包含不同表头的结果表时应根据两个区域实际结构明确指定。\"},"
+                + "\"description\":\"Header mode for source/target ranges. Specify it based on the structure of both ranges when comparing result tables with different headers.\"},"
                 + "\"filters\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/filter\"}},"
                 + "\"groupBy\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},"
                 + "\"derivedGroupBy\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{"
@@ -50,9 +50,9 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"transform\":{\"type\":\"string\",\"enum\":[\"firstCharacter\",\"prefix\",\"year\",\"quarter\",\"month\",\"monthName\",\"yearMonth\",\"day\",\"dayOfWeek\",\"numberBucket\"]},"
                 + "\"alias\":{\"type\":\"string\"},\"size\":{\"type\":\"number\"}},"
                 + "\"required\":[\"column\",\"transform\"],\"additionalProperties\":false}},"
-                + "\"measures\":{\"type\":\"array\",\"description\":\"源侧计算指标；不代表 target 区域的列名。\","
+                + "\"measures\":{\"type\":\"array\",\"description\":\"Metrics calculated on the source side; these are not column names in the target range.\","
                 + "\"items\":{\"type\":\"object\",\"properties\":{"
-                + "\"column\":{\"type\":\"string\",\"description\":\"源区域中的实际表头列名。\"},"
+                + "\"column\":{\"type\":\"string\",\"description\":\"Actual header name of a column in the source range.\"},"
                 + "\"function\":{\"type\":\"string\"}},"
                 + "\"required\":[\"column\",\"function\"],\"additionalProperties\":false}},"
                 + "\"note\":{\"type\":\"string\"}},"
@@ -62,9 +62,9 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"id\":{\"type\":\"string\"},"
                 + "\"kind\":{\"type\":\"string\",\"enum\":[\"scalar\",\"rowCount\",\"nonBlank\",\"groupMatch\",\"keySet\",\"sorted\"]},"
                 + "\"target\":{\"$ref\":\"#/definitions/side\","
-                + "\"description\":\"目标侧查询；列名必须匹配目标区域自身的表头，不会自动沿用 basis.measures。\"},"
+                + "\"description\":\"Query for the target side. Column names must match headers in the target range; basis.measures is not inherited automatically.\"},"
                 + "\"source\":{\"$ref\":\"#/definitions/side\","
-                + "\"description\":\"源侧查询；列名必须匹配源区域自身的表头。\"},"
+                + "\"description\":\"Query for the source side. Column names must match headers in the source range.\"},"
                 + "\"expectedValue\":{\"type\":\"number\"},\"tolerance\":{\"type\":\"number\"},"
                 + "\"direction\":{\"type\":\"string\",\"enum\":[\"ascending\",\"descending\"]}},"
                 + "\"required\":[\"kind\",\"target\"],\"additionalProperties\":false}}},"
@@ -76,17 +76,17 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"side\":{\"type\":\"object\",\"properties\":{"
                 + "\"worksheetName\":{\"type\":\"string\"},\"address\":{\"type\":\"string\"},"
                 + "\"tableName\":{\"type\":\"string\"},"
-                + "\"column\":{\"type\":\"string\",\"description\":\"此侧区域中的实际表头列名；target 与 source 分别填写。\"},"
-                + "\"columns\":{\"type\":\"array\",\"description\":\"此侧区域中的实际表头列名；target 与 source 分别填写。\","
+                + "\"column\":{\"type\":\"string\",\"description\":\"Actual header name in this side's range; specify target and source separately.\"},"
+                + "\"columns\":{\"type\":\"array\",\"description\":\"Actual header names in this side's range; specify target and source separately.\","
                 + "\"items\":{\"type\":\"string\"}},"
                 + "\"function\":{\"type\":\"string\"},\"keyColumn\":{\"type\":\"string\"},"
                 + "\"valueColumn\":{\"type\":\"string\"},"
                 + "\"filters\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/filter\"}},"
                 + "\"excludeRows\":{\"type\":\"array\",\"maxItems\":10000,"
                 + "\"items\":{\"type\":\"integer\",\"minimum\":1},"
-                + "\"description\":\"此侧数据区域的工作表绝对行号，不含表头。\"},"
+                + "\"description\":\"Absolute worksheet row numbers for this side's data range, excluding the header.\"},"
                 + "\"excludeLabelRows\":{\"type\":\"boolean\","
-                + "\"description\":\"排除此侧任意单元格匹配小计/合计标签的行。\"}},"
+                + "\"description\":\"Exclude rows on this side where any cell matches a subtotal or total label.\"}},"
                 + "\"additionalProperties\":false}}}"
         };
 

@@ -4,6 +4,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Newtonsoft.Json;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using OfficeCopilot.Skills;
@@ -24,6 +25,8 @@ namespace OfficeCopilot.Settings.WinForms
         private OfficeCopilotSettings _settings;
         private BindingList<SkillRow> _skillRows;
         private RepositoryItemCheckEdit _skillEnabledEditor;
+        private ToolStripMenuItem _editMenuItem;
+        private ToolStripMenuItem _deleteMenuItem;
         private bool _loadingSettings;
 
         private static readonly string BuiltInSkillsDirectory = GetBuiltInSkillsDirectory();
@@ -37,6 +40,9 @@ namespace OfficeCopilot.Settings.WinForms
             _settingsStore = settingsStore ?? new JsonSettingsStore();
             _skillsDirectory = SkillStorageLocations.GetHostDirectory(HostApplicationNames.Normalize(hostApplicationName));
             WireEvents();
+            ApplyLocalization();
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            Disposed += fmSkillsConfig_Disposed;
         }
 
         private void WireEvents()
@@ -71,16 +77,44 @@ namespace OfficeCopilot.Settings.WinForms
 
             // 右键菜单
             var ctxSkills = new ContextMenuStrip();
-            ctxSkills.Items.Add("编辑", Properties.Resources.edit_16x16, (s, ev) => EditFocusedSkill());
-            ctxSkills.Items.Add("删除", Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteSkill_ItemClick(s, null));
+            _editMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Edit"), Properties.Resources.edit_16x16, (s, ev) => EditFocusedSkill());
+            _deleteMenuItem = new ToolStripMenuItem(LocalizationService.Get("Settings.Config.Context.Delete"), Properties.Resources.deletelist_16x16, (s, ev) => btnDeleteSkill_ItemClick(s, null));
+            ctxSkills.Items.AddRange(new ToolStripItem[] { _editMenuItem, _deleteMenuItem });
             ctxSkills.Opening += (s, ev) => { ev.Cancel = GetFocusedSkillRow() == null; };
             GridContextMenuHelper.AttachToDataRows(gcSkills, gvSkills, ctxSkills);
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void fmSkillsConfig_Disposed(object sender, EventArgs e)
+        {
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+        }
+
+        private void ApplyLocalization()
+        {
+            Text = LocalizationService.Get("Settings.Config.Tab.Skills");
+            btnNewSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Add");
+            btnEditSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Edit");
+            btnDeleteSkill.Caption = LocalizationService.Get("Settings.Config.Skills.Delete");
+            btnExportSkills.Caption = LocalizationService.Get("Settings.Config.Common.ExportList");
+            btnImportSkills.Caption = LocalizationService.Get("Settings.Config.Skills.Import");
+            colSkillId.Caption = LocalizationService.Get("Settings.Config.Skills.Id");
+            colSkillName.Caption = LocalizationService.Get("Settings.Config.Skills.Name");
+            colSkillDesc.Caption = LocalizationService.Get("Settings.Config.Skills.Description");
+            colSkillEnabled.Caption = LocalizationService.Get("Settings.Config.Common.Enabled");
+            if (_editMenuItem != null) _editMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Edit");
+            if (_deleteMenuItem != null) _deleteMenuItem.Text = LocalizationService.Get("Settings.Config.Context.Delete");
         }
 
         // ========== Load / Save ==========
 
         private void fmSkillsConfig_Load(object sender, EventArgs e)
         {
+            ApplyLocalization();
             LoadSettings();
         }
 
@@ -95,7 +129,7 @@ namespace OfficeCopilot.Settings.WinForms
             try { _settingsStore.Save(_settings); }
             catch (Exception ex)
             {
-                if (MessageBox.Show(this, "保存Skills配置失败：" + ex.Message + "\n\n是否放弃修改并关闭？", "Skills",
+                if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveOnCloseFailed", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
                     e.Cancel = true;
             }
@@ -113,7 +147,7 @@ namespace OfficeCopilot.Settings.WinForms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "加载配置失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.LoadSettings", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     _settings = OfficeCopilotSettingsFactory.CreateDefault();
                 }
                 LoadSkillSettings();
@@ -138,8 +172,8 @@ namespace OfficeCopilot.Settings.WinForms
                 }
                 catch (Exception ex)
                 {
-                    if (MessageBox.Show(this, "保存 Skill \"" + row.Name + "\" 的启用状态失败：" + ex.Message + "\n\n是否放弃修改并关闭？",
-                        "Skill 设置", MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
+                    if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveSkillEnabledState", row.Name + ": " + ex.Message),
+                        LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.YesNo, MessageBoxIcon.Error) != DialogResult.Yes)
                         return false;
                 }
             }
@@ -251,9 +285,9 @@ namespace OfficeCopilot.Settings.WinForms
         private void EditFocusedSkill()
         {
             var row = GetFocusedSkillRow();
-            if (row == null) { MessageBox.Show(this, "请先选择一个 Skill。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
-            if (row.IsReadOnly) { MessageBox.Show(this, $"内置 Skill \"{row.Name}\" 不可直接编辑。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
-            if (!File.Exists(row.FilePath)) { MessageBox.Show(this, "Skill 文件不存在：" + row.FilePath, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+            if (row == null) { MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.SelectionRequired"), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
+            if (row.IsReadOnly) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.BuiltinEditNotAllowed", row.Name), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
+            if (!File.Exists(row.FilePath)) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.FileMissing", row.FilePath), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
             using (var editor = new fmSkillEditor(row.FilePath, isNew: false))
             {
                 if (editor.ShowDialog(this) == DialogResult.OK) LoadSkillSettings();
@@ -263,25 +297,25 @@ namespace OfficeCopilot.Settings.WinForms
         private void btnDeleteSkill_ItemClick(object sender, ItemClickEventArgs e)
         {
             var row = GetFocusedSkillRow();
-            if (row == null) { MessageBox.Show(this, "请先选择一个 Skill。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
-            if (row.IsReadOnly) { MessageBox.Show(this, $"内置 Skill \"{row.Name}\" 不可删除。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
-            if (string.IsNullOrWhiteSpace(row.FilePath)) { MessageBox.Show(this, "无法删除：没有关联的文件路径。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
-            if (MessageBox.Show(this, $"确定要删除 Skill \"{row.Name}\" 吗？\n\n这将删除目录：{Path.GetDirectoryName(row.FilePath)}",
-                "Skills", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            if (row == null) { MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.SelectionRequired"), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
+            if (row.IsReadOnly) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.BuiltinDeleteNotAllowed", row.Name), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
+            if (string.IsNullOrWhiteSpace(row.FilePath)) { MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.FilePathMissing"), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+            if (MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.ConfirmDelete", row.Name, Path.GetDirectoryName(row.FilePath)),
+                LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             try
             {
                 var dir = Path.GetDirectoryName(row.FilePath);
                 if (Directory.Exists(dir)) Directory.Delete(dir, true);
                 LoadSkillSettings();
             }
-            catch (Exception ex) { MessageBox.Show(this, "删除失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.DeleteSkill", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         // ========== Import / Export ==========
 
         private void btnExportSkills_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (var dialog = new SaveFileDialog { Title = "导出 Skill 包", Filter = "Skill 包文件|*.nsk|JSON 文件|*.json|所有文件|*.*", FileName = "skills-export.nsk", FilterIndex = 1 })
+            using (var dialog = new SaveFileDialog { Title = LocalizationService.Get("Settings.Config.Skills.ExportDialogTitle"), Filter = LocalizationService.Get("Settings.Config.Skills.ExportFilter"), FileName = "skills-export.nsk", FilterIndex = 1 })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
                 try
@@ -290,9 +324,9 @@ namespace OfficeCopilot.Settings.WinForms
                         ExportAsNskPackage(dialog.FileName);
                     else
                         ExportAsJson(dialog.FileName);
-                    MessageBox.Show(this, "导出完成。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, LocalizationService.Get("Settings.Config.Common.ExportComplete"), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) { MessageBox.Show(this, "导出失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ExportFailed", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
         }
 
@@ -324,7 +358,7 @@ namespace OfficeCopilot.Settings.WinForms
 
         private void btnImportSkills_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (var dialog = new OpenFileDialog { Title = "导入 Skill 包", Filter = "Skill 包文件|*.nsk|JSON 文件|*.json|所有文件|*.*", FilterIndex = 1 })
+            using (var dialog = new OpenFileDialog { Title = LocalizationService.Get("Settings.Config.Skills.ImportDialogTitle"), Filter = LocalizationService.Get("Settings.Config.Skills.ImportFilter"), FilterIndex = 1 })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
                 try
@@ -335,7 +369,7 @@ namespace OfficeCopilot.Settings.WinForms
                         ImportFromJson(dialog.FileName);
                     LoadSkillSettings();
                 }
-                catch (Exception ex) { MessageBox.Show(this, "导入失败：" + ex.Message, "Skills", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex) { MessageBox.Show(this, LocalizationService.Format("Settings.Config.Common.ImportFailed", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
         }
 
@@ -376,13 +410,14 @@ namespace OfficeCopilot.Settings.WinForms
                 item.FilePath = localSkillMd;
                 SaveSkillEnabledState(item);
             }
-            MessageBox.Show(this, $"导入完成。\n解压了 {extractedCount} 个文件{(skippedCount > 0 ? $"，跳过了 {skippedCount} 个已存在的文件" : "")}。\n\nSkill 变更将在重启应用后生效。",
-                "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var skipped = skippedCount > 0 ? LocalizationService.Format("Settings.Config.Skills.ExistingFilesSkipped", skippedCount) : string.Empty;
+            MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.NskImportComplete", extractedCount, skipped),
+                LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ImportFromJson(string filePath)
         {
-            if (MessageBox.Show(this, "JSON 格式仅包含元数据，不含文件内容。是否继续？", "Skills",
+            if (MessageBox.Show(this, LocalizationService.Get("Settings.Config.Skills.JsonImportWarning"), LocalizationService.Get("Settings.Config.Tab.Skills"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             var json = File.ReadAllText(filePath, System.Text.Encoding.UTF8);
             var importList = JsonConvert.DeserializeObject<List<SkillRow>>(json);
@@ -394,7 +429,7 @@ namespace OfficeCopilot.Settings.WinForms
                     if (!string.IsNullOrWhiteSpace(item.FilePath) && File.Exists(item.FilePath))
                     { SaveSkillEnabledState(item); count++; }
                 }
-                MessageBox.Show(this, $"导入完成，更新了 {count} 个 Skill 的状态。\n\nSkill 变更将在重启应用后生效。", "Skills", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Skills.JsonImportComplete", count), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -418,7 +453,7 @@ namespace OfficeCopilot.Settings.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("保存启用状态失败：" + ex.Message, "Skill 设置", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Settings.Config.Error.SaveSkillEnabledState", ex.Message), LocalizationService.Get("Settings.Config.Tab.Skills"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

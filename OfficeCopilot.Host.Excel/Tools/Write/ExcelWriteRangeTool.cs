@@ -16,8 +16,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_write_range",
-            DisplayName = "写入区域",
-            Description = "向指定单元格或区域写入文本、数字、布尔值或二维文本矩阵；若未提供地址，可回退写入当前选区。",
+            DisplayName = "Write Range",
+            Description = "Writes text, numbers, booleans, or a two-dimensional text matrix to the specified cells or range. If no address is provided, falls back to writing to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,

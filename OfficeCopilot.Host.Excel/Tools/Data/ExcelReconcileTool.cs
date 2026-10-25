@@ -11,9 +11,9 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_reconcile",
-            DisplayName = "汇总对账验证",
-            Description = "校验一张汇总表是否与明细数据一致：总量对账 + 分组数对账 + 分组抽样比对，"
-                + "返回结论与差异项而非全量清单。验证大表结果必须使用本工具，严禁逐行比对。",
+            DisplayName = "Reconciliation Summary",
+            Description = "Checks whether a summary table matches its detail data using total reconciliation, per-group counts, and sampled group comparisons;"
+                + " returns a conclusion and discrepancies instead of a full listing. Use this tool to verify large-table results; do not compare rows one by one.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,
@@ -24,15 +24,15 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"detailWorksheetName\":{\"type\":\"string\"},"
                 + "\"detailAddress\":{\"type\":\"string\"},"
                 + "\"detailTableName\":{\"type\":\"string\"},"
-                + "\"detailGroupColumn\":{\"type\":\"string\",\"description\":\"明细中的分组列名。\"},"
-                + "\"detailValueColumn\":{\"type\":\"string\",\"description\":\"明细中参与合计的数值列名。\"},"
+                + "\"detailGroupColumn\":{\"type\":\"string\",\"description\":\"Name of the grouping column in the detail data.\"},"
+                + "\"detailValueColumn\":{\"type\":\"string\",\"description\":\"Name of the numeric column to total in the detail data.\"},"
                 + "\"summaryWorksheetName\":{\"type\":\"string\"},"
                 + "\"summaryAddress\":{\"type\":\"string\"},"
                 + "\"summaryTableName\":{\"type\":\"string\"},"
-                + "\"summaryGroupColumn\":{\"type\":\"string\",\"description\":\"汇总表中的分组列名，留空则沿用 detailGroupColumn。\"},"
-                + "\"summaryValueColumn\":{\"type\":\"string\",\"description\":\"汇总表中的合计列名，留空则沿用 detailValueColumn。\"},"
-                + "\"sampleCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"抽样比对的分组数，默认 5。\"},"
-                + "\"tolerance\":{\"type\":\"number\",\"description\":\"浮点比较容差，默认 0.01。\"}"
+                + "\"summaryGroupColumn\":{\"type\":\"string\",\"description\":\"Name of the grouping column in the summary table; leave empty to use detailGroupColumn.\"},"
+                + "\"summaryValueColumn\":{\"type\":\"string\",\"description\":\"Name of the total column in the summary table; leave empty to use detailValueColumn.\"},"
+                + "\"sampleCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Number of groups to compare by sampling (default: 5).\"},"
+                + "\"tolerance\":{\"type\":\"number\",\"description\":\"Floating-point comparison tolerance (default: 0.01).\"}"
                 + "},"
                 + "\"required\":[\"detailGroupColumn\",\"detailValueColumn\"],"
                 + "\"additionalProperties\":false"

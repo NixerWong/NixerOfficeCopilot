@@ -87,6 +87,7 @@
     <Compile Include="HostAwareForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="LocalizationBootstrap.cs" />
     <Compile Include="GridContextMenuHelper.cs" />
     <Compile Include="DevExpressSkinBootstrap.cs" />
     <Compile Include="HostFormIcon.cs" />
@@ -178,6 +179,9 @@
     <ProjectReference Include="..\OfficeCopilot.Settings.Abstractions\OfficeCopilot.Settings.Abstractions.csproj">
       <Project>{d13e58c7-f2e5-42c3-b365-386e1d911ab2}</Project>
       <Name>OfficeCopilot.Settings.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj">
+      <Name>OfficeCopilot.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\OfficeCopilot.Settings\OfficeCopilot.Settings.csproj">
       <Project>{db71d7d8-858c-49ad-bbfb-6a221e47c2bc}</Project>

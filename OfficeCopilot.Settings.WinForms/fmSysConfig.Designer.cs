@@ -73,10 +73,10 @@ namespace OfficeCopilot.Settings.WinForms
             this.cbeRuntimeLogLevel = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lbRuntimeLogLevel = new DevExpress.XtraEditors.LabelControl();
             this.ceRuntimeLogEnabled = new DevExpress.XtraEditors.CheckEdit();
-            this.cbeTrustMode = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cbeTranscriptLogMode = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.lbTrustMode = new DevExpress.XtraEditors.LabelControl();
             this.lbTranscriptLogMode = new DevExpress.XtraEditors.LabelControl();
+            this.cbeTrustMode = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.lbTrustMode = new DevExpress.XtraEditors.LabelControl();
             this.grpModelParams = new System.Windows.Forms.GroupBox();
             this.lbHttpRequestTimeOut = new DevExpress.XtraEditors.LabelControl();
             this.lbNativeThresholdKB = new DevExpress.XtraEditors.LabelControl();
@@ -109,8 +109,8 @@ namespace OfficeCopilot.Settings.WinForms
             ((System.ComponentModel.ISupportInitialize)(this.seMaxFileSizeMb.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbeRuntimeLogLevel.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceRuntimeLogEnabled.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbeTrustMode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbeTranscriptLogMode.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbeTrustMode.Properties)).BeginInit();
             this.grpModelParams.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seAttachmentFileCountThreshold.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceAutoResizeBigImage.Properties)).BeginInit();
@@ -593,17 +593,6 @@ namespace OfficeCopilot.Settings.WinForms
             this.ceRuntimeLogEnabled.Size = new System.Drawing.Size(150, 19);
             this.ceRuntimeLogEnabled.TabIndex = 2;
             // 
-            // cbeTrustMode
-            // 
-            this.cbeTrustMode.Location = new System.Drawing.Point(243, 87);
-            this.cbeTrustMode.Margin = new System.Windows.Forms.Padding(2);
-            this.cbeTrustMode.Name = "cbeTrustMode";
-            this.cbeTrustMode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbeTrustMode.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbeTrustMode.Size = new System.Drawing.Size(84, 20);
-            this.cbeTrustMode.TabIndex = 1;
-            // 
             // cbeTranscriptLogMode
             // 
             this.cbeTranscriptLogMode.Location = new System.Drawing.Point(221, 166);
@@ -615,15 +604,6 @@ namespace OfficeCopilot.Settings.WinForms
             this.cbeTranscriptLogMode.Size = new System.Drawing.Size(85, 20);
             this.cbeTranscriptLogMode.TabIndex = 1;
             // 
-            // lbTrustMode
-            // 
-            this.lbTrustMode.Location = new System.Drawing.Point(26, 90);
-            this.lbTrustMode.Margin = new System.Windows.Forms.Padding(2);
-            this.lbTrustMode.Name = "lbTrustMode";
-            this.lbTrustMode.Size = new System.Drawing.Size(100, 14);
-            this.lbTrustMode.TabIndex = 0;
-            this.lbTrustMode.Text = "工具执行权限模式:";
-            // 
             // lbTranscriptLogMode
             // 
             this.lbTranscriptLogMode.Location = new System.Drawing.Point(29, 169);
@@ -632,7 +612,27 @@ namespace OfficeCopilot.Settings.WinForms
             this.lbTranscriptLogMode.Size = new System.Drawing.Size(88, 14);
             this.lbTranscriptLogMode.TabIndex = 0;
             this.lbTranscriptLogMode.Text = "对话日志详细度:";
-            // 
+            //
+            // cbeTrustMode
+            //
+            this.cbeTrustMode.Location = new System.Drawing.Point(243, 87);
+            this.cbeTrustMode.Margin = new System.Windows.Forms.Padding(2);
+            this.cbeTrustMode.Name = "cbeTrustMode";
+            this.cbeTrustMode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbeTrustMode.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbeTrustMode.Size = new System.Drawing.Size(84, 20);
+            this.cbeTrustMode.TabIndex = 1;
+            //
+            // lbTrustMode
+            //
+            this.lbTrustMode.Location = new System.Drawing.Point(26, 90);
+            this.lbTrustMode.Margin = new System.Windows.Forms.Padding(2);
+            this.lbTrustMode.Name = "lbTrustMode";
+            this.lbTrustMode.Size = new System.Drawing.Size(100, 14);
+            this.lbTrustMode.TabIndex = 0;
+            this.lbTrustMode.Text = "工具执行权限模式:";
+            //
             // grpModelParams
             // 
             this.grpModelParams.Controls.Add(this.lbHttpRequestTimeOut);
@@ -936,8 +936,8 @@ namespace OfficeCopilot.Settings.WinForms
             ((System.ComponentModel.ISupportInitialize)(this.seMaxFileSizeMb.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbeRuntimeLogLevel.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceRuntimeLogEnabled.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbeTrustMode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbeTranscriptLogMode.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbeTrustMode.Properties)).EndInit();
             this.grpModelParams.ResumeLayout(false);
             this.grpModelParams.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seAttachmentFileCountThreshold.Properties)).EndInit();

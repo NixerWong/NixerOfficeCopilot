@@ -16,9 +16,6 @@ export const hostCapabilities = {
 
 export const pendingCodeExecutionRequests = new Map();
 export const pendingOpenInVbaEditorRequests = new Map();
-export const THINKING_ACTIVE_LABEL = '思考中';
-export const THINKING_COMPLETED_LABEL = '思考过程';
-
 export const state = {
     scrollToBottomButton: null,
     busy: false,

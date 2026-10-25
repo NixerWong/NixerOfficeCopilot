@@ -1,114 +1,108 @@
 # NixerOfficeCopilot
 
-面向 Microsoft Word、Excel 和 PowerPoint 的 VSTO Copilot。项目采用 Office 宿主加载项与独立 Agent Broker 分层运行，提供统一的对话面板、模型接入、Office 工具调用，以及 MCP、Skills 和记忆扩展能力。
+[简体中文](README.zh.md) | **English** | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
-[English summary](#overview) · [架构](#架构) · [构建与测试](#构建与测试) · [许可证](LICENSE)
+A VSTO copilot for Microsoft Word, Excel, and PowerPoint. The project separates Office host add-ins from a standalone Agent Broker, providing a shared conversation pane, model integrations, Office tool calls, and extensibility through MCP, Skills, and memory.
 
-## 功能概览
+## Features
 
-- **三个 Office 宿主**：Word、Excel、PowerPoint 各自提供 VSTO 加载项，共享面板和 Agent 运行时。
-- **多模型配置**：支持 OpenAI、Azure OpenAI、DeepSeek、Ollama、LM Studio、Anthropic，以及自定义 OpenAI 兼容端点。
-- **Office 工具调用**：通过宿主专属工具读取和修改当前文档；写入操作可按工具策略要求确认或备份。
-- **可扩展能力**：支持 MCP（stdio / HTTP）、Skills、用户记忆和可配置的内置工具。
-- **PowerPoint 工作流**：包含样式与字体目录、幻灯片模板、预览及演示文稿构建能力。
-- **本地会话数据**：会话以 JSONL 持久化，并提供索引；运行数据按 Windows 用户隔离。
-- **桌面面板**：使用 WinForms 承载 WebView2 前端，模型凭据和 Agent 执行逻辑由 Broker 管理。
+- **Three Office hosts**: Word, Excel, and PowerPoint each have a VSTO add-in and share the pane and Agent runtime.
+- **Multiple model providers**: OpenAI, Azure OpenAI, DeepSeek, Ollama, LM Studio, Anthropic, and custom OpenAI-compatible endpoints.
+- **Office tool calls**: Host-specific tools read and modify the active document; write operations require confirmation or backups according to each tool's policy.
+- **Extensibility**: MCP (stdio / HTTP), Skills, user memory, and configurable built-in tools.
+- **PowerPoint workflows**: Style and font catalogs, slide templates, previews, and presentation building.
+- **Local conversation data**: Conversations are persisted as JSONL with an index; runtime data is isolated per Windows user.
+- **Desktop pane**: A WinForms host presents the WebView2 frontend, while the Broker manages model credentials and Agent execution.
 
-## 演示视频
+## Demo videos
 
 | Word | Excel | PowerPoint |
 | --- | --- | --- |
-| ![Word 演示](Resources/v/word.webp) | ![Excel 演示](Resources/v/excel.webp) | ![PowerPoint 演示](Resources/v/ppt.webp) |
+| ![Word demo](Resources/v/word.webp) | ![Excel demo](Resources/v/excel.webp) | ![PowerPoint demo](Resources/v/ppt.webp) |
 
-## 架构
+## Architecture
 
 ```text
-Office 宿主进程（Word / Excel / PowerPoint）
-  VSTO 加载项
-    ├─ 共享任务窗格（WinForms + WebView2）
-    ├─ 宿主适配器与原生 Office 工具
-    └─ HostBridge 命名管道服务
+Office host process (Word / Excel / PowerPoint)
+  VSTO add-in
+    ├─ Shared task pane (WinForms + WebView2)
+    ├─ Host adapters and native Office tools
+    └─ HostBridge named-pipe service
 
-共享任务窗格  <== Pipe A：JSON 请求与事件 ==>  Agent Broker
-HostBridge    <== Pipe B：上下文与工具调用 ==>  Agent.Runtime
-Agent.Runtime ==> HTTPS / 流式响应 ========>  模型服务/API
+Shared task pane <== Pipe A: JSON requests and events ==> Agent Broker
+HostBridge       <== Pipe B: context and tool calls ===> Agent.Runtime
+Agent.Runtime    ==> HTTPS / streaming responses ======> Model service/API
 
-Agent Broker（每个 Office 窗口独立运行）
-  Broker 管道服务 → Agent.Runtime → 工具调度与回合执行
-                                  ├─ Planning / Skills / MCP
-                                  ├─ Memory / 会话持久化
-                                  └─ 模型适配器
+Agent Broker (one instance per Office window)
+  Broker pipe service → Agent.Runtime → tool dispatch and turn execution
+                                    ├─ Planning / Skills / MCP
+                                    ├─ Memory / conversation persistence
+                                    └─ Model adapters
 ```
 
-每个 Office 窗口拥有独立的 Broker 运行实例。面板与 Broker、Broker 与 Office 宿主分别通过命名管道通信。模型 HTTP 请求、回合编排和工具权限决策位于 Broker；Office 专属的文档访问仍由对应宿主进程中的适配器执行。
+Each Office window has its own Broker instance. The pane and Broker, and the Broker and Office host, communicate over separate named pipes. Model HTTP requests, turn orchestration, and tool-permission decisions run in the Broker; Office-specific document access is performed by adapters in the corresponding host process.
 
-## 项目结构
+## Project structure
 
-| 工程 | 职责 |
+| Project | Responsibility |
 | --- | --- |
-| `NixerWordCopilot`、`NixerExcelCopilot`、`NixerPowerpointCopilot` | VSTO 加载项入口、Ribbon 与宿主窗口生命周期 |
-| `OfficeCopilot.Panel.WebView`、`OfficeCopilot.Panel.WebAssets` | 共享任务窗格、WebView2 桥接及前端资源 |
-| `OfficeCopilot.Host.*`、`OfficeCopilot.Host.Abstractions` | Word、Excel、PowerPoint 的上下文读取和原生 Office 工具 |
-| `OfficeCopilot.HostBridge.*` | Office 宿主与 Broker 之间的请求/响应和事件协议 |
-| `OfficeCopilot.Agent.Client`、`OfficeCopilot.Agent.Broker` | Broker IPC 客户端、独立进程入口及管道服务 |
-| `OfficeCopilot.Agent.Runtime`、`OfficeCopilot.Agent.Planning` | Agent 回合执行、上下文、模型、工具调度和 Skill 规划 |
-| `OfficeCopilot.Agent.Persistence`、`OfficeCopilot.Memory` | 会话持久化与本地记忆 |
-| `OfficeCopilot.Mcp`、`OfficeCopilot.Skills` | MCP 服务注册、工具调用及 Skills 加载 |
-| `OfficeCopilot.OpenXml.*`、`OfficeCopilot.Slides.*` | Office Open XML 文档能力及 PowerPoint 渲染、模板和样式功能 |
-| `OfficeCopilot.Settings.*`、`OfficeCopilot.Diagnostics` | 配置契约、配置界面、存储路径和统一日志 |
-| `OfficeCopilot.Agent.Tests`、`OfficeCopilot.Eval`、`OfficeCopilot.OpenXml.SmokeTest` | 单元测试、评测和 Open XML 冒烟验证 |
+| `NixerWordCopilot`, `NixerExcelCopilot`, `NixerPowerpointCopilot` | VSTO add-in entry points, Ribbon, and host window lifecycle |
+| `OfficeCopilot.Panel.WebView`, `OfficeCopilot.Panel.WebAssets` | Shared task pane, WebView2 bridge, and frontend assets |
+| `OfficeCopilot.Host.*`, `OfficeCopilot.Host.Abstractions` | Context reading and native Office tools for Word, Excel, and PowerPoint |
+| `OfficeCopilot.HostBridge.*` | Request/response and event protocol between Office hosts and the Broker |
+| `OfficeCopilot.Agent.Client`, `OfficeCopilot.Agent.Broker` | Broker IPC client, standalone process entry point, and pipe service |
+| `OfficeCopilot.Agent.Runtime`, `OfficeCopilot.Agent.Planning` | Agent turn execution, context, models, tool dispatch, and Skill planning |
+| `OfficeCopilot.Agent.Persistence`, `OfficeCopilot.Memory` | Conversation persistence and local memory |
+| `OfficeCopilot.Mcp`, `OfficeCopilot.Skills` | MCP service registration, tool calls, and Skills loading |
+| `OfficeCopilot.OpenXml.*`, `OfficeCopilot.Slides.*` | Office Open XML capabilities and PowerPoint rendering, templates, and styles |
+| `OfficeCopilot.Settings.*`, `OfficeCopilot.Diagnostics` | Configuration contracts, settings UI, storage paths, and unified logging |
+| `OfficeCopilot.Agent.Tests`, `OfficeCopilot.Eval`, `OfficeCopilot.OpenXml.SmokeTest` | Unit tests, evaluation, and Open XML smoke validation |
 
-详细文件导航和模块地图见 [`docs/CODE_MAP.md`](docs/CODE_MAP.md)；更深入的架构背景见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)。
+See [`docs/CODE_MAP.md`](docs/CODE_MAP.md) for file and module navigation, and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for more architecture background.
 
-## 环境要求
+## Requirements
 
-- Windows。
-- Microsoft Word、Excel 或 PowerPoint 桌面版；构建和调试 VSTO 加载项需要相应的 Office 开发组件。
-- Visual Studio 2022 或更高版本、Visual Studio MSBuild，以及 .NET Framework 4.7.2 targeting pack。
-- Microsoft Edge WebView2 Runtime。
-- 项目依赖的 NuGet 包和 UI 组件引用（包括现有工程使用的 DevExpress 26.1）。
-- 运行时需在模型配置中提供可访问的模型服务端点和相应凭据；也可配置本地 Ollama 等服务。
+- Windows.
+- Desktop Microsoft Word, Excel, or PowerPoint. The corresponding Office development components are required to build and debug VSTO add-ins.
+- Visual Studio 2022 or later, Visual Studio MSBuild, and the .NET Framework 4.7.2 targeting pack.
+- Microsoft Edge WebView2 Runtime.
+- The NuGet packages and UI component references required by the project, including DevExpress 26.1 used by the existing projects.
+- A reachable model-service endpoint and credentials configured in model settings. Local services such as Ollama can also be configured.
 
-## 构建与测试
+## Build and test
 
-仓库包含 legacy VSTO 和 `packages.config` 工程，**不要使用 `dotnet build` 构建整个解决方案**。请在 Windows PowerShell 中从仓库根目录运行统一脚本：
+The repository contains legacy VSTO and `packages.config` projects. **Do not use `dotnet build` to build the entire solution.** From the repository root, run the unified script in Windows PowerShell:
 
 ```powershell
-# Debug 构建
+# Debug build
 .\build.ps1
 
-# Release 重建并运行 Agent 单元测试
+# Release rebuild and Agent unit tests
 .\build.ps1 -Configuration Release -Rebuild -Test
 ```
 
-脚本会查找 Visual Studio MSBuild、还原 NuGet 包、构建解决方案，并检查独立 Broker 输出中的 Runtime 程序集是否为最新版本。`OfficeCopilot.Agent.Tests` 是 legacy MSTest 工程，测试通过 Visual Studio Test Platform 运行。
+The script locates Visual Studio MSBuild, restores NuGet packages, builds the solution, and checks that the Runtime assembly in the standalone Broker output is up to date. `OfficeCopilot.Agent.Tests` is a legacy MSTest project and runs through the Visual Studio Test Platform.
 
-部署文件暂存可使用 `installer/Stage-Package.ps1`；该脚本将三个加载项与 Broker 输出整理到 `installer/staging/`，供后续安装包流程使用。
+To stage deployment files, use `installer/Stage-Package.ps1`. It arranges the three add-ins and Broker output under `installer/staging/` for the subsequent installer workflow and validates the satellite assemblies for the app's own UI resources. The script recreates the staging directory. Before packaging, run the script, then copy the `<Culture>` folders downloaded from DevExpress (such as `zh-Hans`, `de`, and `es`) into `installer/staging/<Culture>/` so they are at the root of the final distribution directory.
 
-## 配置与本地数据
+## Configuration and local data
 
-首次运行后，可从各 Copilot 的 Ribbon 打开模型、MCP、Skills、记忆和工具配置界面。默认用户数据根目录为：
+After first launch, open the model, MCP, Skills, memory, and tool settings from the Ribbon in any Copilot add-in. The default user data root is:
 
 ```text
 %APPDATA%\NixerOfficeCopilot\
 ```
 
-其中包含 `settings.json`、会话数据、提示词、Skills 和日志等。设置文件可能包含模型凭据；请勿将其或用户会话数据提交到版本库。
+It contains `settings.json`, conversation data, prompts, Skills, logs, and other files. Settings may contain model credentials; do not commit them or user conversation data to the repository.
 
-## 文档
+## Documentation
 
-- [代码地图](docs/CODE_MAP.md)
-- [架构说明与审查记录](docs/ARCHITECTURE.md)
-- [MCP 调用链审查](docs/MCP_CALL_CHAIN_AUDIT.md)
-- [PowerPoint Copilot 设计与实现说明](docs/POWERPOINT_COPILOT_BLUEPRINT.md)
-- [Word 测试 Harness](docs/word_harness.md)
-
-## Overview
-
-NixerOfficeCopilot is a Windows desktop copilot for Microsoft Word, Excel, and PowerPoint. VSTO add-ins host a shared WebView2 task pane and communicate with a per-window Agent Broker over named pipes. The Broker owns model requests, turn orchestration, tool policy, MCP/Skills integration, and conversation persistence; document operations are executed by host-specific adapters inside Office.
-
-See the Chinese sections above for architecture, prerequisites, build commands, and local data locations.
+- [Code map](docs/CODE_MAP.md)
+- [Architecture and review history](docs/ARCHITECTURE.md)
+- [MCP call-chain audit](docs/MCP_CALL_CHAIN_AUDIT.md)
+- [PowerPoint Copilot design and implementation](docs/POWERPOINT_COPILOT_BLUEPRINT.md)
+- [Word test harness](docs/word_harness.md)
 
 ## License and contact
 
-See [`LICENSE`](LICENSE). Questions and bug reports: [GitHub Issues](https://github.com/NixerWong/NixerOfficeCopilot/issues).
+See [`LICENSE`](LICENSE). For questions or bug reports, visit [GitHub Issues](https://github.com/NixerWong/NixerOfficeCopilot/issues).

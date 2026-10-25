@@ -1,6 +1,7 @@
 import { resetCodeBlockBackupState, setCodeBlockBackupCompleted } from './code-blocks.js';
 import { ensureCodeBlockBackupElements } from './markdown.js';
 import { state } from './state.js';
+import { t } from './i18n.js';
 
 export function getToolCallStateMap(element) {
     if (!element) {
@@ -207,12 +208,23 @@ export function refreshAssistantBackupStatus(element) {
     if (viewBtn) {
         viewBtn.hidden = !hasBackups;
 
+        const key = backupPaths.length > 1 ? 'Web.action.viewBackupsCount' : 'Web.action.viewBackup';
         const title = backupPaths.length > 1
-            ? '查看备份（' + backupPaths.length + '）'
-            : '查看备份';
+            ? t(key, backupPaths.length)
+            : t(key);
 
         viewBtn.title = title;
         viewBtn.setAttribute('aria-label', title);
+        viewBtn.dataset.l10nTitle = key;
+        viewBtn.dataset.l10nAria = key;
+        viewBtn.dataset.l10nOriginalTitle = key;
+        viewBtn.dataset.originalTitle = title;
+        if (backupPaths.length > 1) {
+            viewBtn.dataset.l10nCount = String(backupPaths.length);
+        }
+        else {
+            delete viewBtn.dataset.l10nCount;
+        }
     }
 }
 

@@ -21,6 +21,7 @@
     <ProjectReference Include="..\OfficeCopilot.Skills\OfficeCopilot.Skills.csproj" />
     <ProjectReference Include="..\OfficeCopilot.Memory\OfficeCopilot.Memory.csproj" />
     <ProjectReference Include="..\OfficeCopilot.Diagnostics\OfficeCopilot.Diagnostics.csproj" />
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="OfficeCopilot.Agent.Tests" />

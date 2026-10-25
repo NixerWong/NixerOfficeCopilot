@@ -63,6 +63,9 @@
       <Project>{d13e58c7-f2e5-42c3-b365-386e1d911ab2}</Project>
       <Name>OfficeCopilot.Settings.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj">
+      <Name>OfficeCopilot.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

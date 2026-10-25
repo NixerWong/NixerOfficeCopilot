@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_range_lock_info",
-            DisplayName = "读取区域锁定状态",
-            Description = "读取指定区域的锁定状态；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Lock State",
+            Description = "Reads the locked state of the specified range. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

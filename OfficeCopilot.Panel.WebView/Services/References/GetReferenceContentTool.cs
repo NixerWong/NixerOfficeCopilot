@@ -4,6 +4,7 @@ using OfficeCopilot.Agent.Abstractions;
 using OfficeCopilot.Documents.Markdown;
 using OfficeCopilot.Panel.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,11 @@ namespace OfficeCopilot.Panel.WebView.Services.References
             RequiresConfirmation = false,
             RequiresBackup = false,
             AffectsDocument = false,
-            TimeoutSeconds = 30
+            TimeoutSeconds = 30,
+            Metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                [ToolMetadataKeys.GroupName] = RuntimeToolGroups.Context
+            }
         };
 
         public Task<ToolExecutionResult> ExecuteAsync(

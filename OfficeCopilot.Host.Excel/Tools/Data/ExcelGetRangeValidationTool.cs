@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_range_validation",
-            DisplayName = "读取区域数据验证",
-            Description = "读取指定区域首个单元格的数据验证设置；若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Data Validation",
+            Description = "Reads the data-validation settings of the first cell in the specified range. If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

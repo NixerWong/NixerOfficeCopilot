@@ -1,5 +1,6 @@
 import { ensureAssistantMessage } from './conversation.js';
 import { chatList, state } from './state.js';
+import { t } from './i18n.js';
 
 export function setMessageContent(element, content) {
     if (!element) {
@@ -107,9 +108,49 @@ export function refreshAssistantInfoPanel(element) {
     for (let i = 0; i < items.length; i++) {
         const item = document.createElement('div');
         item.className = 'assistant-hover-item';
-        item.textContent = items[i];
+        item.textContent = localizeAssistantInfoItem(items[i]);
         panel.appendChild(item);
     }
+}
+
+function localizeAssistantInfoItem(item) {
+    const value = String(item || '');
+    if (value === '当前未获取到有效宿主上下文' || value === 'No valid host context is available') {
+        return t('Web.info.noHostContext');
+    }
+    if (value === '已加载宿主上下文' || value === 'Host context loaded') {
+        return t('Web.info.hostContextLoaded');
+    }
+    if (value === '/tools 查看已注册工具' || value === '/tools to list registered tools') {
+        return t('Web.info.toolsHelp');
+    }
+    if (value === '/call <toolName> {json} 直接触发' || value === '/call <toolName> {json} to invoke directly') {
+        return t('Web.info.callHelp');
+    }
+
+    const labels = [
+        [/^当前活动(?:工作簿|文档)：/, 'Web.info.activeDocument'],
+        [/^Active document:\s*/, 'Web.info.activeDocument'],
+        [/^当前工作表：/, 'Web.info.worksheet'],
+        [/^Current worksheet:\s*/, 'Web.info.worksheet'],
+        [/^当前选区：/, 'Web.info.selection'],
+        [/^Current selection:\s*/, 'Web.info.selection']
+    ];
+    for (let i = 0; i < labels.length; i++) {
+        const match = value.match(labels[i][0]);
+        if (match) {
+            return t(labels[i][1], value.slice(match[0].length));
+        }
+    }
+
+    const count = value.match(/^工具：\s*(.+?)\s*个$/) || value.match(/^Tools:\s*(.+)$/);
+    if (count) {
+        return t('Web.info.toolsCount', count[1]);
+    }
+    if (value === '工具：已注册' || value === 'Tools: registered') {
+        return t('Web.info.toolsRegistered');
+    }
+    return value;
 }
 
 export function appendAssistantInfoItems(element, items) {
@@ -143,6 +184,10 @@ export function setAssistantInfoItems(element, items) {
     if (!element) {
         return;
     }
+
+    window.addEventListener('panel-locale-changed', function () {
+        document.querySelectorAll('.chat-message.assistant').forEach(refreshAssistantInfoPanel);
+    });
 
     element.__assistantInfoItems = [];
     appendAssistantInfoItems(element, items || []);
@@ -224,15 +269,15 @@ export function mapStatusToAssistantInfoItems(text) {
     }
 
     if (value.indexOf('当前未获取到有效宿主上下文') === 0) {
-        return ['当前未获取到有效宿主上下文'];
+        return [t('Web.info.noHostContext')];
     }
 
     if (value.indexOf('已注册 ') === 0 && value.indexOf('个工具') > 0) {
         const matched = value.match(/^已注册\s*(\d+)\s*个工具/);
         return [
-            matched ? ('工具：' + matched[1] + ' 个') : '工具：已注册',
-            '/tools 查看已注册工具',
-            '/call <toolName> {json} 直接触发'
+            matched ? t('Web.info.toolsCount', matched[1]) : t('Web.info.toolsRegistered'),
+            t('Web.info.toolsHelp'),
+            t('Web.info.callHelp')
         ];
     }
 

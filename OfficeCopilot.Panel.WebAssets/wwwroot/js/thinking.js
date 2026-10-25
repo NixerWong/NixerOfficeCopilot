@@ -5,8 +5,8 @@ import { ensureAssistantMessage } from './conversation.js';
 import { postMessage } from './host-bridge.js';
 import { renderMarkdown } from './markdown.js';
 import { ensureBottomAnchor, scrollToBottom } from './scroll.js';
-import { THINKING_ACTIVE_LABEL, THINKING_COMPLETED_LABEL } from './state.js';
 import { resetToolCallList } from './tool-calls.js';
+import { t } from './i18n.js';
 
 export function ensureThinkingPanel(element) {
     if (!element) {
@@ -63,11 +63,15 @@ export function refreshThinkingPanel(element) {
         return;
     }
 
-    panel.summary.textContent = isThinkingCompleted(element)
-        ? THINKING_COMPLETED_LABEL
-        : THINKING_ACTIVE_LABEL;
+    const summaryKey = isThinkingCompleted(element) ? 'Web.thinking.completed' : 'Web.thinking.active';
+    panel.summary.dataset.l10nText = summaryKey;
+    panel.summary.textContent = t(summaryKey);
     panel.content.innerHTML = renderMarkdown(thinkingContent);
 }
+
+window.addEventListener('panel-locale-changed', function () {
+    document.querySelectorAll('.chat-message.assistant').forEach(refreshThinkingPanel);
+});
 
 export function resetThinkingPanel(element) {
     setThinkingContent(element, '');

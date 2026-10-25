@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_connections",
-            DisplayName = "列出连接",
-            Description = "列出当前工作簿中的数据连接。",
+            DisplayName = "List Connections",
+            Description = "Lists the data connections in the current workbook.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

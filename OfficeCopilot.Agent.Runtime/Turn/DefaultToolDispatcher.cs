@@ -2409,7 +2409,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
                         .AppendLine("Plan approved. Write operations are now allowed.")
                         .AppendLine()
                         .AppendLine("Execute the approved plan step by step, verifying each modification.")
-                        .AppendLine("When finished, summarize in Chinese.");
+                        .AppendLine("When finished, summarize the outcome.");
 
                     return new ToolExecutionOutcome
                     {

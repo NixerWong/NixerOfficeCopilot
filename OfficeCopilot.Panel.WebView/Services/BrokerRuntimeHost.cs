@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using OfficeCopilot.Agent.Client;
 using OfficeCopilot.Diagnostics;
+using OfficeCopilot.Localization;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace OfficeCopilot.Panel.WebView.Services
     {
         private const int DefaultBrokerReadyTimeoutSeconds = 5;
         private static readonly TimeSpan BrokerShutdownTimeout = TimeSpan.FromSeconds(3);
+        private static readonly IUserTextLocalizer UserTextLocalizer = new UserTextLocalizer();
 
         private readonly TimeSpan _brokerReadyTimeout;
         private readonly ILogger _logger;
@@ -32,6 +34,11 @@ namespace OfficeCopilot.Panel.WebView.Services
         // 标记本次进程退出是否由我们主动回收触发，用于区分正常回收与异常退出。
         private volatile bool _brokerStopRequested;
         private BrokerOutputCapture _outputCapture;
+
+        private static string GetLocalizedErrorMessage(string errorCode, string fallback)
+        {
+            return UserTextLocalizer.GetErrorMessage(errorCode, fallback, LocalizationService.Culture);
+        }
 
         public BrokerRuntimeHost(ILogger logger)
             : this(logger, string.Empty)
@@ -308,7 +315,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     MessageId = request == null ? string.Empty : request.MessageId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 启动失败，请检查 Broker 可执行文件或稍后重试。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -325,7 +334,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                         MessageId = request == null ? string.Empty : request.MessageId ?? string.Empty,
                         Success = false,
                         ErrorCode = "broker.restart_failed",
-                        ErrorMessage = "Broker 健康检查失败且自动重启失败。"
+                        ErrorMessage = GetLocalizedErrorMessage(
+                            "broker.restart_failed",
+                            "The Broker is unavailable and automatic restart failed.")
                     };
                 }
             }
@@ -352,7 +363,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                         MessageId = request == null ? string.Empty : request.MessageId ?? string.Empty,
                         Success = false,
                         ErrorCode = "broker.restart_failed",
-                        ErrorMessage = "Broker 下线后自动重启失败。"
+                        ErrorMessage = GetLocalizedErrorMessage(
+                            "broker.restart_failed",
+                            "The Broker is unavailable and automatic restart failed.")
                     };
                 }
 
@@ -370,7 +383,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                         MessageId = request == null ? string.Empty : request.MessageId ?? string.Empty,
                         Success = false,
                         ErrorCode = "broker.retry_failed",
-                        ErrorMessage = retryEx.Message
+                        ErrorMessage = GetLocalizedErrorMessage(
+                            "broker.retry_failed",
+                            "The Broker retry failed.")
                     };
                 }
             }
@@ -400,7 +415,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     Success = false,
                     WasCancelled = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法取消当前回合。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -416,7 +433,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     Success = false,
                     WasCancelled = false,
                     ErrorCode = "broker.not_healthy",
-                    ErrorMessage = "Broker 未响应，取消请求无法送达。将通过本地方式取消。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_healthy",
+                        "The Broker did not respond. The cancel request could not be delivered; it will be handled locally.")
                 };
             }
 
@@ -434,7 +453,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     Success = false,
                     WasCancelled = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，当前回合取消失败。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -452,7 +473,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法同步会话历史。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -468,7 +491,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，会话历史同步失败。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -486,7 +511,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法清除执行方式默认值。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -504,7 +531,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，执行方式默认值清除失败。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -521,7 +550,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                 {
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法完成模型请求。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -536,7 +567,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                 {
                     Success = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，无法完成模型请求。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -553,7 +586,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                 {
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法列出会话。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -568,7 +603,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                 {
                     Success = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，无法列出会话。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -586,7 +623,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法加载会话。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -603,7 +642,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，无法加载会话。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -621,7 +662,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法删除会话。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -638,7 +681,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ConversationId = request == null ? string.Empty : request.ConversationId ?? string.Empty,
                     Success = false,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，无法删除会话。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }
@@ -660,7 +705,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ToolCallId = response?.ToolCallId ?? string.Empty,
                     Cancelled = true,
                     ErrorCode = "broker.start_failed",
-                    ErrorMessage = "Broker 未启动，无法发送用户交互响应。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.start_failed",
+                        "Broker startup failed. Check the Broker executable and try again.")
                 };
             }
 
@@ -677,7 +724,9 @@ namespace OfficeCopilot.Panel.WebView.Services
                     ToolCallId = response?.ToolCallId ?? string.Empty,
                     Cancelled = true,
                     ErrorCode = "broker.not_available",
-                    ErrorMessage = "Broker 已下线，无法发送用户交互响应。"
+                    ErrorMessage = GetLocalizedErrorMessage(
+                        "broker.not_available",
+                        "The Broker is unavailable; the requested operation could not be completed.")
                 };
             }
         }

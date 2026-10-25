@@ -14,8 +14,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_set_range_format",
-            DisplayName = "设置区域格式",
-            Description = "为单元格区域设置数字格式、样式、对齐、字体与颜色。优先使用 Excel 对象模型，失败时自动回退到 VBA 执行。颜色参数一律使用 6 位十六进制 RGB 且带 # 前缀（例如 #2E7D32、#FFFFFF）。",
+            DisplayName = "Set Range Format",
+            Description = "Sets number formats, styles, alignment, fonts, and colors for a cell range. Prefers the Excel object model and falls back to VBA on failure. Colors must use 6-digit hexadecimal RGB with a # prefix (for example, #2E7D32 or #FFFFFF).",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = false,
@@ -36,8 +36,8 @@ namespace OfficeCopilot.Host.Excel.Tools
                 + "\"bold\":{\"type\":\"boolean\"},"
                 + "\"italic\":{\"type\":\"boolean\"},"
                 + "\"underline\":{\"type\":\"boolean\"},"
-                + "\"fontColor\":{\"type\":\"string\",\"description\":\"字体颜色。必须使用 6 位十六进制 RGB 并带 # 前缀，例如 \\\"#2E7D32\\\"、\\\"#FFFFFF\\\"。也接受 \\\"rgb(46,125,50)\\\" 或英文颜色名 \\\"Red\\\"。不要传入 VBA 的 RGB()、十进制色号或 ARGB。\"},"
-                + "\"fillColor\":{\"type\":\"string\",\"description\":\"单元格填充色。必须使用 6 位十六进制 RGB 并带 # 前缀，例如 \\\"#2E7D32\\\"、\\\"#FFFFFF\\\"。也接受 \\\"rgb(46,125,50)\\\" 或英文颜色名 \\\"Red\\\"。不要传入 VBA 的 RGB()、十进制色号或 ARGB。\"},"
+                + "\"fontColor\":{\"type\":\"string\",\"description\":\"Font color. Use 6-digit hexadecimal RGB with a # prefix, for example \\\"#2E7D32\\\" or \\\"#FFFFFF\\\". Also accepts \\\"rgb(46,125,50)\\\" or an English color name such as \\\"Red\\\". Do not use VBA RGB(), decimal color values, or ARGB.\"},"
+                + "\"fillColor\":{\"type\":\"string\",\"description\":\"Cell fill color. Use 6-digit hexadecimal RGB with a # prefix, for example \\\"#2E7D32\\\" or \\\"#FFFFFF\\\". Also accepts \\\"rgb(46,125,50)\\\" or an English color name such as \\\"Red\\\". Do not use VBA RGB(), decimal color values, or ARGB.\"},"
                 + "\"useSelectionWhenAddressEmpty\":{\"type\":\"boolean\"},"
                 + "\"fallbackToVba\":{\"type\":\"boolean\"}"
                 + "},"

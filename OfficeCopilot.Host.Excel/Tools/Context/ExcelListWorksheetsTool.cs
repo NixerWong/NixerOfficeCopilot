@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_worksheets",
-            DisplayName = "列出工作表",
-            Description = "返回当前工作簿各工作表的名称、可见状态、已用区域大小、表头、公式和保护状态。",
+            DisplayName = "List Worksheets",
+            Description = "Lists each worksheet in the current workbook with its name, visibility, used-range size, headers, formulas, and protection state.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

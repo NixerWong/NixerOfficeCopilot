@@ -188,14 +188,14 @@ namespace OfficeCopilot.Agent.Tests.Planning
             StringAssert.Contains(agentPrompt, "runtime.ask_user_question");
             StringAssert.Contains(agentPrompt, "excel_execute_vba.expect.basis");
             StringAssert.Contains(agentPrompt, "basis.sources");
-            StringAssert.Contains(agentPrompt, "topology（single/union/lookup/compare）");
-            StringAssert.Contains(agentPrompt, "keys 与 join");
-            StringAssert.Contains(agentPrompt, "一次提交所有 sources[] 后计算");
-            StringAssert.Contains(agentPrompt, "自动列 __source 分组");
+            StringAssert.Contains(agentPrompt, "topology (single/union/lookup/compare)");
+            StringAssert.Contains(agentPrompt, "declare keys and join");
+            StringAssert.Contains(agentPrompt, "Submit all sources[] in one request for a homogeneous union");
+            StringAssert.Contains(agentPrompt, "group by the automatic __source column");
             StringAssert.Contains(agentPrompt, "excel_aggregate.lookups[]");
-            StringAssert.Contains(agentPrompt, "source.column 与 target.column 必须分别使用各自区域的实际列名");
-            StringAssert.Contains(agentPrompt, "source.column 应为 Amount、target.column 应为 Value");
-            StringAssert.Contains(agentPrompt, "重复键报错");
+            StringAssert.Contains(agentPrompt, "source.column and target.column must use the actual column name on their respective sides");
+            StringAssert.Contains(agentPrompt, "source.column=Amount and target.column=Value");
+            StringAssert.Contains(agentPrompt, "duplicate keys must fail");
             StringAssert.Contains(agentPrompt, "runtime.calculate");
         }
 
@@ -212,9 +212,9 @@ namespace OfficeCopilot.Agent.Tests.Planning
                 StringAssert.Contains(prompt, "subtotalLabelRows");
                 StringAssert.Contains(prompt, "hiddenOrFilteredRows");
                 StringAssert.Contains(prompt, "excludeRows");
-                StringAssert.Contains(prompt, "target/source 侧");
-                StringAssert.Contains(prompt, "不得声称结果仅含可见行");
-                StringAssert.Contains(prompt, "不得只排除样例行");
+                StringAssert.Contains(prompt, "appropriate target/source side");
+                StringAssert.Contains(prompt, "do not claim visible-only results");
+                StringAssert.Contains(prompt, "do not exclude only sample rows");
             }
         }
 
@@ -223,8 +223,8 @@ namespace OfficeCopilot.Agent.Tests.Planning
         {
             var agentPrompt = BuiltInHostPrompts.Get("Excel", HostPromptMode.Agent);
 
-            StringAssert.Contains(agentPrompt, "只有本会话登记的 _wip_ 工作表才按 scratch 处理");
-            StringAssert.Contains(agentPrompt, "运行时闸门判定");
+            StringAssert.Contains(agentPrompt, "Only worksheets registered as _wip_ during this session are scratch");
+            StringAssert.Contains(agentPrompt, "Runtime gates determine actual impact");
             Assert.IsFalse(agentPrompt.Contains("Writing to a _wip_ sheet needs no user confirmation"));
         }
     }

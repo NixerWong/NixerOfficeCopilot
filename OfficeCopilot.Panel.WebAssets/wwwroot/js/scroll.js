@@ -1,4 +1,5 @@
 import { bottomAnchor, chatList, messageMap, pendingCodeExecutionRequests, pendingOpenInVbaEditorRequests, state } from './state.js';
+import { t } from './i18n.js';
 
 export function createAssistantRole() {
     return ''
@@ -11,9 +12,9 @@ export function createAssistantRole() {
         + '    <div class="assistant-hover-panel"></div>'
         + '  </div>'
         + '  <div class="assistant-backup-status" hidden>'
-        + '      <span class="assistant-backup-pending" hidden>备份中...</span>'
-        + '      <button type="button" class="message-icon-btn restore-backup-btn" title="撤销本次修改（从备份生成还原副本，不覆盖原文件）" aria-label="撤销本次修改" data-original-title="撤销本次修改" hidden></button>'
-        + '      <button type="button" class="message-icon-btn view-backups-btn" title="查看备份" aria-label="查看备份" data-original-title="查看备份" hidden></button>'
+        + '      <span class="assistant-backup-pending" data-l10n-text="Web.backup.pending" hidden></span>'
+        + '      <button type="button" class="message-icon-btn restore-backup-btn" data-l10n-title="Web.action.restore" data-l10n-aria="Web.panel.restore" data-l10n-original-title="Web.action.restore" hidden></button>'
+        + '      <button type="button" class="message-icon-btn view-backups-btn" data-l10n-title="Web.action.viewBackup" data-l10n-aria="Web.action.viewBackup" data-l10n-original-title="Web.action.viewBackup" hidden></button>'
         + '  </div>'
         + '</div>';
 }
@@ -37,8 +38,10 @@ export function createScrollToBottomButton() {
     state.scrollToBottomButton = document.createElement('button');
     state.scrollToBottomButton.type = 'button';
     state.scrollToBottomButton.className = 'scroll-to-bottom-btn';
-    state.scrollToBottomButton.title = '追底';
-    state.scrollToBottomButton.setAttribute('aria-label', '滚动到底部并恢复自动跟随');
+    state.scrollToBottomButton.title = t('Web.action.follow');
+    state.scrollToBottomButton.setAttribute('aria-label', t('Web.action.scrollBottom'));
+    state.scrollToBottomButton.dataset.l10nTitle = 'Web.action.follow';
+    state.scrollToBottomButton.dataset.l10nAria = 'Web.action.scrollBottom';
     state.scrollToBottomButton.innerHTML = ''
         + '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">'
         + '  <path d="M8 3.5V12.5M8 12.5L5 9.5M8 12.5L11 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'

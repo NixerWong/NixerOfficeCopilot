@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_view_power_query",
-            DisplayName = "查看 Power Query",
-            Description = "查看指定 Power Query 的完整 M 代码。",
+            DisplayName = "View Power Query",
+            Description = "Shows the complete M code for the specified Power Query.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

@@ -3,6 +3,7 @@ import { postMessage } from './host-bridge.js';
 import { escapeHtml } from './markdown.js';
 import { ensureBottomAnchor, scrollToBottom } from './scroll.js';
 import { chatList, state } from './state.js';
+import { t } from './i18n.js';
 
 export var _pendingAskUserQuestions = {};
 
@@ -70,7 +71,8 @@ function renderPreviewText(previewCol, text) {
     }
     else {
         block.className = 'question-preview-placeholder';
-        block.textContent = '\u9009\u62e9\u4e00\u4e2a\u9009\u9879\u67e5\u770b\u9884\u89c8';
+        block.dataset.l10nText = 'Web.ask.previewPrompt';
+        block.textContent = t('Web.ask.previewPrompt');
     }
     previewCol.appendChild(block);
 }
@@ -110,12 +112,12 @@ export function showAskUserQuestion(data) {
     container.innerHTML = ''
         + '<div class="ask-user-question-header">'
         + '  <span class="auq-icon">\u2753</span>'
-        + '  <span>Nixer Copilot \u9700\u8981\u60a8\u7684\u56de\u7b54</span>'
+        + '  <span data-l10n-text="Web.ask.header">Nixer Copilot needs your response</span>'
         + '</div>'
         + '<div class="ask-user-question-body"></div>'
         + '<div class="ask-user-question-footer">'
-        + '  <button type="button" class="auq-cancel-btn">\u53d6\u6d88</button>'
-        + '  <button type="button" class="auq-submit-btn">\u63d0\u4ea4</button>'
+        + '  <button type="button" class="auq-cancel-btn" data-l10n-text="Web.ask.cancel"></button>'
+        + '  <button type="button" class="auq-submit-btn" data-l10n-text="Web.ask.submit"></button>'
         + '</div>';
 
     var body = container.querySelector('.ask-user-question-body');
@@ -172,7 +174,7 @@ export function showAskUserQuestion(data) {
                     + '      <span class="option-label-text">' + escapeHtml(opt.label || '') + '</span>'
                     + '      <span class="option-description">' + escapeHtml(opt.description || '') + '</span>'
                     + '    </span>'
-                    + (image ? '    <img class="option-preview-image" alt="" loading="lazy" title="\u70b9\u51fb\u653e\u5927" src="' + escapeHtml(image) + '">' : '')
+                    + (image ? '    <img class="option-preview-image" alt="" loading="lazy" data-l10n-title="Web.ask.previewEnlarge" src="' + escapeHtml(image) + '">' : '')
                     + '  </label>'
                     + '</li>';
             }
@@ -182,8 +184,8 @@ export function showAskUserQuestion(data) {
         optionsHtml += ''
             + '<li class="option-item option-other">'
             + '  <div class="option-other-input">'
-            + '    <span style="font-size:11px;color:#6b7280;white-space:nowrap;">\u5176\u4ed6\uff1a</span>'
-            + '    <input type="text" name="' + escapeHtml(inputName) + '_other" placeholder="\u81ea\u5b9a\u4e49\u8f93\u5165...">'
+            + '    <span class="option-other-label" data-l10n-text="Web.ask.other"></span>'
+            + '    <input type="text" name="' + escapeHtml(inputName) + '_other" data-l10n-placeholder="Web.ask.otherPlaceholder">'
             + '  </div>'
             + '</li>';
 

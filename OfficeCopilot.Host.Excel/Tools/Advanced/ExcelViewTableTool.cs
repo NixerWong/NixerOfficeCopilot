@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_view_table",
-            DisplayName = "查看表",
-            Description = "查看指定 Excel 表的结构信息。",
+            DisplayName = "View Table",
+            Description = "Shows the structure of the specified Excel table.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

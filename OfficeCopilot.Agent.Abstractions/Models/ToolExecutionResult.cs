@@ -21,6 +21,8 @@ namespace OfficeCopilot.Agent.Abstractions
 
         public string ToolName { get; set; }
 
+        public string ToolDisplayName { get; set; }
+
         public bool Success { get; set; }
 
         public string Content { get; set; }

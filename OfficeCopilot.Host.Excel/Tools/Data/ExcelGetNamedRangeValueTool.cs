@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_named_range_value",
-            DisplayName = "读取命名区域值",
-            Description = "读取指定命名区域的当前值、类型和引用信息。",
+            DisplayName = "Read Named Range Value",
+            Description = "Reads the current value, type, and reference information for the specified named range.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

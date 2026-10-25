@@ -198,22 +198,22 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
     {
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckCreate,
-            "新建演示工作区",
-            "为一套新幻灯片建立 HTML 工作区（不改动当前演示文稿），返回 deckId。"
-                + "style 用 ppt_style_search / ppt_style_get 选定的 slug；css 为整套共用的主题 CSS（可选，以后可在 ppt_deck_put_slides 里改）。"
-                + "用户选定 ppt_style_preview 的候选后，必须同时传入返回的 deckId 和 fromPreview 候选名；该候选封面会作为第 1 页复用，候选 CSS 锁定在第 1 页的 <style data-nx-cover> 中（不写入 theme.css），后续从第 2 页开始写。"
-                + "使用 fromPreview 时不得传 css，style 若传入必须与候选风格一致。",
+            "Create Presentation Draft",
+            "Creates an HTML workspace for a new presentation without modifying the current presentation, and returns deckId. "
+                + "Use a style slug selected with ppt_style_search / ppt_style_get; css is the shared theme CSS for the deck (optional, and can be changed later with ppt_deck_put_slides). "
+                + "After the user selects a ppt_style_preview candidate, pass both the returned deckId and the fromPreview candidate name; the candidate cover is reused as slide 1, with its CSS locked in <style data-nx-cover> on slide 1 (not written to theme.css), and subsequent slides starting at slide 2. "
+                + "When fromPreview is used, do not pass css; if style is supplied, it must match the candidate's style.",
             false,
             "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"style\":{\"type\":\"string\",\"description\":\"风格 slug；省略时沿用复用工作区的风格或设置中的默认风格。\"},"
-                + "\"title\":{\"type\":\"string\",\"description\":\"演示标题。\"},"
-                + "\"density\":{\"type\":\"string\",\"enum\":[\"low\",\"medium\",\"high\"],\"description\":\"信息密度；省略时采用设置中的默认密度。\"},"
-                + "\"language\":{\"type\":\"string\",\"description\":\"BCP-47 语言，默认 zh-CN。\"},"
-                + "\"css\":{\"type\":\"string\",\"description\":\"整套共用的主题 CSS。\"},"
-                + "\"deckId\":{\"type\":\"string\",\"description\":\"复用 ppt_style_preview 返回的工作区；fromPreview 必填。\"},"
-                + "\"fromPreview\":{\"type\":\"string\",\"description\":\"用户选定的 ppt_style_preview 候选名；复用其已清洗封面和 CSS。\"}"
+                + "\"style\":{\"type\":\"string\",\"description\":\"Style slug; omit to reuse the workspace style or the default from settings.\"},"
+                + "\"title\":{\"type\":\"string\",\"description\":\"Presentation title.\"},"
+                + "\"density\":{\"type\":\"string\",\"enum\":[\"low\",\"medium\",\"high\"],\"description\":\"Information density; defaults to the value from settings.\"},"
+                + "\"language\":{\"type\":\"string\",\"description\":\"BCP-47 language tag; defaults to zh-CN.\"},"
+                + "\"css\":{\"type\":\"string\",\"description\":\"Shared theme CSS for the entire deck.\"},"
+                + "\"deckId\":{\"type\":\"string\",\"description\":\"Reuse the workspace returned by ppt_style_preview; required with fromPreview.\"},"
+                + "\"fromPreview\":{\"type\":\"string\",\"description\":\"Candidate name selected by the user in ppt_style_preview; reuses its sanitized cover and CSS.\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}");
@@ -362,11 +362,11 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
 
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckPutSlides,
-            "写入工作区页面",
-            "向工作区新增或覆盖页面（每次 ≤10 页）。每页 html 是一个 <section class=\"slide\">…</section>，按 1920×1080 设计；"
-                + "可含 <style>，不得含 <script>、外链或事件属性（会被清除）。"
-                + "省略 id 表示新增（position 为插入位置，1 起，省略则追加）；给出已有 id 表示整页覆盖。"
-                + "css 可选，给出时整体替换 theme.css。由 fromPreview 生成的封面页整页锁定：覆盖它的项会被忽略，封面样式也不受 css 影响。",
+            "Add or Update Slides",
+            "Adds or replaces workspace slides (up to 10 per call). Each html value must be a <section class=\"slide\">...</section> designed at 1920x1080; "
+                + "it may include <style>, but <script>, external links, and event attributes are prohibited and will be removed. "
+                + "Omit id to add a slide (position is 1-based and defaults to append); provide an existing id to replace that entire slide. "
+                + "css is optional; when supplied, it replaces theme.css entirely. A cover created from fromPreview is locked as a full slide: updates targeting it are ignored, and css does not affect its styles.",
             false,
             "{"
                 + "\"type\":\"object\","
@@ -375,14 +375,14 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
                 + "\"slides\":{\"type\":\"array\",\"minItems\":1,\"maxItems\":10,\"items\":{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"id\":{\"type\":\"string\",\"description\":\"已有页 id（如 s03）表示覆盖；省略表示新增。\"},"
-                + "\"position\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"新增页的插入位置。\"},"
+                + "\"id\":{\"type\":\"string\",\"description\":\"An existing slide ID (for example, s03) replaces that slide; omit to add a slide.\"},"
+                + "\"position\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Insertion position for a new slide.\"},"
                 + "\"html\":{\"type\":\"string\"}"
                 + "},"
                 + "\"required\":[\"html\"],"
                 + "\"additionalProperties\":false"
                 + "}},"
-                + "\"css\":{\"type\":\"string\",\"description\":\"替换整个 theme.css（不含第 1 页封面样式）。\"}"
+                + "\"css\":{\"type\":\"string\",\"description\":\"Replaces the entire theme.css; does not include slide 1 cover styles.\"}"
                 + "},"
                 + "\"required\":[\"deckId\",\"slides\"],"
                 + "\"additionalProperties\":false"
@@ -457,8 +457,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
 
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckGetSlides,
-            "读取工作区页面",
-            "读取工作区的页清单；给出 ids 时同时返回这些页的 HTML（修改某页前先读回）。includeCss=true 时附带主题 CSS。",
+            "Read Draft Slides",
+            "Reads the workspace slide list; when ids are supplied, also returns their HTML (read a slide before editing it). Set includeCss=true to include the theme CSS.",
             true,
             "{"
                 + "\"type\":\"object\","
@@ -532,8 +532,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
     {
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckRemoveSlides,
-            "删除工作区页面",
-            "从工作区删除指定页（按 id）。",
+            "Remove Draft Slides",
+            "Removes the specified slides from the workspace by ID.",
             false,
             "{"
                 + "\"type\":\"object\","
@@ -567,8 +567,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
     {
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckReorder,
-            "调整工作区页序",
-            "按给定顺序重排工作区页面；order 必须恰好列出全部页 id。",
+            "Reorder Draft Slides",
+            "Reorders workspace slides in the specified order; order must list every slide ID exactly once.",
             false,
             "{"
                 + "\"type\":\"object\","
@@ -601,8 +601,8 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
     {
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckPreview,
-            "预览工作区",
-            "把工作区组装成完整演示并在独立窗口中打开，供用户翻页查看（← → 翻页）。slide 为起始页（1 起）。只给用户看，不返回截图；写完全部页面后调用一次即可，不要逐页调用。",
+            "Preview Presentation Draft",
+            "Assembles the workspace into a complete presentation and opens it in a separate window for the user to review (use the left/right arrow keys to navigate). slide is the 1-based starting slide. This is for user review only and does not return screenshots; call once after writing all slides, not once per slide.",
             true,
             "{"
                 + "\"type\":\"object\","
@@ -659,9 +659,9 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
 
         private static readonly ToolDefinition _definition = Define(
             PowerPointToolNames.DeckValidate,
-            "检查工作区页面",
-            "在本地 WebView2 中执行 L1 DOM 检查和 L2 PDF 分页检查，覆盖全局 CSS 类名冲突、溢出、文字越界/重叠/遮挡、字号、字体回退、占位文字、坏图及密度；"
-                + "问题页截图保存在工作区 previews/。不包含 PowerPoint 构建后的 L3 回读检查。",
+            "Validate Presentation Draft",
+            "Runs L1 DOM checks and L2 PDF pagination checks in local WebView2, covering global CSS class conflicts, overflow, text outside bounds/overlap/occlusion, font size, font fallback, placeholder text, broken images, and density. "
+                + "Screenshots of slides with issues are saved in workspace previews/. Does not include the L3 read-back check after building in PowerPoint.",
             true,
             "{"
                 + "\"type\":\"object\","
@@ -831,18 +831,17 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = PowerPointToolNames.DeckBuild,
-            DisplayName = "构建工作区到演示文稿",
-            Description = "把本会话最近预览的工作区构建为幻灯片。mode：editable=文字、色块、图标尽量转为可编辑的原生元素；"
-                + "fidelity=文字为原生文本框，其余装饰留在背景图；image=每页只放一张 HTML 完整截图，与预览完全一致、不受字体/图标/形状差异影响，但内容不可编辑。"
-                + "省略 mode 时使用设置中的默认模式。"
-                + "构建不自动运行 ppt_deck_validate，也不执行构建后的 PowerPoint 回读或视觉验证；用户可单独要求调用 ppt_deck_validate。"
-                + "deckId 可省略：省略时自动使用本会话最近一次预览的工作区，确认框会展示其标题、ID 和页数；推荐省略，不要猜测。"
-                + "若提供 deckId，必须原样使用 ppt_deck_create 返回的完整 ID，且须与本会话最近预览的工作区一致，否则拒绝；严禁自行编造、缩写或使用 deck-... 形式。"
-                + "workspaceTitle 与 slideCount 同样可省略（自动补全）；若提供必须照抄最近一次预览结果。"
-                + "当前演示文稿为空白时一律直接在当前文稿中构建（替换空白页，无需 target）。"
-                + "当前文稿已有内容时必须提供 target，且须先用 runtime.ask_user_question 询问用户："
-                + "target=new 新建 16:9 演示文稿，target=append 追加到当前 16:9 文稿末尾（自动备份）。"
-                + "replace=true 会把工作区全部页面插入 fromIndex，并删除原 fromIndex–toIndex 页；构建页数必须与被替换页数一致，否则拒绝，修改前自动备份。构建需要用户确认。",
+            DisplayName = "Build Presentation from Workspace",
+            Description = "Builds slides from the most recently previewed workspace in this session. mode: editable converts text, fills, and icons into native editable elements where possible;"
+                + " fidelity uses native text boxes with decorative elements retained in a background image; image places one complete HTML screenshot on each slide, matching the preview regardless of font, icon, or shape differences, but the content is not editable."
+                + " If mode is omitted, the default mode from settings is used."
+                + " This tool does not run ppt_deck_validate or perform a PowerPoint read-back or visual verification after building; the user can request ppt_deck_validate separately."
+                + " deckId may be omitted; when omitted, the latest workspace preview from this session is used automatically, and the confirmation dialog shows its title, ID, and slide count. Omission is recommended; do not guess."
+                + " If deckId is provided, it must exactly match the complete ID returned by ppt_deck_create and the latest workspace preview in this session; otherwise the request is rejected. Never invent or abbreviate it or use a deck-... form."
+                + " workspaceTitle and slideCount may also be omitted and filled automatically; if supplied, they must exactly match the latest preview."
+                + " If the current presentation is blank, build directly in it by replacing the blank slide; target is not required."
+                + " If the current presentation contains content, target is required, and runtime.ask_user_question must be used first to ask the user whether to create a new 16:9 presentation (target=new) or append to the end of the current 16:9 presentation (target=append; automatic backup)."
+                + " replace=true inserts all workspace slides starting at fromIndex and deletes the original fromIndex-to-toIndex slides; the number of built slides must equal the number replaced or the request is rejected. A backup is created before modification. User confirmation is required.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "PowerPoint",
             IsReadOnly = false,
@@ -853,10 +852,10 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"deckId\":{\"type\":\"string\",\"pattern\":\"^[0-9]{8}-[0-9]{6}-[a-z0-9]{6}$\",\"description\":\"可省略（默认本会话最近预览的工作区）；提供时必须原样使用 ppt_deck_create 返回的完整 ID，不要自行构造。\"},"
-                + "\"workspaceTitle\":{\"type\":\"string\",\"description\":\"可省略（自动补全）；提供时必须来自最近一次预览结果。\"},"
-                + "\"slideCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"可省略（自动补全）；提供时必须来自最近一次预览结果。\"},"
-                + "\"mode\":{\"type\":\"string\",\"enum\":[\"editable\",\"fidelity\",\"image\"],\"description\":\"editable=可编辑；fidelity=原生文字+背景图；image=整页图片（与预览一致，不可编辑）。须按用户在构建确认中的选择传入。\"},"
+                + "\"deckId\":{\"type\":\"string\",\"pattern\":\"^[0-9]{8}-[0-9]{6}-[a-z0-9]{6}$\",\"description\":\"Optional (defaults to the most recently previewed workspace in this session); if supplied, use the complete ID returned by ppt_deck_create exactly as-is. Do not construct one.\"},"
+                + "\"workspaceTitle\":{\"type\":\"string\",\"description\":\"Optional (auto-filled); if supplied, it must come from the most recent preview result.\"},"
+                + "\"slideCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Optional (auto-filled); if supplied, it must come from the most recent preview result.\"},"
+                + "\"mode\":{\"type\":\"string\",\"enum\":[\"editable\",\"fidelity\",\"image\"],\"description\":\"editable=editable elements; fidelity=native text with a background image; image=one full-slide image (matches the preview but is not editable). Must match the user's selection in the build confirmation.\"},"
                 + "\"target\":{\"type\":\"string\",\"enum\":[\"append\",\"new\"]},"
                 + "\"replace\":{\"type\":\"boolean\"},"
                 + "\"fromIndex\":{\"type\":\"integer\",\"minimum\":1},"

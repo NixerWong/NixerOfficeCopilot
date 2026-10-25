@@ -1,0 +1,2011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language.English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language.SimplifiedChinese" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="Language.Japanese" xml:space="preserve">
+    <value>日语</value>
+  </data>
+  <data name="Language.German" xml:space="preserve">
+    <value>德语</value>
+  </data>
+  <data name="Language.Spanish" xml:space="preserve">
+    <value>西班牙语</value>
+  </data>
+  <data name="Settings.SysConfig.Text" xml:space="preserve">
+    <value>系统配置</value>
+  </data>
+  <data name="Settings.SysConfig.grpLanguage.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Settings.SysConfig.lbLanguage.Text" xml:space="preserve">
+    <value>界面语言:</value>
+  </data>
+  <data name="Settings.Config.Title" xml:space="preserve">
+    <value>参数设置</value>
+  </data>
+  <data name="Settings.Config.Tab.Models" xml:space="preserve">
+    <value>模型设置</value>
+  </data>
+  <data name="Settings.Config.Tab.Tools" xml:space="preserve">
+    <value>内置工具</value>
+  </data>
+  <data name="Settings.Config.Tab.Mcp" xml:space="preserve">
+    <value>MCP 服务</value>
+  </data>
+  <data name="Settings.Config.Tab.Skills" xml:space="preserve">
+    <value>Skills 技能</value>
+  </data>
+  <data name="Settings.Config.Tab.Memory" xml:space="preserve">
+    <value>记忆管理器</value>
+  </data>
+  <data name="Settings.Config.Tab.General" xml:space="preserve">
+    <value>系统配置</value>
+  </data>
+  <data name="Settings.Config.Models.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Models.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Settings.Config.Models.ProviderKind" xml:space="preserve">
+    <value>API 协议</value>
+  </data>
+  <data name="Settings.Config.Models.Endpoint" xml:space="preserve">
+    <value>API 地址</value>
+  </data>
+  <data name="Settings.Config.Models.ApiKey" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="Settings.Config.Models.ModelId" xml:space="preserve">
+    <value>模型 ID</value>
+  </data>
+  <data name="Settings.Config.Models.Multimodal" xml:space="preserve">
+    <value>多模态</value>
+  </data>
+  <data name="Settings.Config.Models.Add" xml:space="preserve">
+    <value>新增模型</value>
+  </data>
+  <data name="Settings.Config.Models.Edit" xml:space="preserve">
+    <value>编辑选中模型</value>
+  </data>
+  <data name="Settings.Config.Models.Delete" xml:space="preserve">
+    <value>删除选中的模型</value>
+  </data>
+  <data name="Settings.Config.Models.Import" xml:space="preserve">
+    <value>导入模型定义</value>
+  </data>
+  <data name="Settings.Config.Models.ShowPromptPreview" xml:space="preserve">
+    <value>显示系统提示词预览</value>
+  </data>
+  <data name="Settings.Config.Models.HidePromptPreview" xml:space="preserve">
+    <value>隐藏系统提示词预览</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Title.Add" xml:space="preserve">
+    <value>新增模型</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Title.Edit" xml:space="preserve">
+    <value>编辑模型</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ModelParameters" xml:space="preserve">
+    <value>模型参数设置</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ModelName" xml:space="preserve">
+    <value>模型名称</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SystemPrompt" xml:space="preserve">
+    <value>模型附加提示词（追加在宿主系统提示词之后，可留空）</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.AdditionalParameters" xml:space="preserve">
+    <value>附加参数</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.BasicParameters" xml:space="preserve">
+    <value>基本参数</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HttpHeaders" xml:space="preserve">
+    <value>HTTP 请求头设置</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SaveAndClose" xml:space="preserve">
+    <value>保存退出</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.TestConnection" xml:space="preserve">
+    <value>测试连接</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.EnableModel" xml:space="preserve">
+    <value>启用该模型</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ParameterName" xml:space="preserve">
+    <value>参数名</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ParameterValue" xml:space="preserve">
+    <value>参数值</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HeaderName" xml:space="preserve">
+    <value>请求头</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HeaderValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ConnectionTestSucceeded" xml:space="preserve">
+    <value>服务 URL 可达。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ConnectionTestFailed" xml:space="preserve">
+    <value>连接失败：{0}</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ModelNameRequired" xml:space="preserve">
+    <value>请填写模型名称。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.BasicParametersUnavailable" xml:space="preserve">
+    <value>基本参数未初始化。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.EndpointRequired" xml:space="preserve">
+    <value>请填写 API 地址。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.EndpointInvalid" xml:space="preserve">
+    <value>API 地址格式不正确，必须是 http 或 https。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ModelIdRequired" xml:space="preserve">
+    <value>请填写模型 ID。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterNameRequired" xml:space="preserve">
+    <value>附加参数名称不能为空。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterNameDuplicate" xml:space="preserve">
+    <value>附加参数“{0}”重复，请检查。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterValueInvalid" xml:space="preserve">
+    <value>附加参数“{0}”的值无效：{1}</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.HeaderNameRequired" xml:space="preserve">
+    <value>HTTP 请求头名称不能为空。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.HeaderNameDuplicate" xml:space="preserve">
+    <value>HTTP 请求头“{0}”重复，请检查。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.DeleteCurrentRow" xml:space="preserve">
+    <value>删除当前行</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Category.Connection" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.MaxContextTokens" xml:space="preserve">
+    <value>最大上下文长度</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ProviderKind" xml:space="preserve">
+    <value>API 协议</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Category.Capabilities" xml:space="preserve">
+    <value>能力</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SupportedInputFileTypes" xml:space="preserve">
+    <value>支持文件类型</value>
+  </data>
+  <data name="Settings.Config.Mcp.Add" xml:space="preserve">
+    <value>新增 MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.Edit" xml:space="preserve">
+    <value>修改选中的 MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.Delete" xml:space="preserve">
+    <value>删除 MCP</value>
+  </data>
+  <data name="Settings.Config.Mcp.Import" xml:space="preserve">
+    <value>导入 MCP 配置</value>
+  </data>
+  <data name="Settings.Config.Mcp.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Mcp.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Settings.Config.Mcp.Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Settings.Config.Skills.Add" xml:space="preserve">
+    <value>新增 Skill</value>
+  </data>
+  <data name="Settings.Config.Skills.Edit" xml:space="preserve">
+    <value>编辑选中的 Skill</value>
+  </data>
+  <data name="Settings.Config.Skills.Delete" xml:space="preserve">
+    <value>删除选中的 Skill</value>
+  </data>
+  <data name="Settings.Config.Skills.Import" xml:space="preserve">
+    <value>导入 Skill 配置</value>
+  </data>
+  <data name="Settings.Config.Skills.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Skills.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Settings.Config.Skills.Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Settings.Config.Tools.Group" xml:space="preserve">
+    <value>分组</value>
+  </data>
+  <data name="Settings.Config.Tools.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Settings.Config.Tools.Description" xml:space="preserve">
+    <value>简述</value>
+  </data>
+  <data name="Settings.Config.Tools.NoConfirmation" xml:space="preserve">
+    <value>免确认</value>
+  </data>
+  <data name="Settings.Config.Tools.Details" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="Settings.Config.Common.Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Settings.Config.Common.ExportList" xml:space="preserve">
+    <value>导出列表</value>
+  </data>
+  <data name="Settings.Config.Common.Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Settings.Config.Common.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Settings.Config.Common.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Settings.Config.Common.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Settings.Config.Context.Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Settings.Config.Context.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Settings.Config.Value.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Settings.Config.Value.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Settings.Config.Memory.Preview" xml:space="preserve">
+    <value>Skill 预览</value>
+  </data>
+  <data name="Settings.Config.Memory.Markdown" xml:space="preserve">
+    <value>Markdown 编辑</value>
+  </data>
+  <data name="Settings.Config.Memory.DeleteFragment" xml:space="preserve">
+    <value>删除片段</value>
+  </data>
+  <data name="Settings.Config.Memory.ModifiedMarker" xml:space="preserve">
+    <value> ● 已修改</value>
+  </data>
+  <data name="Settings.Config.Memory.EntrypointTruncated" xml:space="preserve">
+    <value> ⚠入口已截断</value>
+  </data>
+  <data name="Settings.Config.Memory.InfoWithNode" xml:space="preserve">
+    <value>{0}{1} | 入口 {2} 行/{3} | 片段 {4}/{5}{6}</value>
+  </data>
+  <data name="Settings.Config.Memory.Info" xml:space="preserve">
+    <value>入口 {0} 行/{1} | 片段 {2}/{3}{4}</value>
+  </data>
+  <data name="Settings.Config.Memory.Manager" xml:space="preserve">
+    <value>记忆管理器</value>
+  </data>
+  <data name="Settings.Config.General.Logging" xml:space="preserve">
+    <value>日志设置</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMaxLength" xml:space="preserve">
+    <value>对话日志最大内容长度 (0=不限制):</value>
+  </data>
+  <data name="Settings.Config.General.ToolCallLogEnabled" xml:space="preserve">
+    <value>启用工具调用日志</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptHostContext" xml:space="preserve">
+    <value>对话日志包含宿主上下文</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptToolCalls" xml:space="preserve">
+    <value>对话日志包含工具调用</value>
+  </data>
+  <data name="Settings.Config.General.RetainedFileCount" xml:space="preserve">
+    <value>日志文件保留数量:</value>
+  </data>
+  <data name="Settings.Config.General.MaxFileSize" xml:space="preserve">
+    <value>日志文件上限 (MB):</value>
+  </data>
+  <data name="Settings.Config.General.RuntimeLogLevel" xml:space="preserve">
+    <value>运行时日志级别:</value>
+  </data>
+  <data name="Settings.Config.General.RuntimeLogEnabled" xml:space="preserve">
+    <value>启用运行时日志</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptLogMode" xml:space="preserve">
+    <value>对话日志详细度:</value>
+  </data>
+  <data name="Settings.Config.General.Runtime" xml:space="preserve">
+    <value>运行时参数</value>
+  </data>
+  <data name="Settings.Config.General.AutoMemoryRecorder" xml:space="preserve">
+    <value>启用自动记忆归纳系统</value>
+  </data>
+  <data name="Settings.Config.General.AutoCompact" xml:space="preserve">
+    <value>启用自动上下文压缩 (AutoCompact)</value>
+  </data>
+  <data name="Settings.Config.General.ModelParameters" xml:space="preserve">
+    <value>模型调用参数</value>
+  </data>
+  <data name="Settings.Config.General.RequestTimeout" xml:space="preserve">
+    <value>请求超时时间(秒)：</value>
+  </data>
+  <data name="Settings.Config.General.NativeFileSizeLimit" xml:space="preserve">
+    <value>Native 文件尺寸上限(KB)：</value>
+  </data>
+  <data name="Settings.Config.General.InlineTextFileSizeLimit" xml:space="preserve">
+    <value>InlineText 文件尺寸上限(MB)：</value>
+  </data>
+  <data name="Settings.Config.General.AutoResizeImages" xml:space="preserve">
+    <value>自动缩小大图像到 Native 文件尺寸内</value>
+  </data>
+  <data name="Settings.Config.General.ToolFetchFileSizeLimit" xml:space="preserve">
+    <value>ToolFetch 文件尺寸上限(MB)：</value>
+  </data>
+  <data name="Settings.Config.General.AttachmentFileCountLimit" xml:space="preserve">
+    <value>参考附件文件个数上限：</value>
+  </data>
+  <data name="Settings.Config.General.AttachmentInlineCharacterBudget" xml:space="preserve">
+    <value>附件内联字符预算：</value>
+  </data>
+  <data name="Settings.Config.General.MaxVisualPages" xml:space="preserve">
+    <value>每轮最大视觉页数：</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Disabled" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Metadata" xml:space="preserve">
+    <value>仅元数据</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Redacted" xml:space="preserve">
+    <value>脱敏内容</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Raw" xml:space="preserve">
+    <value>原始内容</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.Group" xml:space="preserve">
+    <value>PowerPoint 幻灯片</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultStyle" xml:space="preserve">
+    <value>默认风格 slug</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultDensity" xml:space="preserve">
+    <value>默认密度</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultBuildMode" xml:space="preserve">
+    <value>默认构建模式</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.RepairIterationCap" xml:space="preserve">
+    <value>修复迭代上限</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.WorkspaceRetentionDays" xml:space="preserve">
+    <value>工作区保留天数</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.EmbedFontsByDefault" xml:space="preserve">
+    <value>默认嵌入字体</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.RunSelfTest" xml:space="preserve">
+    <value>运行工具自检</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSession" xml:space="preserve">
+    <value>从会话创建</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSessionHint" xml:space="preserve">
+    <value>在 Copilot 面板中说&quot;帮我把这个流程做成 Skill&quot;来触发自动创建</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Model" xml:space="preserve">
+    <value>模型配置</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Mcp" xml:space="preserve">
+    <value>MCP 配置</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Skills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Memory" xml:space="preserve">
+    <value>记忆管理器</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Tools" xml:space="preserve">
+    <value>内置工具</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Settings" xml:space="preserve">
+    <value>参数设置</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.CreateSkillFromSession" xml:space="preserve">
+    <value>从会话创建 Skill</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.DeleteMemoryFragment" xml:space="preserve">
+    <value>删除记忆片段</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.PowerPointSelfTest" xml:space="preserve">
+    <value>PowerPoint 工具自检</value>
+  </data>
+  <data name="Settings.Config.FileFilter.Json" xml:space="preserve">
+    <value>JSON 文件|*.json|所有文件|*.*</value>
+  </data>
+  <data name="Settings.Config.Common.ExportComplete" xml:space="preserve">
+    <value>导出完成。</value>
+  </data>
+  <data name="Settings.Config.Common.ExportFailed" xml:space="preserve">
+    <value>导出失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Common.ImportComplete" xml:space="preserve">
+    <value>导入完成。</value>
+  </data>
+  <data name="Settings.Config.Common.ImportFailed" xml:space="preserve">
+    <value>导入失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Models.ConfirmDelete" xml:space="preserve">
+    <value>确定要删除模型“{0}”吗？</value>
+  </data>
+  <data name="Settings.Config.Models.ExportDialogTitle" xml:space="preserve">
+    <value>导出模型列表</value>
+  </data>
+  <data name="Settings.Config.Models.ImportDialogTitle" xml:space="preserve">
+    <value>导入模型定义</value>
+  </data>
+  <data name="Settings.Config.Models.ConfirmImport" xml:space="preserve">
+    <value>导入将覆盖当前模型列表，是否继续？</value>
+  </data>
+  <data name="Settings.Config.Mcp.ConfirmDelete" xml:space="preserve">
+    <value>确定要删除 MCP 服务“{0}”吗？</value>
+  </data>
+  <data name="Settings.Config.Mcp.ExportDialogTitle" xml:space="preserve">
+    <value>导出 MCP 配置</value>
+  </data>
+  <data name="Settings.Config.Mcp.ImportDialogTitle" xml:space="preserve">
+    <value>导入 MCP 配置</value>
+  </data>
+  <data name="Settings.Config.Mcp.ConfirmImport" xml:space="preserve">
+    <value>导入将覆盖当前 MCP 服务列表，是否继续？</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSessionPrompt" xml:space="preserve">
+    <value>要从当前会话创建 Skill，请在 Nixer Copilot 面板中输入：&#xD;&#xA;&#xD;&#xA;    &quot;帮我把这个流程做成 skill&quot;&#xD;&#xA;&#xD;&#xA;模型将自动分析会话、多轮访谈您，然后生成 SKILL.md 文件。&#xD;&#xA;&#xD;&#xA;是否现在打开新建 Skill 编辑器（手动创建）？</value>
+  </data>
+  <data name="Settings.Config.Skills.SelectionRequired" xml:space="preserve">
+    <value>请先选择一个 Skill。</value>
+  </data>
+  <data name="Settings.Config.Skills.BuiltinEditNotAllowed" xml:space="preserve">
+    <value>内置 Skill “{0}”不可直接编辑。&#xD;&#xA;&#xD;&#xA;如需自定义，请使用“新建”按钮创建一个同名文件系统 Skill 来覆盖。</value>
+  </data>
+  <data name="Settings.Config.Skills.FileMissing" xml:space="preserve">
+    <value>Skill 文件不存在：{0}</value>
+  </data>
+  <data name="Settings.Config.Skills.BuiltinDeleteNotAllowed" xml:space="preserve">
+    <value>内置 Skill “{0}”不可删除。</value>
+  </data>
+  <data name="Settings.Config.Skills.FilePathMissing" xml:space="preserve">
+    <value>无法删除：Skill 没有关联的文件路径。</value>
+  </data>
+  <data name="Settings.Config.Skills.ConfirmDelete" xml:space="preserve">
+    <value>确定要删除 Skill “{0}”吗？&#xD;&#xA;&#xD;&#xA;这将删除目录：{1}</value>
+  </data>
+  <data name="Settings.Config.Skills.ExportDialogTitle" xml:space="preserve">
+    <value>导出 Skill 包（含 SKILL.md 文件）</value>
+  </data>
+  <data name="Settings.Config.Skills.ExportFilter" xml:space="preserve">
+    <value>Skill 包文件|*.nsk|JSON 文件（仅元数据）|*.json|所有文件|*.*</value>
+  </data>
+  <data name="Settings.Config.Skills.ImportDialogTitle" xml:space="preserve">
+    <value>导入 Skill 包</value>
+  </data>
+  <data name="Settings.Config.Skills.ImportFilter" xml:space="preserve">
+    <value>Skill 包文件|*.nsk|JSON 文件|*.json|所有文件|*.*</value>
+  </data>
+  <data name="Settings.Config.Skills.NskImportComplete" xml:space="preserve">
+    <value>导入完成。&#xD;&#xA;解压了 {0} 个文件{1}。&#xD;&#xA;&#xD;&#xA;Skill 变更将在重启应用后生效。</value>
+  </data>
+  <data name="Settings.Config.Skills.ExistingFilesSkipped" xml:space="preserve">
+    <value>，跳过了 {0} 个已存在的文件</value>
+  </data>
+  <data name="Settings.Config.Skills.JsonImportWarning" xml:space="preserve">
+    <value>JSON 格式仅包含元数据，不含 SKILL.md 文件内容。&#xD;&#xA;&#xD;&#xA;仅当目标机器上已存在相同路径的 Skill 文件时才能恢复状态。&#xD;&#xA;如需完整迁移 Skill，请使用 .nsk 格式导出。&#xD;&#xA;&#xD;&#xA;是否继续？</value>
+  </data>
+  <data name="Settings.Config.Skills.JsonImportComplete" xml:space="preserve">
+    <value>导入完成，更新了 {0} 个 Skill 的状态。&#xD;&#xA;&#xD;&#xA;Skill 变更将在重启应用后生效。</value>
+  </data>
+  <data name="Settings.Config.Tools.BaseDefinitionMissing" xml:space="preserve">
+    <value>未找到当前工具的基础定义。</value>
+  </data>
+  <data name="Settings.Config.Tools.TestBlockedReason" xml:space="preserve">
+    <value>该工具属于 {0}，无法在当前 {1} 进程内执行。定义修改仍会正常保存，请在 {0} 中打开设置进行调用测试。</value>
+  </data>
+  <data name="Settings.Config.Tools.Host" xml:space="preserve">
+    <value>宿主</value>
+  </data>
+  <data name="Settings.Config.Memory.FragmentIdMissing" xml:space="preserve">
+    <value>无法获取片段 ID。</value>
+  </data>
+  <data name="Settings.Config.Memory.ConfirmDeleteFragment" xml:space="preserve">
+    <value>确定要删除片段“{0}”吗？&#xD;&#xA;&#xD;&#xA;这将同时删除 MEMORY.md 中的索引引用。</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestUnavailable" xml:space="preserve">
+    <value>当前窗口没有可用的 PowerPoint 工具服务。</value>
+  </data>
+  <data name="Settings.Config.Error.LoadSettings" xml:space="preserve">
+    <value>加载配置失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveSkillEnabledState" xml:space="preserve">
+    <value>保存 Skill 启用状态失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.DeleteSkill" xml:space="preserve">
+    <value>删除 Skill 失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.LoadMemoryTree" xml:space="preserve">
+    <value>加载记忆树失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.LoadMemoryContent" xml:space="preserve">
+    <value>加载记忆内容失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveMemory" xml:space="preserve">
+    <value>保存记忆失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.DeleteMemory" xml:space="preserve">
+    <value>删除记忆失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveBuiltInTools" xml:space="preserve">
+    <value>保存内置工具配置失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveMcp" xml:space="preserve">
+    <value>保存 MCP 服务配置失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveToolDefinition" xml:space="preserve">
+    <value>保存工具定义失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.PowerPointSelfTest" xml:space="preserve">
+    <value>PowerPoint 工具自检失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveOnCloseFailed" xml:space="preserve">
+    <value>保存参数设置失败：{0}&#xD;&#xA;&#xD;&#xA;是否放弃修改并关闭窗口？&#xD;&#xA;（选择“否”可返回修正配置）</value>
+  </data>
+  <data name="Settings.Config.Error.SaveGeneralSettings" xml:space="preserve">
+    <value>保存系统配置失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveSettings" xml:space="preserve">
+    <value>保存参数设置失败：{0}</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelContext" xml:space="preserve">
+    <value>Excel - 上下文</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelRead" xml:space="preserve">
+    <value>Excel - 读取</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelWrite" xml:space="preserve">
+    <value>Excel - 写入</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelAdvanced" xml:space="preserve">
+    <value>Excel - 高级</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelFile" xml:space="preserve">
+    <value>Excel - 文件</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordContext" xml:space="preserve">
+    <value>Word - 上下文</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordRead" xml:space="preserve">
+    <value>Word - 读取</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordWrite" xml:space="preserve">
+    <value>Word - 写入</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordNavigation" xml:space="preserve">
+    <value>Word - 导航</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordAdvanced" xml:space="preserve">
+    <value>Word - 高级</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordFile" xml:space="preserve">
+    <value>Word - 文件</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointContext" xml:space="preserve">
+    <value>PowerPoint - 上下文</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointRead" xml:space="preserve">
+    <value>PowerPoint - 读取</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointBackup" xml:space="preserve">
+    <value>PowerPoint - 备份</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointStyle" xml:space="preserve">
+    <value>PowerPoint - 风格库</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointDeck" xml:space="preserve">
+    <value>PowerPoint - 演示工作区</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointFile" xml:space="preserve">
+    <value>PowerPoint - 文件</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeShell" xml:space="preserve">
+    <value>运行时 - 命令行</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeInteraction" xml:space="preserve">
+    <value>运行时 - 交互</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimePlanning" xml:space="preserve">
+    <value>运行时 - 计划与 Agent</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
+    <value>运行时 - 通知</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeContext" xml:space="preserve">
+    <value>运行时 - 上下文</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
+    <value>未分组</value>
+  </data>
+  <data name="Settings.Config.Memory.EmptyPreview" xml:space="preserve">
+    <value>暂无内容</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestNoResults" xml:space="preserve">
+    <value>没有可显示的自检结果。</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestReportTitle" xml:space="preserve">
+    <value>PowerPoint 内置工具自检报告</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestGenerated" xml:space="preserve">
+    <value>生成时间：{0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestGroup" xml:space="preserve">
+    <value>分组：{0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestRegistered" xml:space="preserve">
+    <value>已注册工具数：{0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Passed" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Failed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Skipped" xml:space="preserve">
+    <value>跳过</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestItem" xml:space="preserve">
+    <value>- [{0}] {1} / {2} ({3} ms) {4}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestSummary" xml:space="preserve">
+    <value>汇总：成功 {0}，失败 {1}，跳过 {2}</value>
+  </data>
+  <data name="Shell.Host.Excel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="Shell.Host.Word" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="Shell.Host.PowerPoint" xml:space="preserve">
+    <value>PowerPoint</value>
+  </data>
+  <data name="Shell.Product.Excel" xml:space="preserve">
+    <value>Nixer Excel Copilot</value>
+  </data>
+  <data name="Shell.Product.Word" xml:space="preserve">
+    <value>Nixer Word Copilot</value>
+  </data>
+  <data name="Shell.Product.PowerPoint" xml:space="preserve">
+    <value>Nixer PowerPoint Copilot</value>
+  </data>
+  <data name="Shell.Ribbon.ExcelGroup" xml:space="preserve">
+    <value>Excel 助手</value>
+  </data>
+  <data name="Shell.Ribbon.WordGroup" xml:space="preserve">
+    <value>Word 助手</value>
+  </data>
+  <data name="Shell.Ribbon.PowerPointGroup" xml:space="preserve">
+    <value>PowerPoint 助手</value>
+  </data>
+  <data name="Shell.Ribbon.TogglePane" xml:space="preserve">
+    <value>显示面板</value>
+  </data>
+  <data name="Shell.Ribbon.ModelConfig" xml:space="preserve">
+    <value>模型配置</value>
+  </data>
+  <data name="Shell.Ribbon.McpConfig" xml:space="preserve">
+    <value>MCP 配置</value>
+  </data>
+  <data name="Shell.Ribbon.SkillsConfig" xml:space="preserve">
+    <value>Skills 配置</value>
+  </data>
+  <data name="Shell.Ribbon.MemoryConfig" xml:space="preserve">
+    <value>记忆配置</value>
+  </data>
+  <data name="Shell.Ribbon.BuiltinToolsConfig" xml:space="preserve">
+    <value>内置工具</value>
+  </data>
+  <data name="Shell.Ribbon.SystemSettings" xml:space="preserve">
+    <value>系统配置</value>
+  </data>
+  <data name="Shell.Ribbon.About" xml:space="preserve">
+    <value>关于程序</value>
+  </data>
+  <data name="Shell.Status.CreatingPane" xml:space="preserve">
+    <value>正在创建面板，请稍候...</value>
+  </data>
+  <data name="Shell.Status.OpeningModelConfig" xml:space="preserve">
+    <value>正在打开模型配置...</value>
+  </data>
+  <data name="Shell.Status.OpeningMcpConfig" xml:space="preserve">
+    <value>正在打开 MCP 配置...</value>
+  </data>
+  <data name="Shell.Status.OpeningSkillsConfig" xml:space="preserve">
+    <value>正在打开 Skills 配置...</value>
+  </data>
+  <data name="Shell.Status.OpeningMemoryConfig" xml:space="preserve">
+    <value>正在打开记忆配置...</value>
+  </data>
+  <data name="Shell.Status.OpeningBuiltinToolsConfig" xml:space="preserve">
+    <value>正在打开内置工具配置...</value>
+  </data>
+  <data name="Shell.Status.OpeningSystemSettings" xml:space="preserve">
+    <value>正在打开系统配置...</value>
+  </data>
+  <data name="Shell.Status.OpeningAbout" xml:space="preserve">
+    <value>正在打开关于...</value>
+  </data>
+  <data name="Shell.Error.OperationFailed" xml:space="preserve">
+    <value>操作失败：&#xD;&#xA;&#xD;&#xA;{0}</value>
+  </data>
+  <data name="Shell.Error.ConfigurationTitle" xml:space="preserve">
+    <value>配置错误</value>
+  </data>
+  <data name="Shell.Error.AddInUnavailable" xml:space="preserve">
+    <value>Office 加载项不可用。</value>
+  </data>
+  <data name="Shell.Error.TaskPaneUnavailable" xml:space="preserve">
+    <value>任务窗格管理器尚未初始化。</value>
+  </data>
+  <data name="Shell.Error.OpenModelConfigFailed" xml:space="preserve">
+    <value>打开模型配置失败：{0}</value>
+  </data>
+  <data name="Shell.Error.OpenMcpConfigFailed" xml:space="preserve">
+    <value>打开 MCP 配置失败：{0}</value>
+  </data>
+  <data name="Shell.Error.OpenSkillsConfigFailed" xml:space="preserve">
+    <value>打开 Skills 配置失败：{0}</value>
+  </data>
+  <data name="Shell.Error.OpenMemoryConfigFailed" xml:space="preserve">
+    <value>打开记忆配置失败：{0}</value>
+  </data>
+  <data name="Shell.Error.OpenBuiltinToolsConfigFailed" xml:space="preserve">
+    <value>打开内置工具配置失败：{0}</value>
+  </data>
+  <data name="Shell.Error.OpenSystemSettingsFailed" xml:space="preserve">
+    <value>打开系统配置失败：{0}</value>
+  </data>
+  <data name="Shell.Startup.LoadFailure" xml:space="preserve">
+    <value>{0} 加载项加载时发生异常：&#xD;&#xA;&#xD;&#xA;{1}</value>
+  </data>
+  <data name="Shell.Excel.ProtectionRecoveryFailure" xml:space="preserve">
+    <value>Nixer Excel Copilot 未能自动恢复以下工作表保护：&#xD;&#xA;&#xD;&#xA;{0}&#xD;&#xA;&#xD;&#xA;请在 Excel“审阅”选项卡中检查并手动撤销无密码保护。</value>
+  </data>
+  <data name="Shell.About.Title" xml:space="preserve">
+    <value>关于 {0}</value>
+  </data>
+  <data name="Shell.About.Version" xml:space="preserve">
+    <value>版本 {0}</value>
+  </data>
+  <data name="Shell.About.Project" xml:space="preserve">
+    <value>项目：</value>
+  </data>
+  <data name="Shell.About.Contact" xml:space="preserve">
+    <value>联系：</value>
+  </data>
+  <data name="Shell.About.ContactValue" xml:space="preserve">
+    <value>GitHub Issues</value>
+  </data>
+  <data name="Shell.About.License" xml:space="preserve">
+    <value>许可证：</value>
+  </data>
+  <data name="Shell.About.Author" xml:space="preserve">
+    <value>作者：</value>
+  </data>
+  <data name="Shell.About.Ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Web.action.copy" xml:space="preserve"><value>复制</value></data>
+  <data name="Web.action.copyCode" xml:space="preserve"><value>复制代码</value></data>
+  <data name="Web.action.retry" xml:space="preserve"><value>重试</value></data>
+  <data name="Web.action.restore" xml:space="preserve"><value>撤销本次修改（从备份生成还原副本，不覆盖原文件）</value></data>
+  <data name="Web.action.viewBackup" xml:space="preserve"><value>查看备份</value></data>
+  <data name="Web.action.viewBackupsCount" xml:space="preserve"><value>查看备份（{0}）</value></data>
+  <data name="Web.action.openVba" xml:space="preserve"><value>在 VBA 编辑器中打开</value></data>
+  <data name="Web.action.runVba" xml:space="preserve"><value>直接运行 VBA</value></data>
+  <data name="Web.action.scrollBottom" xml:space="preserve"><value>滚动到底部并恢复自动跟随</value></data>
+  <data name="Web.action.follow" xml:space="preserve"><value>追底</value></data>
+  <data name="Web.backup.pending" xml:space="preserve"><value>正在备份...</value></data>
+  <data name="Web.code.running" xml:space="preserve"><value>执行中</value></data>
+  <data name="Web.code.ran" xml:space="preserve"><value>已运行</value></data>
+  <data name="Web.code.runFailed" xml:space="preserve"><value>运行失败</value></data>
+  <data name="Web.code.opened" xml:space="preserve"><value>已打开</value></data>
+  <data name="Web.code.openFailed" xml:space="preserve"><value>打开失败</value></data>
+  <data name="Web.code.typing" xml:space="preserve"><value>Nixer Copilot 正在应答</value></data>
+  <data name="Web.code.vbaFailure" xml:space="preserve"><value>VBA 执行失败</value></data>
+  <data name="Web.message.user" xml:space="preserve"><value>你</value></data>
+  <data name="Web.message.toolCall" xml:space="preserve"><value>工具调用</value></data>
+  <data name="Web.message.executing" xml:space="preserve"><value>执行中</value></data>
+  <data name="Web.message.completed" xml:space="preserve"><value>已完成</value></data>
+  <data name="Web.message.failed" xml:space="preserve"><value>失败</value></data>
+  <data name="Web.confirmation.heading" xml:space="preserve"><value>此操作需要您确认后才能继续执行。</value></data>
+  <data name="Web.confirmation.title" xml:space="preserve"><value>高风险工具确认</value></data>
+  <data name="Web.confirmation.titleSuffix" xml:space="preserve"><value>{0} - 执行确认</value></data>
+  <data name="Web.confirmation.warningText" xml:space="preserve"><value>该操作可能修改当前 Office 文档。请确认后继续。</value></data>
+  <data name="Web.confirmation.preExecutionBackup" xml:space="preserve"><value>执行前备份： </value></data>
+  <data name="Web.confirmation.argumentsSummary" xml:space="preserve"><value>参数摘要：</value></data>
+  <data name="Web.confirmation.choices" xml:space="preserve"><value>选择“是”继续执行，选择“否”取消。</value></data>
+  <data name="Web.confirmation.operation" xml:space="preserve"><value>本次操作</value></data>
+  <data name="Web.confirmation.tool" xml:space="preserve"><value>工具</value></data>
+  <data name="Web.confirmation.risk" xml:space="preserve"><value>风险级别</value></data>
+  <data name="Web.confirmation.document" xml:space="preserve"><value>文档</value></data>
+  <data name="Web.confirmation.backup" xml:space="preserve"><value>备份</value></data>
+  <data name="Web.confirmation.details" xml:space="preserve"><value>查看完整参数 JSON</value></data>
+  <data name="Web.confirmation.summary" xml:space="preserve"><value>查看参数摘要</value></data>
+  <data name="Web.confirmation.waiting" xml:space="preserve"><value>等待确认</value></data>
+  <data name="Web.confirmation.denied" xml:space="preserve"><value>已拒绝</value></data>
+  <data name="Web.confirmation.accepted" xml:space="preserve"><value>已确认，继续执行</value></data>
+  <data name="Web.confirmation.deny" xml:space="preserve"><value>拒绝授权</value></data>
+  <data name="Web.confirmation.allowOnce" xml:space="preserve"><value>单次授权</value></data>
+  <data name="Web.confirmation.allowSession" xml:space="preserve"><value>本会话自动授权</value></data>
+  <data name="Web.confirmation.allowAlways" xml:space="preserve"><value>永久自动授权</value></data>
+  <data name="Web.confirmation.confirm" xml:space="preserve"><value>确认</value></data>
+  <data name="Web.ask.submit" xml:space="preserve"><value>提交</value></data>
+  <data name="Web.ask.header" xml:space="preserve"><value>Nixer Copilot 需要您的回答</value></data>
+  <data name="Web.ask.cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="Web.ask.other" xml:space="preserve"><value>其他：</value></data>
+  <data name="Web.ask.otherPlaceholder" xml:space="preserve"><value>自定义输入...</value></data>
+  <data name="Web.ask.previewPrompt" xml:space="preserve"><value>选择一个选项查看预览</value></data>
+  <data name="Web.ask.previewEnlarge" xml:space="preserve"><value>点击放大</value></data>
+  <data name="Web.clipboard.copied" xml:space="preserve"><value>已复制</value></data>
+  <data name="Web.clipboard.copyFailed" xml:space="preserve"><value>复制失败</value></data>
+  <data name="Web.thinking.active" xml:space="preserve"><value>思考中</value></data>
+  <data name="Web.thinking.completed" xml:space="preserve"><value>思考过程</value></data>
+  <data name="Web.info.noHostContext" xml:space="preserve"><value>当前未获取到有效宿主上下文</value></data>
+  <data name="Web.info.registeredTools" xml:space="preserve"><value>工具：{0} 个</value></data>
+  <data name="Web.info.toolsRegistered" xml:space="preserve"><value>工具：已注册</value></data>
+  <data name="Web.info.toolsHelp" xml:space="preserve"><value>/tools 查看已注册工具</value></data>
+  <data name="Web.info.callHelp" xml:space="preserve"><value>/call &lt;toolName&gt; {json} 直接触发</value></data>
+  <data name="Web.panel.noModel" xml:space="preserve"><value>请先设置模型</value></data>
+  <data name="Web.panel.toolbar" xml:space="preserve"><value>工具</value></data>
+  <data name="Web.panel.newSession" xml:space="preserve"><value>新建会话</value></data>
+  <data name="Web.panel.files" xml:space="preserve"><value>文件</value></data>
+  <data name="Web.panel.model" xml:space="preserve"><value>模型 {0}</value></data>
+  <data name="Web.panel.loading" xml:space="preserve"><value>正在加载界面</value></data>
+  <data name="Web.panel.loadingAssets" xml:space="preserve"><value>正在加载本地页面资源，请稍候...</value></data>
+  <data name="Web.panel.documentTitle" xml:space="preserve"><value>Office Copilot 面板</value></data>
+  <data name="Web.panel.initializing" xml:space="preserve"><value>WebView2 正在初始化，请稍候...</value></data>
+  <data name="Web.panel.loadFailed" xml:space="preserve"><value>界面加载失败</value></data>
+  <data name="Web.panel.initializationError" xml:space="preserve"><value>WebView2 初始化失败，当前显示占位页。{0}{0}{1}{0}{0}用户数据目录：{2}</value></data>
+  <data name="Web.panel.webAssetsMissing" xml:space="preserve"><value>未找到 Web 资源目录：{0}</value></data>
+  <data name="Web.panel.pageMissing" xml:space="preserve"><value>未找到前端页面资源：{0}{0}{1}</value></data>
+  <data name="Web.panel.pageLoadFailed" xml:space="preserve"><value>页面资源加载失败。{0}{0}状态：{1}{0}{0}页面：https://{2}/index.html</value></data>
+  <data name="Web.panel.noQuestions" xml:space="preserve"><value>（没有可显示的问题）</value></data>
+  <data name="Web.panel.askTitle" xml:space="preserve"><value>Nixer Copilot — 需要您的回答</value></data>
+  <data name="Web.panel.submit" xml:space="preserve"><value>提交</value></data>
+  <data name="Web.panel.cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="Web.panel.customAnswer" xml:space="preserve"><value>其他（自由输入）：</value></data>
+  <data name="Web.panel.customAnswerPlaceholder" xml:space="preserve"><value>输入自定义回答...</value></data>
+  <data name="Web.panel.notes" xml:space="preserve"><value>备注（可选）：</value></data>
+  <data name="Web.panel.notesPlaceholder" xml:space="preserve"><value>添加备注...</value></data>
+  <data name="Web.panel.planTitle" xml:space="preserve"><value>Nixer Copilot — 计划审批</value></data>
+  <data name="Web.panel.planHeader" xml:space="preserve"><value>▎Agent 已生成实施计划，请您审阅。</value></data>
+  <data name="Web.panel.planDescription" xml:space="preserve"><value>请审阅下方计划，必要时可编辑。点击“批准”继续，或点击“拒绝”取消。</value></data>
+  <data name="Web.panel.approve" xml:space="preserve"><value>✓ 批准</value></data>
+  <data name="Web.panel.reject" xml:space="preserve"><value>✗ 拒绝</value></data>
+  <data name="Web.panel.history" xml:space="preserve"><value>历史会话</value></data>
+  <data name="Web.panel.deleteSession" xml:space="preserve"><value>删除会话</value></data>
+  <data name="Web.panel.recent" xml:space="preserve"><value>最近访问</value></data>
+  <data name="Web.panel.references" xml:space="preserve"><value>链接</value></data>
+  <data name="Web.panel.url" xml:space="preserve"><value>网址：</value></data>
+  <data name="Web.panel.send" xml:space="preserve"><value>发送消息</value></data>
+  <data name="Web.panel.stop" xml:space="preserve"><value>停止生成</value></data>
+  <data name="Web.panel.agent" xml:space="preserve"><value>Agent</value></data>
+  <data name="Web.panel.ask" xml:space="preserve"><value>Ask</value></data>
+  <data name="Web.panel.noBackup" xml:space="preserve"><value>未找到配置备份。</value></data>
+  <data name="Web.panel.viewBackup" xml:space="preserve"><value>查看备份</value></data>
+  <data name="Web.panel.restore" xml:space="preserve"><value>撤销本次修改</value></data>
+  <data name="Web.panel.restoreMissing" xml:space="preserve"><value>备份文件不存在，无法还原。</value></data>
+  <data name="Web.panel.restoreUnsupported" xml:space="preserve"><value>当前宿主不支持从备份还原。</value></data>
+  <data name="Web.panel.restoreConfirm" xml:space="preserve"><value>将从下面这个备份点生成一个还原副本（不会覆盖原文件）：{0}{0}{1}</value></data>
+  <data name="Web.panel.restoreDetailedConfirm" xml:space="preserve"><value>将从下面这个备份点生成一个还原副本：{0}{0}{1}{0}{0}还原副本会保存在原文档旁边（文件名带 _还原_ 后缀；未保存过的文档则放在备份目录），原文件不会被覆盖。是否继续？</value></data>
+  <data name="Web.panel.restoreResult" xml:space="preserve"><value>{0}{1}{1}还原副本：{2}</value></data>
+  <data name="Web.panel.openBackupFailed" xml:space="preserve"><value>打开备份失败：{0}</value></data>
+  <data name="Web.panel.attachmentTitle" xml:space="preserve"><value>参考</value></data>
+  <data name="Web.panel.pasteReference" xml:space="preserve"><value>粘贴参考</value></data>
+  <data name="Web.panel.emptyRecent" xml:space="preserve"><value>暂无最近参考</value></data>
+  <data name="Web.panel.referenceLimit" xml:space="preserve"><value>已达到参考附件数量上限。</value></data>
+  <data name="Web.panel.duplicateRecent" xml:space="preserve"><value>该最近参考已全部存在于当前参考列表中。</value></data>
+  <data name="Web.panel.pasteFailed" xml:space="preserve"><value>读取剪贴板内容失败：{0}</value></data>
+  <data name="Web.panel.clipboardImageFailed" xml:space="preserve"><value>剪贴板图像保存失败。</value></data>
+  <data name="Web.panel.noNewReferences" xml:space="preserve"><value>未添加新的参考文件。</value></data>
+  <data name="Web.panel.noNewClipboardImages" xml:space="preserve"><value>未添加新的剪贴板图像。</value></data>
+  <data name="Web.panel.noSupportedFiles" xml:space="preserve"><value>未添加支持的参考文件。</value></data>
+  <data name="Web.panel.dragReferences" xml:space="preserve"><value>拖放参考</value></data>
+  <data name="Web.panel.fileReferences" xml:space="preserve"><value>参考文件</value></data>
+  <data name="Web.panel.addReferenceFiles" xml:space="preserve"><value>添加参考文件</value></data>
+  <data name="Web.panel.webReference" xml:space="preserve"><value>网页参考</value></data>
+  <data name="Web.panel.webReferenceDuplicate" xml:space="preserve"><value>该链接已存在于当前参考列表中。</value></data>
+  <data name="Web.panel.webReferenceFailed" xml:space="preserve"><value>添加网页参考失败：{0}</value></data>
+  <data name="Web.panel.referenceFileMissing" xml:space="preserve"><value>当前参考文件不存在，无法打开。</value></data>
+  <data name="Web.panel.referenceContentFailed" xml:space="preserve"><value>打开参考内容失败：{0}</value></data>
+  <data name="Web.panel.referenceLimitTitle" xml:space="preserve"><value>参考项数量限制</value></data>
+  <data name="Web.panel.referenceLimitCount" xml:space="preserve"><value>当前参考项已达到数量上限（{0}）。</value></data>
+  <data name="Web.panel.unnamedReference" xml:space="preserve"><value>未命名参考</value></data>
+  <data name="Web.panel.otherReferencesCount" xml:space="preserve"><value> 等{0}项</value></data>
+  <data name="Web.panel.pasteTitle" xml:space="preserve"><value>粘贴参考</value></data>
+  <data name="Web.panel.openReferenceTitle" xml:space="preserve"><value>参考内容</value></data>
+  <data name="Web.panel.recentTitle" xml:space="preserve"><value>最近参考</value></data>
+  <data name="Web.attachment.parsed" xml:space="preserve"><value>附件解析完成：{0}</value></data>
+  <data name="Web.attachment.count" xml:space="preserve"><value>{0} 项</value></data>
+  <data name="Web.attachment.truncatedCount" xml:space="preserve"><value>截断 {0} 项</value></data>
+  <data name="Web.attachment.failedCount" xml:space="preserve"><value>失败 {0} 项</value></data>
+  <data name="Web.attachment.parseComplete" xml:space="preserve"><value>解析完成</value></data>
+  <data name="Web.attachment.noParseResult" xml:space="preserve"><value>未生成解析结果</value></data>
+  <data name="Web.attachment.parseFailed" xml:space="preserve"><value>解析失败：{0}</value></data>
+  <data name="Web.attachment.parseTruncated" xml:space="preserve"><value>解析完成，内容已截断</value></data>
+  <data name="Web.attachment.pages" xml:space="preserve"><value>{0} 页</value></data>
+  <data name="Web.attachment.visibleWorksheets" xml:space="preserve"><value>{0} 个可见工作表</value></data>
+  <data name="Web.attachment.slides" xml:space="preserve"><value>{0} 张幻灯片</value></data>
+  <data name="Web.attachment.contentTruncated" xml:space="preserve"><value>内容已截断</value></data>
+  <data name="Web.attachment.parseFailure" xml:space="preserve"><value>解析失败</value></data>
+  <data name="Web.attachment.previewTitle" xml:space="preserve"><value>标题：{0}</value></data>
+  <data name="Web.attachment.previewUrl" xml:space="preserve"><value>链接：{0}</value></data>
+  <data name="Web.attachment.previewEncoding" xml:space="preserve"><value>编码：{0}</value></data>
+  <data name="Web.attachment.previewSummary" xml:space="preserve"><value>摘要：</value></data>
+  <data name="Web.attachment.previewContent" xml:space="preserve"><value>提取内容：</value></data>
+  <data name="Web.attachment.emptyContent" xml:space="preserve"><value>[无内容]</value></data>
+  <data name="Web.attachment.clipboardImageFile" xml:space="preserve"><value>剪贴板图像-{0:D2}.png</value></data>
+  <data name="Web.attachment.noTempFile" xml:space="preserve"><value>无法为剪贴板图像创建临时文件。</value></data>
+  <data name="Web.attachment.summarySuffix" xml:space="preserve"><value>{0}（{1}）</value></data>
+  <data name="Web.attachment.nameSeparator" xml:space="preserve"><value>、</value></data>
+  <data name="Web.attachment.listSeparator" xml:space="preserve"><value>，</value></data>
+  <data name="Web.panel.sendError" xml:space="preserve"><value>发送失败：{0}</value></data>
+  <data name="Web.panel.sendException" xml:space="preserve"><value>发送异常：{0}</value></data>
+  <data name="Web.panel.modelRequired" xml:space="preserve"><value>请先设置并选择模型。</value></data>
+  <data name="Web.panel.sendFailed" xml:space="preserve"><value>发送失败</value></data>
+  <data name="Web.info.activeDocument" xml:space="preserve"><value>当前活动文档：{0}</value></data>
+  <data name="Web.info.worksheet" xml:space="preserve"><value>当前工作表：{0}</value></data>
+  <data name="Web.info.selection" xml:space="preserve"><value>当前选区：{0}</value></data>
+  <data name="Web.info.toolsCount" xml:space="preserve"><value>工具：{0} 个</value></data>
+  <data name="Web.info.hostContextLoaded" xml:space="preserve"><value>已加载宿主上下文</value></data>
+  <data name="Web.context.tokens" xml:space="preserve"><value>上下文用量: {0}%  ({1:N0} / {2:N0} tokens)</value></data>
+  <data name="Web.panel.backupFailed" xml:space="preserve"><value>操作失败：{0}</value></data>
+  <data name="trust.footer.status" xml:space="preserve">
+    <value>校验：</value>
+  </data>
+  <data name="trust.footer.scope" xml:space="preserve">
+    <value>检查对象：</value>
+  </data>
+  <data name="trust.footer.basis" xml:space="preserve">
+    <value>口径：</value>
+  </data>
+  <data name="trust.footer.unmatched" xml:space="preserve">
+    <value>未能找到直接证据的数字：</value>
+  </data>
+  <data name="trust.footer.unmatched.detail" xml:space="preserve">
+    <value>（本轮自动追溯未能在用户消息或工具结果中匹配到这些数字）</value>
+  </data>
+  <data name="trust.footer.tier.c.unmatched" xml:space="preserve">
+    <value>C级：尚未完成有效验证 —— 有部分结论数字未能找到直接证据</value>
+  </data>
+  <data name="trust.footer.tier.b.corrected" xml:space="preserve">
+    <value>B级：已复核，但仍有局限（最终回答中的数字经过订正）</value>
+  </data>
+  <data name="trust.footer.tier.a.full" xml:space="preserve">
+    <value>A级：全量独立复核通过</value>
+  </data>
+  <data name="trust.footer.tier.a.assertions" xml:space="preserve">
+    <value>{0} 项断言通过</value>
+  </data>
+  <data name="trust.footer.tier.a.coverage" xml:space="preserve">
+    <value>覆盖 {0} 行</value>
+  </data>
+  <data name="trust.footer.tier.a.outputs" xml:space="preserve">
+    <value>{0} 个产出项通过独立全量验证</value>
+  </data>
+  <data name="trust.footer.tier.b" xml:space="preserve">
+    <value>B级：已复核，但仍有局限（{0}）</value>
+  </data>
+  <data name="trust.footer.tier.c" xml:space="preserve">
+    <value>C级：尚未完成有效验证 —— {0}</value>
+  </data>
+  <data name="trust.footer.reason.b" xml:space="preserve">
+    <value>验证证据未达到独立全量复核标准</value>
+  </data>
+  <data name="trust.footer.reason.c" xml:space="preserve">
+    <value>至少一个产出项没有可用的验证证据</value>
+  </data>
+  <data name="trust.footer.verified.keysets" xml:space="preserve">
+    <value>双向键集合差异已完整计算</value>
+  </data>
+  <data name="trust.footer.verified.hidden" xml:space="preserve">
+    <value>隐藏行状态已完整扫描</value>
+  </data>
+  <data name="trust.footer.basis.unparseable" xml:space="preserve">
+    <value>口径信息无法解析</value>
+  </data>
+  <data name="trust.footer.basis.unspecified" xml:space="preserve">
+    <value>未声明详细口径</value>
+  </data>
+  <data name="trust.footer.filter" xml:space="preserve">
+    <value>筛选 </value>
+  </data>
+  <data name="trust.footer.and" xml:space="preserve">
+    <value> 且 </value>
+  </data>
+  <data name="trust.footer.group.by" xml:space="preserve">
+    <value>按 </value>
+  </data>
+  <data name="trust.footer.group.aggregate" xml:space="preserve">
+    <value> 汇总</value>
+  </data>
+  <data name="trust.footer.group.all" xml:space="preserve">
+    <value>全局汇总</value>
+  </data>
+  <data name="trust.footer.more" xml:space="preserve">
+    <value>等 {0} 项</value>
+  </data>
+  <data name="trust.footer.bucket.width" xml:space="preserve">
+    <value>，桶宽 </value>
+  </data>
+  <data name="trust.footer.prefix" xml:space="preserve">
+    <value>，前 </value>
+  </data>
+  <data name="trust.footer.characters" xml:space="preserve">
+    <value> 字符</value>
+  </data>
+  <data name="trust.footer.operator.contains" xml:space="preserve">
+    <value> 包含 </value>
+  </data>
+  <data name="trust.footer.operator.starts_with" xml:space="preserve">
+    <value> 以…开头 </value>
+  </data>
+  <data name="trust.footer.operator.in" xml:space="preserve">
+    <value> 属于 </value>
+  </data>
+  <data name="trust.footer.operator.is_empty" xml:space="preserve">
+    <value> 为空</value>
+  </data>
+  <data name="trust.footer.operator.not_empty" xml:space="preserve">
+    <value> 非空</value>
+  </data>
+  <data name="panel.tool_confirmation.title" xml:space="preserve">
+    <value>高风险工具确认</value>
+  </data>
+  <data name="panel.tool_confirmation.title_suffix" xml:space="preserve">
+    <value>{0} - 执行确认</value>
+  </data>
+  <data name="panel.tool_confirmation.warning" xml:space="preserve">
+    <value>该操作可能修改当前 Office 文档。请确认后继续。</value>
+  </data>
+  <data name="panel.tool_confirmation.tool" xml:space="preserve">
+    <value>工具：</value>
+  </data>
+  <data name="panel.tool_confirmation.risk" xml:space="preserve">
+    <value>风险级别：</value>
+  </data>
+  <data name="panel.tool_confirmation.document" xml:space="preserve">
+    <value>文档：</value>
+  </data>
+  <data name="panel.tool_confirmation.operation" xml:space="preserve">
+    <value>操作：</value>
+  </data>
+  <data name="panel.tool_confirmation.backup" xml:space="preserve">
+    <value>执行前备份：</value>
+  </data>
+  <data name="panel.tool_confirmation.arguments" xml:space="preserve">
+    <value>参数摘要：</value>
+  </data>
+  <data name="panel.tool_confirmation.choices" xml:space="preserve">
+    <value>选择“是”继续执行，选择“否”取消。</value>
+  </data>
+  <data name="panel.error.broker.transport.not_connected" xml:space="preserve">
+    <value>尚未连接到 Broker。</value>
+  </data>
+  <data name="panel.error.broker.transport.invalid_payload" xml:space="preserve">
+    <value>Broker 返回了无效响应。</value>
+  </data>
+  <data name="panel.error.broker.transport.no_response" xml:space="preserve">
+    <value>Broker 未返回响应。</value>
+  </data>
+  <data name="panel.error.broker.pipe.invalid_request" xml:space="preserve">
+    <value>Broker 请求无效。</value>
+  </data>
+  <data name="panel.error.runtime.turn_failed" xml:space="preserve">
+    <value>本回合未能完成：{0}</value>
+  </data>
+  <data name="panel.error.runtime.cancelled" xml:space="preserve">
+    <value>本回合已取消。</value>
+  </data>
+  <data name="panel.error.host.capabilities_unavailable" xml:space="preserve">
+    <value>Office 工具当前不可用。请重新打开文档或重启 Office 加载项后重试。</value>
+  </data>
+  <data name="panel.error.tool.confirmation_handler_unavailable" xml:space="preserve">
+    <value>此工具当前没有可用的确认处理程序。</value>
+  </data>
+  <data name="panel.error.permission.denied_by_user" xml:space="preserve">
+    <value>用户拒绝了工具“{0}”的执行。</value>
+  </data>
+  <data name="tool.runtime.compact.display_name" xml:space="preserve">
+    <value>Compact Context</value>
+  </data>
+  <data name="tool.excel_get_active_workbook.display_name" xml:space="preserve">
+    <value>Get Active Workbook</value>
+  </data>
+  <data name="tool.excel_get_selection.display_name" xml:space="preserve">
+    <value>Get Selection</value>
+  </data>
+  <data name="tool.excel_list_worksheets.display_name" xml:space="preserve">
+    <value>List Worksheets</value>
+  </data>
+  <data name="tool.excel_read_range.display_name" xml:space="preserve">
+    <value>Read Range</value>
+  </data>
+  <data name="tool.excel_write_range.display_name" xml:space="preserve">
+    <value>Write Range</value>
+  </data>
+  <data name="tool.ppt_extract_content.display_name" xml:space="preserve">
+    <value>Extract Presentation Outline</value>
+  </data>
+  <data name="tool.ppt_export_slide_image.display_name" xml:space="preserve">
+    <value>Export Slide Image</value>
+  </data>
+  <data name="tool.ppt_check_fonts.display_name" xml:space="preserve">
+    <value>Check Fonts</value>
+  </data>
+  <data name="tool.ppt_save_with_fonts.display_name" xml:space="preserve">
+    <value>Save Copy with Embedded Fonts</value>
+  </data>
+  <data name="tool.ppt_save_copy.display_name" xml:space="preserve">
+    <value>Save Presentation Copy</value>
+  </data>
+  <data name="tool.ppt_execute_vba.display_name" xml:space="preserve">
+    <value>Execute VBA</value>
+  </data>
+  <data name="tool.ppt_get_active_presentation.display_name" xml:space="preserve">
+    <value>Get Active Presentation</value>
+  </data>
+  <data name="tool.ppt_get_selection.display_name" xml:space="preserve">
+    <value>Get Selection</value>
+  </data>
+  <data name="tool.ppt_list_slides.display_name" xml:space="preserve">
+    <value>List Slides</value>
+  </data>
+  <data name="tool.ppt_read_slide.display_name" xml:space="preserve">
+    <value>Read Slide</value>
+  </data>
+  <data name="tool.ppt_list_backups.display_name" xml:space="preserve">
+    <value>List Backups</value>
+  </data>
+  <data name="tool.ppt_restore_backup.display_name" xml:space="preserve">
+    <value>Restore from Backup</value>
+  </data>
+  <data name="tool.ppt_style_search.display_name" xml:space="preserve">
+    <value>Search Style Library</value>
+  </data>
+  <data name="tool.ppt_style_get.display_name" xml:space="preserve">
+    <value>Read Style Details</value>
+  </data>
+  <data name="tool.ppt_deck_build.display_name" xml:space="preserve">
+    <value>Build Presentation from Workspace</value>
+  </data>
+  <data name="tool.word_toggle_track_changes.display_name" xml:space="preserve">
+    <value>Toggle Track Changes</value>
+  </data>
+  <data name="tool.word_list_styles.display_name" xml:space="preserve">
+    <value>List Styles</value>
+  </data>
+  <data name="tool.word_add_comment.display_name" xml:space="preserve">
+    <value>Add Comment</value>
+  </data>
+  <data name="tool.word_set_paragraph_format.display_name" xml:space="preserve">
+    <value>Set Paragraph Format</value>
+  </data>
+  <data name="tool.word_add_hyperlink.display_name" xml:space="preserve">
+    <value>Add Hyperlink</value>
+  </data>
+  <data name="tool.word_set_page_setup.display_name" xml:space="preserve">
+    <value>Set Page Setup</value>
+  </data>
+  <data name="tool.word_add_content_control.display_name" xml:space="preserve">
+    <value>Add Content Control</value>
+  </data>
+  <data name="tool.word_select_paragraph.display_name" xml:space="preserve">
+    <value>Select Paragraph</value>
+  </data>
+  <data name="tool.word_set_header_footer.display_name" xml:space="preserve">
+    <value>Set Header and Footer</value>
+  </data>
+  <data name="tool.word_select_document.display_name" xml:space="preserve">
+    <value>Select Whole Document</value>
+  </data>
+  <data name="tool.word_add_bookmark.display_name" xml:space="preserve">
+    <value>Add Bookmark</value>
+  </data>
+  <data name="tool.word_move_to_end.display_name" xml:space="preserve">
+    <value>Move to End of Document</value>
+  </data>
+  <data name="tool.word_insert_paragraph.display_name" xml:space="preserve">
+    <value>Insert Paragraph Break</value>
+  </data>
+  <data name="tool.word_insert_text.display_name" xml:space="preserve">
+    <value>Insert Text</value>
+  </data>
+  <data name="tool.word_insert_table.display_name" xml:space="preserve">
+    <value>Insert Table</value>
+  </data>
+  <data name="tool.word_insert_field.display_name" xml:space="preserve">
+    <value>Insert Field</value>
+  </data>
+  <data name="tool.word_file_watermark.display_name" xml:space="preserve">
+    <value>Watermark</value>
+  </data>
+  <data name="tool.word_file_field.display_name" xml:space="preserve">
+    <value>Insert Field</value>
+  </data>
+  <data name="tool.word_format_selection.display_name" xml:space="preserve">
+    <value>Format Selection</value>
+  </data>
+  <data name="tool.word_format_paragraphs.display_name" xml:space="preserve">
+    <value>Format Paragraphs (Batch)</value>
+  </data>
+  <data name="tool.word_file_toc.display_name" xml:space="preserve">
+    <value>Rebuild Table of Contents</value>
+  </data>
+  <data name="tool.word_file_numbering.display_name" xml:space="preserve">
+    <value>Create Numbering List</value>
+  </data>
+  <data name="tool.word_find_replace.display_name" xml:space="preserve">
+    <value>Find and Replace</value>
+  </data>
+  <data name="tool.word_apply_style.display_name" xml:space="preserve">
+    <value>Apply Style</value>
+  </data>
+  <data name="tool.word_get_selection.display_name" xml:space="preserve">
+    <value>Get Selection</value>
+  </data>
+  <data name="tool.word_get_active_document.display_name" xml:space="preserve">
+    <value>Get Active Document</value>
+  </data>
+  <data name="tool.word_read_table.display_name" xml:space="preserve">
+    <value>Read Table</value>
+  </data>
+  <data name="tool.word_read_outline.display_name" xml:space="preserve">
+    <value>Read Outline</value>
+  </data>
+  <data name="tool.word_read_paragraphs.display_name" xml:space="preserve">
+    <value>Read Paragraphs</value>
+  </data>
+  <data name="tool.word_read_document.display_name" xml:space="preserve">
+    <value>Read Document</value>
+  </data>
+  <data name="tool.excel_execute_vba.display_name" xml:space="preserve">
+    <value>Execute VBA Code</value>
+  </data>
+  <data name="tool.excel_clear_range.display_name" xml:space="preserve">
+    <value>Clear Range</value>
+  </data>
+  <data name="tool.excel_create_worksheet.display_name" xml:space="preserve">
+    <value>Create Worksheet</value>
+  </data>
+  <data name="tool.excel_set_range_format.display_name" xml:space="preserve">
+    <value>Set Range Format</value>
+  </data>
+  <data name="tool.excel_set_range_formulas.display_name" xml:space="preserve">
+    <value>Set Range Formulas</value>
+  </data>
+  <data name="tool.excel_assert.display_name" xml:space="preserve">
+    <value>Excel Assertions</value>
+  </data>
+  <data name="tool.excel_analyze_range.display_name" xml:space="preserve">
+    <value>Analyze Range</value>
+  </data>
+  <data name="tool.excel_aggregate.display_name" xml:space="preserve">
+    <value>Aggregate Data</value>
+  </data>
+  <data name="tool.excel_cleanup_workspace.display_name" xml:space="preserve">
+    <value>Clean Up Intermediate Tables</value>
+  </data>
+  <data name="tool.excel_capture_worksheet_screenshot.display_name" xml:space="preserve">
+    <value>Capture Worksheet Screenshot</value>
+  </data>
+  <data name="tool.excel_compare_key_sets.display_name" xml:space="preserve">
+    <value>Compare Excel Key Sets</value>
+  </data>
+  <data name="tool.excel_check_power_query_errors.display_name" xml:space="preserve">
+    <value>Check Power Query Errors</value>
+  </data>
+  <data name="tool.excel_list_data_model_calculated_columns.display_name" xml:space="preserve">
+    <value>List Data Model Calculated Columns</value>
+  </data>
+  <data name="tool.excel_list_data_model_measures.display_name" xml:space="preserve">
+    <value>List Data Model Measures</value>
+  </data>
+  <data name="tool.excel_list_data_model_relationships.display_name" xml:space="preserve">
+    <value>List Data Model Relationships</value>
+  </data>
+  <data name="tool.excel_list_data_model_tables.display_name" xml:space="preserve">
+    <value>List Data Model Tables</value>
+  </data>
+  <data name="tool.excel_list_connections.display_name" xml:space="preserve">
+    <value>List Connections</value>
+  </data>
+  <data name="tool.excel_list_power_queries.display_name" xml:space="preserve">
+    <value>List Power Queries</value>
+  </data>
+  <data name="tool.excel_list_tables.display_name" xml:space="preserve">
+    <value>List Tables</value>
+  </data>
+  <data name="tool.excel_read_table_data.display_name" xml:space="preserve">
+    <value>Read Table Data</value>
+  </data>
+  <data name="tool.excel_validate_power_query.display_name" xml:space="preserve">
+    <value>Validate Power Query</value>
+  </data>
+  <data name="tool.excel_view_connection.display_name" xml:space="preserve">
+    <value>View Connection</value>
+  </data>
+  <data name="tool.excel_view_data_model_calculated_column.display_name" xml:space="preserve">
+    <value>View Data Model Calculated Column</value>
+  </data>
+  <data name="tool.excel_refresh_power_query.display_name" xml:space="preserve">
+    <value>Refresh Power Query</value>
+  </data>
+  <data name="tool.excel_view_data_model_measure.display_name" xml:space="preserve">
+    <value>View Data Model Measure</value>
+  </data>
+  <data name="tool.excel_view_table.display_name" xml:space="preserve">
+    <value>View Table</value>
+  </data>
+  <data name="tool.excel_find_in_range.display_name" xml:space="preserve">
+    <value>Find in Range</value>
+  </data>
+  <data name="tool.excel_get_range_hyperlinks.display_name" xml:space="preserve">
+    <value>Read Range Hyperlinks</value>
+  </data>
+  <data name="tool.excel_get_range_info.display_name" xml:space="preserve">
+    <value>Read Range Information</value>
+  </data>
+  <data name="tool.excel_get_named_range_value.display_name" xml:space="preserve">
+    <value>Read Named Range Value</value>
+  </data>
+  <data name="tool.excel_get_range_merge_info.display_name" xml:space="preserve">
+    <value>Read Range Merge State</value>
+  </data>
+  <data name="tool.excel_get_range_lock_info.display_name" xml:space="preserve">
+    <value>Read Range Lock State</value>
+  </data>
+  <data name="tool.excel_get_range_style.display_name" xml:space="preserve">
+    <value>Read Range Formatting</value>
+  </data>
+  <data name="tool.excel_get_range_number_formats.display_name" xml:space="preserve">
+    <value>Read Range Number Formats</value>
+  </data>
+  <data name="tool.excel_get_range_validation.display_name" xml:space="preserve">
+    <value>Read Range Data Validation</value>
+  </data>
+  <data name="tool.excel_list_backups.display_name" xml:space="preserve">
+    <value>List Backups</value>
+  </data>
+  <data name="tool.excel_profile_range.display_name" xml:space="preserve">
+    <value>Profile Table Structure</value>
+  </data>
+  <data name="tool.excel_list_vba_modules.display_name" xml:space="preserve">
+    <value>List VBA Modules</value>
+  </data>
+  <data name="tool.excel_list_named_ranges.display_name" xml:space="preserve">
+    <value>List Named Ranges</value>
+  </data>
+  <data name="tool.excel_read_range_formulas.display_name" xml:space="preserve">
+    <value>Read Range Formulas</value>
+  </data>
+  <data name="tool.excel_view_power_query.display_name" xml:space="preserve">
+    <value>View Power Query</value>
+  </data>
+  <data name="tool.excel_read_worksheet_data.display_name" xml:space="preserve">
+    <value>Read Worksheet Data</value>
+  </data>
+  <data name="tool.excel_reconcile.display_name" xml:space="preserve">
+    <value>Reconciliation Summary</value>
+  </data>
+  <data name="tool.excel_restore_backup.display_name" xml:space="preserve">
+    <value>Restore from Backup</value>
+  </data>
+  <data name="tool.excel_validate_range_formulas.display_name" xml:space="preserve">
+    <value>Validate Range Formulas</value>
+  </data>
+  <data name="tool.excel_view_vba_module.display_name" xml:space="preserve">
+    <value>View VBA Module</value>
+  </data>
+  <data name="tool.ppt_style_preview.display_name" xml:space="preserve">
+    <value>Preview Presentation Style</value>
+  </data>
+  <data name="tool.ppt_deck_create.display_name" xml:space="preserve">
+    <value>Create Presentation Draft</value>
+  </data>
+  <data name="tool.ppt_deck_put_slides.display_name" xml:space="preserve">
+    <value>Add or Update Slides</value>
+  </data>
+  <data name="tool.ppt_deck_get_slides.display_name" xml:space="preserve">
+    <value>Read Draft Slides</value>
+  </data>
+  <data name="tool.ppt_deck_remove_slides.display_name" xml:space="preserve">
+    <value>Remove Draft Slides</value>
+  </data>
+  <data name="tool.ppt_deck_reorder.display_name" xml:space="preserve">
+    <value>Reorder Draft Slides</value>
+  </data>
+  <data name="tool.ppt_deck_preview.display_name" xml:space="preserve">
+    <value>Preview Presentation Draft</value>
+  </data>
+  <data name="tool.ppt_deck_validate.display_name" xml:space="preserve">
+    <value>Validate Presentation Draft</value>
+  </data>
+  <data name="tool.ppt_set_shape_text.display_name" xml:space="preserve">
+    <value>Set Shape Text</value>
+  </data>
+  <data name="tool.ppt_format_shapes.display_name" xml:space="preserve">
+    <value>Format Shapes</value>
+  </data>
+  <data name="tool.ppt_arrange_shapes.display_name" xml:space="preserve">
+    <value>Arrange Shapes</value>
+  </data>
+  <data name="tool.ppt_delete_shapes.display_name" xml:space="preserve">
+    <value>Delete Shapes</value>
+  </data>
+  <data name="tool.ppt_add_text_box.display_name" xml:space="preserve">
+    <value>Add Text Box</value>
+  </data>
+  <data name="tool.ppt_insert_picture.display_name" xml:space="preserve">
+    <value>Insert Picture</value>
+  </data>
+  <data name="tool.ppt_set_notes.display_name" xml:space="preserve">
+    <value>Set Slide Notes</value>
+  </data>
+  <data name="tool.ppt_add_slides.display_name" xml:space="preserve">
+    <value>Add Slides</value>
+  </data>
+  <data name="tool.ppt_delete_slides.display_name" xml:space="preserve">
+    <value>Delete Slides</value>
+  </data>
+  <data name="tool.ppt_move_slide.display_name" xml:space="preserve">
+    <value>Move Slide</value>
+  </data>
+  <data name="Settings.Config.Context.DeleteCurrentRow" xml:space="preserve">
+    <value>删除当前行</value>
+  </data>
+  <data name="Settings.Config.McpEditor.EnvironmentVariables" xml:space="preserve">
+    <value>环境变量</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.EmptyResponse" xml:space="preserve">
+    <value>响应为空</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.Initialize" xml:space="preserve">
+    <value>MCP initialize 失败：{0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.InitializeTimeout" xml:space="preserve">
+    <value>MCP 握手超时：initialize 无响应。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.JsonParse" xml:space="preserve">
+    <value>JSON 解析失败：{0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ListTools" xml:space="preserve">
+    <value>tools/list 失败：{0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ListToolsTimeout" xml:space="preserve">
+    <value>MCP 握手超时：tools/list 无响应。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProcessExited" xml:space="preserve">
+    <value>服务进程已退出，未返回应答。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProcessStartFailed" xml:space="preserve">
+    <value>无法启动进程，请检查命令是否在 PATH 中。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProtocolTest" xml:space="preserve">
+    <value>MCP 协议测试异常：{0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.RequestFailed" xml:space="preserve">
+    <value>发送请求失败：{0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ResponseMissingResult" xml:space="preserve">
+    <value>响应中既无 result 也无 error</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.TestFailed" xml:space="preserve">
+    <value>测试失败：{0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Headers" xml:space="preserve">
+    <value>请求头</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Arguments" xml:space="preserve">
+    <value>命令行参数</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Command" xml:space="preserve">
+    <value>命令</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Endpoint" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.TransportMode" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.WorkingDirectory" xml:space="preserve">
+    <value>工作目录</value>
+  </data>
+  <data name="Settings.Config.McpEditor.TestSuccess" xml:space="preserve">
+    <value>✅ MCP 连接测试成功！&#xD;&#xA;&#xD;&#xA;服务器：{0} v{1}&#xD;&#xA;发现工具：{2} 个&#xD;&#xA;协议版本：{3}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.ToolListMore" xml:space="preserve">
+    <value>… 还有 {0} 个工具未展示</value>
+  </data>
+  <data name="Settings.Config.McpEditor.TypePrompt" xml:space="preserve">
+    <value>MCP 类型</value>
+  </data>
+  <data name="Settings.Config.McpEditor.UnknownError" xml:space="preserve">
+    <value>未知错误</value>
+  </data>
+  <data name="Settings.Config.McpEditor.UnknownServer" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.CommandRequired" xml:space="preserve">
+    <value>请填写命令。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.EndpointInvalid" xml:space="preserve">
+    <value>MCP 服务 URL 格式不正确，必须是 http 或 https。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.EndpointRequired" xml:space="preserve">
+    <value>请填写 MCP 服务 URL。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.HttpParametersMissing" xml:space="preserve">
+    <value>HTTP 参数未初始化。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameRequired" xml:space="preserve">
+    <value>请填写 MCP 名称。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameValueDuplicate" xml:space="preserve">
+    <value>{0}“{1}”重复，请检查。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameValueRequired" xml:space="preserve">
+    <value>{0}名称不能为空。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.StdioParametersMissing" xml:space="preserve">
+    <value>Stdio 参数未初始化。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.WorkingDirectoryMissing" xml:space="preserve">
+    <value>工作目录不存在。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Value" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="Settings.Config.Memory.Loading" xml:space="preserve">
+    <value>正在加载记忆树…</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.EditTitle" xml:space="preserve">
+    <value>编辑 Skill</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Error.LoadFile" xml:space="preserve">
+    <value>加载 Skill 文件失败：{0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Error.SaveFile" xml:space="preserve">
+    <value>保存失败：{0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.NewTitle" xml:space="preserve">
+    <value>新建 Skill</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.SaveComplete" xml:space="preserve">
+    <value>已保存。Skill 变更将在重启应用后生效。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Validation.NameRequired" xml:space="preserve">
+    <value>请输入 Skill 名称。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ArgumentsFormatted" xml:space="preserve">
+    <value>测试参数 JSON 已整理缩进。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.CheckSyntax" xml:space="preserve">
+    <value>检查语法</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.DefinitionTab" xml:space="preserve">
+    <value>工具定义设置</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.DisplayNamePrompt" xml:space="preserve">
+    <value>工具显示名称</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.EditTitle" xml:space="preserve">
+    <value>编辑内置工具</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.EditTitleWithName" xml:space="preserve">
+    <value>编辑内置工具 — {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Error.TestFailed" xml:space="preserve">
+    <value>工具测试失败：{0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.FormatArguments" xml:space="preserve">
+    <value>整理参数格式</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.FormatSchema" xml:space="preserve">
+    <value>整理 Schema</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Loaded" xml:space="preserve">
+    <value>已加载工具定义，并生成测试参数模板。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.RunTest" xml:space="preserve">
+    <value>调用测试</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.RuntimeInstanceMissing" xml:space="preserve">
+    <value>未找到当前工具的运行时实例。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SchemaFormatted" xml:space="preserve">
+    <value>Schema JSON 已整理缩进。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SyntaxCheckFailed" xml:space="preserve">
+    <value>JSON 语法检查失败。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SyntaxCheckPassed" xml:space="preserve">
+    <value>JSON 语法检查通过。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestCompleted" xml:space="preserve">
+    <value>工具测试已完成。请查看输出。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestFailed" xml:space="preserve">
+    <value>工具测试失败。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestRunning" xml:space="preserve">
+    <value>正在执行工具测试…</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestSucceeded" xml:space="preserve">
+    <value>工具测试成功。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestTab" xml:space="preserve">
+    <value>调用测试</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestUnavailable" xml:space="preserve">
+    <value>当前环境不可用，无法执行工具测试。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Validation.JsonInvalid" xml:space="preserve">
+    <value>JSON 格式无效：{0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Validation.JsonRequired" xml:space="preserve">
+    <value>JSON 内容不能为空。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ViewTitle" xml:space="preserve">
+    <value>查看工具</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ViewTitleWithName" xml:space="preserve">
+    <value>查看工具 — {0}</value>
+  </data>
+  <data name="Settings.Config.Tools.UnknownHostSaveWarning" xml:space="preserve">
+    <value>未识别宿主应用，应用专属工具设置未能保存；共享工具设置已保存。</value>
+  </data>
+  <data name="Settings.SysConfig.EditAgentPrompt" xml:space="preserve">
+    <value>编辑 {0} Agent 模式系统提示词</value>
+  </data>
+  <data name="Settings.SysConfig.EditAskPrompt" xml:space="preserve">
+    <value>编辑 {0} Ask 模式系统提示词</value>
+  </data>
+  <data name="Settings.SysConfig.Error.OpenPromptFailed" xml:space="preserve">
+    <value>打开系统提示词文件失败：{0}</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode" xml:space="preserve">
+    <value>工具执行权限模式：</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode.AlwaysAllow" xml:space="preserve">
+    <value>始终放行</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode.Confirm" xml:space="preserve">
+    <value>提示确认</value>
+  </data>
+  <data name="Settings.Validation.ApplicationLogFileNameRequired" xml:space="preserve">
+    <value>启用文件日志时，ApplicationLogFileName 不能为空。</value>
+  </data>
+  <data name="Settings.Validation.ChatDefaultsMissing" xml:space="preserve">
+    <value>缺少聊天默认配置。</value>
+  </data>
+  <data name="Settings.Validation.DefaultModelProviderMissing" xml:space="preserve">
+    <value>默认模型配置不存在：{0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateMcpId" xml:space="preserve">
+    <value>存在重复的 MCP 服务器 Id：{0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateMcpName" xml:space="preserve">
+    <value>存在重复的 MCP 服务器名称（不区分大小写）：{0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateModelId" xml:space="preserve">
+    <value>存在重复的模型配置 Id：{0}</value>
+  </data>
+  <data name="Settings.Validation.EnabledModelIdRequired" xml:space="preserve">
+    <value>启用的模型必须填写 ModelId。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.HttpEndpointRequired" xml:space="preserve">
+    <value>Http MCP 配置必须填写 Endpoint。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.LoggingMissing" xml:space="preserve">
+    <value>缺少日志配置。</value>
+  </data>
+  <data name="Settings.Validation.MaxContextTokensPositive" xml:space="preserve">
+    <value>模型配置最大上下文长度必须大于 0。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.McpIdRequired" xml:space="preserve">
+    <value>MCP 服务器 Id 不能为空。</value>
+  </data>
+  <data name="Settings.Validation.McpNameRequired" xml:space="preserve">
+    <value>MCP 服务器名称不能为空。</value>
+  </data>
+  <data name="Settings.Validation.McpServersRequired" xml:space="preserve">
+    <value>MCP 服务器列表不能为空。</value>
+  </data>
+  <data name="Settings.Validation.McpTransportExclusive" xml:space="preserve">
+    <value>MCP 配置不能同时指定 Stdio 和 Http。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.McpTransportRequired" xml:space="preserve">
+    <value>MCP 配置必须选择一种传输方式。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.ModelIdPositive" xml:space="preserve">
+    <value>模型配置的 Id 必须大于 0。</value>
+  </data>
+  <data name="Settings.Validation.ModelNameRequired" xml:space="preserve">
+    <value>模型配置名称不能为空。</value>
+  </data>
+  <data name="Settings.Validation.ModelProvidersRequired" xml:space="preserve">
+    <value>模型提供者列表不能为空。</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptFileNameRequired" xml:space="preserve">
+    <value>启用模型收发日志时，FileName 不能为空。</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptLoggingMissing" xml:space="preserve">
+    <value>缺少模型收发日志配置。</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptMaxContentLengthNonNegative" xml:space="preserve">
+    <value>模型收发日志 MaxContentLength 不能小于 0。</value>
+  </data>
+  <data name="Settings.Validation.NullMcpServer" xml:space="preserve">
+    <value>存在空的 MCP 服务器项。</value>
+  </data>
+  <data name="Settings.Validation.NullModelProvider" xml:space="preserve">
+    <value>存在空的模型配置项。</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLogMaxSizePositive" xml:space="preserve">
+    <value>运行时日志文件大小上限必须大于 0。</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLogRetainedCountPositive" xml:space="preserve">
+    <value>运行时日志保留文件数必须大于 0。</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLoggingMissing" xml:space="preserve">
+    <value>缺少运行时日志配置。</value>
+  </data>
+  <data name="Settings.Validation.SettingsRequired" xml:space="preserve">
+    <value>设置对象不能为空。</value>
+  </data>
+  <data name="Settings.Validation.StdioCommandRequired" xml:space="preserve">
+    <value>Stdio MCP 配置必须填写 Command。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.TemperatureRange" xml:space="preserve">
+    <value>Temperature 必须位于 0~2 之间。名称：{0}</value>
+  </data>
+  <data name="Settings.Validation.TopPRange" xml:space="preserve">
+    <value>TopP 必须位于 0~1 之间。名称：{0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.BasicInfo" xml:space="preserve">
+    <value>基本信息</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.TriggerConditions" xml:space="preserve">
+    <value>触发条件</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.ToolPermissions" xml:space="preserve">
+    <value>工具权限</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.RelatedSkills" xml:space="preserve">
+    <value>关联 Skills</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.SafetyPolicy" xml:space="preserve">
+    <value>安全策略</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.Advanced" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.DisplayName" xml:space="preserve">
+    <value>显示名称</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.Category" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.UseWhen" xml:space="preserve">
+    <value>触发关键词</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AvoidWhen" xml:space="preserve">
+    <value>抑制关键词</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowedTools" xml:space="preserve">
+    <value>允许的工具</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.PreferredTools" xml:space="preserve">
+    <value>优先工具</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.VerificationTools" xml:space="preserve">
+    <value>验证工具</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.CompanionSkills" xml:space="preserve">
+    <value>配套 Skills</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.FallbackSkills" xml:space="preserve">
+    <value>降级 Skills</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequiresConfirmation" xml:space="preserve">
+    <value>需要用户确认</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequiresBackup" xml:space="preserve">
+    <value>需要备份</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequireVerification" xml:space="preserve">
+    <value>需要验证</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowHighRiskTools" xml:space="preserve">
+    <value>允许高风险工具</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowCodeExecution" xml:space="preserve">
+    <value>允许代码执行降级</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.MaxToolRoundCount" xml:space="preserve">
+    <value>最大工具调用轮数</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.Enabled" xml:space="preserve">
+    <value>关闭后，此 Skill 不会被加载或触发。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.DisplayName" xml:space="preserve">
+    <value>Skill 的显示名称；留空时使用 Name。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.Category" xml:space="preserve">
+    <value>Skill 分类，例如 network、file、office 或 utility。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.UseWhen" xml:space="preserve">
+    <value>匹配这些关键词时自动触发 Skill（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AvoidWhen" xml:space="preserve">
+    <value>包含这些关键词时不触发此 Skill（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowedTools" xml:space="preserve">
+    <value>此 Skill 可使用的工具白名单（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.PreferredTools" xml:space="preserve">
+    <value>此 Skill 优先使用的工具（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.VerificationTools" xml:space="preserve">
+    <value>用于验证结果的工具（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.CompanionSkills" xml:space="preserve">
+    <value>协同使用的 Skill 名称列表（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.FallbackSkills" xml:space="preserve">
+    <value>此 Skill 失败时使用的降级 Skills（逗号分隔）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequiresConfirmation" xml:space="preserve">
+    <value>执行前是否需要用户确认。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequiresBackup" xml:space="preserve">
+    <value>执行前是否需要创建备份。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequireVerification" xml:space="preserve">
+    <value>执行后是否需要验证结果。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowHighRiskTools" xml:space="preserve">
+    <value>是否允许使用高风险工具。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowCodeExecution" xml:space="preserve">
+    <value>是否允许使用代码执行降级。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.MaxToolRoundCount" xml:space="preserve">
+    <value>Skill 执行期间允许的最大工具调用轮数。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Markdown.NewSkillHeading" xml:space="preserve">
+    <value>Skill 名称</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Markdown.NewSkillBody" xml:space="preserve">
+    <value>在此编写 Skill 指令和逻辑...</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleValue" xml:space="preserve">
+    <value>示例值</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleDisplayName" xml:space="preserve">
+    <value>示例显示名称</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleDescription" xml:space="preserve">
+    <value>示例说明</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleText" xml:space="preserve">
+    <value>示例文本</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SamplePrefix" xml:space="preserve">
+    <value>示例{0}</value>
+  </data>
+  <data name="panel.error.broker.start_failed" xml:space="preserve">
+    <value>Broker 启动失败，请检查 Broker 可执行文件或稍后重试。</value>
+  </data>
+  <data name="panel.error.broker.restart_failed" xml:space="preserve">
+    <value>Broker 不可用，自动重启失败。</value>
+  </data>
+  <data name="panel.error.broker.retry_failed" xml:space="preserve">
+    <value>Broker 重试失败。</value>
+  </data>
+  <data name="panel.error.broker.not_healthy" xml:space="preserve">
+    <value>Broker 无响应，取消请求未能送达，将通过本地方式取消。</value>
+  </data>
+  <data name="panel.error.broker.not_available" xml:space="preserve">
+    <value>Broker 不可用，无法完成请求的操作。</value>
+  </data>
+  <data name="Panel.Error.BrokerClientNotConfigured" xml:space="preserve">
+    <value>未配置 Broker 客户端。</value>
+  </data>
+  <data name="Panel.Error.BrokerNoResult" xml:space="preserve">
+    <value>Broker 未返回结果。</value>
+  </data>
+  <data name="Panel.Error.BrokerExecutionFailed" xml:space="preserve">
+    <value>Broker 操作失败。</value>
+  </data>
+  <data name="Panel.Error.GenericRequestFailed" xml:space="preserve">
+    <value>错误：请求处理失败。</value>
+  </data>
+  <data name="Panel.Error.ErrorDetails" xml:space="preserve">
+    <value>错误：{0}</value>
+  </data>
+  <data name="Panel.Error.ToolExecutionFailed" xml:space="preserve">
+    <value>工具执行失败。</value>
+  </data>
+  <data name="Panel.Error.ToolFailedLine" xml:space="preserve">
+    <value>[{0}] 执行失败：{1}</value>
+  </data>
+  <data name="Panel.Status.GenerationStopped" xml:space="preserve">
+    <value>已停止生成。</value>
+  </data>
+  <data name="Panel.Status.ClearFailed" xml:space="preserve">
+    <value>清除失败：{0}</value>
+  </data>
+  <data name="Panel.Status.CurrentTurnCancelFailed" xml:space="preserve">
+    <value>当前回合取消失败。</value>
+  </data>
+  <data name="Panel.Status.CancelFailed" xml:space="preserve">
+    <value>取消失败：{0}</value>
+  </data>
+  <data name="Panel.Status.ClearExecutionModePreferenceBusy" xml:space="preserve">
+    <value>当前任务仍在执行，请完成后再清除默认值。</value>
+  </data>
+  <data name="Panel.Status.NoSessionForClearExecutionModePreference" xml:space="preserve">
+    <value>当前没有可操作的会话。</value>
+  </data>
+  <data name="Panel.Attachments.Filter.AllSupported" xml:space="preserve">
+    <value>支持的文件</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Text" xml:space="preserve">
+    <value>文本文件</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Images" xml:space="preserve">
+    <value>图片文件</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Pdf" xml:space="preserve">
+    <value>PDF 文件</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Spreadsheet" xml:space="preserve">
+    <value>Excel 工作簿</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Word" xml:space="preserve">
+    <value>Word 文档</value>
+  </data>
+  <data name="Panel.Attachments.Filter.PowerPoint" xml:space="preserve">
+    <value>PowerPoint 演示文稿</value>
+  </data>
+</root>

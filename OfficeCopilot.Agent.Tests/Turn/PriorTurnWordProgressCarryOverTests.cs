@@ -26,12 +26,12 @@ namespace OfficeCopilot.Agent.Tests.Turn
             var note = PriorTurnWordProgressCarryOver.BuildNote(messages, "u2");
 
             StringAssert.Contains(note, "暂不添加");
-            StringAssert.Contains(note, "不要重复询问");
-            StringAssert.Contains(note, "写操作 3 次（成功 2）");
+            StringAssert.Contains(note, "do not ask again");
+            StringAssert.Contains(note, "3 write operations (2 succeeded)");
             StringAssert.Contains(note, "Formatted 40/45 paragraphs");
-            StringAssert.Contains(note, "word_set_paragraph_format（第 7 段）");
+            StringAssert.Contains(note, "word_set_paragraph_format (paragraph 7)");
             StringAssert.Contains(note, "✗ word_apply_style");
-            StringAssert.Contains(note, "不要从第 1 段开始重新排版");
+            StringAssert.Contains(note, "restart formatting from paragraph 1");
             Assert.IsFalse(note.Contains("User has answered"));
         }
 

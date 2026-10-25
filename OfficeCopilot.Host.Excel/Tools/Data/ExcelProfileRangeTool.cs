@@ -12,11 +12,11 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_profile_range",
-            DisplayName = "表结构画像",
-            Description = "一次性返回数据区的结构画像：每列的名称、推断类型、非空数、去重数、Top-K 取值及频次，"
-                + "数值列另附 min/max/sum/average，并给出前几行样例。返回体量与数据行数无关。"
-                + "可通过 sources 一次画像多个区域，并报告列名、顺序、类型和表头推断的一致性。"
-                + "处理中大型表格时应先调用本工具了解结构，不要逐页读取原始数据。",
+            DisplayName = "Profile Table Structure",
+            Description = "Returns a structural profile of a data range in one call: each column's name, inferred type, non-empty count, distinct count, and top-K values with frequencies;"
+                + " numeric columns also include min, max, sum, and average, along with a sample of the first rows. Response size does not depend on the number of data rows."
+                + " The optional sources parameter profiles multiple ranges at once and reports consistency in column names, order, types, and inferred headers."
+                + " For medium or large tables, call this tool first to understand the structure instead of reading raw data page by page.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,
@@ -24,13 +24,13 @@ namespace OfficeCopilot.Host.Excel.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"worksheetName\":{\"type\":\"string\",\"description\":\"工作表名，留空表示活动工作表。\"},"
-                + "\"address\":{\"type\":\"string\",\"description\":\"区域地址，如 A1:H1001。与 tableName 二选一；都不给时按选区或当前区域推断。\"},"
-                + "\"tableName\":{\"type\":\"string\",\"description\":\"Excel 表（ListObject）名称。\"},"
-                + "\"headerMode\":{\"type\":\"string\",\"enum\":[\"auto\",\"yes\",\"no\"],\"description\":\"首行是否为表头，默认 auto 自动推断。\"},"
-                + "\"topK\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"每列返回的高频取值数，默认 10。\"},"
-                + "\"sampleRowCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"样例行数，默认 5。\"},"
-                + "\"sources\":{\"type\":\"array\",\"description\":\"可选。一次画像多个来源区域；使用时不要同时填写顶层 worksheetName、address 或 tableName。每项需有唯一 alias，并指定 worksheetName+address 或 tableName。\","
+                + "\"worksheetName\":{\"type\":\"string\",\"description\":\"Worksheet name; leave empty to use the active worksheet.\"},"
+                + "\"address\":{\"type\":\"string\",\"description\":\"Range address, for example A1:H1001. Mutually exclusive with tableName; if both are omitted, infer from the current selection or region.\"},"
+                + "\"tableName\":{\"type\":\"string\",\"description\":\"Name of the Excel table (ListObject).\"},"
+                + "\"headerMode\":{\"type\":\"string\",\"enum\":[\"auto\",\"yes\",\"no\"],\"description\":\"Whether the first row is a header (default: auto-detect).\"},"
+                + "\"topK\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Number of most frequent values to return per column (default: 10).\"},"
+                + "\"sampleRowCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Number of sample rows (default: 5).\"},"
+                + "\"sources\":{\"type\":\"array\",\"description\":\"Optional. Profiles multiple source ranges at once; when used, do not also set top-level worksheetName, address, or tableName. Each item needs a unique alias and must specify worksheetName+address or tableName.\","
                 + "\"minItems\":1,\"items\":{\"type\":\"object\",\"properties\":{"
                 + "\"worksheetName\":{\"type\":\"string\"},"
                 + "\"address\":{\"type\":\"string\"},"

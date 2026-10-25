@@ -35,7 +35,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             {
                 return new LoopGuardDecision(
                     true,
-                    "检测到相同工具调用重复出现，停止工具调用并要求模型直接总结。",
+                    "The same tool call was repeated. Stop calling tools and summarize directly.",
                     "Repeated identical tool calls were detected.");
             }
 
@@ -45,7 +45,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             {
                 return new LoopGuardDecision(
                     true,
-                    "检测到重复探测式工具调用，停止工具调用并要求模型基于已有证据回答。",
+                    "Repeated exploratory tool calls were detected. Stop calling tools and answer using the evidence already gathered.",
                     "Repeated probe-style search calls were detected.");
             }
 
@@ -55,7 +55,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             {
                 return new LoopGuardDecision(
                     true,
-                    "已存在分析结果但仍继续探测式调用，停止工具调用并要求模型直接给出结论。",
+                    "An analysis result is already available. Stop exploratory tool calls and state the conclusion directly.",
                     "An analysis result already exists, so further probe-style search calls should stop.");
             }
 
@@ -159,7 +159,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         {
             var builder = new StringBuilder();
             builder.AppendLine("Stop calling tools for this turn.");
-            builder.AppendLine("Use only the existing tool results and conversation context to produce the final answer in Chinese.");
+            builder.AppendLine("Use only the existing tool results and conversation context to produce the final answer.");
             builder.AppendLine("If the request is about max/min/average/sum/count/rank/top or matching a row by an extreme value, do not continue probing for a larger or smaller value.");
             builder.AppendLine("If the available evidence is sufficient, answer directly. If any uncertainty remains, state it briefly and stop.");
 

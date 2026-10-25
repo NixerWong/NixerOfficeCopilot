@@ -84,21 +84,21 @@ namespace OfficeCopilot.Agent.Runtime.Turn
             }
 
             var builder = new StringBuilder();
-            builder.AppendLine("本会话之前轮次的工具结果中已有演示工作区（工具结果原文不会回放给你，以下为其关键字段）：");
+            builder.AppendLine("A presentation workspace exists in tool results from an earlier turn in this session (the original results are not replayed; key fields follow):");
             builder.Append("- deckId：").AppendLine(deckId);
             if (title != null)
             {
-                builder.Append("- 标题：").AppendLine(title);
+                builder.Append("- Title: ").AppendLine(title);
             }
 
             if (slideCount.HasValue)
             {
-                builder.Append("- 页数：").AppendLine(slideCount.Value.ToString());
+                builder.Append("- Slide count: ").AppendLine(slideCount.Value.ToString());
             }
 
-            builder.Append("继续修改、预览该工作区时，必须原样使用上述 deckId；")
-                .Append("ppt_deck_build 可省略 deckId、workspaceTitle 与 slideCount（自动使用本会话最近预览的工作区），若填写则必须与上述值一致。")
-                .Append("严禁按 ID 格式自行构造新的 deckId。");
+            builder.Append("When continuing to edit or preview this workspace, use the deckId above exactly as-is. ")
+                .Append("ppt_deck_build may omit deckId, workspaceTitle, and slideCount (the most recently previewed workspace in this session is used automatically); if provided, they must match the values above. ")
+                .Append("Never construct a new deckId based on its format.");
             return builder.ToString();
         }
 

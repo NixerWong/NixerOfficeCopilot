@@ -397,7 +397,7 @@ namespace OfficeCopilot.Agent.Runtime.Turn
         public static string BuildVerificationRetryLimitSystemPrompt(RuntimeSkillPlan plan, string toolName, string msg)
         {
             var b = new StringBuilder();
-            b.AppendLine("Verification retry limit reached. Do not retry. Explain the limitation in Chinese.");
+            b.AppendLine("Verification retry limit reached. Do not retry. Explain the limitation.");
             if (!string.IsNullOrWhiteSpace(toolName)) b.Append("Verifier: ").AppendLine(toolName.Trim());
             if (!string.IsNullOrWhiteSpace(msg)) b.Append("Result: ").AppendLine(msg.Trim());
             if (plan != null) b.Append("Attempts: ").Append(plan.VerificationRetryCount).Append("/").Append(plan.MaxVerificationRetryCount.ToString(System.Globalization.CultureInfo.InvariantCulture));

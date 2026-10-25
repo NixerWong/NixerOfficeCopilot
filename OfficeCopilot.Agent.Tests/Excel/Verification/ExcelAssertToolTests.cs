@@ -16,9 +16,9 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
 
             Assert.IsTrue(tool.Definition.IsReadOnly);
             Assert.IsFalse(tool.Definition.RequiresConfirmation);
-            StringAssert.Contains(tool.Definition.Description, "单工作表 target");
-            StringAssert.Contains(tool.Definition.Description, "basis.measures 定义源侧指标");
-            StringAssert.Contains(tool.Definition.Description, "源 Amount 对比输出 Value");
+            StringAssert.Contains(tool.Definition.Description, "a single-sheet target cannot represent an aggregate");
+            StringAssert.Contains(tool.Definition.Description, "basis.measures defines source-side metrics");
+            StringAssert.Contains(tool.Definition.Description, "compare source Amount with output Value");
             StringAssert.Contains(tool.Definition.InputSchemaJson, "\"basis\"");
             StringAssert.Contains(tool.Definition.InputSchemaJson, "\"assertions\"");
             using (var schema = JsonDocument.Parse(tool.Definition.InputSchemaJson))
@@ -29,12 +29,12 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
                     .GetProperty("side").GetProperty("properties");
                 StringAssert.Contains(
                     sideProperties.GetProperty("column").GetProperty("description").GetString(),
-                    "target 与 source 分别填写");
+                    "specify target and source separately");
                 StringAssert.Contains(
                     properties.GetProperty("assertions").GetProperty("items")
                         .GetProperty("properties").GetProperty("target")
                         .GetProperty("description").GetString(),
-                    "不会自动沿用 basis.measures");
+                    "basis.measures is not inherited automatically");
                 Assert.AreEqual(
                     10000,
                     sideProperties.GetProperty("excludeRows").GetProperty("maxItems").GetInt32());

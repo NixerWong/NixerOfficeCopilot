@@ -11,8 +11,8 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_tables",
-            DisplayName = "列出表",
-            Description = "列出当前工作簿中的 Excel 表。",
+            DisplayName = "List Tables",
+            Description = "Lists the Excel tables in the current workbook.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

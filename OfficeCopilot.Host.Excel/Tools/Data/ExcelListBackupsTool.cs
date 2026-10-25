@@ -11,9 +11,9 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_list_backups",
-            DisplayName = "列出备份点",
-            Description = "列出当前工作簿的自动备份点（时间、触发工具、用户意图摘要）。"
-                + "当用户说“撤销刚才的操作”“恢复到修改前”时，先用本工具定位备份点。",
+            DisplayName = "List Backups",
+            Description = "Lists automatic backup points for the current workbook, including time, triggering tool, and a summary of user intent."
+                + " When the user asks to undo the last operation or restore the previous state, use this tool first to locate a backup point.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,
@@ -21,7 +21,7 @@ namespace OfficeCopilot.Host.Excel.Tools
             InputSchemaJson = "{"
                 + "\"type\":\"object\","
                 + "\"properties\":{"
-                + "\"maxCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"最多返回的备份点数，默认 20，按时间倒序。\"}"
+                + "\"maxCount\":{\"type\":\"integer\",\"minimum\":1,\"description\":\"Maximum number of backup points to return (default: 20), ordered newest first.\"}"
                 + "},"
                 + "\"additionalProperties\":false"
                 + "}"

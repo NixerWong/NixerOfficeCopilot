@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeCopilot.Agent.Runtime.Verification;
+using OfficeCopilot.Localization;
 
 namespace OfficeCopilot.Agent.Tests.Excel.Verification
 {
@@ -97,6 +98,57 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
 
             StringAssert.Contains(tierB, "B级：已复核，但仍有局限（抽样覆盖）");
             StringAssert.Contains(tierC, "C级：尚未完成有效验证 —— 汇总表尚无后续验证");
+        }
+
+        [TestMethod]
+        public void Build_UsesJapaneseTextAndPunctuation()
+        {
+            var footer = TrustFooterBuilder.Build(new VerificationLedgerSummary
+            {
+                HasExcelDataToolCalls = true,
+                Tier = "A",
+                AssertionCount = 2,
+                CoveredRows = 1234,
+                ScopeDescriptions = new List<string> { "Sheet A", "Sheet B" },
+                BasisJson = new List<string>
+                {
+                    "{\"source\":{\"worksheetName\":\"販売\"},"
+                    + "\"groupBy\":[\"地域\",\"商品\"],"
+                    + "\"measures\":[{\"column\":\"金額\",\"function\":\"sum\"}]}"
+                }
+            }, uiCulture: "ja");
+
+            StringAssert.Contains(footer, "検証：");
+            StringAssert.Contains(footer, "（");
+            StringAssert.Contains(footer, "、");
+            Assert.IsFalse(footer.Contains("Verification"));
+            Assert.IsFalse(footer.Contains("; "));
+        }
+
+        [TestMethod]
+        public void Build_UsesGermanAndSpanishStatusLabels()
+        {
+            var summary = new VerificationLedgerSummary
+            {
+                HasExcelDataToolCalls = true,
+                Tier = "A"
+            };
+            var englishStatus = LocalizationService.Get(
+                "trust.footer.status",
+                SupportedLanguages.ResolveCulture("en"));
+            var germanStatus = LocalizationService.Get(
+                "trust.footer.status",
+                SupportedLanguages.ResolveCulture("de"));
+            var spanishStatus = LocalizationService.Get(
+                "trust.footer.status",
+                SupportedLanguages.ResolveCulture("es"));
+            var germanFooter = TrustFooterBuilder.Build(summary, uiCulture: "de");
+            var spanishFooter = TrustFooterBuilder.Build(summary, uiCulture: "es");
+
+            Assert.AreNotEqual(englishStatus, germanStatus);
+            Assert.AreNotEqual(englishStatus, spanishStatus);
+            StringAssert.Contains(germanFooter, germanStatus);
+            StringAssert.Contains(spanishFooter, spanishStatus);
         }
 
         [TestMethod]
@@ -215,6 +267,21 @@ namespace OfficeCopilot.Agent.Tests.Excel.Verification
             var cleaned = TrustFooterBuilder.RemoveModelGeneratedTrustText(content);
 
             Assert.AreEqual("A2 原值为 S0001。", cleaned);
+        }
+
+        [TestMethod]
+        public void RemoveModelGeneratedTrustText_RemovesJapaneseFooter()
+        {
+            const string content =
+                "回答本文。\n\n"
+                + "—\n検証：A級：モデルの自己申告\n"
+                + "確認対象：全シート\n"
+                + "根拠：売上データ\n"
+                + "直接的な根拠のない数値：999";
+
+            Assert.AreEqual(
+                "回答本文。",
+                TrustFooterBuilder.RemoveModelGeneratedTrustText(content));
         }
 
         [TestMethod]

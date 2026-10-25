@@ -3,6 +3,7 @@ using OfficeCopilot.Agent.Abstractions;
 using OfficeCopilot.Agent.Client;
 using OfficeCopilot.Host.Abstractions;
 using OfficeCopilot.Panel.WebView.Services;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -127,6 +128,10 @@ namespace OfficeCopilot.Panel.WebView
                 type = "toolConfirmation",
                 requestId = requestId,
                 toolName = request.ToolName ?? string.Empty,
+                toolDisplayName = UserTextLocalizer.GetToolDisplayName(
+                    request.ToolName,
+                    request.ToolDisplayName,
+                    LocalizationService.Culture),
                 toolDescription = request.ToolDescription ?? string.Empty,
                 operationSummary = request.OperationSummary ?? string.Empty,
                 riskLevel = request.RiskLevel ?? "high",
@@ -304,7 +309,7 @@ namespace OfficeCopilot.Panel.WebView
 
             if (backupPaths.Count == 0)
             {
-                MessageBox.Show(this, "No configuration backup was found.", "View Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Get("Web.panel.noBackup"), LocalizationService.Get("Web.panel.viewBackup"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -335,7 +340,7 @@ namespace OfficeCopilot.Panel.WebView
             var backupPath = ParseBackupPaths(payload).FirstOrDefault(path => !string.IsNullOrWhiteSpace(path)) ?? string.Empty;
             if (backupPath.Length == 0 || !File.Exists(backupPath))
             {
-                MessageBox.Show(this, "备份文件不存在，无法还原。", "撤销本次修改", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Web.panel.restoreMissing"), LocalizationService.Get("Web.panel.restore"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -345,15 +350,14 @@ namespace OfficeCopilot.Panel.WebView
                     ?? (AgentServices.GetService(typeof(ICopilotHostAdapter)) as IDocumentRestoreHostAdapter);
             if (host == null)
             {
-                MessageBox.Show(this, "当前宿主不支持从备份还原。", "撤销本次修改", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, LocalizationService.Get("Web.panel.restoreUnsupported"), LocalizationService.Get("Web.panel.restore"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var confirmed = MessageBox.Show(
                 this,
-                "将从下面这个备份点生成一个还原副本：\r\n\r\n" + backupPath
-                    + "\r\n\r\n还原副本会保存在原文档旁边（文件名带 _还原_ 后缀；未保存过的文档则放在备份目录），原文件不会被覆盖。是否继续？",
-                "撤销本次修改",
+                LocalizationService.Format("Web.panel.restoreDetailedConfirm", "\r\n", backupPath),
+                LocalizationService.Get("Web.panel.restore"),
                 MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Question);
 
@@ -372,14 +376,18 @@ namespace OfficeCopilot.Panel.WebView
 
                 MessageBox.Show(
                     this,
-                    (result.Message ?? string.Empty) + "\r\n\r\n还原副本：" + (result.RestoredPath ?? string.Empty),
-                    "撤销本次修改",
+                    LocalizationService.Format(
+                        "Web.panel.restoreResult",
+                        result.Message ?? string.Empty,
+                        "\r\n",
+                        result.RestoredPath ?? string.Empty),
+                    LocalizationService.Get("Web.panel.restore"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message, "撤销本次修改", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, ex.Message, LocalizationService.Get("Web.panel.restore"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -446,11 +454,11 @@ namespace OfficeCopilot.Panel.WebView
                     return;
                 }
 
-                MessageBox.Show(this, "The backup file does not exist.", "View Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, LocalizationService.Get("Web.panel.restoreMissing"), LocalizationService.Get("Web.panel.viewBackup"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "Failed to open the backup: " + ex.Message, "View Backup", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, LocalizationService.Format("Web.panel.openBackupFailed", ex.Message), LocalizationService.Get("Web.panel.viewBackup"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

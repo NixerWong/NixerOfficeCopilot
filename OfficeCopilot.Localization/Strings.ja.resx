@@ -1,0 +1,2048 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language.English" xml:space="preserve">
+    <value>英語</value>
+  </data>
+  <data name="Language.SimplifiedChinese" xml:space="preserve">
+    <value>簡体字中国語</value>
+  </data>
+  <data name="Language.Japanese" xml:space="preserve">
+    <value>日本語</value>
+  </data>
+  <data name="Language.German" xml:space="preserve">
+    <value>ドイツ語</value>
+  </data>
+  <data name="Language.Spanish" xml:space="preserve">
+    <value>スペイン語</value>
+  </data>
+  <data name="Settings.SysConfig.Text" xml:space="preserve">
+    <value>システム設定</value>
+  </data>
+  <data name="Settings.SysConfig.grpLanguage.Text" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="Settings.SysConfig.lbLanguage.Text" xml:space="preserve">
+    <value>表示言語:</value>
+  </data>
+  <data name="Settings.Config.Title" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Settings.Config.Tab.Models" xml:space="preserve">
+    <value>モデル</value>
+  </data>
+  <data name="Settings.Config.Tab.Tools" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="Settings.Config.Tab.Mcp" xml:space="preserve">
+    <value>MCP</value>
+  </data>
+  <data name="Settings.Config.Tab.Skills" xml:space="preserve">
+    <value>スキル</value>
+  </data>
+  <data name="Settings.Config.Tab.Memory" xml:space="preserve">
+    <value>メモリ</value>
+  </data>
+  <data name="Settings.Config.Tab.General" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="Settings.Config.Models.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Models.Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Settings.Config.Models.ProviderKind" xml:space="preserve">
+    <value>API プロトコル</value>
+  </data>
+  <data name="Settings.Config.Models.Endpoint" xml:space="preserve">
+    <value>API エンドポイント</value>
+  </data>
+  <data name="Settings.Config.Models.ApiKey" xml:space="preserve">
+    <value>API キー</value>
+  </data>
+  <data name="Settings.Config.Models.ModelId" xml:space="preserve">
+    <value>モデル ID</value>
+  </data>
+  <data name="Settings.Config.Models.Multimodal" xml:space="preserve">
+    <value>マルチモーダル</value>
+  </data>
+  <data name="Settings.Config.Models.Add" xml:space="preserve">
+    <value>モデルを追加</value>
+  </data>
+  <data name="Settings.Config.Models.Edit" xml:space="preserve">
+    <value>選択したモデルを編集</value>
+  </data>
+  <data name="Settings.Config.Models.Delete" xml:space="preserve">
+    <value>選択したモデルを削除</value>
+  </data>
+  <data name="Settings.Config.Models.Import" xml:space="preserve">
+    <value>モデル定義をインポート</value>
+  </data>
+  <data name="Settings.Config.Models.ShowPromptPreview" xml:space="preserve">
+    <value>プロンプトのプレビューを表示</value>
+  </data>
+  <data name="Settings.Config.Models.HidePromptPreview" xml:space="preserve">
+    <value>プロンプトのプレビューを非表示</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Title.Add" xml:space="preserve">
+    <value>モデルを追加</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Title.Edit" xml:space="preserve">
+    <value>モデルを編集</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ModelParameters" xml:space="preserve">
+    <value>モデルパラメーター</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ModelName" xml:space="preserve">
+    <value>モデル名</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SystemPrompt" xml:space="preserve">
+    <value>モデル用の追加プロンプト（ホストのシステムプロンプトの後に追加、任意）</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.AdditionalParameters" xml:space="preserve">
+    <value>追加パラメーター</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.BasicParameters" xml:space="preserve">
+    <value>基本パラメーター</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HttpHeaders" xml:space="preserve">
+    <value>HTTP リクエストヘッダー</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SaveAndClose" xml:space="preserve">
+    <value>保存して閉じる</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.TestConnection" xml:space="preserve">
+    <value>接続テスト</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.EnableModel" xml:space="preserve">
+    <value>このモデルを有効にする</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ParameterName" xml:space="preserve">
+    <value>パラメーター</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ParameterValue" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HeaderName" xml:space="preserve">
+    <value>ヘッダー</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.HeaderValue" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ConnectionTestSucceeded" xml:space="preserve">
+    <value>サービス URL に接続できます。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ConnectionTestFailed" xml:space="preserve">
+    <value>接続に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ModelNameRequired" xml:space="preserve">
+    <value>モデル名を入力してください。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.BasicParametersUnavailable" xml:space="preserve">
+    <value>基本パラメーターを利用できません。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.EndpointRequired" xml:space="preserve">
+    <value>API エンドポイントを入力してください。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.EndpointInvalid" xml:space="preserve">
+    <value>API エンドポイントには有効な http または https URL を指定してください。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ModelIdRequired" xml:space="preserve">
+    <value>モデル ID を入力してください。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterNameRequired" xml:space="preserve">
+    <value>追加パラメーター名を空にすることはできません。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterNameDuplicate" xml:space="preserve">
+    <value>追加パラメーター「{0}」が重複しています。確認してください。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.ParameterValueInvalid" xml:space="preserve">
+    <value>追加パラメーター「{0}」の値が無効です: {1}</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.HeaderNameRequired" xml:space="preserve">
+    <value>HTTP リクエストヘッダー名を空にすることはできません。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Validation.HeaderNameDuplicate" xml:space="preserve">
+    <value>HTTP リクエストヘッダー「{0}」が重複しています。確認してください。</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.DeleteCurrentRow" xml:space="preserve">
+    <value>現在の行を削除</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Category.Connection" xml:space="preserve">
+    <value>接続</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.MaxContextTokens" xml:space="preserve">
+    <value>最大コンテキスト長</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.ProviderKind" xml:space="preserve">
+    <value>API プロトコル</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.Category.Capabilities" xml:space="preserve">
+    <value>機能</value>
+  </data>
+  <data name="Settings.Config.ModelEditor.SupportedInputFileTypes" xml:space="preserve">
+    <value>対応ファイル形式</value>
+  </data>
+  <data name="Settings.Config.Mcp.Add" xml:space="preserve">
+    <value>MCP を追加</value>
+  </data>
+  <data name="Settings.Config.Mcp.Edit" xml:space="preserve">
+    <value>選択した MCP を編集</value>
+  </data>
+  <data name="Settings.Config.Mcp.Delete" xml:space="preserve">
+    <value>MCP を削除</value>
+  </data>
+  <data name="Settings.Config.Mcp.Import" xml:space="preserve">
+    <value>MCP 設定をインポート</value>
+  </data>
+  <data name="Settings.Config.Mcp.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Mcp.Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Settings.Config.Mcp.Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Settings.Config.Skills.Add" xml:space="preserve">
+    <value>スキルを追加</value>
+  </data>
+  <data name="Settings.Config.Skills.Edit" xml:space="preserve">
+    <value>選択したスキルを編集</value>
+  </data>
+  <data name="Settings.Config.Skills.Delete" xml:space="preserve">
+    <value>選択したスキルを削除</value>
+  </data>
+  <data name="Settings.Config.Skills.Import" xml:space="preserve">
+    <value>スキル設定をインポート</value>
+  </data>
+  <data name="Settings.Config.Skills.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Settings.Config.Skills.Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Settings.Config.Skills.Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Settings.Config.Tools.Group" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="Settings.Config.Tools.Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Settings.Config.Tools.Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Settings.Config.Tools.NoConfirmation" xml:space="preserve">
+    <value>確認なし</value>
+  </data>
+  <data name="Settings.Config.Tools.Details" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="Settings.Config.Common.Enabled" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="Settings.Config.Common.ExportList" xml:space="preserve">
+    <value>リストをエクスポート</value>
+  </data>
+  <data name="Settings.Config.Common.Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Settings.Config.Common.Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Settings.Config.Common.Yes" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="Settings.Config.Common.No" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="Settings.Config.Context.Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Settings.Config.Context.Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Settings.Config.Value.Yes" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="Settings.Config.Value.No" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="Settings.Config.Memory.Preview" xml:space="preserve">
+    <value>スキルのプレビュー</value>
+  </data>
+  <data name="Settings.Config.Memory.Markdown" xml:space="preserve">
+    <value>Markdown エディター</value>
+  </data>
+  <data name="Settings.Config.Memory.DeleteFragment" xml:space="preserve">
+    <value>フラグメントを削除</value>
+  </data>
+  <data name="Settings.Config.Memory.ModifiedMarker" xml:space="preserve">
+    <value>  ● 変更済み</value>
+  </data>
+  <data name="Settings.Config.Memory.EntrypointTruncated" xml:space="preserve">
+    <value>  ⚠ エントリーポイントが切り詰められました</value>
+  </data>
+  <data name="Settings.Config.Memory.InfoWithNode" xml:space="preserve">
+    <value>{0}{1} | エントリーポイント {2} 行/{3} | フラグメント {4}/{5}{6}</value>
+  </data>
+  <data name="Settings.Config.Memory.Info" xml:space="preserve">
+    <value>エントリーポイント {0} 行/{1} | フラグメント {2}/{3}{4}</value>
+  </data>
+  <data name="Settings.Config.Memory.Manager" xml:space="preserve">
+    <value>メモリ マネージャー</value>
+  </data>
+  <data name="Settings.Config.General.Logging" xml:space="preserve">
+    <value>ログ</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMaxLength" xml:space="preserve">
+    <value>会話ログの最大文字数（0 = 無制限）:</value>
+  </data>
+  <data name="Settings.Config.General.ToolCallLogEnabled" xml:space="preserve">
+    <value>ツール呼び出しログを有効にする</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptHostContext" xml:space="preserve">
+    <value>会話ログにホストのコンテキストを含める</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptToolCalls" xml:space="preserve">
+    <value>会話ログにツール呼び出しを含める</value>
+  </data>
+  <data name="Settings.Config.General.RetainedFileCount" xml:space="preserve">
+    <value>保持するログファイル数:</value>
+  </data>
+  <data name="Settings.Config.General.MaxFileSize" xml:space="preserve">
+    <value>最大ログファイルサイズ（MB）:</value>
+  </data>
+  <data name="Settings.Config.General.RuntimeLogLevel" xml:space="preserve">
+    <value>実行時ログレベル:</value>
+  </data>
+  <data name="Settings.Config.General.RuntimeLogEnabled" xml:space="preserve">
+    <value>実行時ログを有効にする</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptLogMode" xml:space="preserve">
+    <value>会話ログの詳細度:</value>
+  </data>
+  <data name="Settings.Config.General.Runtime" xml:space="preserve">
+    <value>実行時パラメーター</value>
+  </data>
+  <data name="Settings.Config.General.AutoMemoryRecorder" xml:space="preserve">
+    <value>メモリの自動要約を有効にする</value>
+  </data>
+  <data name="Settings.Config.General.AutoCompact" xml:space="preserve">
+    <value>コンテキストの自動圧縮（AutoCompact）を有効にする</value>
+  </data>
+  <data name="Settings.Config.General.ModelParameters" xml:space="preserve">
+    <value>モデルリクエストパラメーター</value>
+  </data>
+  <data name="Settings.Config.General.RequestTimeout" xml:space="preserve">
+    <value>リクエストタイムアウト（秒）:</value>
+  </data>
+  <data name="Settings.Config.General.NativeFileSizeLimit" xml:space="preserve">
+    <value>Native ファイルサイズ上限（KB）:</value>
+  </data>
+  <data name="Settings.Config.General.InlineTextFileSizeLimit" xml:space="preserve">
+    <value>InlineText ファイルサイズ上限（MB）:</value>
+  </data>
+  <data name="Settings.Config.General.AutoResizeImages" xml:space="preserve">
+    <value>大きな画像を Native ファイルサイズ上限に収まるよう自動的にリサイズする</value>
+  </data>
+  <data name="Settings.Config.General.ToolFetchFileSizeLimit" xml:space="preserve">
+    <value>ToolFetch ファイルサイズ上限（MB）:</value>
+  </data>
+  <data name="Settings.Config.General.AttachmentFileCountLimit" xml:space="preserve">
+    <value>参照添付ファイルの最大数:</value>
+  </data>
+  <data name="Settings.Config.General.AttachmentInlineCharacterBudget" xml:space="preserve">
+    <value>添付ファイルのインライン文字数上限:</value>
+  </data>
+  <data name="Settings.Config.General.MaxVisualPages" xml:space="preserve">
+    <value>1ターンあたりの最大ビジュアルページ数:</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Disabled" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Metadata" xml:space="preserve">
+    <value>メタデータのみ</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Redacted" xml:space="preserve">
+    <value>マスキング済みコンテンツ</value>
+  </data>
+  <data name="Settings.Config.General.TranscriptMode.Raw" xml:space="preserve">
+    <value>生データ</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.Group" xml:space="preserve">
+    <value>PowerPoint スライド</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultStyle" xml:space="preserve">
+    <value>既定のスタイル slug</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultDensity" xml:space="preserve">
+    <value>既定の密度</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.DefaultBuildMode" xml:space="preserve">
+    <value>既定のビルドモード</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.RepairIterationCap" xml:space="preserve">
+    <value>最大修復反復回数</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.WorkspaceRetentionDays" xml:space="preserve">
+    <value>ワークスペースの保持期間（日）</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.EmbedFontsByDefault" xml:space="preserve">
+    <value>既定でフォントを埋め込む</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.RunSelfTest" xml:space="preserve">
+    <value>ツールのセルフテストを実行</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSession" xml:space="preserve">
+    <value>セッションから作成</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSessionHint" xml:space="preserve">
+    <value>Copilot ペインで「このワークフローをスキルに変換して」と入力すると、自動的に作成できます。</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Model" xml:space="preserve">
+    <value>モデル設定</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Mcp" xml:space="preserve">
+    <value>MCP 設定</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Skills" xml:space="preserve">
+    <value>スキル</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Memory" xml:space="preserve">
+    <value>メモリ マネージャー</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Tools" xml:space="preserve">
+    <value>組み込みツール</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.Settings" xml:space="preserve">
+    <value>パラメーター設定</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.CreateSkillFromSession" xml:space="preserve">
+    <value>セッションからスキルを作成</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.DeleteMemoryFragment" xml:space="preserve">
+    <value>メモリフラグメントを削除</value>
+  </data>
+  <data name="Settings.Config.DialogTitle.PowerPointSelfTest" xml:space="preserve">
+    <value>PowerPoint ツールのセルフテスト</value>
+  </data>
+  <data name="Settings.Config.FileFilter.Json" xml:space="preserve">
+    <value>JSON ファイル|*.json|すべてのファイル|*.*</value>
+  </data>
+  <data name="Settings.Config.Common.ExportComplete" xml:space="preserve">
+    <value>エクスポートが完了しました。</value>
+  </data>
+  <data name="Settings.Config.Common.ExportFailed" xml:space="preserve">
+    <value>エクスポートに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Common.ImportComplete" xml:space="preserve">
+    <value>インポートが完了しました。</value>
+  </data>
+  <data name="Settings.Config.Common.ImportFailed" xml:space="preserve">
+    <value>インポートに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Models.ConfirmDelete" xml:space="preserve">
+    <value>モデル「{0}」を削除しますか？</value>
+  </data>
+  <data name="Settings.Config.Models.ExportDialogTitle" xml:space="preserve">
+    <value>モデル一覧をエクスポート</value>
+  </data>
+  <data name="Settings.Config.Models.ImportDialogTitle" xml:space="preserve">
+    <value>モデル定義をインポート</value>
+  </data>
+  <data name="Settings.Config.Models.ConfirmImport" xml:space="preserve">
+    <value>インポートすると現在のモデル一覧が置き換えられます。続行しますか？</value>
+  </data>
+  <data name="Settings.Config.Mcp.ConfirmDelete" xml:space="preserve">
+    <value>MCP サーバー「{0}」を削除しますか？</value>
+  </data>
+  <data name="Settings.Config.Mcp.ExportDialogTitle" xml:space="preserve">
+    <value>MCP 設定をエクスポート</value>
+  </data>
+  <data name="Settings.Config.Mcp.ImportDialogTitle" xml:space="preserve">
+    <value>MCP 設定をインポート</value>
+  </data>
+  <data name="Settings.Config.Mcp.ConfirmImport" xml:space="preserve">
+    <value>インポートすると現在の MCP サーバー一覧が置き換えられます。続行しますか？</value>
+  </data>
+  <data name="Settings.Config.Skills.CreateFromSessionPrompt" xml:space="preserve">
+    <value>現在の会話からスキルを作成するには、Nixer Copilot ペインで次のように入力してください:
+
+    "Turn this workflow into a skill"
+
+モデルが会話を分析し、質問を行って、SKILL.md ファイルを生成します。
+
+今すぐ新しいスキルエディターを開いて、手動で作成しますか？</value>
+  </data>
+  <data name="Settings.Config.Skills.SelectionRequired" xml:space="preserve">
+    <value>先にスキルを選択してください。</value>
+  </data>
+  <data name="Settings.Config.Skills.BuiltinEditNotAllowed" xml:space="preserve">
+    <value>組み込みスキル「{0}」は直接編集できません。
+
+カスタマイズするには、［新規］ボタンを使用して、同じ名前のファイルシステム スキルを作成し、上書きしてください。</value>
+  </data>
+  <data name="Settings.Config.Skills.FileMissing" xml:space="preserve">
+    <value>スキルファイルが見つかりません: {0}</value>
+  </data>
+  <data name="Settings.Config.Skills.BuiltinDeleteNotAllowed" xml:space="preserve">
+    <value>組み込みスキル「{0}」は削除できません。</value>
+  </data>
+  <data name="Settings.Config.Skills.FilePathMissing" xml:space="preserve">
+    <value>関連付けられたファイルパスがないため、このスキルを削除できません。</value>
+  </data>
+  <data name="Settings.Config.Skills.ConfirmDelete" xml:space="preserve">
+    <value>スキル「{0}」を削除しますか？
+
+次のディレクトリを削除します: {1}</value>
+  </data>
+  <data name="Settings.Config.Skills.ExportDialogTitle" xml:space="preserve">
+    <value>スキルパッケージをエクスポート（SKILL.md ファイルを含む）</value>
+  </data>
+  <data name="Settings.Config.Skills.ExportFilter" xml:space="preserve">
+    <value>スキルパッケージ|*.nsk|JSON ファイル（メタデータのみ）|*.json|すべてのファイル|*.*</value>
+  </data>
+  <data name="Settings.Config.Skills.ImportDialogTitle" xml:space="preserve">
+    <value>スキルパッケージをインポート</value>
+  </data>
+  <data name="Settings.Config.Skills.ImportFilter" xml:space="preserve">
+    <value>スキルパッケージ|*.nsk|JSON ファイル|*.json|すべてのファイル|*.*</value>
+  </data>
+  <data name="Settings.Config.Skills.NskImportComplete" xml:space="preserve">
+    <value>インポートが完了しました。
+{0} 個のファイルを抽出しました{1}。
+
+アプリケーションを再起動すると、スキルの変更が反映されます。</value>
+  </data>
+  <data name="Settings.Config.Skills.ExistingFilesSkipped" xml:space="preserve">
+    <value>  （{0} 個の既存ファイルをスキップ）</value>
+  </data>
+  <data name="Settings.Config.Skills.JsonImportWarning" xml:space="preserve">
+    <value>JSON ファイルにはメタデータのみが含まれ、SKILL.md の内容は含まれません。
+
+対象コンピューターの同じパスにスキルファイルが存在する場合のみ、状態を復元できます。
+完全なスキル移行を行うには、.nsk 形式でエクスポートしてください。
+
+続行しますか？</value>
+  </data>
+  <data name="Settings.Config.Skills.JsonImportComplete" xml:space="preserve">
+    <value>インポートが完了しました。{0} 個のスキルの状態を更新しました。
+
+アプリケーションを再起動すると、スキルの変更が反映されます。</value>
+  </data>
+  <data name="Settings.Config.Tools.BaseDefinitionMissing" xml:space="preserve">
+    <value>選択したツールの基本定義が見つかりません。</value>
+  </data>
+  <data name="Settings.Config.Tools.TestBlockedReason" xml:space="preserve">
+    <value>このツールは {0} に属しているため、現在の {1} プロセスでは実行できません。定義の変更は保存されます。テストするには、{0} で設定を開いてください。</value>
+  </data>
+  <data name="Settings.Config.Tools.Host" xml:space="preserve">
+    <value>ホスト</value>
+  </data>
+  <data name="Settings.Config.Memory.FragmentIdMissing" xml:space="preserve">
+    <value>フラグメント ID を特定できませんでした。</value>
+  </data>
+  <data name="Settings.Config.Memory.ConfirmDeleteFragment" xml:space="preserve">
+    <value>フラグメント「{0}」を削除しますか？
+
+これにより、MEMORY.md からそのインデックス参照も削除されます。</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestUnavailable" xml:space="preserve">
+    <value>このウィンドウでは PowerPoint ツールサービスを利用できません。</value>
+  </data>
+  <data name="Settings.Config.Error.LoadSettings" xml:space="preserve">
+    <value>設定の読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveSkillEnabledState" xml:space="preserve">
+    <value>スキルの有効状態の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.DeleteSkill" xml:space="preserve">
+    <value>スキルの削除に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.LoadMemoryTree" xml:space="preserve">
+    <value>メモリツリーの読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.LoadMemoryContent" xml:space="preserve">
+    <value>メモリ内容の読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveMemory" xml:space="preserve">
+    <value>メモリの保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.DeleteMemory" xml:space="preserve">
+    <value>メモリの削除に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveBuiltInTools" xml:space="preserve">
+    <value>組み込みツールの設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveMcp" xml:space="preserve">
+    <value>MCP サーバー設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveToolDefinition" xml:space="preserve">
+    <value>ツール定義の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.PowerPointSelfTest" xml:space="preserve">
+    <value>PowerPoint ツールのセルフテストに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveOnCloseFailed" xml:space="preserve">
+    <value>設定の保存に失敗しました: {0}
+
+変更を破棄してウィンドウを閉じますか？
+（［いいえ］を選択すると、設定に戻って修正できます。）</value>
+  </data>
+  <data name="Settings.Config.Error.SaveGeneralSettings" xml:space="preserve">
+    <value>システム設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Error.SaveSettings" xml:space="preserve">
+    <value>設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelContext" xml:space="preserve">
+    <value>Excel - コンテキスト</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelRead" xml:space="preserve">
+    <value>Excel - 読み取り</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelWrite" xml:space="preserve">
+    <value>Excel - 書き込み</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelAdvanced" xml:space="preserve">
+    <value>Excel - 高度な操作</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.ExcelFile" xml:space="preserve">
+    <value>Excel - ファイル</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordContext" xml:space="preserve">
+    <value>Word - コンテキスト</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordRead" xml:space="preserve">
+    <value>Word - 読み取り</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordWrite" xml:space="preserve">
+    <value>Word - 書き込み</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordNavigation" xml:space="preserve">
+    <value>Word - ナビゲーション</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordAdvanced" xml:space="preserve">
+    <value>Word - 高度な操作</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.WordFile" xml:space="preserve">
+    <value>Word - ファイル</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointContext" xml:space="preserve">
+    <value>PowerPoint - コンテキスト</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointRead" xml:space="preserve">
+    <value>PowerPoint - 読み取り</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointBackup" xml:space="preserve">
+    <value>PowerPoint - バックアップ</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointStyle" xml:space="preserve">
+    <value>PowerPoint - スタイルライブラリ</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointDeck" xml:space="preserve">
+    <value>PowerPoint - プレゼンテーション ワークスペース</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.PowerPointFile" xml:space="preserve">
+    <value>PowerPoint - ファイル</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeShell" xml:space="preserve">
+    <value>Runtime - コマンドライン</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeInteraction" xml:space="preserve">
+    <value>Runtime - 対話</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimePlanning" xml:space="preserve">
+    <value>Runtime - 計画とエージェント</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeNotification" xml:space="preserve">
+    <value>Runtime - 通知</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.RuntimeContext" xml:space="preserve">
+    <value>Runtime - コンテキスト</value>
+  </data>
+  <data name="Settings.Config.Tools.Group.Ungrouped" xml:space="preserve">
+    <value>グループなし</value>
+  </data>
+  <data name="Settings.Config.Memory.EmptyPreview" xml:space="preserve">
+    <value>コンテンツなし</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestNoResults" xml:space="preserve">
+    <value>表示するセルフテスト結果はありません。</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestReportTitle" xml:space="preserve">
+    <value>PowerPoint 組み込みツールのセルフテストレポート</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestGenerated" xml:space="preserve">
+    <value>生成日時: {0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestGroup" xml:space="preserve">
+    <value>グループ: {0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestRegistered" xml:space="preserve">
+    <value>登録済みツール: {0}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Passed" xml:space="preserve">
+    <value>合格</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Failed" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestStatus.Skipped" xml:space="preserve">
+    <value>スキップ</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestItem" xml:space="preserve">
+    <value>- [{0}] {1} / {2}（{3} ms）{4}</value>
+  </data>
+  <data name="Settings.Config.PowerPoint.SelfTestSummary" xml:space="preserve">
+    <value>概要: {0} 件合格、{1} 件失敗、{2} 件スキップ</value>
+  </data>
+  <data name="Shell.Host.Excel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="Shell.Host.Word" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="Shell.Host.PowerPoint" xml:space="preserve">
+    <value>PowerPoint</value>
+  </data>
+  <data name="Shell.Product.Excel" xml:space="preserve">
+    <value>Nixer Excel Copilot</value>
+  </data>
+  <data name="Shell.Product.Word" xml:space="preserve">
+    <value>Nixer Word Copilot</value>
+  </data>
+  <data name="Shell.Product.PowerPoint" xml:space="preserve">
+    <value>Nixer PowerPoint Copilot</value>
+  </data>
+  <data name="Shell.Ribbon.ExcelGroup" xml:space="preserve">
+    <value>Excel アシスタント</value>
+  </data>
+  <data name="Shell.Ribbon.WordGroup" xml:space="preserve">
+    <value>Word アシスタント</value>
+  </data>
+  <data name="Shell.Ribbon.PowerPointGroup" xml:space="preserve">
+    <value>PowerPoint アシスタント</value>
+  </data>
+  <data name="Shell.Ribbon.TogglePane" xml:space="preserve">
+    <value>ペインを表示</value>
+  </data>
+  <data name="Shell.Ribbon.ModelConfig" xml:space="preserve">
+    <value>モデル設定</value>
+  </data>
+  <data name="Shell.Ribbon.McpConfig" xml:space="preserve">
+    <value>MCP 設定</value>
+  </data>
+  <data name="Shell.Ribbon.SkillsConfig" xml:space="preserve">
+    <value>スキル設定</value>
+  </data>
+  <data name="Shell.Ribbon.MemoryConfig" xml:space="preserve">
+    <value>メモリ設定</value>
+  </data>
+  <data name="Shell.Ribbon.BuiltinToolsConfig" xml:space="preserve">
+    <value>組み込みツール</value>
+  </data>
+  <data name="Shell.Ribbon.SystemSettings" xml:space="preserve">
+    <value>システム設定</value>
+  </data>
+  <data name="Shell.Ribbon.About" xml:space="preserve">
+    <value>バージョン情報</value>
+  </data>
+  <data name="Shell.Status.CreatingPane" xml:space="preserve">
+    <value>ペインを作成しています。お待ちください...</value>
+  </data>
+  <data name="Shell.Status.OpeningModelConfig" xml:space="preserve">
+    <value>モデル設定を開いています...</value>
+  </data>
+  <data name="Shell.Status.OpeningMcpConfig" xml:space="preserve">
+    <value>MCP 設定を開いています...</value>
+  </data>
+  <data name="Shell.Status.OpeningSkillsConfig" xml:space="preserve">
+    <value>スキル設定を開いています...</value>
+  </data>
+  <data name="Shell.Status.OpeningMemoryConfig" xml:space="preserve">
+    <value>メモリ設定を開いています...</value>
+  </data>
+  <data name="Shell.Status.OpeningBuiltinToolsConfig" xml:space="preserve">
+    <value>組み込みツール設定を開いています...</value>
+  </data>
+  <data name="Shell.Status.OpeningSystemSettings" xml:space="preserve">
+    <value>システム設定を開いています...</value>
+  </data>
+  <data name="Shell.Status.OpeningAbout" xml:space="preserve">
+    <value>バージョン情報を開いています...</value>
+  </data>
+  <data name="Shell.Error.OperationFailed" xml:space="preserve">
+    <value>操作に失敗しました:
+
+{0}</value>
+  </data>
+  <data name="Shell.Error.ConfigurationTitle" xml:space="preserve">
+    <value>設定エラー</value>
+  </data>
+  <data name="Shell.Error.AddInUnavailable" xml:space="preserve">
+    <value>Office アドインが利用できません。</value>
+  </data>
+  <data name="Shell.Error.TaskPaneUnavailable" xml:space="preserve">
+    <value>タスクペインマネージャーが初期化されていません。</value>
+  </data>
+  <data name="Shell.Error.OpenModelConfigFailed" xml:space="preserve">
+    <value>モデル設定を開けませんでした: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenMcpConfigFailed" xml:space="preserve">
+    <value>MCP 設定を開けませんでした: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenSkillsConfigFailed" xml:space="preserve">
+    <value>スキル設定を開けませんでした: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenMemoryConfigFailed" xml:space="preserve">
+    <value>メモリ設定を開けませんでした: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenBuiltinToolsConfigFailed" xml:space="preserve">
+    <value>組み込みツール設定を開けませんでした: {0}</value>
+  </data>
+  <data name="Shell.Error.OpenSystemSettingsFailed" xml:space="preserve">
+    <value>システム設定を開けませんでした: {0}</value>
+  </data>
+  <data name="Shell.Startup.LoadFailure" xml:space="preserve">
+    <value>{0} アドインの読み込みに失敗しました:
+
+{1}</value>
+  </data>
+  <data name="Shell.Excel.ProtectionRecoveryFailure" xml:space="preserve">
+    <value>Nixer Excel Copilot は、次のワークシートの保護を自動的に復元できませんでした:
+
+{0}
+
+Excel の［校閲］タブを確認し、パスワードなしでシートの保護を手動で解除してください。</value>
+  </data>
+  <data name="Shell.About.Title" xml:space="preserve">
+    <value>{0} について</value>
+  </data>
+  <data name="Shell.About.Version" xml:space="preserve">
+    <value>バージョン {0}</value>
+  </data>
+  <data name="Shell.About.Project" xml:space="preserve">
+    <value>プロジェクト:</value>
+  </data>
+  <data name="Shell.About.Contact" xml:space="preserve">
+    <value>お問い合わせ:</value>
+  </data>
+  <data name="Shell.About.ContactValue" xml:space="preserve">
+    <value>GitHub Issues</value>
+  </data>
+  <data name="Shell.About.License" xml:space="preserve">
+    <value>ライセンス:</value>
+  </data>
+  <data name="Shell.About.Author" xml:space="preserve">
+    <value>作成者:</value>
+  </data>
+  <data name="Shell.About.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Web.action.copy" xml:space="preserve"><value>コピー</value></data>
+  <data name="Web.action.copyCode" xml:space="preserve"><value>コードをコピー</value></data>
+  <data name="Web.action.retry" xml:space="preserve"><value>再試行</value></data>
+  <data name="Web.action.restore" xml:space="preserve"><value>この変更を元に戻す（バックアップから復元コピーを作成します。元のファイルは上書きされません）</value></data>
+  <data name="Web.action.viewBackup" xml:space="preserve"><value>バックアップを表示</value></data>
+  <data name="Web.action.viewBackupsCount" xml:space="preserve"><value>バックアップを表示（{0}）</value></data>
+  <data name="Web.action.openVba" xml:space="preserve"><value>VBA エディターで開く</value></data>
+  <data name="Web.action.runVba" xml:space="preserve"><value>VBA を直接実行</value></data>
+  <data name="Web.action.scrollBottom" xml:space="preserve"><value>下までスクロールして自動追従を再開</value></data>
+  <data name="Web.action.follow" xml:space="preserve"><value>追従</value></data>
+  <data name="Web.backup.pending" xml:space="preserve"><value>バックアップ中...</value></data>
+  <data name="Web.code.running" xml:space="preserve"><value>実行中...</value></data>
+  <data name="Web.code.ran" xml:space="preserve"><value>実行済み</value></data>
+  <data name="Web.code.runFailed" xml:space="preserve"><value>実行に失敗しました</value></data>
+  <data name="Web.code.opened" xml:space="preserve"><value>開きました</value></data>
+  <data name="Web.code.openFailed" xml:space="preserve"><value>開けませんでした</value></data>
+  <data name="Web.code.typing" xml:space="preserve"><value>Nixer Copilot が応答しています</value></data>
+  <data name="Web.code.vbaFailure" xml:space="preserve"><value>VBA の実行に失敗しました</value></data>
+  <data name="Web.message.user" xml:space="preserve"><value>あなた</value></data>
+  <data name="Web.message.toolCall" xml:space="preserve"><value>ツール呼び出し</value></data>
+  <data name="Web.message.executing" xml:space="preserve"><value>実行中</value></data>
+  <data name="Web.message.completed" xml:space="preserve"><value>完了</value></data>
+  <data name="Web.message.failed" xml:space="preserve"><value>失敗</value></data>
+  <data name="Web.confirmation.heading" xml:space="preserve"><value>実行には確認が必要です。</value></data>
+  <data name="Web.confirmation.title" xml:space="preserve"><value>高リスクツールの確認</value></data>
+  <data name="Web.confirmation.titleSuffix" xml:space="preserve"><value>{0} - 実行の確認</value></data>
+  <data name="Web.confirmation.warningText" xml:space="preserve"><value>この操作は現在の Office ドキュメントを変更する可能性があります。続行する前に内容を確認してください。</value></data>
+  <data name="Web.confirmation.preExecutionBackup" xml:space="preserve"><value>実行前のバックアップ: </value></data>
+  <data name="Web.confirmation.argumentsSummary" xml:space="preserve"><value>引数の概要:</value></data>
+  <data name="Web.confirmation.choices" xml:space="preserve"><value>続行するには［はい］、キャンセルするには［いいえ］を選択してください。</value></data>
+  <data name="Web.confirmation.operation" xml:space="preserve"><value>操作</value></data>
+  <data name="Web.confirmation.tool" xml:space="preserve"><value>ツール</value></data>
+  <data name="Web.confirmation.risk" xml:space="preserve"><value>リスクレベル</value></data>
+  <data name="Web.confirmation.document" xml:space="preserve"><value>ドキュメント</value></data>
+  <data name="Web.confirmation.backup" xml:space="preserve"><value>バックアップ</value></data>
+  <data name="Web.confirmation.details" xml:space="preserve"><value>引数 JSON 全体を表示</value></data>
+  <data name="Web.confirmation.summary" xml:space="preserve"><value>引数の概要を表示</value></data>
+  <data name="Web.confirmation.waiting" xml:space="preserve"><value>確認待ち</value></data>
+  <data name="Web.confirmation.denied" xml:space="preserve"><value>拒否されました</value></data>
+  <data name="Web.confirmation.accepted" xml:space="preserve"><value>確認済み、続行しています</value></data>
+  <data name="Web.confirmation.deny" xml:space="preserve"><value>拒否</value></data>
+  <data name="Web.confirmation.allowOnce" xml:space="preserve"><value>1 回のみ許可</value></data>
+  <data name="Web.confirmation.allowSession" xml:space="preserve"><value>このセッション中は自動的に許可</value></data>
+  <data name="Web.confirmation.allowAlways" xml:space="preserve"><value>常に自動的に許可</value></data>
+  <data name="Web.confirmation.confirm" xml:space="preserve"><value>確認</value></data>
+  <data name="Web.ask.submit" xml:space="preserve"><value>送信</value></data>
+  <data name="Web.ask.header" xml:space="preserve"><value>Nixer Copilot からの応答が必要です</value></data>
+  <data name="Web.ask.cancel" xml:space="preserve"><value>キャンセル</value></data>
+  <data name="Web.ask.other" xml:space="preserve"><value>その他:</value></data>
+  <data name="Web.ask.otherPlaceholder" xml:space="preserve"><value>カスタムの応答を入力...</value></data>
+  <data name="Web.ask.previewPrompt" xml:space="preserve"><value>プレビューを表示するオプションを選択</value></data>
+  <data name="Web.ask.previewEnlarge" xml:space="preserve"><value>クリックして拡大</value></data>
+  <data name="Web.clipboard.copied" xml:space="preserve"><value>コピーしました</value></data>
+  <data name="Web.clipboard.copyFailed" xml:space="preserve"><value>コピーに失敗しました</value></data>
+  <data name="Web.thinking.active" xml:space="preserve"><value>思考中</value></data>
+  <data name="Web.thinking.completed" xml:space="preserve"><value>思考プロセス</value></data>
+  <data name="Web.info.noHostContext" xml:space="preserve"><value>有効なホストコンテキストがありません</value></data>
+  <data name="Web.info.registeredTools" xml:space="preserve"><value>ツール: {0}</value></data>
+  <data name="Web.info.toolsRegistered" xml:space="preserve"><value>ツール: 登録済み</value></data>
+  <data name="Web.info.toolsHelp" xml:space="preserve"><value>/tools を実行して登録済みツールを一覧表示</value></data>
+  <data name="Web.info.callHelp" xml:space="preserve"><value>/call &lt;toolName&gt; {json} を実行して直接呼び出し</value></data>
+  <data name="Web.panel.noModel" xml:space="preserve"><value>先にモデルを設定してください</value></data>
+  <data name="Web.panel.toolbar" xml:space="preserve"><value>ツール</value></data>
+  <data name="Web.panel.newSession" xml:space="preserve"><value>新しい会話</value></data>
+  <data name="Web.panel.files" xml:space="preserve"><value>ファイル</value></data>
+  <data name="Web.panel.model" xml:space="preserve"><value>モデル {0}</value></data>
+  <data name="Web.panel.loading" xml:space="preserve"><value>インターフェイスを読み込み中</value></data>
+  <data name="Web.panel.loadingAssets" xml:space="preserve"><value>ローカルページリソースを読み込み中です。お待ちください...</value></data>
+  <data name="Web.panel.documentTitle" xml:space="preserve"><value>Office Copilot パネル</value></data>
+  <data name="Web.panel.initializing" xml:space="preserve"><value>WebView2 は初期化中です。お待ちください...</value></data>
+  <data name="Web.panel.loadFailed" xml:space="preserve"><value>インターフェイスを読み込めません</value></data>
+  <data name="Web.panel.initializationError" xml:space="preserve"><value>WebView2 の初期化に失敗しました。プレースホルダーを表示します。{0}{0}{1}{0}{0}ユーザーデータフォルダー: {2}</value></data>
+  <data name="Web.panel.webAssetsMissing" xml:space="preserve"><value>Web アセットフォルダーが見つかりませんでした: {0}</value></data>
+  <data name="Web.panel.pageMissing" xml:space="preserve"><value>フロントエンドページリソースが見つかりませんでした:{0}{0}{1}</value></data>
+  <data name="Web.panel.pageLoadFailed" xml:space="preserve"><value>ページリソースの読み込みに失敗しました。{0}{0}ステータス: {1}{0}{0}ページ: https://{2}/index.html</value></data>
+  <data name="Web.panel.noQuestions" xml:space="preserve"><value>(表示する質問はありません)</value></data>
+  <data name="Web.panel.askTitle" xml:space="preserve"><value>Nixer Copilot — 応答が必要です</value></data>
+  <data name="Web.panel.submit" xml:space="preserve"><value>送信</value></data>
+  <data name="Web.panel.cancel" xml:space="preserve"><value>キャンセル</value></data>
+  <data name="Web.panel.customAnswer" xml:space="preserve"><value>その他（入力）:</value></data>
+  <data name="Web.panel.customAnswerPlaceholder" xml:space="preserve"><value>カスタムの応答を入力...</value></data>
+  <data name="Web.panel.notes" xml:space="preserve"><value>メモ（任意）:</value></data>
+  <data name="Web.panel.notesPlaceholder" xml:space="preserve"><value>メモを入力...</value></data>
+  <data name="Web.panel.planTitle" xml:space="preserve"><value>Nixer Copilot — 計画の承認</value></data>
+  <data name="Web.panel.planHeader" xml:space="preserve"><value>▎エージェントが実装計画を作成しました。内容を確認してください。</value></data>
+  <data name="Web.panel.planDescription" xml:space="preserve"><value>以下の計画を確認し、必要に応じて編集してから、［承認］を選択して続行するか、［却下］を選択してキャンセルしてください。</value></data>
+  <data name="Web.panel.approve" xml:space="preserve"><value>✓ 承認</value></data>
+  <data name="Web.panel.reject" xml:space="preserve"><value>✗ 却下</value></data>
+  <data name="Web.panel.history" xml:space="preserve"><value>チャット履歴</value></data>
+  <data name="Web.panel.deleteSession" xml:space="preserve"><value>会話を削除</value></data>
+  <data name="Web.panel.recent" xml:space="preserve"><value>最近使った項目</value></data>
+  <data name="Web.panel.references" xml:space="preserve"><value>リンク</value></data>
+  <data name="Web.panel.url" xml:space="preserve"><value>URL:</value></data>
+  <data name="Web.panel.send" xml:space="preserve"><value>メッセージを送信</value></data>
+  <data name="Web.panel.stop" xml:space="preserve"><value>生成を停止</value></data>
+  <data name="Web.panel.agent" xml:space="preserve"><value>エージェント</value></data>
+  <data name="Web.panel.ask" xml:space="preserve"><value>質問</value></data>
+  <data name="Web.panel.noBackup" xml:space="preserve"><value>設定バックアップが見つかりませんでした。</value></data>
+  <data name="Web.panel.viewBackup" xml:space="preserve"><value>バックアップを表示</value></data>
+  <data name="Web.panel.restore" xml:space="preserve"><value>この変更を元に戻す</value></data>
+  <data name="Web.panel.restoreMissing" xml:space="preserve"><value>バックアップファイルが存在しないため、復元できません。</value></data>
+  <data name="Web.panel.restoreUnsupported" xml:space="preserve"><value>現在のホストはバックアップからの復元をサポートしていません。</value></data>
+  <data name="Web.panel.restoreConfirm" xml:space="preserve"><value>このバックアップ時点から復元コピーを作成します（元のファイルは上書きされません）:{0}{0}{1}</value></data>
+  <data name="Web.panel.restoreDetailedConfirm" xml:space="preserve"><value>このバックアップ時点から復元コピーを作成します:{0}{0}{1}{0}{0}コピーは元のドキュメントと同じ場所に保存されます（ファイル名に _restored_ が付加されます。未保存のドキュメントはバックアップフォルダーに保存されます）。元のファイルは上書きされません。続行しますか？</value></data>
+  <data name="Web.panel.restoreResult" xml:space="preserve"><value>{0}{1}{1}復元されたコピー: {2}</value></data>
+  <data name="Web.panel.openBackupFailed" xml:space="preserve"><value>バックアップを開けませんでした: {0}</value></data>
+  <data name="Web.panel.attachmentTitle" xml:space="preserve"><value>参照</value></data>
+  <data name="Web.panel.pasteReference" xml:space="preserve"><value>参照を貼り付け</value></data>
+  <data name="Web.panel.emptyRecent" xml:space="preserve"><value>最近使った参照はありません</value></data>
+  <data name="Web.panel.referenceLimit" xml:space="preserve"><value>参照添付ファイルの最大数に達しました。</value></data>
+  <data name="Web.panel.duplicateRecent" xml:space="preserve"><value>これらの最近使った参照はすべて、現在の参照一覧にすでに含まれています。</value></data>
+  <data name="Web.panel.pasteFailed" xml:space="preserve"><value>クリップボードの内容を読み取れませんでした: {0}</value></data>
+  <data name="Web.panel.clipboardImageFailed" xml:space="preserve"><value>クリップボード画像の保存に失敗しました。</value></data>
+  <data name="Web.panel.noNewReferences" xml:space="preserve"><value>新しい参照は追加されませんでした。</value></data>
+  <data name="Web.panel.noNewClipboardImages" xml:space="preserve"><value>新しいクリップボード画像は追加されませんでした。</value></data>
+  <data name="Web.panel.noSupportedFiles" xml:space="preserve"><value>サポートされている参照ファイルは追加されませんでした。</value></data>
+  <data name="Web.panel.dragReferences" xml:space="preserve"><value>ドラッグ＆ドロップで参照を追加</value></data>
+  <data name="Web.panel.fileReferences" xml:space="preserve"><value>ファイル参照</value></data>
+  <data name="Web.panel.addReferenceFiles" xml:space="preserve"><value>参照ファイルを追加</value></data>
+  <data name="Web.panel.webReference" xml:space="preserve"><value>Web 参照</value></data>
+  <data name="Web.panel.webReferenceDuplicate" xml:space="preserve"><value>このリンクは現在の参照一覧にすでに含まれています。</value></data>
+  <data name="Web.panel.webReferenceFailed" xml:space="preserve"><value>Web 参照の追加に失敗しました: {0}</value></data>
+  <data name="Web.panel.referenceFileMissing" xml:space="preserve"><value>参照ファイルが存在しないため、開けません。</value></data>
+  <data name="Web.panel.referenceContentFailed" xml:space="preserve"><value>参照コンテンツを開けませんでした: {0}</value></data>
+  <data name="Web.panel.referenceLimitTitle" xml:space="preserve"><value>参照数の上限</value></data>
+  <data name="Web.panel.referenceLimitCount" xml:space="preserve"><value>参照の上限（{0}）に達しました。</value></data>
+  <data name="Web.panel.unnamedReference" xml:space="preserve"><value>名前のない参照</value></data>
+  <data name="Web.panel.otherReferencesCount" xml:space="preserve"><value>他 {0} 件</value></data>
+  <data name="Web.panel.pasteTitle" xml:space="preserve"><value>参照を貼り付け</value></data>
+  <data name="Web.panel.openReferenceTitle" xml:space="preserve"><value>参照</value></data>
+  <data name="Web.panel.recentTitle" xml:space="preserve"><value>最近使った参照</value></data>
+  <data name="Web.attachment.parsed" xml:space="preserve"><value>参照の準備が完了しました: {0}</value></data>
+  <data name="Web.attachment.count" xml:space="preserve"><value>{0} 件</value></data>
+  <data name="Web.attachment.truncatedCount" xml:space="preserve"><value>{0} 件が切り詰められました</value></data>
+  <data name="Web.attachment.failedCount" xml:space="preserve"><value>{0} 件失敗</value></data>
+  <data name="Web.attachment.parseComplete" xml:space="preserve"><value>解析済み</value></data>
+  <data name="Web.attachment.noParseResult" xml:space="preserve"><value>解析結果なし</value></data>
+  <data name="Web.attachment.parseFailed" xml:space="preserve"><value>解析に失敗しました: {0}</value></data>
+  <data name="Web.attachment.parseTruncated" xml:space="preserve"><value>解析済み（内容は切り詰められています）</value></data>
+  <data name="Web.attachment.pages" xml:space="preserve"><value>{0} ページ</value></data>
+  <data name="Web.attachment.visibleWorksheets" xml:space="preserve"><value>{0} 個の表示ワークシート</value></data>
+  <data name="Web.attachment.slides" xml:space="preserve"><value>{0} 枚のスライド</value></data>
+  <data name="Web.attachment.contentTruncated" xml:space="preserve"><value>内容が切り詰められました</value></data>
+  <data name="Web.attachment.parseFailure" xml:space="preserve"><value>解析に失敗</value></data>
+  <data name="Web.attachment.previewTitle" xml:space="preserve"><value>タイトル: {0}</value></data>
+  <data name="Web.attachment.previewUrl" xml:space="preserve"><value>URL：{0}</value></data>
+  <data name="Web.attachment.previewEncoding" xml:space="preserve"><value>エンコード: {0}</value></data>
+  <data name="Web.attachment.previewSummary" xml:space="preserve"><value>概要:</value></data>
+  <data name="Web.attachment.previewContent" xml:space="preserve"><value>抽出された内容:</value></data>
+  <data name="Web.attachment.emptyContent" xml:space="preserve"><value>[内容なし]</value></data>
+  <data name="Web.attachment.clipboardImageFile" xml:space="preserve"><value>クリップボード画像-{0:D2}.png</value></data>
+  <data name="Web.attachment.noTempFile" xml:space="preserve"><value>クリップボード画像用の一時ファイルを作成できませんでした。</value></data>
+  <data name="Web.attachment.summarySuffix" xml:space="preserve"><value>{0}（{1}）</value></data>
+  <data name="Web.attachment.nameSeparator" xml:space="preserve"><value>、</value></data>
+  <data name="Web.attachment.listSeparator" xml:space="preserve"><value>、</value></data>
+  <data name="Web.panel.sendError" xml:space="preserve"><value>送信に失敗しました: {0}</value></data>
+  <data name="Web.panel.sendException" xml:space="preserve"><value>送信エラー: {0}</value></data>
+  <data name="Web.panel.modelRequired" xml:space="preserve"><value>先にモデルを設定して選択してください。</value></data>
+  <data name="Web.panel.sendFailed" xml:space="preserve"><value>送信に失敗しました</value></data>
+  <data name="Web.info.activeDocument" xml:space="preserve"><value>アクティブなドキュメント: {0}</value></data>
+  <data name="Web.info.worksheet" xml:space="preserve"><value>現在のワークシート: {0}</value></data>
+  <data name="Web.info.selection" xml:space="preserve"><value>現在の選択範囲: {0}</value></data>
+  <data name="Web.info.toolsCount" xml:space="preserve"><value>ツール: {0}</value></data>
+  <data name="Web.info.hostContextLoaded" xml:space="preserve"><value>ホストコンテキストを読み込みました</value></data>
+  <data name="Web.context.tokens" xml:space="preserve"><value>コンテキスト使用率: {0}%  ({1:N0} / {2:N0} トークン)</value></data>
+  <data name="Web.panel.backupFailed" xml:space="preserve"><value>操作に失敗しました: {0}</value></data>
+  <data name="trust.footer.status" xml:space="preserve">
+    <value>検証：</value>
+  </data>
+  <data name="trust.footer.scope" xml:space="preserve">
+    <value>確認対象:</value>
+  </data>
+  <data name="trust.footer.basis" xml:space="preserve">
+    <value>根拠:</value>
+  </data>
+  <data name="trust.footer.unmatched" xml:space="preserve">
+    <value>直接的な根拠のない数値:</value>
+  </data>
+  <data name="trust.footer.unmatched.detail" xml:space="preserve">
+    <value>（自動トレースでは、これらの数値がユーザーメッセージまたはツール結果に見つかりませんでした）</value>
+  </data>
+  <data name="trust.footer.tier.c.unmatched" xml:space="preserve">
+    <value>C級：検証未完了 — 結論に含まれる一部の数値に直接の根拠がありません</value>
+  </data>
+  <data name="trust.footer.tier.b.corrected" xml:space="preserve">
+    <value>B級：制限付きで検証済み（最終回答の数値を修正済み）</value>
+  </data>
+  <data name="trust.footer.tier.a.full" xml:space="preserve">
+    <value>A級：全件の独立検証に合格</value>
+  </data>
+  <data name="trust.footer.tier.a.assertions" xml:space="preserve">
+    <value>{0}件の検証項目に合格</value>
+  </data>
+  <data name="trust.footer.tier.a.coverage" xml:space="preserve">
+    <value>{0}行を対象</value>
+  </data>
+  <data name="trust.footer.tier.a.outputs" xml:space="preserve">
+    <value>{0}件の出力を独立検証で確認</value>
+  </data>
+  <data name="trust.footer.tier.b" xml:space="preserve">
+    <value>B級：制限付きで検証済み（{0}）</value>
+  </data>
+  <data name="trust.footer.tier.c" xml:space="preserve">
+    <value>C級：検証未完了 — {0}</value>
+  </data>
+  <data name="trust.footer.reason.b" xml:space="preserve">
+    <value>検証の根拠が、独立検証の完全な基準を満たしていません</value>
+  </data>
+  <data name="trust.footer.reason.c" xml:space="preserve">
+    <value>少なくとも1つの出力項目に利用可能な検証根拠がありません</value>
+  </data>
+  <data name="trust.footer.verified.keysets" xml:space="preserve">
+    <value>双方向のキーセット差分を完全に算出済み</value>
+  </data>
+  <data name="trust.footer.verified.hidden" xml:space="preserve">
+    <value>非表示行の状態をすべてスキャン済み</value>
+  </data>
+  <data name="trust.footer.basis.unparseable" xml:space="preserve">
+    <value>根拠情報を解析できませんでした</value>
+  </data>
+  <data name="trust.footer.basis.unspecified" xml:space="preserve">
+    <value>詳細な根拠は指定されていません</value>
+  </data>
+  <data name="trust.footer.filter" xml:space="preserve">
+    <value>フィルター </value>
+  </data>
+  <data name="trust.footer.and" xml:space="preserve">
+    <value> と </value>
+  </data>
+  <data name="trust.footer.group.by" xml:space="preserve">
+    <value>グループ化: </value>
+  </data>
+  <data name="trust.footer.group.aggregate" xml:space="preserve">
+    <value> 集計</value>
+  </data>
+  <data name="trust.footer.group.all" xml:space="preserve">
+    <value>全体集計</value>
+  </data>
+  <data name="trust.footer.more" xml:space="preserve">
+    <value>他 {0} 件</value>
+  </data>
+  <data name="trust.footer.bucket.width" xml:space="preserve">
+    <value>、バケット幅 </value>
+  </data>
+  <data name="trust.footer.prefix" xml:space="preserve">
+    <value>、先頭 </value>
+  </data>
+  <data name="trust.footer.characters" xml:space="preserve">
+    <value> 文字</value>
+  </data>
+  <data name="trust.footer.operator.contains" xml:space="preserve">
+    <value> に含まれる値: </value>
+  </data>
+  <data name="trust.footer.operator.starts_with" xml:space="preserve">
+    <value> の先頭が </value>
+  </data>
+  <data name="trust.footer.operator.in" xml:space="preserve">
+    <value> の値が次のいずれか: </value>
+  </data>
+  <data name="trust.footer.operator.is_empty" xml:space="preserve">
+    <value> が空</value>
+  </data>
+  <data name="trust.footer.operator.not_empty" xml:space="preserve">
+    <value> が空でない</value>
+  </data>
+  <data name="panel.tool_confirmation.title" xml:space="preserve">
+    <value>高リスクツールの確認</value>
+  </data>
+  <data name="panel.tool_confirmation.title_suffix" xml:space="preserve">
+    <value>{0} - 実行の確認</value>
+  </data>
+  <data name="panel.tool_confirmation.warning" xml:space="preserve">
+    <value>この操作は現在の Office ドキュメントを変更する可能性があります。続行する前に内容を確認してください。</value>
+  </data>
+  <data name="panel.tool_confirmation.tool" xml:space="preserve">
+    <value>ツール: </value>
+  </data>
+  <data name="panel.tool_confirmation.risk" xml:space="preserve">
+    <value>リスクレベル: </value>
+  </data>
+  <data name="panel.tool_confirmation.document" xml:space="preserve">
+    <value>ドキュメント: </value>
+  </data>
+  <data name="panel.tool_confirmation.operation" xml:space="preserve">
+    <value>操作: </value>
+  </data>
+  <data name="panel.tool_confirmation.backup" xml:space="preserve">
+    <value>実行前のバックアップ: </value>
+  </data>
+  <data name="panel.tool_confirmation.arguments" xml:space="preserve">
+    <value>引数の概要:</value>
+  </data>
+  <data name="panel.tool_confirmation.choices" xml:space="preserve">
+    <value>続行するには［はい］、キャンセルするには［いいえ］を選択してください。</value>
+  </data>
+  <data name="panel.error.broker.transport.not_connected" xml:space="preserve">
+    <value>Broker に接続されていません。</value>
+  </data>
+  <data name="panel.error.broker.transport.invalid_payload" xml:space="preserve">
+    <value>Broker から無効な応答が返されました。</value>
+  </data>
+  <data name="panel.error.broker.transport.no_response" xml:space="preserve">
+    <value>Broker から応答がありませんでした。</value>
+  </data>
+  <data name="panel.error.broker.pipe.invalid_request" xml:space="preserve">
+    <value>Broker リクエストが無効でした。</value>
+  </data>
+  <data name="panel.error.runtime.turn_failed" xml:space="preserve">
+    <value>ターンを完了できませんでした: {0}</value>
+  </data>
+  <data name="panel.error.runtime.cancelled" xml:space="preserve">
+    <value>ターンはキャンセルされました。</value>
+  </data>
+  <data name="panel.error.host.capabilities_unavailable" xml:space="preserve">
+    <value>Office ツールを利用できません。ドキュメントを再度開くか、Office アドインを再起動してから、もう一度お試しください。</value>
+  </data>
+  <data name="panel.error.tool.confirmation_handler_unavailable" xml:space="preserve">
+    <value>このツールで利用できる確認ハンドラーがありません。</value>
+  </data>
+  <data name="panel.error.permission.denied_by_user" xml:space="preserve">
+    <value>ツール '{0}' はユーザーによって拒否されました。</value>
+  </data>
+  <data name="tool.runtime.compact.display_name" xml:space="preserve">
+    <value>Compact Context</value>
+  </data>
+  <data name="tool.excel_get_active_workbook.display_name" xml:space="preserve">
+    <value>Get Active Workbook</value>
+  </data>
+  <data name="tool.excel_get_selection.display_name" xml:space="preserve">
+    <value>Get Selection</value>
+  </data>
+  <data name="tool.excel_list_worksheets.display_name" xml:space="preserve">
+    <value>List Worksheets</value>
+  </data>
+  <data name="tool.excel_read_range.display_name" xml:space="preserve">
+    <value>Read Range</value>
+  </data>
+  <data name="tool.excel_write_range.display_name" xml:space="preserve">
+    <value>Write Range</value>
+  </data>
+  <data name="tool.ppt_extract_content.display_name" xml:space="preserve">
+    <value>Extract Presentation Outline</value>
+  </data>
+  <data name="tool.ppt_export_slide_image.display_name" xml:space="preserve">
+    <value>Export Slide Image</value>
+  </data>
+  <data name="tool.ppt_check_fonts.display_name" xml:space="preserve">
+    <value>Check Fonts</value>
+  </data>
+  <data name="tool.ppt_save_with_fonts.display_name" xml:space="preserve">
+    <value>Save Copy with Embedded Fonts</value>
+  </data>
+  <data name="tool.ppt_save_copy.display_name" xml:space="preserve">
+    <value>Save Presentation Copy</value>
+  </data>
+  <data name="tool.ppt_execute_vba.display_name" xml:space="preserve">
+    <value>Execute VBA</value>
+  </data>
+  <data name="tool.ppt_get_active_presentation.display_name" xml:space="preserve">
+    <value>Get Active Presentation</value>
+  </data>
+  <data name="tool.ppt_get_selection.display_name" xml:space="preserve">
+    <value>Get Selection</value>
+  </data>
+  <data name="tool.ppt_list_slides.display_name" xml:space="preserve">
+    <value>List Slides</value>
+  </data>
+  <data name="tool.ppt_read_slide.display_name" xml:space="preserve">
+    <value>Read Slide</value>
+  </data>
+  <data name="tool.ppt_list_backups.display_name" xml:space="preserve">
+    <value>List Backups</value>
+  </data>
+  <data name="tool.ppt_restore_backup.display_name" xml:space="preserve">
+    <value>Restore from Backup</value>
+  </data>
+  <data name="tool.ppt_style_search.display_name" xml:space="preserve">
+    <value>Search Style Library</value>
+  </data>
+  <data name="tool.ppt_style_get.display_name" xml:space="preserve">
+    <value>Read Style Details</value>
+  </data>
+  <data name="tool.ppt_deck_build.display_name" xml:space="preserve">
+    <value>Build Presentation from Workspace</value>
+  </data>
+  <data name="tool.word_toggle_track_changes.display_name" xml:space="preserve">
+    <value>Toggle Track Changes</value>
+  </data>
+  <data name="tool.word_list_styles.display_name" xml:space="preserve">
+    <value>List Styles</value>
+  </data>
+  <data name="tool.word_add_comment.display_name" xml:space="preserve">
+    <value>Add Comment</value>
+  </data>
+  <data name="tool.word_set_paragraph_format.display_name" xml:space="preserve">
+    <value>Set Paragraph Format</value>
+  </data>
+  <data name="tool.word_add_hyperlink.display_name" xml:space="preserve">
+    <value>Add Hyperlink</value>
+  </data>
+  <data name="tool.word_set_page_setup.display_name" xml:space="preserve">
+    <value>Set Page Setup</value>
+  </data>
+  <data name="tool.word_add_content_control.display_name" xml:space="preserve">
+    <value>Add Content Control</value>
+  </data>
+  <data name="tool.word_select_paragraph.display_name" xml:space="preserve">
+    <value>Select Paragraph</value>
+  </data>
+  <data name="tool.word_set_header_footer.display_name" xml:space="preserve">
+    <value>Set Header and Footer</value>
+  </data>
+  <data name="tool.word_select_document.display_name" xml:space="preserve">
+    <value>Select Whole Document</value>
+  </data>
+  <data name="tool.word_add_bookmark.display_name" xml:space="preserve">
+    <value>Add Bookmark</value>
+  </data>
+  <data name="tool.word_move_to_end.display_name" xml:space="preserve">
+    <value>Move to End of Document</value>
+  </data>
+  <data name="tool.word_insert_paragraph.display_name" xml:space="preserve">
+    <value>Insert Paragraph Break</value>
+  </data>
+  <data name="tool.word_insert_text.display_name" xml:space="preserve">
+    <value>Insert Text</value>
+  </data>
+  <data name="tool.word_insert_table.display_name" xml:space="preserve">
+    <value>Insert Table</value>
+  </data>
+  <data name="tool.word_insert_field.display_name" xml:space="preserve">
+    <value>Insert Field</value>
+  </data>
+  <data name="tool.word_file_watermark.display_name" xml:space="preserve">
+    <value>Watermark</value>
+  </data>
+  <data name="tool.word_file_field.display_name" xml:space="preserve">
+    <value>Insert Field</value>
+  </data>
+  <data name="tool.word_format_selection.display_name" xml:space="preserve">
+    <value>Format Selection</value>
+  </data>
+  <data name="tool.word_format_paragraphs.display_name" xml:space="preserve">
+    <value>Format Paragraphs (Batch)</value>
+  </data>
+  <data name="tool.word_file_toc.display_name" xml:space="preserve">
+    <value>Rebuild Table of Contents</value>
+  </data>
+  <data name="tool.word_file_numbering.display_name" xml:space="preserve">
+    <value>Create Numbering List</value>
+  </data>
+  <data name="tool.word_find_replace.display_name" xml:space="preserve">
+    <value>Find and Replace</value>
+  </data>
+  <data name="tool.word_apply_style.display_name" xml:space="preserve">
+    <value>Apply Style</value>
+  </data>
+  <data name="tool.word_get_selection.display_name" xml:space="preserve">
+    <value>Get Selection</value>
+  </data>
+  <data name="tool.word_get_active_document.display_name" xml:space="preserve">
+    <value>Get Active Document</value>
+  </data>
+  <data name="tool.word_read_table.display_name" xml:space="preserve">
+    <value>Read Table</value>
+  </data>
+  <data name="tool.word_read_outline.display_name" xml:space="preserve">
+    <value>Read Outline</value>
+  </data>
+  <data name="tool.word_read_paragraphs.display_name" xml:space="preserve">
+    <value>Read Paragraphs</value>
+  </data>
+  <data name="tool.word_read_document.display_name" xml:space="preserve">
+    <value>Read Document</value>
+  </data>
+  <data name="tool.excel_execute_vba.display_name" xml:space="preserve">
+    <value>Execute VBA Code</value>
+  </data>
+  <data name="tool.excel_clear_range.display_name" xml:space="preserve">
+    <value>Clear Range</value>
+  </data>
+  <data name="tool.excel_create_worksheet.display_name" xml:space="preserve">
+    <value>Create Worksheet</value>
+  </data>
+  <data name="tool.excel_set_range_format.display_name" xml:space="preserve">
+    <value>Set Range Format</value>
+  </data>
+  <data name="tool.excel_set_range_formulas.display_name" xml:space="preserve">
+    <value>Set Range Formulas</value>
+  </data>
+  <data name="tool.excel_assert.display_name" xml:space="preserve">
+    <value>Excel Assertions</value>
+  </data>
+  <data name="tool.excel_analyze_range.display_name" xml:space="preserve">
+    <value>Analyze Range</value>
+  </data>
+  <data name="tool.excel_aggregate.display_name" xml:space="preserve">
+    <value>Aggregate Data</value>
+  </data>
+  <data name="tool.excel_cleanup_workspace.display_name" xml:space="preserve">
+    <value>Clean Up Intermediate Tables</value>
+  </data>
+  <data name="tool.excel_capture_worksheet_screenshot.display_name" xml:space="preserve">
+    <value>Capture Worksheet Screenshot</value>
+  </data>
+  <data name="tool.excel_compare_key_sets.display_name" xml:space="preserve">
+    <value>Compare Excel Key Sets</value>
+  </data>
+  <data name="tool.excel_check_power_query_errors.display_name" xml:space="preserve">
+    <value>Check Power Query Errors</value>
+  </data>
+  <data name="tool.excel_list_data_model_calculated_columns.display_name" xml:space="preserve">
+    <value>List Data Model Calculated Columns</value>
+  </data>
+  <data name="tool.excel_list_data_model_measures.display_name" xml:space="preserve">
+    <value>List Data Model Measures</value>
+  </data>
+  <data name="tool.excel_list_data_model_relationships.display_name" xml:space="preserve">
+    <value>List Data Model Relationships</value>
+  </data>
+  <data name="tool.excel_list_data_model_tables.display_name" xml:space="preserve">
+    <value>List Data Model Tables</value>
+  </data>
+  <data name="tool.excel_list_connections.display_name" xml:space="preserve">
+    <value>List Connections</value>
+  </data>
+  <data name="tool.excel_list_power_queries.display_name" xml:space="preserve">
+    <value>List Power Queries</value>
+  </data>
+  <data name="tool.excel_list_tables.display_name" xml:space="preserve">
+    <value>List Tables</value>
+  </data>
+  <data name="tool.excel_read_table_data.display_name" xml:space="preserve">
+    <value>Read Table Data</value>
+  </data>
+  <data name="tool.excel_validate_power_query.display_name" xml:space="preserve">
+    <value>Validate Power Query</value>
+  </data>
+  <data name="tool.excel_view_connection.display_name" xml:space="preserve">
+    <value>View Connection</value>
+  </data>
+  <data name="tool.excel_view_data_model_calculated_column.display_name" xml:space="preserve">
+    <value>View Data Model Calculated Column</value>
+  </data>
+  <data name="tool.excel_refresh_power_query.display_name" xml:space="preserve">
+    <value>Refresh Power Query</value>
+  </data>
+  <data name="tool.excel_view_data_model_measure.display_name" xml:space="preserve">
+    <value>View Data Model Measure</value>
+  </data>
+  <data name="tool.excel_view_table.display_name" xml:space="preserve">
+    <value>View Table</value>
+  </data>
+  <data name="tool.excel_find_in_range.display_name" xml:space="preserve">
+    <value>Find in Range</value>
+  </data>
+  <data name="tool.excel_get_range_hyperlinks.display_name" xml:space="preserve">
+    <value>Read Range Hyperlinks</value>
+  </data>
+  <data name="tool.excel_get_range_info.display_name" xml:space="preserve">
+    <value>Read Range Information</value>
+  </data>
+  <data name="tool.excel_get_named_range_value.display_name" xml:space="preserve">
+    <value>Read Named Range Value</value>
+  </data>
+  <data name="tool.excel_get_range_merge_info.display_name" xml:space="preserve">
+    <value>Read Range Merge State</value>
+  </data>
+  <data name="tool.excel_get_range_lock_info.display_name" xml:space="preserve">
+    <value>Read Range Lock State</value>
+  </data>
+  <data name="tool.excel_get_range_style.display_name" xml:space="preserve">
+    <value>Read Range Formatting</value>
+  </data>
+  <data name="tool.excel_get_range_number_formats.display_name" xml:space="preserve">
+    <value>Read Range Number Formats</value>
+  </data>
+  <data name="tool.excel_get_range_validation.display_name" xml:space="preserve">
+    <value>Read Range Data Validation</value>
+  </data>
+  <data name="tool.excel_list_backups.display_name" xml:space="preserve">
+    <value>List Backups</value>
+  </data>
+  <data name="tool.excel_profile_range.display_name" xml:space="preserve">
+    <value>Profile Table Structure</value>
+  </data>
+  <data name="tool.excel_list_vba_modules.display_name" xml:space="preserve">
+    <value>List VBA Modules</value>
+  </data>
+  <data name="tool.excel_list_named_ranges.display_name" xml:space="preserve">
+    <value>List Named Ranges</value>
+  </data>
+  <data name="tool.excel_read_range_formulas.display_name" xml:space="preserve">
+    <value>Read Range Formulas</value>
+  </data>
+  <data name="tool.excel_view_power_query.display_name" xml:space="preserve">
+    <value>View Power Query</value>
+  </data>
+  <data name="tool.excel_read_worksheet_data.display_name" xml:space="preserve">
+    <value>Read Worksheet Data</value>
+  </data>
+  <data name="tool.excel_reconcile.display_name" xml:space="preserve">
+    <value>Reconciliation Summary</value>
+  </data>
+  <data name="tool.excel_restore_backup.display_name" xml:space="preserve">
+    <value>Restore from Backup</value>
+  </data>
+  <data name="tool.excel_validate_range_formulas.display_name" xml:space="preserve">
+    <value>Validate Range Formulas</value>
+  </data>
+  <data name="tool.excel_view_vba_module.display_name" xml:space="preserve">
+    <value>View VBA Module</value>
+  </data>
+  <data name="tool.ppt_style_preview.display_name" xml:space="preserve">
+    <value>Preview Presentation Style</value>
+  </data>
+  <data name="tool.ppt_deck_create.display_name" xml:space="preserve">
+    <value>Create Presentation Draft</value>
+  </data>
+  <data name="tool.ppt_deck_put_slides.display_name" xml:space="preserve">
+    <value>Add or Update Slides</value>
+  </data>
+  <data name="tool.ppt_deck_get_slides.display_name" xml:space="preserve">
+    <value>Read Draft Slides</value>
+  </data>
+  <data name="tool.ppt_deck_remove_slides.display_name" xml:space="preserve">
+    <value>Remove Draft Slides</value>
+  </data>
+  <data name="tool.ppt_deck_reorder.display_name" xml:space="preserve">
+    <value>Reorder Draft Slides</value>
+  </data>
+  <data name="tool.ppt_deck_preview.display_name" xml:space="preserve">
+    <value>Preview Presentation Draft</value>
+  </data>
+  <data name="tool.ppt_deck_validate.display_name" xml:space="preserve">
+    <value>Validate Presentation Draft</value>
+  </data>
+  <data name="tool.ppt_set_shape_text.display_name" xml:space="preserve">
+    <value>Set Shape Text</value>
+  </data>
+  <data name="tool.ppt_format_shapes.display_name" xml:space="preserve">
+    <value>Format Shapes</value>
+  </data>
+  <data name="tool.ppt_arrange_shapes.display_name" xml:space="preserve">
+    <value>Arrange Shapes</value>
+  </data>
+  <data name="tool.ppt_delete_shapes.display_name" xml:space="preserve">
+    <value>Delete Shapes</value>
+  </data>
+  <data name="tool.ppt_add_text_box.display_name" xml:space="preserve">
+    <value>Add Text Box</value>
+  </data>
+  <data name="tool.ppt_insert_picture.display_name" xml:space="preserve">
+    <value>Insert Picture</value>
+  </data>
+  <data name="tool.ppt_set_notes.display_name" xml:space="preserve">
+    <value>Set Slide Notes</value>
+  </data>
+  <data name="tool.ppt_add_slides.display_name" xml:space="preserve">
+    <value>Add Slides</value>
+  </data>
+  <data name="tool.ppt_delete_slides.display_name" xml:space="preserve">
+    <value>Delete Slides</value>
+  </data>
+  <data name="tool.ppt_move_slide.display_name" xml:space="preserve">
+    <value>Move Slide</value>
+  </data>
+  <data name="Settings.Config.Context.DeleteCurrentRow" xml:space="preserve">
+    <value>現在の行を削除</value>
+  </data>
+  <data name="Settings.Config.McpEditor.EnvironmentVariables" xml:space="preserve">
+    <value>環境変数</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.EmptyResponse" xml:space="preserve">
+    <value>空の応答</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.Initialize" xml:space="preserve">
+    <value>MCP の初期化に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.InitializeTimeout" xml:space="preserve">
+    <value>MCP ハンドシェイクがタイムアウトしました: initialize 応答がありません。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.JsonParse" xml:space="preserve">
+    <value>JSON の解析に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ListTools" xml:space="preserve">
+    <value>tools/list に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ListToolsTimeout" xml:space="preserve">
+    <value>MCP ハンドシェイクがタイムアウトしました: tools/list 応答がありません。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProcessExited" xml:space="preserve">
+    <value>サーバープロセスが応答せずに終了しました。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProcessStartFailed" xml:space="preserve">
+    <value>プロセスを開始できませんでした。コマンドが PATH 上にあることを確認してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ProtocolTest" xml:space="preserve">
+    <value>MCP プロトコルテストエラー: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.RequestFailed" xml:space="preserve">
+    <value>リクエストに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.ResponseMissingResult" xml:space="preserve">
+    <value>応答に result も error も含まれていません。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Error.TestFailed" xml:space="preserve">
+    <value>テストに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Headers" xml:space="preserve">
+    <value>リクエストヘッダー</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Arguments" xml:space="preserve">
+    <value>コマンドライン引数</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Command" xml:space="preserve">
+    <value>コマンド</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.Endpoint" xml:space="preserve">
+    <value>エンドポイント</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.TransportMode" xml:space="preserve">
+    <value>トランスポートの種類</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Property.WorkingDirectory" xml:space="preserve">
+    <value>作業ディレクトリ</value>
+  </data>
+  <data name="Settings.Config.McpEditor.TestSuccess" xml:space="preserve">
+    <value>✅ MCP 接続テストに成功しました!
+
+サーバー: {0} v{1}
+検出されたツール: {2}
+プロトコルバージョン: {3}</value>
+  </data>
+  <data name="Settings.Config.McpEditor.ToolListMore" xml:space="preserve">
+    <value>… 表示されていないツールがあと {0} 個</value>
+  </data>
+  <data name="Settings.Config.McpEditor.TypePrompt" xml:space="preserve">
+    <value>MCP の種類</value>
+  </data>
+  <data name="Settings.Config.McpEditor.UnknownError" xml:space="preserve">
+    <value>不明なエラー</value>
+  </data>
+  <data name="Settings.Config.McpEditor.UnknownServer" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.CommandRequired" xml:space="preserve">
+    <value>コマンドを入力してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.EndpointInvalid" xml:space="preserve">
+    <value>MCP URL が無効です。HTTP または HTTPS を指定してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.EndpointRequired" xml:space="preserve">
+    <value>MCP サービス URL を入力してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.HttpParametersMissing" xml:space="preserve">
+    <value>HTTP パラメーターが初期化されていません。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameRequired" xml:space="preserve">
+    <value>MCP 名を入力してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameValueDuplicate" xml:space="preserve">
+    <value>{0}「{1}」が重複しています。入力内容を確認してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.NameValueRequired" xml:space="preserve">
+    <value>{0} の名前を入力してください。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.StdioParametersMissing" xml:space="preserve">
+    <value>Stdio パラメーターが初期化されていません。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Validation.WorkingDirectoryMissing" xml:space="preserve">
+    <value>作業ディレクトリが存在しません。</value>
+  </data>
+  <data name="Settings.Config.McpEditor.Value" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="Settings.Config.Memory.Loading" xml:space="preserve">
+    <value>メモリツリーを読み込み中…</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.EditTitle" xml:space="preserve">
+    <value>スキルを編集</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Error.LoadFile" xml:space="preserve">
+    <value>スキルファイルの読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Error.SaveFile" xml:space="preserve">
+    <value>保存に失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.NewTitle" xml:space="preserve">
+    <value>新しいスキル</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.SaveComplete" xml:space="preserve">
+    <value>保存しました。アプリケーションを再起動すると、スキルの変更が反映されます。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Validation.NameRequired" xml:space="preserve">
+    <value>スキル名を入力してください。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ArgumentsFormatted" xml:space="preserve">
+    <value>テスト引数 JSON を整形しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.CheckSyntax" xml:space="preserve">
+    <value>構文をチェック</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.DefinitionTab" xml:space="preserve">
+    <value>ツール定義の設定</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.DisplayNamePrompt" xml:space="preserve">
+    <value>ツールの表示名</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.EditTitle" xml:space="preserve">
+    <value>組み込みツールを編集</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.EditTitleWithName" xml:space="preserve">
+    <value>組み込みツールを編集 — {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Error.TestFailed" xml:space="preserve">
+    <value>ツールテストに失敗しました: {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.FormatArguments" xml:space="preserve">
+    <value>引数を整形</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.FormatSchema" xml:space="preserve">
+    <value>スキーマを整形</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Loaded" xml:space="preserve">
+    <value>ツール定義を読み込みました。テスト引数テンプレートを生成しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.RunTest" xml:space="preserve">
+    <value>テストを実行</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.RuntimeInstanceMissing" xml:space="preserve">
+    <value>このツールのランタイムインスタンスが見つかりませんでした。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SchemaFormatted" xml:space="preserve">
+    <value>スキーマ JSON を整形しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SyntaxCheckFailed" xml:space="preserve">
+    <value>JSON 構文チェックに失敗しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.SyntaxCheckPassed" xml:space="preserve">
+    <value>JSON 構文チェックに合格しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestCompleted" xml:space="preserve">
+    <value>ツールテストが完了しました。出力を確認してください。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestFailed" xml:space="preserve">
+    <value>ツールテストに失敗しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestRunning" xml:space="preserve">
+    <value>ツールテストを実行中…</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestSucceeded" xml:space="preserve">
+    <value>ツールテストに成功しました。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestTab" xml:space="preserve">
+    <value>ツールテスト</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.TestUnavailable" xml:space="preserve">
+    <value>現在の環境を利用できないため、ツールをテストできません。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Validation.JsonInvalid" xml:space="preserve">
+    <value>無効な JSON: {0}</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Validation.JsonRequired" xml:space="preserve">
+    <value>JSON コンテンツを空にすることはできません。</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ViewTitle" xml:space="preserve">
+    <value>ツールを表示</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.ViewTitleWithName" xml:space="preserve">
+    <value>ツールを表示 — {0}</value>
+  </data>
+  <data name="Settings.Config.Tools.UnknownHostSaveWarning" xml:space="preserve">
+    <value>ホストアプリケーションを認識できません。ホスト固有のツール設定は保存できませんでした。共通設定は保存されました。</value>
+  </data>
+  <data name="Settings.SysConfig.EditAgentPrompt" xml:space="preserve">
+    <value>{0} のエージェントモードのシステムプロンプトを編集</value>
+  </data>
+  <data name="Settings.SysConfig.EditAskPrompt" xml:space="preserve">
+    <value>{0} の質問モードのシステムプロンプトを編集</value>
+  </data>
+  <data name="Settings.SysConfig.Error.OpenPromptFailed" xml:space="preserve">
+    <value>システムプロンプトファイルを開けませんでした: {0}</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode" xml:space="preserve">
+    <value>ツール実行の権限モード:</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode.AlwaysAllow" xml:space="preserve">
+    <value>常に許可</value>
+  </data>
+  <data name="Settings.SysConfig.TrustMode.Confirm" xml:space="preserve">
+    <value>確認を求める</value>
+  </data>
+  <data name="Settings.Validation.ApplicationLogFileNameRequired" xml:space="preserve">
+    <value>ファイルロギングが有効な場合は ApplicationLogFileName が必要です。</value>
+  </data>
+  <data name="Settings.Validation.ChatDefaultsMissing" xml:space="preserve">
+    <value>チャットの既定値設定がありません。</value>
+  </data>
+  <data name="Settings.Validation.DefaultModelProviderMissing" xml:space="preserve">
+    <value>既定のモデル設定が見つかりません: {0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateMcpId" xml:space="preserve">
+    <value>MCP サーバー ID が重複しています: {0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateMcpName" xml:space="preserve">
+    <value>MCP サーバー名が重複しています（大文字と小文字は区別されません）: {0}</value>
+  </data>
+  <data name="Settings.Validation.DuplicateModelId" xml:space="preserve">
+    <value>モデル設定 ID が重複しています: {0}</value>
+  </data>
+  <data name="Settings.Validation.EnabledModelIdRequired" xml:space="preserve">
+    <value>有効なモデルには ModelId の指定が必要です。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.HttpEndpointRequired" xml:space="preserve">
+    <value>MCP の Http 設定では Endpoint を指定する必要があります。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.LoggingMissing" xml:space="preserve">
+    <value>ログ設定がありません。</value>
+  </data>
+  <data name="Settings.Validation.MaxContextTokensPositive" xml:space="preserve">
+    <value>最大コンテキスト長は 0 より大きくなければなりません。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.McpIdRequired" xml:space="preserve">
+    <value>MCP サーバー ID が必要です。</value>
+  </data>
+  <data name="Settings.Validation.McpNameRequired" xml:space="preserve">
+    <value>MCP サーバー名が必要です。</value>
+  </data>
+  <data name="Settings.Validation.McpServersRequired" xml:space="preserve">
+    <value>MCP サーバー一覧を null にすることはできません。</value>
+  </data>
+  <data name="Settings.Validation.McpTransportExclusive" xml:space="preserve">
+    <value>MCP 設定で Stdio と Http を同時に指定することはできません。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.McpTransportRequired" xml:space="preserve">
+    <value>MCP 設定のトランスポートを選択してください。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.ModelIdPositive" xml:space="preserve">
+    <value>モデル設定 ID は 0 より大きくなければなりません。</value>
+  </data>
+  <data name="Settings.Validation.ModelNameRequired" xml:space="preserve">
+    <value>モデル設定名が必要です。</value>
+  </data>
+  <data name="Settings.Validation.ModelProvidersRequired" xml:space="preserve">
+    <value>モデルプロバイダー一覧を null にすることはできません。</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptFileNameRequired" xml:space="preserve">
+    <value>モデルの会話ログ記録が有効な場合は FileName が必要です。</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptLoggingMissing" xml:space="preserve">
+    <value>モデルの会話ログ記録設定がありません。</value>
+  </data>
+  <data name="Settings.Validation.ModelTranscriptMaxContentLengthNonNegative" xml:space="preserve">
+    <value>モデルの会話ログの MaxContentLength は 0 未満にできません。</value>
+  </data>
+  <data name="Settings.Validation.NullMcpServer" xml:space="preserve">
+    <value>MCP サーバーの項目が null です。</value>
+  </data>
+  <data name="Settings.Validation.NullModelProvider" xml:space="preserve">
+    <value>モデル設定の項目が null です。</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLogMaxSizePositive" xml:space="preserve">
+    <value>実行時ログファイルのサイズ上限は 0 より大きくなければなりません。</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLogRetainedCountPositive" xml:space="preserve">
+    <value>実行時ログの保持ファイル数は 0 より大きくなければなりません。</value>
+  </data>
+  <data name="Settings.Validation.RuntimeLoggingMissing" xml:space="preserve">
+    <value>実行時ログ設定がありません。</value>
+  </data>
+  <data name="Settings.Validation.SettingsRequired" xml:space="preserve">
+    <value>設定を null にすることはできません。</value>
+  </data>
+  <data name="Settings.Validation.StdioCommandRequired" xml:space="preserve">
+    <value>Stdio MCP 設定では Command を指定する必要があります。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.TemperatureRange" xml:space="preserve">
+    <value>Temperature は 0 から 2 の範囲で指定してください。名前: {0}</value>
+  </data>
+  <data name="Settings.Validation.TopPRange" xml:space="preserve">
+    <value>TopP は 0 から 1 の範囲で指定してください。名前: {0}</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.BasicInfo" xml:space="preserve">
+    <value>基本情報</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.TriggerConditions" xml:space="preserve">
+    <value>トリガー条件</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.ToolPermissions" xml:space="preserve">
+    <value>ツールの権限</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.RelatedSkills" xml:space="preserve">
+    <value>関連スキル</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.SafetyPolicy" xml:space="preserve">
+    <value>安全ポリシー</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Category.Advanced" xml:space="preserve">
+    <value>詳細設定</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.DisplayName" xml:space="preserve">
+    <value>表示名</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.Category" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.UseWhen" xml:space="preserve">
+    <value>トリガーキーワード</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AvoidWhen" xml:space="preserve">
+    <value>抑制キーワード</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowedTools" xml:space="preserve">
+    <value>許可するツール</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.PreferredTools" xml:space="preserve">
+    <value>優先ツール</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.VerificationTools" xml:space="preserve">
+    <value>検証ツール</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.CompanionSkills" xml:space="preserve">
+    <value>連携スキル</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.FallbackSkills" xml:space="preserve">
+    <value>フォールバックスキル</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequiresConfirmation" xml:space="preserve">
+    <value>ユーザーの確認を必須にする</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequiresBackup" xml:space="preserve">
+    <value>バックアップを必須にする</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.RequireVerification" xml:space="preserve">
+    <value>検証を必須にする</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowHighRiskTools" xml:space="preserve">
+    <value>高リスクツールを許可</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.AllowCodeExecution" xml:space="preserve">
+    <value>コード実行へのフォールバックを許可</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Property.MaxToolRoundCount" xml:space="preserve">
+    <value>ツール呼び出しの最大ラウンド数</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.Enabled" xml:space="preserve">
+    <value>無効にすると、このスキルは読み込まれず、トリガーもされません。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.DisplayName" xml:space="preserve">
+    <value>スキルの表示名。空欄の場合は Name が使用されます。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.Category" xml:space="preserve">
+    <value>スキルのカテゴリ（例: network、file、office、utility）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.UseWhen" xml:space="preserve">
+    <value>これらのキーワードが一致した場合にスキルを自動的にトリガーします（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AvoidWhen" xml:space="preserve">
+    <value>これらのキーワードが含まれている場合は、このスキルをトリガーしません（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowedTools" xml:space="preserve">
+    <value>このスキルが使用できるツールの許可リスト（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.PreferredTools" xml:space="preserve">
+    <value>このスキルで優先的に使用するツール（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.VerificationTools" xml:space="preserve">
+    <value>結果の検証に使用するツール（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.CompanionSkills" xml:space="preserve">
+    <value>併用するスキル名（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.FallbackSkills" xml:space="preserve">
+    <value>このスキルが失敗した場合に使用するフォールバックスキル（カンマ区切り）。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequiresConfirmation" xml:space="preserve">
+    <value>実行前にユーザーの確認が必要かどうか。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequiresBackup" xml:space="preserve">
+    <value>実行前にバックアップを作成する必要があるかどうか。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.RequireVerification" xml:space="preserve">
+    <value>実行後に結果を検証する必要があるかどうか。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowHighRiskTools" xml:space="preserve">
+    <value>高リスクツールを使用できるかどうか。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.AllowCodeExecution" xml:space="preserve">
+    <value>コード実行へのフォールバックが許可されているかどうか。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Description.MaxToolRoundCount" xml:space="preserve">
+    <value>スキルの実行中に許可されるツール呼び出しの最大ラウンド数。</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Markdown.NewSkillHeading" xml:space="preserve">
+    <value>スキル名</value>
+  </data>
+  <data name="Settings.Config.SkillEditor.Markdown.NewSkillBody" xml:space="preserve">
+    <value>スキルの指示とロジックをここに記述してください...</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleValue" xml:space="preserve">
+    <value>サンプル値</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleDisplayName" xml:space="preserve">
+    <value>サンプル表示名</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleDescription" xml:space="preserve">
+    <value>サンプルの説明</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SampleText" xml:space="preserve">
+    <value>サンプルテキスト</value>
+  </data>
+  <data name="Settings.Config.ToolEditor.Json.SamplePrefix" xml:space="preserve">
+    <value>サンプル {0}</value>
+  </data>
+  <data name="panel.error.broker.start_failed" xml:space="preserve">
+    <value>Broker の起動に失敗しました。Broker の実行ファイルを確認して、もう一度お試しください。</value>
+  </data>
+  <data name="panel.error.broker.restart_failed" xml:space="preserve">
+    <value>Broker を利用できず、自動再起動にも失敗しました。</value>
+  </data>
+  <data name="panel.error.broker.retry_failed" xml:space="preserve">
+    <value>Broker の再試行に失敗しました。</value>
+  </data>
+  <data name="panel.error.broker.not_healthy" xml:space="preserve">
+    <value>Broker が応答しませんでした。キャンセル要求を配信できなかったため、ローカルで処理されます。</value>
+  </data>
+  <data name="panel.error.broker.not_available" xml:space="preserve">
+    <value>Broker を利用できないため、要求された操作を完了できませんでした。</value>
+  </data>
+  <data name="Panel.Error.BrokerClientNotConfigured" xml:space="preserve">
+    <value>Broker クライアントが設定されていません。</value>
+  </data>
+  <data name="Panel.Error.BrokerNoResult" xml:space="preserve">
+    <value>Broker から結果が返されませんでした。</value>
+  </data>
+  <data name="Panel.Error.BrokerExecutionFailed" xml:space="preserve">
+    <value>Broker 操作に失敗しました。</value>
+  </data>
+  <data name="Panel.Error.GenericRequestFailed" xml:space="preserve">
+    <value>エラー: 要求を処理できませんでした。</value>
+  </data>
+  <data name="Panel.Error.ErrorDetails" xml:space="preserve">
+    <value>エラー: {0}</value>
+  </data>
+  <data name="Panel.Error.ToolExecutionFailed" xml:space="preserve">
+    <value>ツールの実行に失敗しました。</value>
+  </data>
+  <data name="Panel.Error.ToolFailedLine" xml:space="preserve">
+    <value>[{0}] に失敗しました: {1}</value>
+  </data>
+  <data name="Panel.Status.GenerationStopped" xml:space="preserve">
+    <value>生成を停止しました。</value>
+  </data>
+  <data name="Panel.Status.ClearFailed" xml:space="preserve">
+    <value>クリアに失敗しました: {0}</value>
+  </data>
+  <data name="Panel.Status.CurrentTurnCancelFailed" xml:space="preserve">
+    <value>現在のターンをキャンセルできませんでした。</value>
+  </data>
+  <data name="Panel.Status.CancelFailed" xml:space="preserve">
+    <value>キャンセルに失敗しました: {0}</value>
+  </data>
+  <data name="Panel.Status.ClearExecutionModePreferenceBusy" xml:space="preserve">
+    <value>タスクが実行中です。既定値をクリアする前に、完了するまでお待ちください。</value>
+  </data>
+  <data name="Panel.Status.NoSessionForClearExecutionModePreference" xml:space="preserve">
+    <value>更新できるアクティブな会話がありません。</value>
+  </data>
+  <data name="Panel.Attachments.Filter.AllSupported" xml:space="preserve">
+    <value>対応ファイル</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Text" xml:space="preserve">
+    <value>テキストファイル</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Images" xml:space="preserve">
+    <value>画像ファイル</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Pdf" xml:space="preserve">
+    <value>PDF ファイル</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Spreadsheet" xml:space="preserve">
+    <value>Excel ブック</value>
+  </data>
+  <data name="Panel.Attachments.Filter.Word" xml:space="preserve">
+    <value>Word 文書</value>
+  </data>
+  <data name="Panel.Attachments.Filter.PowerPoint" xml:space="preserve">
+    <value>PowerPoint プレゼンテーション</value>
+  </data>
+</root>

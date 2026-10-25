@@ -1,4 +1,5 @@
 using Microsoft.Office.Tools.Ribbon;
+using OfficeCopilot.Localization;
 using OfficeCopilot.Settings;
 using OfficeCopilot.Settings.Abstractions;
 using OfficeCopilot.Settings.WinForms;
@@ -18,6 +19,27 @@ namespace NixerExcelCopilot
         private void ExcelCopilotRibbon_Load(object sender, RibbonUIEventArgs e)
         {
             StartupTimingLog.Mark("ribbon-load");
+            LocalizationService.LanguageChanged -= LocalizationService_LanguageChanged;
+            LocalizationService.LanguageChanged += LocalizationService_LanguageChanged;
+            ApplyLocalization();
+        }
+
+        private void LocalizationService_LanguageChanged(object sender, EventArgs e)
+        {
+            ApplyLocalization();
+        }
+
+        private void ApplyLocalization()
+        {
+            groupCopilot.Label = LocalizationService.Get("Shell.Ribbon.ExcelGroup");
+            btnTogglePane.Label = LocalizationService.Get("Shell.Ribbon.TogglePane");
+            btnModelConfig.Label = LocalizationService.Get("Shell.Ribbon.ModelConfig");
+            btnMcpConfig.Label = LocalizationService.Get("Shell.Ribbon.McpConfig");
+            btnSkillsConfig.Label = LocalizationService.Get("Shell.Ribbon.SkillsConfig");
+            btnMemoryConfig.Label = LocalizationService.Get("Shell.Ribbon.MemoryConfig");
+            btnBuiltinToolsConfig.Label = LocalizationService.Get("Shell.Ribbon.BuiltinToolsConfig");
+            btnConfig.Label = LocalizationService.Get("Shell.Ribbon.SystemSettings");
+            btnAbout.Label = LocalizationService.Get("Shell.Ribbon.About");
         }
 
         /// <summary>
@@ -50,15 +72,15 @@ namespace NixerExcelCopilot
             try
             {
                 if (Globals.ThisAddIn == null)
-                    throw new InvalidOperationException("Globals.ThisAddIn 为空。");
+                    throw new InvalidOperationException(LocalizationService.Get("Shell.Error.AddInUnavailable"));
                 if (Globals.ThisAddIn.TaskPaneManager == null)
-                    throw new InvalidOperationException("TaskPaneManager 未初始化。");
+                    throw new InvalidOperationException(LocalizationService.Get("Shell.Error.TaskPaneUnavailable"));
 
                 var isFirstCreation = !Globals.ThisAddIn.TaskPaneManager.IsPaneCreated;
 
                 if (isFirstCreation)
                 {
-                    SetExcelWaitCursor("正在创建面板，请稍候...");
+                    SetExcelWaitCursor(LocalizationService.Get("Shell.Status.CreatingPane"));
                     Application.DoEvents();
                 }
 
@@ -66,7 +88,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("操作失败：\r\n\r\n" + ex, "NixerExcelCopilot",
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OperationFailed", ex),
+                    LocalizationService.Get("Shell.Product.Excel"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -80,7 +103,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开模型配置...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningModelConfig"));
                 Application.DoEvents();
 
                 using (var form = new fmModelConfig(_settingsStore))
@@ -92,7 +115,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("打开模型管理失败：" + ex.Message, "配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OpenModelConfigFailed", ex.Message),
+                    LocalizationService.Get("Shell.Error.ConfigurationTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -105,7 +129,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开 MCP 配置...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningMcpConfig"));
                 Application.DoEvents();
 
                 using (var form = new fmMcpConfig(_settingsStore))
@@ -117,7 +141,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("打开MCP管理失败：" + ex.Message, "配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OpenMcpConfigFailed", ex.Message),
+                    LocalizationService.Get("Shell.Error.ConfigurationTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -130,7 +155,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开 Skills 配置...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningSkillsConfig"));
                 Application.DoEvents();
 
                 using (var form = new fmSkillsConfig(_settingsStore, HostApplicationNames.Excel))
@@ -142,7 +167,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("打开Skills管理失败：" + ex.Message, "配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OpenSkillsConfigFailed", ex.Message),
+                    LocalizationService.Get("Shell.Error.ConfigurationTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -155,7 +181,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开记忆管理...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningMemoryConfig"));
                 Application.DoEvents();
 
                 using (var form = new fmMemoryConfig())
@@ -165,7 +191,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("打开记忆管理失败：" + ex.Message, "配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OpenMemoryConfigFailed", ex.Message),
+                    LocalizationService.Get("Shell.Error.ConfigurationTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -178,7 +205,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开内置工具配置...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningBuiltinToolsConfig"));
                 Application.DoEvents();
 
                 IToolRegistry toolRegistry = null;
@@ -201,7 +228,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("打开内置工具管理失败：" + ex.Message, "配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OpenBuiltinToolsConfigFailed", ex.Message),
+                    LocalizationService.Get("Shell.Error.ConfigurationTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -214,7 +242,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开系统设置...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningSystemSettings"));
                 Application.DoEvents();
 
                 using (var form = new fmSysConfig(_settingsStore, HostApplicationNames.Excel))
@@ -226,7 +254,8 @@ namespace NixerExcelCopilot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("打开系统设置失败：" + ex.Message, "配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.Format("Shell.Error.OpenSystemSettingsFailed", ex.Message),
+                    LocalizationService.Get("Shell.Error.ConfigurationTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -238,7 +267,7 @@ namespace NixerExcelCopilot
         {
             try
             {
-                SetExcelWaitCursor("正在打开关于...");
+                SetExcelWaitCursor(LocalizationService.Get("Shell.Status.OpeningAbout"));
                 Application.DoEvents();
 
                 using (var dialog = new AboutDialog())

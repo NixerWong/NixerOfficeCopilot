@@ -11,9 +11,9 @@ namespace OfficeCopilot.Host.Excel.Tools
         private static readonly ToolDefinition _definition = new ToolDefinition
         {
             Name = "excel_get_range_style",
-            DisplayName = "读取区域格式",
-            Description = "回读指定区域实际生效的格式：填充色、字体颜色/字号/加粗/倾斜/下划线、数字格式、对齐方式、外边框，以及所套用的命名样式。"
-                + "可用于验证格式写入是否生效。区域内某属性取值不一致时该属性返回 mixed（不代表未设置）。若未提供地址，可回退读取当前选区。",
+            DisplayName = "Read Range Formatting",
+            Description = "Reads the effective formatting of the specified range: fill color; font color, size, bold, italic, and underline; number format; alignment; outer borders; and applied named styles."
+                + " Use this to verify that formatting changes took effect. A property returns mixed when its values vary within the range (this does not mean it is unset). If no address is provided, falls back to the current selection.",
             SourceKind = ToolSourceKind.BuiltIn,
             SourceName = "Excel",
             IsReadOnly = true,

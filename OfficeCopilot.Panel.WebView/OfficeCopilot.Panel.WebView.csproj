@@ -163,6 +163,10 @@
       <Project>{7CB84F50-B266-4A77-84F8-26E5480C1A03}</Project>
       <Name>OfficeCopilot.Panel.WebAssets</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj">
+      <Project>{F7F66934-012D-4E89-A044-119F044149EA}</Project>
+      <Name>OfficeCopilot.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OfficeCopilot.Settings.Abstractions\OfficeCopilot.Settings.Abstractions.csproj">
       <Project>{d13e58c7-f2e5-42c3-b365-386e1d911ab2}</Project>
       <Name>OfficeCopilot.Settings.Abstractions</Name>
@@ -178,6 +182,10 @@
     <ProjectReference Include="..\OfficeCopilot.Agent.Client\OfficeCopilot.Agent.Client.csproj">
       <Project>{B6962276-0848-43B3-9683-FF19E91F8C68}</Project>
       <Name>OfficeCopilot.Agent.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OfficeCopilot.Localization\OfficeCopilot.Localization.csproj">
+      <Project>{F7F66934-012D-4E89-A044-119F044149EA}</Project>
+      <Name>OfficeCopilot.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\OfficeCopilot.Documents.Markdown\OfficeCopilot.Documents.Markdown.csproj">
       <Project>{6B5D7357-A4B9-4D6F-9A70-AC2E2BEE5A20}</Project>
