@@ -239,6 +239,7 @@
     <Compile Include="Mcp\McpServerConfigParsingTests.cs" />
     <Compile Include="Mcp\McpToolRiskInferenceTests.cs" />
     <Compile Include="Mcp\McpCommandResolverTests.cs" />
+    <Compile Include="Registration\ToolCatalogRegistrationTests.cs" />
     <Compile Include="Context\TokenEstimatorTests.cs" />
     <Compile Include="Context\TurnSegmenterTests.cs" />
     <Compile Include="Context\CompactionPolicyTests.cs" />

@@ -44,15 +44,15 @@
     <EmbeddedResource Include="wwwroot\**\*">
       <LogicalName>wwwroot/%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\NixerExcelCopilot\face.png">
+    <EmbeddedResource Include="..\NixerExcelCopilot\excel-face.png">
       <Link>wwwroot\images\excel-face.png</Link>
       <LogicalName>wwwroot/images/excel-face.png</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\NixerWordCopilot\face.png">
+    <EmbeddedResource Include="..\NixerWordCopilot\word-face.png">
       <Link>wwwroot\images\word-face.png</Link>
       <LogicalName>wwwroot/images/word-face.png</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\NixerPowerpointCopilot\face.png">
+    <EmbeddedResource Include="..\NixerPowerpointCopilot\powerpoint-face.png">
       <Link>wwwroot\images\powerpoint-face.png</Link>
       <LogicalName>wwwroot/images/powerpoint-face.png</LogicalName>
     </EmbeddedResource>

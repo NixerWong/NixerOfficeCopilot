@@ -149,8 +149,8 @@
 > [OfficeCopilot.Panel.WebView/Composition/CopilotTaskPaneManagerBase.cs](OfficeCopilot.Panel.WebView/Composition/CopilotTaskPaneManagerBase.cs)（457 行），各宿主只留 8 个差异重写，净减 **784 行**。
 > 内嵌的 `WindowPaneContext` 与三处硬编码的管道名拼接（R7）也分别收敛为共享类与 `HostBridgePipeNameFactory`。
 
-> ⚠️ **初审时发现的功能缺陷**：配置界面里的“内置工具启用/禁用”与“工具定义覆盖”曾**只对 Excel 生效**。
-> ✅ **已修复**：Word 由 F5、PowerPoint 由 F7 补齐，基类的 `HasToolCatalogConfiguration` / `CreateToolDefinitionOverrides` 使三宿主行为一致。
+> ⚠️ **工具注册配置曾分叉**：Word / Excel 把全局注册记录当作严格白名单；PowerPoint 则只排除明确关闭项，且任务窗格启动未读取新的宿主专用配置文件。
+> ✅ **已统一**：基类按宿主名合并共享与宿主专用设置，并迁移旧 `settings.json` 中缺失的宿主记录；`ToolCatalogBuilder.CreateRegistrationOptions` 统一采用“明确关闭才禁用、未配置默认启用”，保留 PowerPoint 旧名映射。
 
 > ⚠️ **尚存的重复**：`ThisAddIn.cs`（R4）与 `*CopilotRibbon.cs`（R5）**仍是三份逐行复制**，合计约 930 行。
 > D-4 只处理了 TaskPaneManager；这两类重复因强依赖 VSTO 设计器生成代码（`ThisAddIn.Designer.cs` / `*.resx`），抽基类性价比低，有意保留。
@@ -370,8 +370,9 @@ EnsurePane(windowKey = TryGetActiveWindow() → 宿主窗口句柄)
 ├─ OfficeCopilotDiagnostics.CreateLoggerFactory / CreateModelTranscriptLogger
 ├─ CreateHostAdapter()                                    ← 宿主重写（Excel/Word/PPT）
 ├─ RegisterHostServices(services, adapter)                ← 宿主重写
-├─ new InMemoryToolRegistry() + RegisterTools(registry, settings)
-│    └─ 基类提供 HasToolCatalogConfiguration / CreateToolDefinitionOverrides（三宿主一致）
+├─ BuiltinToolSettingsStore.LoadMerged(hostAdapter.HostApplicationName, settings)
+├─ new InMemoryToolRegistry() + RegisterTools(registry, builtinToolSettings)
+│    └─ ToolCatalogBuilder.CreateRegistrationOptions：仅显式关闭项被过滤，宿主设置互相隔离
 ├─ new CopilotPanelControl(settingsStore, panelLogger)
 │    └─ .HostAdapter / .AgentServices / .ToolRegistry 属性注入
 ├─ AgentServiceProvider ← IToolConfirmationHandler(ChatToolConfirmationHandler)
@@ -683,7 +684,7 @@ public static string GetSkillPlanViolationMessage(PlannedToolCall call, ..., Run
 
 - ~~**无 `Directory.Build.props`**~~ ✅ **已新增**（E1）：`LangVersion=10`、公司/版本信息、警告策略集中管理。另新增 `Directory.Packages.props`（CPM，E2）与 `build.ps1`（E7）。
   > 注：VSTO 加载项的 `AssemblyInfo` 使用 `1.0.*` 通配符，与 `Deterministic=true` 冲突（CS8357），因此未开启确定性构建。
-- **产品版本（2026-10-25）**：`2.3.61020` 更新为 `2.4.61025`。全仓库按旧版本精确搜索，更新 **34 处 / 20 个文件**：`Directory.Build.props` 的 `NixerProductVersion` 1 处；15 个 `Properties/AssemblyInfo.cs` 中的 29 个程序集版本属性（`NixerExcelCopilot` 仅声明 `AssemblyVersion`）；3 个 VSTO `.csproj` 的 `ApplicationVersion`；以及 `NixerExcelCopilot/AboutDialog.cs` 的版本回退值。程序集与 VSTO 版本属性使用四段格式 `2.4.61025.0`。
+- **产品版本记录**：2026-10-25 更新至 `2.4.61025`；2026-10-30 更新至 `2.4.61030`。当前统一版本由 `Directory.Build.props`、15 个 `Properties/AssemblyInfo.cs`、三个 VSTO `.csproj` 和三个 About 对话框回退值声明；程序集与 VSTO 版本属性使用四段格式 `2.4.61030.0`。
 - **SDK 与 legacy 混用** ⏳ **E3 未做**：15 个 legacy（`packages.config`）与 20 个 SDK（`PackageReference`）仍并存。E2 的集中版本管理因此只能覆盖 SDK 部分（部分完成）。
 - **TFM 混乱** ⏳ **E4 受阻**：`net472` / `netstandard2.0` / `v4.7.2` / `net8.0` 四种写法并存；统一写法需先完成 E3。
 - ~~**解决方案配置冗余**~~ ✅ **已修复**（E5）：自造的 `All` 配置已从 `.sln` 移除，仅保留 `Debug` / `Release`。
@@ -1163,6 +1164,8 @@ PowerPoint 的目录则是一个扁平的 `new[]{...}`，什么都不盖。而�
 
 > 后续：PowerPoint 蓝图 P0 已将分组更名为 `ppt.context` / `ppt.read` / `ppt.backup` / `ppt.style` / `ppt.file`，
 > 工具更名为 `ppt_*`；旧名经 `PowerPointToolGroups.MapLegacy` / `PowerPointToolNames.MapLegacy` 与注册表别名兼容。
+
+当前工具组 ID 是稳定的英文点分标识：`excel.*`、`word.*`、`ppt.*` 和 `runtime.*`。它们同时作为注册配置键和设置界面的显示名，不随 UI 语言翻译；PowerPoint 的 `powerpoint.*` 仅用于兼容旧配置。
 
 **F8 — RiskLevel 从“恒为 low”到可推导的四级**
 

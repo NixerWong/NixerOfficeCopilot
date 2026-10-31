@@ -497,41 +497,9 @@ namespace OfficeCopilot.Settings.WinForms
 
         private static string GetGroupDisplayName(string gn)
         {
-            var normalized = (gn ?? string.Empty).ToLowerInvariant();
-            if (string.IsNullOrWhiteSpace(normalized)) return LocalizationService.Get("Settings.Config.Tools.Group.Ungrouped");
-            var groupKey = GetToolGroupResourceKey(normalized);
-            if (groupKey != null) return LocalizationService.Get(groupKey);
-            if (string.Equals(gn, RuntimeToolGroups.Shell, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeShell");
-            if (string.Equals(gn, RuntimeToolGroups.Interaction, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeInteraction");
-            if (string.Equals(gn, RuntimeToolGroups.Planning, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimePlanning");
-            if (string.Equals(gn, RuntimeToolGroups.Notification, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeNotification");
-            if (string.Equals(gn, RuntimeToolGroups.Context, StringComparison.OrdinalIgnoreCase)) return LocalizationService.Get("Settings.Config.Tools.Group.RuntimeContext");
-            return gn;
-        }
-
-        private static string GetToolGroupResourceKey(string groupName)
-        {
-            switch (groupName)
-            {
-                case "excel.context": return "Settings.Config.Tools.Group.ExcelContext";
-                case "excel.read": return "Settings.Config.Tools.Group.ExcelRead";
-                case "excel.write": return "Settings.Config.Tools.Group.ExcelWrite";
-                case "excel.advanced": return "Settings.Config.Tools.Group.ExcelAdvanced";
-                case "excel.file": return "Settings.Config.Tools.Group.ExcelFile";
-                case "word.context": return "Settings.Config.Tools.Group.WordContext";
-                case "word.read": return "Settings.Config.Tools.Group.WordRead";
-                case "word.write": return "Settings.Config.Tools.Group.WordWrite";
-                case "word.navigation": return "Settings.Config.Tools.Group.WordNavigation";
-                case "word.advanced": return "Settings.Config.Tools.Group.WordAdvanced";
-                case "word.file": return "Settings.Config.Tools.Group.WordFile";
-                case "powerpoint.context": return "Settings.Config.Tools.Group.PowerPointContext";
-                case "powerpoint.read": return "Settings.Config.Tools.Group.PowerPointRead";
-                case "powerpoint.backup": return "Settings.Config.Tools.Group.PowerPointBackup";
-                case "powerpoint.style": return "Settings.Config.Tools.Group.PowerPointStyle";
-                case "powerpoint.deck": return "Settings.Config.Tools.Group.PowerPointDeck";
-                case "powerpoint.file": return "Settings.Config.Tools.Group.PowerPointFile";
-                default: return null;
-            }
+            return string.IsNullOrWhiteSpace(gn)
+                ? LocalizationService.Get("Settings.Config.Tools.Group.Ungrouped")
+                : gn.Trim();
         }
 
         private static bool IsDoubleClickOnRowCell(object sender)

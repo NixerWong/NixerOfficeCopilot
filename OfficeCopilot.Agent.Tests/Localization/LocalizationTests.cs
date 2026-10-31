@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Resources;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OfficeCopilot.Agent.Abstractions;
 using OfficeCopilot.Agent.Client;
 using OfficeCopilot.Agent.Runtime.Turn;
 using OfficeCopilot.HostBridge.Contracts;
@@ -56,6 +58,65 @@ namespace OfficeCopilot.Agent.Tests.Localization
         }
 
         [TestMethod]
+        public void BuiltInGroupNames_AreDottedAndLocaleIndependentAcrossHosts()
+        {
+            var originalUiCulture = CultureInfo.CurrentUICulture.Name;
+            string[] expectedGroupNames = null;
+            var languages = new[] { "en", "zh-Hans", "ja", "de", "es" };
+            try
+            {
+                foreach (var language in languages)
+                {
+                    LocalizationService.SetLanguage(language);
+                    var definitions = ExcelBuiltInToolCatalog.CreateAllAvailableDefinitions()
+                        .Concat(WordBuiltInToolCatalog.CreateAllAvailableDefinitions())
+                        .Concat(PowerPointBuiltInToolCatalog.CreateAllAvailableDefinitions());
+                    var groupNames = new List<string>();
+
+                    foreach (var definition in definitions)
+                    {
+                        string groupName;
+                        Assert.IsTrue(ToolCatalogBuilder.TryGetGroupName(definition, out groupName));
+                        groupNames.Add(groupName);
+                    }
+
+                    groupNames.AddRange(new[]
+                    {
+                        RuntimeToolGroups.Shell,
+                        RuntimeToolGroups.Interaction,
+                        RuntimeToolGroups.Planning,
+                        RuntimeToolGroups.Notification,
+                        RuntimeToolGroups.Context
+                    });
+
+                    var actualGroupNames = groupNames
+                        .Distinct(StringComparer.Ordinal)
+                        .OrderBy(name => name, StringComparer.Ordinal)
+                        .ToArray();
+                    foreach (var groupName in actualGroupNames)
+                    {
+                        Assert.IsTrue(
+                            Regex.IsMatch(groupName, @"^[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)+$"),
+                            "Group name must be an English dotted identifier: " + groupName);
+                    }
+
+                    if (expectedGroupNames == null)
+                    {
+                        expectedGroupNames = actualGroupNames;
+                    }
+                    else
+                    {
+                        CollectionAssert.AreEqual(expectedGroupNames, actualGroupNames, language);
+                    }
+                }
+            }
+            finally
+            {
+                LocalizationService.SetLanguage(originalUiCulture);
+            }
+        }
+
+        [TestMethod]
         public void LocalizationService_UsesExplicitResourceCultureWithoutChangingFormatCulture()
         {
             var originalUiCulture = CultureInfo.CurrentUICulture;
@@ -68,7 +129,6 @@ namespace OfficeCopilot.Agent.Tests.Localization
                 Assert.AreEqual("Parameter Settings", LocalizationService.Get("Settings.Config.Title"));
                 Assert.AreEqual("Models", LocalizationService.Get("Settings.Config.Tab.Models"));
                 Assert.AreEqual("Disabled", LocalizationService.Get("Settings.Config.General.TranscriptMode.Disabled"));
-                Assert.AreEqual("Excel - Context", LocalizationService.Get("Settings.Config.Tools.Group.ExcelContext"));
                 Assert.AreEqual("Delete model \"Model A\"?", LocalizationService.Format("Settings.Config.Models.ConfirmDelete", "Model A"));
                 Assert.AreEqual("Add Model", LocalizationService.Get("Settings.Config.ModelEditor.Title.Add"));
                 Assert.AreEqual("Connection failed: timeout", LocalizationService.Format("Settings.Config.ModelEditor.ConnectionTestFailed", "timeout"));
@@ -90,7 +150,6 @@ namespace OfficeCopilot.Agent.Tests.Localization
                 Assert.AreEqual("参数设置", LocalizationService.Get("Settings.Config.Title"));
                 Assert.AreEqual("模型设置", LocalizationService.Get("Settings.Config.Tab.Models"));
                 Assert.AreEqual("禁用", LocalizationService.Get("Settings.Config.General.TranscriptMode.Disabled"));
-                Assert.AreEqual("Excel - 上下文", LocalizationService.Get("Settings.Config.Tools.Group.ExcelContext"));
                 Assert.AreEqual("确定要删除模型“模型 A”吗？", LocalizationService.Format("Settings.Config.Models.ConfirmDelete", "模型 A"));
                 Assert.AreEqual("新增模型", LocalizationService.Get("Settings.Config.ModelEditor.Title.Add"));
                 Assert.AreEqual("连接失败：timeout", LocalizationService.Format("Settings.Config.ModelEditor.ConnectionTestFailed", "timeout"));

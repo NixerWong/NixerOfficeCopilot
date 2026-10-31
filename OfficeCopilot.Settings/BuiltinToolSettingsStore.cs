@@ -30,7 +30,8 @@ namespace OfficeCopilot.Settings
         }
 
         /// <summary>
-        /// "Excel" → "builtin_tools.excel.json", "Word" → "builtin_tools.word.json"
+        /// "Excel" → "builtin_tools.excel.json", "Word" → "builtin_tools.word.json",
+        /// "PowerPoint" → "builtin_tools.powerpoint.json".
         /// </summary>
         private string GetAppFilePath(string appName)
         {
@@ -46,20 +47,24 @@ namespace OfficeCopilot.Settings
         // ======== Load ========
 
         /// <summary>
-        /// Load shared + app merged settings. If new files don't exist, migrates from main settings.json.
+        /// Load shared + app settings and migrate missing app entries from the legacy settings.json.
         /// </summary>
         public BuiltinToolSettings LoadMerged(string appName, OfficeCopilotSettings legacySettings = null)
         {
             var shared = LoadShared();
             var app = LoadApp(appName);
 
-            if (app == null && legacySettings != null)
+            if (legacySettings != null)
             {
-                // Migration: extract app-specific tools from legacy settings.json
-                app = MigrateFromLegacy(appName, legacySettings);
-                if (app != null)
+                var legacyApp = MigrateFromLegacy(appName, legacySettings);
+                if (legacyApp != null)
                 {
-                    SaveApp(appName, app);
+                    bool changed;
+                    app = MergeMissingLegacySettings(legacyApp, app, out changed);
+                    if (changed)
+                    {
+                        SaveApp(appName, app);
+                    }
                 }
             }
 
@@ -96,21 +101,34 @@ namespace OfficeCopilot.Settings
 
             if (shared != null)
             {
-                result.ToolGroupRegistrations.AddRange(shared.ToolGroupRegistrations);
-                result.ToolRegistrations.AddRange(shared.ToolRegistrations);
-                result.ToolConfirmationPolicies.AddRange(shared.ToolConfirmationPolicies);
-                result.ToolDefinitionOverrides.AddRange(shared.ToolDefinitionOverrides);
+                AddRangeIfNotNull(result.ToolGroupRegistrations, shared.ToolGroupRegistrations);
+                AddRangeIfNotNull(result.ToolRegistrations, shared.ToolRegistrations);
+                AddRangeIfNotNull(result.ToolConfirmationPolicies, shared.ToolConfirmationPolicies);
+                AddRangeIfNotNull(result.ToolDefinitionOverrides, shared.ToolDefinitionOverrides);
             }
 
             if (app != null)
             {
-                result.ToolGroupRegistrations.AddRange(app.ToolGroupRegistrations);
-                result.ToolRegistrations.AddRange(app.ToolRegistrations);
-                result.ToolConfirmationPolicies.AddRange(app.ToolConfirmationPolicies);
-                result.ToolDefinitionOverrides.AddRange(app.ToolDefinitionOverrides);
+                AddRangeIfNotNull(result.ToolGroupRegistrations, app.ToolGroupRegistrations);
+                AddRangeIfNotNull(result.ToolRegistrations, app.ToolRegistrations);
+                AddRangeIfNotNull(result.ToolConfirmationPolicies, app.ToolConfirmationPolicies);
+                AddRangeIfNotNull(result.ToolDefinitionOverrides, app.ToolDefinitionOverrides);
             }
 
             return result;
+        }
+
+        private static void AddRangeIfNotNull<T>(ICollection<T> target, IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                return;
+            }
+
+            foreach (var item in source)
+            {
+                target.Add(item);
+            }
         }
 
         // ======== Migration ========
@@ -121,11 +139,10 @@ namespace OfficeCopilot.Settings
 
             var appKey = (appName ?? string.Empty).ToLowerInvariant();
             var hasAppTools = legacy.ToolRegistrations?.Any(r =>
-                r?.ToolName?.StartsWith(appKey + "_", StringComparison.OrdinalIgnoreCase) == true ||
-                r?.ToolName?.StartsWith(appKey + ".", StringComparison.OrdinalIgnoreCase) == true) == true;
+                r != null && IsAppToolName(appKey, r.ToolName)) == true;
 
             var hasAppGroups = legacy.ToolGroupRegistrations?.Any(g =>
-                g?.GroupName?.StartsWith(appKey + ".", StringComparison.OrdinalIgnoreCase) == true) == true;
+                g != null && IsAppGroupName(appKey, g.GroupName)) == true;
 
             if (!hasAppTools && !hasAppGroups) return null;
 
@@ -138,8 +155,7 @@ namespace OfficeCopilot.Settings
                 {
                     if (r == null) continue;
                     var name = r.ToolName ?? string.Empty;
-                    if (name.StartsWith(appKey + "_", StringComparison.OrdinalIgnoreCase) ||
-                        name.StartsWith(appKey + ".", StringComparison.OrdinalIgnoreCase))
+                    if (IsAppToolName(appKey, name))
                     {
                         result.ToolRegistrations.Add(new ToolRegistrationSettings
                         {
@@ -159,7 +175,7 @@ namespace OfficeCopilot.Settings
                 {
                     if (g == null) continue;
                     var gn = g.GroupName ?? string.Empty;
-                    if (gn.StartsWith(appKey + ".", StringComparison.OrdinalIgnoreCase))
+                    if (IsAppGroupName(appKey, gn))
                     {
                         result.ToolGroupRegistrations.Add(new ToolGroupRegistrationSettings
                         {
@@ -178,8 +194,7 @@ namespace OfficeCopilot.Settings
                 {
                     if (p == null) continue;
                     var name = p.ToolName ?? string.Empty;
-                    if (name.StartsWith(appKey + "_", StringComparison.OrdinalIgnoreCase) ||
-                        name.StartsWith(appKey + ".", StringComparison.OrdinalIgnoreCase))
+                    if (IsAppToolName(appKey, name))
                     {
                         result.ToolConfirmationPolicies.Add(new ToolConfirmationPolicySettings
                         {
@@ -197,8 +212,7 @@ namespace OfficeCopilot.Settings
                 {
                     if (o == null) continue;
                     var name = o.ToolName ?? string.Empty;
-                    if (name.StartsWith(appKey + "_", StringComparison.OrdinalIgnoreCase) ||
-                        name.StartsWith(appKey + ".", StringComparison.OrdinalIgnoreCase))
+                    if (IsAppToolName(appKey, name))
                     {
                         result.ToolDefinitionOverrides.Add(new ToolDefinitionOverrideSettings
                         {
@@ -225,6 +239,139 @@ namespace OfficeCopilot.Settings
             }
 
             return result;
+        }
+
+        private static BuiltinToolSettings MergeMissingLegacySettings(
+            BuiltinToolSettings legacy,
+            BuiltinToolSettings app,
+            out bool changed)
+        {
+            changed = app == null;
+            if (app == null)
+            {
+                return legacy;
+            }
+
+            var result = new BuiltinToolSettings
+            {
+                ConfigurationVersion = app.ConfigurationVersion,
+                CreatedAtUtc = app.CreatedAtUtc,
+                UpdatedAtUtc = app.UpdatedAtUtc
+            };
+
+            CopyMissing(
+                legacy.ToolGroupRegistrations,
+                app.ToolGroupRegistrations,
+                result.ToolGroupRegistrations,
+                item => item.GroupName,
+                ref changed);
+            AddRangeIfNotNull(result.ToolGroupRegistrations, app.ToolGroupRegistrations);
+
+            CopyMissing(
+                legacy.ToolRegistrations,
+                app.ToolRegistrations,
+                result.ToolRegistrations,
+                item => item.ToolName,
+                ref changed);
+            AddRangeIfNotNull(result.ToolRegistrations, app.ToolRegistrations);
+
+            CopyMissing(
+                legacy.ToolConfirmationPolicies,
+                app.ToolConfirmationPolicies,
+                result.ToolConfirmationPolicies,
+                item => item.ToolName,
+                ref changed);
+            AddRangeIfNotNull(result.ToolConfirmationPolicies, app.ToolConfirmationPolicies);
+
+            CopyMissing(
+                legacy.ToolDefinitionOverrides,
+                app.ToolDefinitionOverrides,
+                result.ToolDefinitionOverrides,
+                item => item.ToolName,
+                ref changed);
+            AddRangeIfNotNull(result.ToolDefinitionOverrides, app.ToolDefinitionOverrides);
+            return result;
+        }
+
+        private static void CopyMissing<T>(
+            IEnumerable<T> legacyItems,
+            IEnumerable<T> appItems,
+            ICollection<T> target,
+            Func<T, string> getKey,
+            ref bool changed)
+            where T : class
+        {
+            if (legacyItems == null)
+            {
+                return;
+            }
+
+            var existingKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            if (appItems != null)
+            {
+                foreach (var item in appItems)
+                {
+                    if (item == null)
+                    {
+                        continue;
+                    }
+
+                    var key = getKey(item);
+                    if (!string.IsNullOrWhiteSpace(key))
+                    {
+                        existingKeys.Add(key);
+                    }
+                }
+            }
+
+            foreach (var item in legacyItems)
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+
+                var key = getKey(item);
+                if (string.IsNullOrWhiteSpace(key)
+                    || existingKeys.Contains(key))
+                {
+                    continue;
+                }
+
+                target.Add(item);
+                existingKeys.Add(key);
+                changed = true;
+            }
+        }
+
+        private static bool IsAppToolName(string appKey, string toolName)
+        {
+            if (string.IsNullOrWhiteSpace(toolName))
+            {
+                return false;
+            }
+
+            return GetAppKeyPrefixes(appKey).Any(prefix =>
+                toolName.StartsWith(prefix + "_", StringComparison.OrdinalIgnoreCase)
+                || toolName.StartsWith(prefix + ".", StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static bool IsAppGroupName(string appKey, string groupName)
+        {
+            if (string.IsNullOrWhiteSpace(groupName))
+            {
+                return false;
+            }
+
+            return GetAppKeyPrefixes(appKey).Any(prefix =>
+                groupName.StartsWith(prefix + ".", StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static string[] GetAppKeyPrefixes(string appKey)
+        {
+            return string.Equals(appKey, "powerpoint", StringComparison.OrdinalIgnoreCase)
+                ? new[] { "powerpoint", "ppt" }
+                : new[] { appKey };
         }
 
         // ======== Helpers ========

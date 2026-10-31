@@ -52,29 +52,13 @@ namespace OfficeCopilot.Host.PowerPoint.Tools
             Func<string, bool?> groupState,
             Func<string, bool?> toolState)
         {
-            var enabledGroups = new List<string>();
-            var enabledTools = new List<string>();
-
-            foreach (var definition in CreateAllAvailableDefinitions())
-            {
-                string groupName;
-                if (!ToolCatalogBuilder.TryGetGroupName(definition, out groupName))
-                {
-                    continue;
-                }
-
-                if (ResolveGroupState(groupName, groupState) != false)
-                {
-                    enabledGroups.Add(groupName);
-                }
-
-                if (ResolveToolState(definition.Name, toolState) != false)
-                {
-                    enabledTools.Add(definition.Name);
-                }
-            }
-
-            return new PowerPointToolRegistrationOptions(enabledGroups.Distinct(), enabledTools);
+            var registration = ToolCatalogBuilder.CreateRegistrationOptions(
+                CreateAllAvailableDefinitions(),
+                groupName => ResolveGroupState(groupName, groupState),
+                toolName => ResolveToolState(toolName, toolState));
+            return new PowerPointToolRegistrationOptions(
+                registration.EnabledGroupNames,
+                registration.EnabledToolNames);
         }
 
         private static bool? ResolveGroupState(string groupName, Func<string, bool?> groupState)

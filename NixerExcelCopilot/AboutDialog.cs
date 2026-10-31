@@ -199,7 +199,7 @@ namespace NixerExcelCopilot
                 }
             }
             catch { /* fall through */ }
-            return "2.4.61025";
+            return "2.4.61030";
         }
     }
 }

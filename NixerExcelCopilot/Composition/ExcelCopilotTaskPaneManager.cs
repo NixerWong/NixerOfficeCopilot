@@ -78,26 +78,18 @@ namespace NixerExcelCopilot
             services.AddService<IHostCallPolicy>(new ExcelComDispatcher());
         }
 
-        protected override void RegisterTools(InMemoryToolRegistry registry, OfficeCopilotSettings settings)
+        protected override void RegisterTools(InMemoryToolRegistry registry, BuiltinToolSettings settings)
         {
             if (registry == null)
             {
                 return;
             }
 
-            if (!HasToolCatalogConfiguration(settings))
-            {
-                registry.RegisterExcelBuiltInTools();
-                return;
-            }
-
             var options = new ExcelToolCatalogOptions();
-            if (settings.HasToolRegistrationConfiguration())
-            {
-                options.Registration = new ExcelToolRegistrationOptions(
-                    settings.GetRegisteredToolGroupNames(),
-                    settings.GetRegisteredToolNames());
-            }
+            options.Registration = ToolCatalogBuilder.CreateRegistrationOptions(
+                ExcelBuiltInToolCatalog.CreateAllAvailableDefinitions(),
+                settings.GetToolGroupRegistration,
+                settings.GetToolRegistration);
 
             foreach (var definitionOverride in CreateToolDefinitionOverrides(settings))
             {
