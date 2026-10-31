@@ -37,6 +37,47 @@ namespace OfficeCopilot.Agent.Abstractions
         }
 
         /// <summary>
+        /// Creates a selection containing every tool except groups or tools explicitly disabled by settings.
+        /// Missing entries stay enabled so new catalog entries do not disappear for existing users.
+        /// </summary>
+        public static ToolRegistrationOptions CreateRegistrationOptions(
+            IEnumerable<ToolDefinition> definitions,
+            Func<string, bool?> groupRegistration,
+            Func<string, bool?> toolRegistration)
+        {
+            var enabledGroups = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var enabledTools = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            if (definitions != null)
+            {
+                foreach (var definition in definitions)
+                {
+                    if (definition == null || string.IsNullOrWhiteSpace(definition.Name))
+                    {
+                        continue;
+                    }
+
+                    string groupName;
+                    if (!TryGetGroupName(definition, out groupName))
+                    {
+                        continue;
+                    }
+
+                    if (groupRegistration == null || groupRegistration(groupName) != false)
+                    {
+                        enabledGroups.Add(groupName);
+                    }
+
+                    if (toolRegistration == null || toolRegistration(definition.Name) != false)
+                    {
+                        enabledTools.Add(definition.Name);
+                    }
+                }
+            }
+
+            return new ToolRegistrationOptions(enabledGroups, enabledTools);
+        }
+
+        /// <summary>
         /// 按用户的注册选择过滤候选工具。工具组与工具名必须同时命中。
         /// </summary>
         public static void AppendEnabledTools(

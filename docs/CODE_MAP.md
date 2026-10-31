@@ -311,7 +311,7 @@ EnsurePane(windowKey = TryGetActiveWindow())
 ├─ CreateHostAdapter()          ← 宿主重写
 ├─ RegisterHostServices(...)    ← 宿主重写
 ├─ InMemoryToolRegistry + RegisterTools(registry, settings)
-│    └─ 基类 HasToolCatalogConfiguration / CreateToolDefinitionOverrides（三宿主一致）
+│    └─ 基类按 HostApplicationName 合并宿主工具设置；ToolCatalogBuilder 统一注册默认值与显式禁用语义
 ├─ new CopilotPanelControl(...) + 属性注入 HostAdapter / AgentServices / ToolRegistry
 ├─ pipeName = HostBridgePipeNameFactory.Create(pid, windowKey)
 ├─ NamedPipeHostBridgeServer.StartAsync

@@ -68,26 +68,18 @@ namespace NixerWordCopilot
             services.AddService<IWordToolHost>((WordHostAdapter)hostAdapter);
         }
 
-        protected override void RegisterTools(InMemoryToolRegistry registry, OfficeCopilotSettings settings)
+        protected override void RegisterTools(InMemoryToolRegistry registry, BuiltinToolSettings settings)
         {
             if (registry == null)
             {
                 return;
             }
 
-            if (!HasToolCatalogConfiguration(settings))
-            {
-                registry.RegisterWordBuiltInTools();
-                return;
-            }
-
             var options = new WordToolCatalogOptions();
-            if (settings.HasToolRegistrationConfiguration())
-            {
-                options.Registration = new WordToolRegistrationOptions(
-                    settings.GetRegisteredToolGroupNames(),
-                    settings.GetRegisteredToolNames());
-            }
+            options.Registration = ToolCatalogBuilder.CreateRegistrationOptions(
+                WordBuiltInToolCatalog.CreateAllAvailableDefinitions(),
+                settings.GetToolGroupRegistration,
+                settings.GetToolRegistration);
 
             foreach (var definitionOverride in CreateToolDefinitionOverrides(settings))
             {

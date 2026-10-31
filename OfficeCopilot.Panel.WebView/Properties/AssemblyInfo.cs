@@ -13,5 +13,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: InternalsVisibleTo("OfficeCopilot.Agent.Tests")]
 [assembly: Guid("6aefc25e-a2de-4694-8c56-c9a337a47e54")]
-[assembly: AssemblyVersion("2.4.61025.0")]
-[assembly: AssemblyFileVersion("2.4.61025.0")]
+[assembly: AssemblyVersion("2.4.61030.0")]
+[assembly: AssemblyFileVersion("2.4.61030.0")]

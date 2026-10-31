@@ -42,7 +42,7 @@ namespace OfficeCopilot.Panel.WebView.Composition
         /// <summary>登记宿主专属服务契约（<c>IExcelToolHost</c> / <c>IWordToolHost</c> 等）。</summary>
         protected abstract void RegisterHostServices(AgentServiceProvider services, ICopilotHostAdapter hostAdapter);
 
-        protected abstract void RegisterTools(InMemoryToolRegistry registry, OfficeCopilotSettings settings);
+        protected abstract void RegisterTools(InMemoryToolRegistry registry, BuiltinToolSettings settings);
 
         protected virtual void RegisterSettingsServices(AgentServiceProvider services, OfficeCopilotSettings settings)
         {
@@ -148,19 +148,19 @@ namespace OfficeCopilot.Panel.WebView.Composition
         /// 把设置里的工具定义覆写映射为运行时模型。三个宿主的 <c>*ToolCatalogOptions</c> 类型不同，
         /// 但覆写条目本身完全一致，故只共享这一段。
         /// </summary>
-        protected static IList<ToolDefinitionOverride> CreateToolDefinitionOverrides(OfficeCopilotSettings settings)
+        protected static IList<ToolDefinitionOverride> CreateToolDefinitionOverrides(BuiltinToolSettings settings)
         {
             var result = new List<ToolDefinitionOverride>();
-            if (settings == null)
+            if (settings == null || settings.ToolDefinitionOverrides == null)
             {
                 return result;
             }
 
-            var overrides = settings.GetToolDefinitionOverrides();
+            var overrides = settings.ToolDefinitionOverrides;
             for (var i = 0; i < overrides.Count; i++)
             {
                 var definitionOverride = overrides[i];
-                if (definitionOverride == null)
+                if (definitionOverride == null || string.IsNullOrWhiteSpace(definitionOverride.ToolName))
                 {
                     continue;
                 }
@@ -179,13 +179,6 @@ namespace OfficeCopilot.Panel.WebView.Composition
             }
 
             return result;
-        }
-
-        /// <summary>是否需要为宿主构造 <c>*ToolCatalogOptions</c>；两类配置都为空时走无参注册。</summary>
-        protected static bool HasToolCatalogConfiguration(OfficeCopilotSettings settings)
-        {
-            return settings != null
-                && (settings.HasToolRegistrationConfiguration() || settings.HasToolDefinitionOverrideConfiguration());
         }
 
         /// <summary>
@@ -272,7 +265,10 @@ namespace OfficeCopilot.Panel.WebView.Composition
                 RegisterSettingsServices(services, settings);
 
                 var registry = new InMemoryToolRegistry();
-                RegisterTools(registry, settings);
+                var builtinToolSettings = new BuiltinToolSettingsStore().LoadMerged(
+                    hostAdapter.HostApplicationName,
+                    settings);
+                RegisterTools(registry, builtinToolSettings);
                 StartupTimingLog.Mark("ensurepane-tools-registered");
 
                 panelControl = new CopilotPanelControl(settingsStore, panelLogger);

@@ -5,7 +5,8 @@ namespace OfficeCopilot.Settings.Abstractions
 {
     /// <summary>
     /// Per-app or shared built-in tool configuration, stored in
-    /// builtin_tools.{app}.json / builtin_tools.shared.json.
+    /// builtin_tools.{app}.json / builtin_tools.shared.json. The PowerPoint app key is
+    /// "powerpoint" because it comes from the host application's name.
     /// </summary>
     public sealed class BuiltinToolSettings
     {

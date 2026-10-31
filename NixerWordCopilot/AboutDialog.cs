@@ -67,7 +67,7 @@ namespace NixerWordCopilot
                 Margin = new Padding(0, 0, 0, 4)
             };
 
-            var version = "2.3.61019";
+            var version = GetVersionString();
             var versionLabel = new Label
             {
                 Text = LocalizationService.Format("Shell.About.Version", version),
@@ -184,6 +184,21 @@ namespace NixerWordCopilot
             panel.Controls.Add(lbl, 0, row);
             panel.Controls.Add(val, 1, row);
             row++;
+        }
+
+        private static string GetVersionString()
+        {
+            try
+            {
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                if (version != null)
+                {
+                    return $"{version.Major}.{version.Minor}.{version.Build}";
+                }
+            }
+            catch { /* fall through */ }
+
+            return "2.4.61030";
         }
     }
 }

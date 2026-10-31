@@ -118,27 +118,17 @@ namespace NixerPowerpointCopilot
             return _renderService;
         }
 
-        protected override void RegisterTools(InMemoryToolRegistry registry, OfficeCopilotSettings settings)
+        protected override void RegisterTools(InMemoryToolRegistry registry, BuiltinToolSettings settings)
         {
             if (registry == null)
             {
                 return;
             }
 
-            if (!HasToolCatalogConfiguration(settings))
-            {
-                registry.RegisterPowerPointBuiltInTools();
-                return;
-            }
-
             var options = new PowerPointToolCatalogOptions();
-            if (settings.HasToolRegistrationConfiguration())
-            {
-                // 只排除用户明确关闭的项；旧 powerpoint_* 设置迁移到 ppt_*，新工具默认可用。
-                options.Registration = PowerPointBuiltInTools.CreateRegistrationOptions(
-                    settings.GetToolGroupRegistration,
-                    settings.GetToolRegistration);
-            }
+            options.Registration = PowerPointBuiltInTools.CreateRegistrationOptions(
+                settings.GetToolGroupRegistration,
+                settings.GetToolRegistration);
 
             foreach (var definitionOverride in CreateToolDefinitionOverrides(settings))
             {

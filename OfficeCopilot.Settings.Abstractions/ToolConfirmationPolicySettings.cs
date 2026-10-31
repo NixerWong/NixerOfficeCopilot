@@ -383,4 +383,41 @@ namespace OfficeCopilot.Settings.Abstractions
             }
         }
     }
+
+    public static class BuiltinToolSettingsExtensions
+    {
+        public static bool? GetToolGroupRegistration(this BuiltinToolSettings settings, string groupName)
+        {
+            if (settings == null
+                || settings.ToolGroupRegistrations == null
+                || string.IsNullOrWhiteSpace(groupName))
+            {
+                return null;
+            }
+
+            var normalizedGroupName = groupName.Trim();
+            var existing = settings.ToolGroupRegistrations.LastOrDefault(p =>
+                p != null
+                && string.Equals(p.GroupName, normalizedGroupName, StringComparison.OrdinalIgnoreCase));
+
+            return existing == null ? (bool?)null : existing.IsRegistered;
+        }
+
+        public static bool? GetToolRegistration(this BuiltinToolSettings settings, string toolName)
+        {
+            if (settings == null
+                || settings.ToolRegistrations == null
+                || string.IsNullOrWhiteSpace(toolName))
+            {
+                return null;
+            }
+
+            var normalizedToolName = toolName.Trim();
+            var existing = settings.ToolRegistrations.LastOrDefault(p =>
+                p != null
+                && string.Equals(p.ToolName, normalizedToolName, StringComparison.OrdinalIgnoreCase));
+
+            return existing == null ? (bool?)null : existing.IsRegistered;
+        }
+    }
 }
